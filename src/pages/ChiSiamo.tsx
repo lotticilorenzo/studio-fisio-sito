@@ -6,13 +6,13 @@ export const ChiSiamo = () => {
     useSEO({
         title: "Chi Siamo | Studio Fisyo - Fisioterapia a Felino",
         description: "Scopri il team femminile di Studio Fisyo a Felino. Fisioterapiste laureate, osteopata, ostetrica, nutrizionista e psicologa. Un approccio integrato per la tua salute.",
-        url: "https://www.studiofisio.com/chi-siamo",
+        url: "https://www.studiofisyo.com/chi-siamo",
         schema: {
             "@context": "https://schema.org",
             "@type": "AboutPage",
             "name": "Chi Siamo - Team Studio Fisyo",
             "description": "Il team multidisciplinare di Studio Fisyo a Felino dedicato a fisioterapia, riabilitazione, nutrizione e psicologia.",
-            "url": "https://www.studiofisio.com/chi-siamo"
+            "url": "https://www.studiofisyo.com/chi-siamo"
         }
     });
     useEffect(() => {

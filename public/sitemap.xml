@@ -2,65 +2,65 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home Page -->
   <url>
-    <loc>https://www.studiofisio.com/</loc>
+    <loc>https://www.studiofisyo.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <!-- Servizi Base -->
   <url>
-    <loc>https://www.studiofisio.com/servizi</loc>
+    <loc>https://www.studiofisyo.com/servizi</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Chi Siamo -->
   <url>
-    <loc>https://www.studiofisio.com/chi-siamo</loc>
+    <loc>https://www.studiofisyo.com/chi-siamo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Contatti -->
   <url>
-    <loc>https://www.studiofisio.com/contatti</loc>
+    <loc>https://www.studiofisyo.com/contatti</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Servizi Dettagliati -->
   <url>
-    <loc>https://www.studiofisio.com/servizi/fisioterapia</loc>
+    <loc>https://www.studiofisyo.com/servizi/fisioterapia</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.studiofisio.com/servizi/pilates-clinico</loc>
+    <loc>https://www.studiofisyo.com/servizi/pilates-clinico</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.studiofisio.com/servizi/salute-donna</loc>
+    <loc>https://www.studiofisyo.com/servizi/salute-donna</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.studiofisio.com/servizi/linfodrenaggio</loc>
+    <loc>https://www.studiofisyo.com/servizi/linfodrenaggio</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.studiofisio.com/servizi/psicologia</loc>
+    <loc>https://www.studiofisyo.com/servizi/psicologia</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.studiofisio.com/servizi/fisio4young</loc>
+    <loc>https://www.studiofisyo.com/servizi/fisio4young</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.studiofisio.com/servizi/nutrizione</loc>
+    <loc>https://www.studiofisyo.com/servizi/nutrizione</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

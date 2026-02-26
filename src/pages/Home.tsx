@@ -9,12 +9,12 @@ export const Home = () => {
     useSEO({
         title: "Fisioterapia a Felino | Studio Fisyo",
         description: "Studio Fisyo a Felino offre percorsi di Fisioterapia, Pilates Clinico, Salute della Donna e Nutrizione. Prenota la tua valutazione.",
-        url: "https://www.studiofisio.com/",
+        url: "https://www.studiofisyo.com/",
         schema: {
             "@context": "https://schema.org",
             "@type": "MedicalClinic",
             "name": "Studio Fisyo",
-            "image": "https://www.studiofisio.com/images/real/internistudiofisyo.webp",
+            "image": "https://www.studiofisyo.com/images/real/internistudiofisyo.webp",
             "description": "Studio di fisioterapia, pilates clinico, osteopatia e nutrizione a Felino (Parma).",
             "address": {
                 "@type": "PostalAddress",
@@ -42,7 +42,7 @@ export const Home = () => {
                 "telephone": "+39-389-3177651",
                 "contactType": "Customer Support"
             },
-            "url": "https://www.studiofisio.com/"
+            "url": "https://www.studiofisyo.com/"
         }
     });
     // Scroll to top on mount

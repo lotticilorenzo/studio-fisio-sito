@@ -8,7 +8,7 @@ export const NotFound = () => {
     useSEO({
         title: "Pagina Non Trovata | Studio Fisyo",
         description: "La pagina che cerchi non esiste o è stata spostata. Torna alla home di Studio Fisyo.",
-        url: "https://www.studiofisio.com/404"
+        url: "https://www.studiofisyo.com/404"
     });
 
     useEffect(() => {
