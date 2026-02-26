@@ -75,23 +75,23 @@ const servicesData: Record<string, ServiceData> = {
             { name: "Elisa Caggiati", role: "Fisioterapista Ortopedica", description: "Espertissima in terapia manuale avanzata e gestione del recupero ortopedico. Precisione tecnica assoluta e altissima personalizzazione nella transizione dalle prime fasi infiammatorie fino al recupero muscolare.", image: "/images/real/elisacaggiati.webp" }
         ],
         faq: [
-            { q: "Serve obbligatoriamente la ricetta medica?", a: "Non è obbligatoria per l'accesso diretto alla nostra valutazione funzionale fisioterapica iniziale. Se invece possiedi già una diagnosi, RX o risonanze recenti, portale: completeranno perfettamente il quadro clinico." },
-            { q: "Fate uso di tecar, laser o ultrasuoni?", a: "Privilegiamo l'approccio manuale e l'esercizio attivo perché le linee guida internazionali ne documentano un'efficacia nettamente superiore a lungo termine. In alcuni casi specifici, se necessarie, integriamo tecnologie mirate al bisogno." },
-            { q: "Quanto tempo dura mediamente una seduta?", a: "Tra i 45 e i 60 minuti. È il tempo fisiologico necessario per combinare le fasi di detensionamento manuale e l'impostazione degli esercizi correttivi sul corpo." }
+            { q: "Serve obbligatoriamente la ricetta medica?", a: "Non è obbligatoria per la prima valutazione. Se hai già esami recenti (RX, Risonanze), portali pure: completeranno il quadro clinico." },
+            { q: "Fate uso di tecar, laser o ultrasuoni?", a: "Privilegiamo sempre l'approccio manuale e l'esercizio attivo per efficacia duratura. Integriamo tecnologie specifiche solo se strettamente necessario." },
+            { q: "Quanto tempo dura mediamente una seduta?", a: "Tra i 45 e i 60 minuti. È il tempo ideale per combinare lo sblocco manuale e l'impostazione degli esercizi correttivi." }
         ]
     },
     "pilates-clinico": {
         title: "Pilates Clinico e Rieducazione Posturale",
         subtitle: "Non è semplice ginnastica: è Terapia in Movimento.",
-        image: "https://picsum.photos/seed/salutedonna/2670/1800",
+        image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80&w=2670",
         intro: [
             "Dimentica le asettiche palestre affollate dove sei solo un numero. Qui trovi percorsi rieducativi premium condotti esclusivamente da Fisioterapisti.",
             "Il Pilates Clinico non è strutturato per farti 'sudare', ma per curare le disfunzioni biomeccaniche. Ogni esercizio è calibrato esattamente sul tuo storico clinico per sanare mal di schiena e difetti posturali complessi."
         ],
         howItWorks: [
-            "Supervisione Fisioterapica: Conosciamo l'esatta conformazione della tua ernia o della tua deviazione scoliotica. Non svolgerai mai movimenti a rischio.",
-            "Classi Elite a Numero Chiuso: Gruppi di massimo 4-5 persone per garantire un controllo maniacale su allineamento e respirazione, come in una lezione privata.",
-            "Analisi Preliminare Iniziale: Prima dell'inserimento in aula, effettuiamo un test posturale individuale per determinare i colli di bottiglia e fissare i risultati desiderati."
+            "Supervisione Fisioterapica: Conosciamo l'esatta conformazione della tua ernia o scoliosi. Eseguirai solo movimenti sicuri e curativi.",
+            "Classi Elite a Numero Chiuso: Gruppi di massimo 4-5 persone per un controllo maniacale su allineamento e respirazione, come in una lezione privata.",
+            "Analisi Preliminare Iniziale: Valutazione clinica obbligatoria prima dell'inserimento per definire il programma di rinforzo personalizzato."
         ],
         applications: [
             { icon: <TargetIcon />, title: "Lombalgia e Deviazioni Cervicali", desc: "Indicato per blocchi lombo-sacrali, ernie o protrusioni. Creiamo un 'corsetto anatomico naturale' reclutando attivamente il trasverso dell'addome." },
@@ -99,12 +99,12 @@ const servicesData: Record<string, ServiceData> = {
             { title: "Profilassi per Sportivi", desc: "Migliora fluidità, baricentro e flessibilità. Fondamentale per runner, calciatori o golfisti che vogliono aumentare le performance e invecchiare in salute senza infortuni." }
         ],
         specialists: [
-            { name: "Valentina Corradi", role: "Fisioterapista Posturologa", description: "Perfezionista del controllo neuromotorio. Valentina trasforma l'esercizio in rigida biologia curativa: non ti insegnerà solo le coreografie del Pilates, ma educherà il tuo sistema nervoso a percepire i limiti del corpo per non eccederli mai più.", image: "/images/real/staff-valentina-corradi-pilates-clinico-studio-fisyo.webp" }
+            { name: "Valentina Corradi", role: "Fisioterapista Posturologa", description: "Perfezionista del controllo neuromotorio. Valentina trasforma l'esercizio in rigida biologia curativa: non ti insegnerà solo le coreografie del Pilates, ma educherà il tuo sistema nervoso.", image: "/images/real/staff-valentina-corradi-pilates-clinico-studio-fisyo.webp" }
         ],
         faq: [
-            { q: "Ho un forte mal di schiena in questo preciso momento, posso farlo?", a: "Assolutamente sì. Nel Pilates Clinico le posture vengono ingegnerizzate apposta per non comprimere un nervo infiammato temporaneo, aiutando addirittura la decompressione dei dischi intervertebrali." },
-            { q: "È a corpo libero (Matwork) o con i famosi macchinari (Reformer)?", a: "Il focus predominante è sul Matwork clinico (tappetino), integrando fitball, magic rings e bande elastiche a forte resistenza. È dimostrato che l'impegno a corpo libero consolida prima gli schemi di forza corticale rispetto all'aiuto passivo dei grandi macchinari." },
-            { q: "È complesso come sport? Non mi alleno da ere geologiche.", a: "Nessuna paura. È una terapia adatta a sedentari totali: il carico iniziale rasenta lo zero assoluto e la progressione segue millimetricamente le tue capacità soggettive di adattamento." }
+            { q: "Ho un mal di schiena acuto, posso iniziare subito?", a: "Sì. Le posture vengono ingegnerizzate per non comprimere le zone infiammate, aiutando anzi la decompressione dei dischi intervertebrali." },
+            { q: "È a corpo libero (Matwork) o sui Reformer?", a: "Il focus è sul Matwork clinico con resistenze elastiche, poiché consolida più velocemente la forza rispetto ai macchinari attivi." },
+            { q: "È un allenamento intenso? Sono fermo da anni.", a: "Nessun problema, i carichi iniziali sono nulli. La progressione seguirà millimetricamente le tue reali capacità di adattamento." }
         ]
     },
     "salute-donna": {
@@ -124,9 +124,9 @@ const servicesData: Record<string, ServiceData> = {
             { name: "Elena Zanacca", role: "Ostetrica Specialista", description: "Fonde un'impeccabile conoscenza ginecologica e riabilitativa a una delicatezza umana encomiabile. L'intero approccio si prefigge come assoluta assenza di giudizio, ponendo come baricentro incrollabile la sicurezza ambientale e psicologica della paziente.", image: "/images/real/fotoostetrica.webp" }
         ],
         faq: [
-            { q: "La primissima valutazione mi mette a disagio. Come avviene esattamente?", a: "Tutto segue il tuo consenso logico. La valutazione ispettiva interna fa spesso parte del tracking diagnostico, ma viene eseguita solo se ti senti totalmente serena. Se preferisci, il percorso inizia tranquillamente da test esterni conservativi e dialoghi informativi." },
-            { q: "Ho partorito tre anni fa: è diventato troppo tardi per ricominciare a migliorare?", a: "Le fibre muscolari perineali mantengono la memoria e la capacità ipertrofica a qualsiasi età. Che tu abbia partorito un mese fa oppure 15 anni fa, possiamo destrutturare le anomalie e ridare vigore e trofismo ai tessuti di sostegno." },
-            { q: "Offrite anche percorsi misti per la temuta Diastasi Addominale?", a: "Certamente. La parete addominale lavora in tandem col perineo. Trattiamo l'incontinenza muscolare della Linea Alba, offrendoti i protocolli isometrici ideali per riattivare la tenuta fasciale dell'addome inferiore." }
+            { q: "La prima visita mi mette a disagio. Come si svolge?", a: "Tutto segue i tuoi tempi emotivi. La valutazione interna si esegue solo se sei del tutto serena. Altrimenti iniziamo da test esterni e un sereno colloquio." },
+            { q: "Ho partorito tre anni fa: sono in ritardo per iniziare?", a: "I muscoli perineali mantengono memoria a qualsiasi età. Che tu abbia partorito un mese fa o da 10 anni, recuperare tono e continenza è sempre possibile." },
+            { q: "Trattate anche la Diastasi Addominale?", a: "Certamente. Parete addominale e perineo lavorano insieme: offriamo protocolli isometrici per riattivare la tenuta fasciale su entrambi i fronti." }
         ],
         note: "Il grande vantaggio di Studio Fisyo è l'Equipe unificata: curiamo il dolore intimo con l'Ostetrica, ma se necessiti di dimagrire per alleggerire il carico sul pavimento pelvico, interviene fluidamente la nostra Nutrizionista. Avrai tutto nello stesso bunker clinico."
     },
@@ -139,12 +139,12 @@ const servicesData: Record<string, ServiceData> = {
             "L'obiettivo medico è svuotare in sicurezza grandiosi quadri di edema diffuso, linfedemi invalidanti da chirurgia oncologica, e fortissime stasi venose."
         ],
         howItWorks: [
-            "Assenza Totale di Macchinari Invasivi: Operiamo impiegando esclusivamente frazioni manuali originali del Metodo Vodder/Leduc, le uniche ad avere fondamento empirico sul riassorbimento proteico dei fluidi.",
-            "Sicurezza Patologica Assoluta: Conosciamo perfettamente l'anatomia linfonodale. Sappiamo dove è possibile svuotare un arto post-mastectomia (quando parte delle stazioni ascellari mancano), azzerando i rischi di infiammazioni acute collaterali.",
-            "Bendaggi Fisio-Farmacologici Compressivi: Per le ritenzioni più persistenti o per bloccare i volumi appena ridotti con i polpastrelli, creiamo strati compressivi terapeutici che mantengono il drenaggio attivo anche quando vai a casa."
+            "Assenza Totale di Macchinari Invasivi: Impieghiamo solo mani addestrate Metodo Vodder, l'unico vero sistema ad alto fondamento empirico sul riassorbimento linfatico.",
+            "Sicurezza Patologica Assoluta: Conosciamo i tuoi linfonodi. Svuotiamo arti post-chirurgici riducendo a zero il rischio d'infezione o sovraccarico infiammatorio locale.",
+            "Bendaggi Compressivi Fisio-Farmacologici: Creiamo bendaggi decongestionanti specializzati da portare a casa, per consolidare il risultato dopo le manovre sul lettino."
         ],
         applications: [
-            { icon: <FaceIcon />, title: "Terapia Oncologica e Mastectomica", desc: "La gestione indispensabile e sicurissima delle 'braccia gonfie' (linfedema brachiale) che tipicamente insorgono dopo le linfoadenectomie o pesanti quadranti chirurgici al seno." },
+            { icon: <FaceIcon />, title: "Terapia Oncologica e Mastectomica", desc: "Gestione indispensabile pre e post chirurgia tumorale mammaria, scongiurando dolori e pericolosi versamenti edematosi." },
             { icon: <TargetIcon />, title: "Emergenze Traumatologiche", desc: "Le distorsioni giganti alla caviglia, o le gonfiature infiammatorie disastrose seguenti all'innesto di protesi metalliche articolari (ginocchio, anca) o fratture tibiali." },
             { title: "Insufficienza Venosa e Peso Gravidico", desc: "I classici e faticosi rigonfiamenti podalici degli ultimi mesi di dolce attesa, o l'astenia pura dettata dalla sedentarietà e scompensi del microcircolo." }
         ],
@@ -152,9 +152,9 @@ const servicesData: Record<string, ServiceData> = {
             { name: "Elisa Caggiati", role: "Specialista in Terapia Decongestiva Linfatica", description: "Forte di un'esperienza clinica pluriennale, Elisa è una vera autorità del reticolo linfatico vascolare. Non spinge i liquidi a caso: individua con sensitività rara le zone di 'ingorgo' superficiali convogliando intelligentemente le vie di scarico con pressioni piumate ma incredibilmente efficaci.", image: "/images/real/elisacaggiati.webp" }
         ],
         faq: [
-            { q: "Risulta un trattamento doloroso essendo clinico?", a: "L'esatto opposto. Anatomicamente i capillari linfatici risiedono pochissimi millimetri sotto il derma: movimenti forti, duri e dolorosi andrebbero a collabire e distruggere i dotti o stressare il vaso venoso. Proprio per questo percepirai sfioramenti ipnotici e lentissimi, estremamente addormentanti." },
-            { q: "Quante sedute mediamente richiede una decongestione?", a: "Variabilissimo dal referto e dall'eccesso di linfa misurato. Per un edemìa traumatica (una storta) possono bastare 3 o 4 visite d'urto vicine. Su gestioni croniche in stadio avanzato si creano cicli modulati e mantenimenti costanti distanziati nel corso dei mesi." },
-            { q: "Ma quindi le famose pressoterapie ad aria compressive che fanno nei centri?", a: "Un macchinario pressorio non ha un cervello biologico: spinge brutalmente l'acqua in modo omogeneo e monodirezionale, spesso andando 'a sbattere' ostinatamente contro le esatte stazioni linfonodali infiammate, sovraccaricandole o causando reflusso patogeno. Le dita umane di un analista bypassano gli 'incroci rotti', creando miracolosamente tunnel di deflusso alternativi." }
+            { q: "Risulta un trattamento doloroso?", a: "Assolutamente no. I capillari linfatici sono in superficie: massaggi forti li distruggono. Godrai di sfioramenti leggeri, lenti ed estremamente rilassanti." },
+            { q: "Quante sedute servono per un risultato duraturo?", a: "Per traumi acuti (una storta) bastano 3 o 4 visite ravvicinate. Per linfedemi cronici stiliamo cicli di mantenimento mensili leggeri e scaglionati nel tempo." },
+            { q: "Meglio la pressoterapia al posto del linfodrenaggio?", a: "La macchina pressoria spinge brutalmente liquidi ovunque, rischiando infiammazioni. Le mani dell'operatore bypassano i dotti guasti convogliando i fluidi solo dove c'è reale sbocco biologico." }
         ]
     },
     "psicologia": {
@@ -174,9 +174,9 @@ const servicesData: Record<string, ServiceData> = {
             { name: "Valentina Mazza", role: "Psicologa e Psicoterapeuta Regolativa", description: "L'enorme caratura dell'approccio di Valentina consiste in tecniche orientate agli obiettivi e scevre dai lunghissimi giri di parole infiniti, con la formidabile ed empatica potenza nel ri-disegnare mappe comportamentali utili e pratiche nella vita dei pazienti in sovraccarico reattivo grave.", image: "/images/real/staff-valentina-mazza-fisioterapista-studio-fisyo.webp" }
         ],
         faq: [
-            { q: "Rivolgermi alla Psicoterapeuta non è sinonimo di fallimento e pazzia?", a: "Trattare un muscolo infortunato è sinonimo di debolezza? Idem decifrare l'esaurimento chimico cerebrale in burnout. Concedersi le parole per decodificare gli eventi disastrosi è una manovra d'urto igienica d'intelligenza formidabile superiore, lontanissima dallo stigma anacronistico della 'follia psichiatrica'." },
-            { q: "Qual è il reale beneficio dell'avervi qui di fianco alla palestra per la riabilitazione muscolare?", a: "È il colpo da maestro: un paziente bloccato che affronta fobie di caduta al ginocchio si paralizza nei propri esercizi. Raccordarsi sui referti ortopedici contemporaneamente sui test cognitivi crea un unicum invincibile contro la catena fisiopatologica dell'infiammazione organica. Chi guarisce la mente spegne i recettori dolorifici periferici, da studio scientifico globale." },
-            { q: "Devo stendermi anni per raccontare la mia infanzia?", a: "I format di intervento attuali sono enormemente plastici. A determinati crocevia acuti si possono stringere brief-therapy orientate sui problemi specifici o panici scatenanti attuali. Non è richiesto ricostruire il paleolitico se l'evento traumatico insorgente necessita sbroglio nel 'qui ed ora'." }
+            { q: "La terapia indica che sono 'sbagliato' o malato?", a: "Curare l'assorbimento emotivo è igiene vitale, esattamente come curare un infortunio. Concedersi lo spazio per elaborare traumi è la più alta forma d'intelligenza e coraggio." },
+            { q: "Perché affiancare Fisioterapia e Psicoterapia?", a: "Perché chi soffre di forte fobia o stress si contrae, bloccando il recupero muscolare. Decomprimere la mente spegne letteralmente i recettori dolorifici periferici in tempi record." },
+            { q: "È un percorso infinito in cui parlo da solo?", a: "Usiamo percorsi orientati agli obiettivi e 'Brief Therapy'. Se l'evento scatenante è acuto e circoscritto, ci dedichiamo allo sblocco immediato nel 'qui ed ora', in pochissime sedute." }
         ]
     },
     "fisio4young": {
@@ -188,44 +188,44 @@ const servicesData: Record<string, ServiceData> = {
             "I fanciulli sono sistemi fragili rapidissimi ad adattarsi anche nei compensi patologici. Fisioterapia pediatrica significa individuazione precoce delle scoliopsie invisibili tra i banchi scolastici e gestione certosina degli overload muscolari dovuti allo sport super-competitivo odierno."
         ],
         applications: [
-            { icon: <TargetIcon />, title: "Sorveglianza Cifotica e Scoliosi Idiopatica", desc: "Dal monitoraggio con test d'inclinazione vertebrale di Adams, fino alla programmazione degli input di autocorrezione isometrica per contrastare asimmetrie rotatorie del tronco e dorso curvo strutturato." },
-            { icon: <PersonIcon />, title: "Morbo del Ginocchio o Tallone dei Saltatori", desc: "Dolori spaventosi e puntiformi al riposo notturno (Morbi di Osgood-Schlatter o Sever-Blanke), inefficienze o goffaggine patologica motoria in fase di boom puberale vertiginoso gestiti e desensibilizzati intelligentemente." },
-            { title: "Rientro Traumatologico delle Promesse Agonistiche", desc: "Gestione accurata delle distorsioni d'inversione, stiramenti giovanili o ricostruzioni pesanti crociate nel preadolescente, garantendo il 'Return to Play' ottimale senza rischio folle di ri-rottura immatura anatomica per compensi o troppa fretta decisa dagli allenatori di campo impazienti." }
+            { icon: <TargetIcon />, title: "Sorveglianza Cifotica e Scoliosi Idiopatica", desc: "Monitoraggio con test clinici pediatrici (Adams) e l'immediata programmazione meccanica o fasciale per de-rotare le deviazioni nascenti del dorso." },
+            { icon: <PersonIcon />, title: "Morbi della Crescita o Sindrome di Sever", desc: "De-sensibilizzazione immediata da dolori acutissimi post sport nei giovani atleti (ginocchio Osgood-Schlatter o tallonite Sever) in piena fase ormonale." },
+            { title: "Rientro Traumatologico Sportivo", desc: "Gestione di ricostruzioni crociate, distorsioni e stiramenti immaturi, arginando allenatori disattenti o le pericolose smanie di ri-giocare prima di un pieno recupero fasciale." }
         ],
         specialists: [
             { name: "Beatrice Grassi", role: "Responsabile Riabilitazione Neuro-Ortopedica Infantile", description: "Beatrice declina lo spigolo autoritario dell'esame medico, conquistando incredibilmente l'attenzione vitale (e difficilissima) degli insofferenti e diffidenti teenager e bambini, traducendo sequenze cliniche complesse in input performativi ludici ed avvincenti di alta fascia terapeutica ingaggiante.", image: "/images/real/beatricegrassi.webp" }
         ],
         faq: [
-            { q: "Qual è il periodo anagrafico perfetto per fissare un primo vero pit-stop esplorativo della colonna in crescita?", a: "L'orologio batte l'alert in media a cavallo dai 6 o agli 8 anni, nell'abbandono dello schema prepuberale puro per favorire una curva d'ispessimento delle masse che potrebbe deviare il segmento dorsale. Se il figlio denota scatti fulminei di statura esagerati che lo curvano, occorre anticipare visivamente d'urgenza." },
-            { q: "Mio figlio sbadiglia a tutto e repelle ferocemente gli ordini e la fatica faticando a recepire imposizioni mediche.", a: "Lo diamo per fattore scontato e standard di ammissione. L'architettura clinica propedeutica dello specialista pediatrico è celare enormi fatiche eccentriche fasciali dentro mini-challenge, premi neurologici e destrutturazioni a step della noiosissima serialità ripetuta della palestra antica mortifera, portando a casa il lavoro muscolare adescandoli intelligentemente sul loro terreno mentale sfidante." },
-            { q: "Con referto diagnosticato pesantemente asimmetrico ad alto grado Cobb, impiantate corsetti o buscherie per raddrizzarli?", a: "Smarcamento vitale: noi non ci arroghiamo i diritti degli Ortopedici o Fisiatri di rango. I medici prescriveranno l'ancoraggio passivo o l'allungamento in tutore chirurgico se matematicamente lo reputeranno necessario, ma attenzione massima a tutto l'iter posturno: l'esercizio specifico fisioterapico compensatorio è mandatorio al 100% in sinergismo al corsetto per non devitalizzare gravemente in debolezza estrema i muscoli paraspinali rinchiusi nella gabbia vitale!" }
+            { q: "C'è un'età ideale per la prima valutazione posturale asintomatica?", a: "In media tra i 6 e gli 8 anni c'è il grosso balzo prepuberale. Lì è cruciale farsi vedere, specie se il bambino riferisce frequenti piccole distorsioni o dolori lancinanti notturni al riposo." },
+            { q: "Mio figlio è insofferente a tutto, come lo convincete?", a: "Le sessioni pediatriche tramutano terapie complesse in missioni motorie, challenge sfidanti e destrutturazioni ludiche per ingannare strategicamente il loro rapido disincanto adolescenziale." },
+            { q: "Se ha già un grosso gibbo, serve prima il corsetto?", a: "In tali casi un ortopedico valuterà gli apparati passivi. Ma l'esercizio riabilitativo in concomitanza al corsetto è tassativo altrimenti i suoi muscoli spinali cadranno in grave ipotrofia debole chiusi dentro al busto a vita." }
         ]
     },
     "nutrizione": {
         title: "Nutrizione Clinica Biologica di Precisione",
         subtitle: "L'allineamento ormonale tra soddisfazione palatale e risultato metabolico performante.",
-        image: "https://picsum.photos/seed/nutrizione/2670/1800",
+        image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=2670",
         intro: [
-            "Bisogna demolire le barriere del senso di colpa terrorista sul calcolo al granello del macaronuttriente che porta in 3 settimane lo sfacelo ormonale nervoso in cui si cede ritonfando il peso perso. L'arte nutrizionale è aderenza.",
-            "Tramite fortissime revisioni ematochimiche del sangue e la perizia biochimica si compie una traslazione tra la miseria alimentare ed il reale metabolismo dell'energia organica. È il passetto definitivo del trinomio d'acciaio con corpo e movimento."
+            "Bisogna demolire le barriere del senso di colpa terrorista sul calcolo al granello della caloria che porta, in 3 settimane, a sfaceli nervosi in cui cedi riacquistando tutto.",
+            "Tramite la profonda chimica del sangue ricuciremo il divario tra una vita alimentare di gusto e miseria, tracciando il passo chiave verso il dimagrimento senza rinunce impossibili."
         ],
         howItWorks: [
-            "Destrutturazione Completa del Metodo Copia-Incolla: Niente stampe da prestampato standard in pdf uguali. Si traccia da zero l'ingranaggio del turno notturno del lavoratore o degli infiniti aperitivi di business a cui presenziare del manager, forgiando schemi dove i vizi sono contesi ma non aboliti e frustrati.",
-            "L'Alta Precisione d'Intervento per Quadri Invalidanti: Che siano emorragie e infiammazioni pelviche disastrose, amenorree secondarie restrittive per stress folle da sport od il controllo insulinico glicemico instabile.",
-            "Antropometria Rivelatrice Scientifica Mese per Mese: Monitoriamo le densità del substrato magro-grasso corporeo tramite plicometrie tattili e analisi d'avanguardia con impedenzometrie vettoriali (BIA) e non con l'infima bilancia pesapersona che non ci dice assolutamente nulla del peso osseo-massa intracellulare reale."
+            "Niente dieta pre-stampata: Nessun PDF standard uguale per tutti. Incroceremo scientificamente le tue complesse necessità sociali (cene, turni lavorativi) ai soli pilastri alimentari davvero incidenti.",
+            "Valutazioni ormonali profonde: Integriamo le anamnesi mediche post-amenorree, infiammazioni pelviche e colon irritabile con la pura densità molecolare del cibo antinfiammatorio per favorire reazioni organiche di spegnimento duraturo locale.",
+            "Analisi bio-impedenziometriche periodiche Vettoriali: Non misuriamo 'grammi' a vuoto o inutili BMI. Scannerizziamo mensilmente l'idratazione ed i muscoli reali salvati preservandoli faticosamente distruggendo millimetri localizzati d'adipe e ritenzione d'idratazione torbida."
         ],
         applications: [
-            { icon: <TokensIcon />, title: "Arma Ematochimica in Assistenza alle Patologie Infiammatorie e Chirurgiche Motorie Fisioterapiche.", desc: "È pazzia accanirsi a massaggiare edemenzi su tendiniti croniche ribelli, laddove sussista all'apice del processo il blocco infiammatorio generato da un ph intracellulare alterato nutrizionalmente da pessimi regimi acidi. Dando il carburante esatto il collagene esplode al doppio della velocità rigenerativa incrociandosi coi traumi." },
-            { icon: <LightningBoltIcon />, title: "Normalizzazioni Microbiologiche Intestinali e Assestamento Menopausale Turbolento.", desc: "Per donne travolte dai crolli da svuotamento ormonale post menopausa inficiate dalle secchezze vulvari indurite dal prolasso con le caldane impazzite o quadri devastanti da sindrome del colon perennemente infiammato o fibromialgie sfurenti silenziate malamente dai classici antidolorifici blandi inermi." },
-            { title: "Definizione del Target di Ricomposizione Somatica e Abbattimento dei Finti Grasso/Ritenzione Estetici", desc: "Non basta semplicemente far calare il peso a stecca intaccando la preziosissima stabilità muscolare perdendo acqua: il compito sacro e scientifico è mantenere e preservare spietatamente l'ossatura tonica distruggendo specificatamente la molecola d'adipe e drenando gli incroci extracellulari linfatici incagliati senza le temute perdite ematiche spossate dei classici dimagrimenti errati da zero carboidrati punitivi e criminali." }
+            { icon: <TokensIcon />, title: "Rigenerazione Nutrizionale Ortopedica", desc: "Abbattiamo i dolori articolari bloccando cibi altamente acidificanti prima dell'intervento, decuplicando le chance del collagene di riparare una lussazione chirurgica assieme al fisioterapista post operazione." },
+            { icon: <LightningBoltIcon />, title: "Gestione Fisiologica Femminile", desc: "Disinnesco dell'effetto fiamma pre-ciclo o caldane post menopausa. Assestiamo le quote insuliniche contrastando ritenzioni massimali repentine o ovaio micropolicistico in fiore attivo infiammatorio letale sfiancante." },
+            { title: "Definizione Medica della Massa Tonica", desc: "Non basta fare sport amabilmente e affamarsi come fachiro indiano disperato decalcificandosi d'ossa d'autunno: qui ci blindiamo a protocollo chirurgico massimale garantendo scudo plastico tonico ed epurando via seccamente la massa grassa adiposa zavorrante finta cellulite infiammata e flaccida svuotante." }
         ],
         specialists: [
             { name: "Elisa Cardinali", role: "Specialista Magistrale in Nutrizione Biologica", description: "Oltre tre lustri di titanica gestione delle carenze, ha un occhio istantaneo, analitico e non ingannabile riguardo le carenze fisiologiche patologiche inespresse. Distrugge falsi miti complottari terrorizzanti su proteine in polvere ed orrori dei media sull'indice glicemico terrorizzante offrendo pace alla pancia di pazienti estenuate, sempre in fortissimo sinergismo coi dottori che accerchiano i casi a 360 gradi e li guidano incrociando i super-poteri del network medico fisyo con sensibilità inarrivabile ma altissimo controllo scientifico dei parametri di tolleranza salutistici finali desiderati all'anamnesi.", image: "/images/real/elisa-cardinali-nutrizionista-e1766323699892.webp" }
         ],
         faq: [
-            { q: "Risulta palesemente mandatorio che mi tocchi misurare con la famigerata ed odiosa bilancina elettronica grammata dell'inquisizione gli insipidi spaghetti pure sconditi bianchi come lenzuoli se accedo malauguratamente nel percorso curativo?!", a: "Soglia falsità zero: dipendentemente dai goals da infrangere non c'è obbligo o manette al controllo certosino di peso ossessivo a tavola per chi è logorato dalle vecchie prigioni mediche delle fobie. La Nutrizionista forgia approcci con interscambi equivalenti spannometrici qualitativi per chi rifugge il calcolo fobico, a meno di target sportivi d'eccellenza dove invece spaccare il fagiolo centesimale sia l'incrociatore del risultato iridato finale da spaccare sul traguardo." },
-            { q: "Il dolore al ginocchio che si riacutizza ad eco infinito senza mai scomparire anche dopo infiniti tecar, pomate ed ultrasuoni fallimentari, si attenua miracolosamente cambiandosi il mangemare nel piatto caldo di casa?!?", a: "Pieno e roboante centro. Uno stato generale d'acidosi metabolica di fondo nutre silenziosamente il serbatoio velenoso biochimico in cui un banale insulto si radicalizza trasformandosi in un fuoco che inibisce o ritarda drammaticamente ed inutilmente gli sforzi meccanici e le leve geniali dei nostri fenomenali fisioterapisti d'eccellenza in campo aperto, rallentando colpevolmente i referti." },
-            { q: "A livello meramente e volgarmente documentale e noioso d'anagrafica, è previsto categoricamente d'ottenere i test del sangue aggiornati per ricevere di consultazione primaria ambulatoriale specialistica d'apertura o bastano autocertificazioni?!?", a: "L'oro informativo non ha prezzo ed i prelievi con referto del test al computer fresco e puntellato ematico sotto i sei e disgraziatissimamente otto mesi fa costituisce grandissimo faro di rotta della salute. Eppure anche sprovvisti ci si approccia ai colloqui in totale scioltezza avvolti con garbo innamorandosi a passo e fiumi per volta dei concetti prima di tuffarsi sotto stress al prelievo forzoso burocratico della formuletta." }
+            { q: "Dovrò pesare in modo maniacale ogni scondita foglia tutti i giorni vero?", a: "Nessun terrorismo bilancia: basiamo il piano su grammature 'visive' o varianti libere libere per i pasti principali qualora la tua patologia consenta forti tolleranze psicosociali ansiogene. L'arte medica sta nell'aderenza felice e non in prigione dorata calcolatore e depressa solitaria in cucina in un angolo piangendo calorie infinite!" },
+            { q: "Davvero correggere la nutrizione disinfiamma il dolore cronico ad un'articolazione in riabilitazione!?", a: "Miracolosamente sì! Se curiamo il PH dei fluidi sierosi togliendo farine iper infiammatorie disperatamente brucianti pro-ciclossigenasi il lavoro meccanico del fisio farà il doppio da un giorno in base e in velocità folgorante risolvendo la lesione perenne bloccata anni interi." },
+            { q: "Se non possiedo purtroppo del prelievo clinico ematico fresco vi ritardate ed arrendo rinviandomi a casa?", a: "Falso. Ovvio l'avere esami del fegato tiroide aggiornati massimile ai 6 mesate dona una radiografia chimica sublime al piano perfetto della dieta perfetta, ma procediamo per test iniziali anamnestici anche orali rassicurandoti guidandoti step e qualora urgessero approfondimenti ti ci indirizzeremo no-stress." }
         ]
     }
 };
@@ -329,13 +329,15 @@ export const ServizioDetail = () => {
                     transition={{ duration: 1, delay: 0.2 }}
                     className="rounded-[3rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] h-[350px] md:h-[500px] w-full mt-4 relative group"
                 >
-                    <img
-                        src={data.image}
-                        alt={`Ambiente ${data.title}`}
-                        decoding="async"
-                        className="w-full h-full object-cover filter grayscale-[10%] group-hover:scale-105 transition-transform duration-[2s] ease-out"
-                    />
-                    <div className="absolute inset-0 bg-primary/10"></div>
+                    <div className={`absolute inset-0 w-full h-full ${id === 'fisio4young' ? 'rotate-90 origin-center scale-[1.4]' : ''}`}>
+                        <img
+                            src={data.image}
+                            alt={`Ambiente ${data.title}`}
+                            decoding="async"
+                            className="w-full h-full object-cover filter grayscale-[10%] group-hover:scale-[1.05] transition-transform duration-[2s] ease-out"
+                        />
+                    </div>
+                    <div className="absolute inset-0 bg-primary/10 pointer-events-none"></div>
                 </motion.div>
 
                 {/* Staggered Intro Blocks */}

@@ -18,7 +18,7 @@ const services = [
         title: "Pilates Clinico",
         desc: "Sedute individuali o in micro-gruppi condotte esclusivamente da Fisioterapisti. Ideale per il potenziamento mirato del core, correzione posturale e prevenzione degli infortuni.",
         icon: <MixIcon className="w-6 h-6" />,
-        image: "/images/real/staff-valentina-corradi-pilates-clinico-studio-fisyo.webp"
+        image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80&w=2670"
     },
     {
         id: "salute-donna",
@@ -53,7 +53,7 @@ const services = [
         title: "Nutrizione Clinica",
         desc: "Piani alimentari personalizzati per sportivi, per il dimagrimento o associati a patologie specifiche, elaborati da nutrizionisti esperti in stretta collaborazione con il team riabilitativo.",
         icon: <SunIcon className="w-6 h-6" />,
-        image: "/images/real/elisa-cardinali-nutrizionista-e1766323699892.webp"
+        image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=2670"
     }
 ];
 
@@ -104,14 +104,16 @@ export const Servizi = () => {
                             <div className="w-full lg:w-1/2">
                                 <Link to={`/servizi/${srv.id}`} className="block group">
                                     <div className="rounded-[3rem] overflow-hidden relative aspect-[4/3] bg-slate-100 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_45px_80px_-15px_rgba(234,179,8,0.15)] transition-all duration-[1s]">
-                                        <img
-                                            src={srv.image}
-                                            alt={srv.title}
-                                            loading="lazy"
-                                            decoding="async"
-                                            className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale-[10%] group-hover:grayscale-0"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent group-hover:opacity-50 transition-opacity duration-700"></div>
+                                        <div className={`absolute inset-0 w-full h-full ${srv.id === 'fisio4young' ? 'rotate-90 origin-center scale-[1.35]' : ''}`}>
+                                            <img
+                                                src={srv.image}
+                                                alt={srv.title}
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-[1.05] filter grayscale-[10%] group-hover:grayscale-0"
+                                            />
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
 
                                         {/* Icon Badge */}
                                         <div className="absolute top-8 left-8 w-14 h-14 bg-white/90 backdrop-blur-md text-primary border border-white/20 rounded-full flex items-center justify-center shadow-[0_15px_30px_-10px_rgba(0,0,0,0.1)] group-hover:bg-accent group-hover:text-primary transition-colors duration-500">
