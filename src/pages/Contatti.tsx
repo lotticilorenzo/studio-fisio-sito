@@ -8,13 +8,13 @@ export const Contatti = () => {
     useSEO({
         title: "Contatti | Prenota a Studio Fisyo Felino",
         description: "Prenota la tua valutazione gratuita da Studio Fisyo a Felino. Fisioterapia, osteopatia e benessere integrato. Contattaci per maggiori informazioni.",
-        url: "https://www.studiofisyo.it/contatti",
+        url: "https://www.studiofisio.com/contatti",
         schema: {
             "@context": "https://schema.org",
             "@type": "ContactPage",
             "name": "Contatta Studio Fisyo",
             "description": "Pagina contatti per prenotare una valutazione fisioterapica a Felino (Parma)",
-            "url": "https://www.studiofisyo.it/contatti"
+            "url": "https://www.studiofisio.com/contatti"
         }
     });
 

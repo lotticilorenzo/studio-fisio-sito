@@ -279,7 +279,7 @@ export const ServizioDetail = () => {
     useSEO(data ? {
         title: `${data.title} | Studio Fisyo`,
         description: data.subtitle,
-        url: `https://www.studiofisyo.it/servizi/${id}`,
+        url: `https://www.studiofisio.com/servizi/${id}`,
         schema: {
             "@context": "https://schema.org",
             "@type": "MedicalSpecialty",
@@ -289,7 +289,7 @@ export const ServizioDetail = () => {
                 "@type": "MedicalClinic",
                 "name": "Studio Fisyo"
             },
-            "url": `https://www.studiofisyo.it/servizi/${id}`
+            "url": `https://www.studiofisio.com/servizi/${id}`
         }
     } : { title: 'Servizio | Studio Fisyo', description: '', url: '' });
 
