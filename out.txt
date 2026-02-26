@@ -1,0 +1,16 @@
+src/App.tsx(1,1): error TS6192: All imports in import declaration are unused.
+src/components/Features.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Features.tsx(2,18): error TS6133: 'AnimatePresence' is declared but its value is never read.
+src/components/Features.tsx(2,41): error TS2307: Cannot find module 'framer-motion' or its corresponding type declarations.
+src/components/Features.tsx(3,48): error TS6133: 'ChevronRight' is declared but its value is never read.
+src/components/Features.tsx(32,31): error TS6133: 'isThird' is declared but its value is never read.
+src/components/Footer.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/Hero.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Navbar.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Navbar.tsx(3,1): error TS6133: 'gsap' is declared but its value is never read.
+src/components/Philosophy.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Protocol.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Protocol.tsx(4,24): error TS2307: Cannot find module 'framer-motion' or its corresponding type declarations.
+src/components/Protocol.tsx(117,25): error TS2322: Type '(el: HTMLDivElement | null) => HTMLDivElement' is not assignable to type 'Ref<HTMLDivElement> | undefined'.
+  Type '(el: HTMLDivElement | null) => HTMLDivElement' is not assignable to type '(instance: HTMLDivElement | null) => void | (() => VoidOrUndefinedOnly)'.
+    Type 'HTMLDivElement' is not assignable to type 'void | (() => VoidOrUndefinedOnly)'.

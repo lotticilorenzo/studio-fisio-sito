@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+  }
+}
+
+/* Global Noise Texture Overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Base structural utility for stable views */
+.min-h-dynamic {
+  min-height: 100dvh;
+}
+
+/* Hide default cursor on desktop, CustomCursor handles it */
+@media (hover: hover) and (pointer: fine) {
+
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"],
+  .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+/* Premium Selection Color */
+::selection {
+  background-color: #EAB308;
+  /* accent */
+  color: #1A2421;
+  /* primary */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A2421;
+  /* primary */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(234, 179, 8, 0.4);
+  /* accent with opacity */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 179, 8, 0.8);
+}
+
+/* ----------------------------------
+   IUBENDA CUSTOM BRANDING OVERRIDES
+----------------------------------- */
+#iubenda-cs-banner {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+/* Banner Background */
+.iubenda-cs-content {
+  background-color: #151D18 !important;
+  /* bg-primary dark */
+  color: #ffffff !important;
+  border-radius: 1.5rem !important;
+  border: 1px solid rgba(234, 179, 8, 0.2) !important;
+  /* accent subtle border */
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Banner Title & Text */
+.iubenda-cs-content h2 {
+  color: #EAB308 !important;
+  /* text-accent */
+  font-weight: 700 !important;
+}
+
+.iubenda-cs-content p {
+  color: rgba(255, 255, 255, 0.7) !important;
+  /* text-background/70 */
+}
+
+/* Primary Button (Accetta tutto) */
+.iubenda-cs-accept-btn {
+  background-color: #EAB308 !important;
+  /* bg-accent */
+  color: #1A2421 !important;
+  /* text-primary */
+  border-radius: 9999px !important;
+  font-weight: bold !important;
+  transition: all 0.3s ease !important;
+}
+
+.iubenda-cs-accept-btn:hover {
+  background-color: #FACC15 !important;
+  /* lighter accent */
+  transform: scale(0.98);
+}
+
+/* Secondary Buttons (Rifiuta, Personalizza) */
+.iubenda-cs-reject-btn,
+.iubenda-cs-customize-btn {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 9999px !important;
+  transition: all 0.3s ease !important;
+}
+
+.iubenda-cs-reject-btn:hover,
+.iubenda-cs-customize-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+}
