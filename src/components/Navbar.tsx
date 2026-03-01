@@ -122,7 +122,7 @@ export const Navbar = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="fixed inset-0 z-40 bg-background/95 backdrop-blur-3xl flex flex-col items-center justify-center gap-8 text-primary font-sans text-xl"
+                        className="fixed inset-0 z-40 bg-background/95 backdrop-blur-3xl flex flex-col items-center justify-start gap-6 text-primary font-sans text-xl overflow-y-auto pt-28 pb-16"
                     >
                         <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className={location.pathname === '/' ? 'text-accent' : ''}>Home</Link>
 
