@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Footer, CTA } from './components/Footer';
 import { Preloader } from './components/Preloader';
 import { CustomCursor } from './components/CustomCursor';
+import { WhatsAppFAB } from './components/WhatsAppFAB';
 
 export const Layout = () => {
     const location = useLocation();
@@ -17,6 +18,7 @@ export const Layout = () => {
             <div className="noise-overlay" aria-hidden="true" />
 
             <Navbar />
+            <WhatsAppFAB />
 
             <motion.main
                 key={location.pathname}

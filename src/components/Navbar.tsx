@@ -96,7 +96,7 @@ export const Navbar = () => {
                             href="https://wa.me/393396508642"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-primary hover:text-accent transition-colors flex items-center justify-center p-2 rounded-full bg-white/5"
+                            className="text-primary hover:text-accent transition-colors flex items-center justify-center p-3 rounded-full bg-white/5"
                             aria-label="Contattaci su WhatsApp"
                         >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -106,7 +106,7 @@ export const Navbar = () => {
                         <button
                             aria-label="Toggle Menu"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="bg-white/5 p-2 rounded-full"
+                            className="bg-white/5 p-3 rounded-full"
                         >
                             {isMobileMenuOpen ? <Cross1Icon className="w-5 h-5" /> : <HamburgerMenuIcon className="w-5 h-5" />}
                         </button>

@@ -2,6 +2,8 @@ import { Hero } from '../components/Hero';
 import { Features } from '../components/Features';
 import { Philosophy } from '../components/Philosophy';
 import { Protocol } from '../components/Protocol';
+import { Testimonials } from '../components/Testimonials';
+import { FAQ } from '../components/FAQ';
 import { useEffect } from 'react';
 import { useSEO } from '../hooks/useSEO';
 
@@ -9,6 +11,7 @@ export const Home = () => {
     useSEO({
         title: "Fisioterapia a Felino | Studio Fisyo",
         description: "Studio Fisyo a Felino offre percorsi di Fisioterapia, Pilates Clinico, Salute della Donna e Nutrizione. Prenota la tua valutazione.",
+        image: "https://www.studiofisyo.com/images/real/internistudiofisyo2.webp",
         url: "https://www.studiofisyo.com/",
         schema: {
             "@context": "https://schema.org",
@@ -39,9 +42,15 @@ export const Home = () => {
             ],
             "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": "+39-389-3177651",
+                "telephone": "+39-339-6508642",
                 "contactType": "Customer Support"
             },
+            "priceRange": "$$",
+            "areaServed": "Felino, Parma, Emilia-Romagna",
+            "sameAs": [
+                "https://www.instagram.com/studiofisyo",
+                "https://www.facebook.com/studiofisyo"
+            ],
             "url": "https://www.studiofisyo.com/"
         }
     });
@@ -55,6 +64,8 @@ export const Home = () => {
             <Hero />
             <Features />
             <Philosophy />
+            <Testimonials />
+            <FAQ />
             <Protocol />
         </div>
     );

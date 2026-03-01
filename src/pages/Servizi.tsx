@@ -61,6 +61,7 @@ export const Servizi = () => {
     useSEO({
         title: "I Nostri Servizi | Fisioterapia, Pilates e Salute a Felino",
         description: "Scopri i servizi di Studio Fisyo a Felino: Fisioterapia, Pilates Clinico, Salute della Donna, Linfodrenaggio, Psicologia, Fisio4Young e Nutrizione.",
+        image: "https://www.studiofisyo.com/images/real/internistudiofisyo2.webp",
         url: "https://www.studiofisyo.com/servizi",
         schema: {
             "@context": "https://schema.org",

@@ -81,7 +81,7 @@ export const Hero = () => {
                         <span className="hero-text-1 block font-sans font-bold text-white text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight">
                             Ridisegniamo il tuo
                         </span>
-                        <span className="hero-text-2 block font-drama italic text-accent text-7xl md:text-8xl lg:text-9xl leading-[0.85] tracking-tight">
+                        <span className="hero-text-2 block font-drama italic text-accent text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.85] tracking-tight">
                             Equilibrio.
                         </span>
                     </h1>

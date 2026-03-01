@@ -19,7 +19,7 @@ export const CTA = () => {
                 </p>
 
                 <MagneticButton to="/contatti" className="bg-accent text-primary px-10 py-5 font-sans font-medium text-lg md:text-xl">
-                    Prenota Mappa Funzionale
+                    Prenota la tua Valutazione Gratuita
                 </MagneticButton>
             </div>
         </section>
@@ -57,7 +57,7 @@ export const Footer = () => {
                             <span className="font-sans text-background/50 text-sm group-hover:text-background transition-colors">Via Aldo Moro 1/A</span>
                             <span className="font-sans text-background/50 text-sm group-hover:text-background transition-colors">43035 Felino (PR)</span>
                         </a>
-                        <a href="tel:3396508642" className="inline-flex items-center gap-2 font-sans font-medium text-accent hover:text-white transition-colors text-sm mt-2">
+                        <a href="tel:+393396508642" className="inline-flex items-center gap-2 font-sans font-medium text-accent hover:text-white transition-colors text-sm mt-2">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                             339 650 8642
                         </a>
