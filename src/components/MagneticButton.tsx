@@ -10,9 +10,11 @@ interface MagneticButtonProps {
     to?: string;
     className?: string;
     onClick?: () => void;
+    target?: string;
+    rel?: string;
 }
 
-export const MagneticButton = ({ children, href, to, className = "", onClick }: MagneticButtonProps) => {
+export const MagneticButton = ({ children, href, to, className = "", onClick, target, rel }: MagneticButtonProps) => {
     const ref = useRef<HTMLDivElement>(null);
 
     // Create motion values that exist outside of React render cycle
@@ -24,6 +26,8 @@ export const MagneticButton = ({ children, href, to, className = "", onClick }: 
     const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        // Skip magnetic effect on touch devices
+        if (window.matchMedia('(pointer: coarse)').matches) return;
         if (!ref.current) return;
         const { clientX, clientY } = e;
         const { height, width, left, top } = ref.current.getBoundingClientRect();
@@ -53,7 +57,7 @@ export const MagneticButton = ({ children, href, to, className = "", onClick }: 
         props = { to };
     } else if (href) {
         Component = motion.a;
-        props = { href };
+        props = { href, ...(target && { target }), ...(rel && { rel }) };
     }
 
     return (

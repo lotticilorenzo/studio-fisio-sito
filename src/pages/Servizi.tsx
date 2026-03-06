@@ -11,7 +11,7 @@ const services = [
         title: "Fisioterapia e Terapia Manuale",
         desc: "Riabilitazione ortopedica, traumatologica e post-chirurgica. Trattamento dei dolori acuti e cronici (mal di schiena, cervicalgia, tendiniti) tramite tecniche manuali avanzate e tecnologie di ultima generazione.",
         icon: <GearIcon className="w-6 h-6" />,
-        image: "/images/real/fisioterapia-manuale-studio-fisyo-parma.webp"
+        image: "/images/real/fisioterapia_studio_fisyo.webp"
     },
     {
         id: "pilates-clinico",

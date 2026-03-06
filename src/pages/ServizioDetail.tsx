@@ -55,7 +55,7 @@ const servicesData: Record<string, ServiceData> = {
     "fisioterapia": {
         title: "Fisioterapia e Riabilitazione Funzionale",
         subtitle: "Il nostro Metodo dei 3 pilastri.",
-        image: "/images/real/fisioterapia-manuale-studio-fisyo-parma.webp",
+        image: "/images/real/fisioterapia_studio_fisyo.webp",
         intro: [
             "Non limitarti a spegnere il sintomo. Attraverso la Terapia Manuale Avanzata e l'Esercizio Terapeutico, curiamo la causa alla radice per restituirti completa libertà di movimento.",
             "Il dolore cronico e i blocchi muscolari non sono mai 'normali'. Che si tratti di un infortunio sportivo, di un forte blocco alla schiena o del recupero post-intervento, il nostro obiettivo clinico è risolvere il quadro acuto e renderti autonomo a lungo termine."

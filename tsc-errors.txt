@@ -1,0 +1,7 @@
+﻿src/components/openday/OpenDayAbout.tsx(3,1): error TS6133: 'ScrollTrigger' is declared but its value is never read.
+src/components/openday/OpenDayDetails.tsx(3,1): error TS6133: 'ScrollTrigger' is declared but its value is never read.
+src/components/openday/OpenDayFAQ.tsx(3,1): error TS6133: 'ScrollTrigger' is declared but its value is never read.
+src/components/openday/OpenDayFooter.tsx(3,1): error TS6133: 'ScrollTrigger' is declared but its value is never read.
+src/components/openday/OpenDayProblem.tsx(3,1): error TS6133: 'ScrollTrigger' is declared but its value is never read.
+src/components/openday/OpenDaySolution.tsx(3,1): error TS6133: 'ScrollTrigger' is declared but its value is never read.
+src/components/openday/OpenDayUrgency.tsx(3,1): error TS6133: 'ScrollTrigger' is declared but its value is never read.

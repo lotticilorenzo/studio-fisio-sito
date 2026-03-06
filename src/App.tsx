@@ -9,6 +9,7 @@ import { ServizioDetail } from './pages/ServizioDetail';
 import { ChiSiamo } from './pages/ChiSiamo';
 import { Contatti } from './pages/Contatti';
 import { NotFound } from './pages/NotFound';
+import { OpenDay } from './pages/OpenDay';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,6 +30,7 @@ function AppRoutes() {
           <Route path="contatti" element={<Contatti />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="/fibromialgia-open-day" element={<OpenDay />} />
       </Routes>
     </AnimatePresence>
   );
