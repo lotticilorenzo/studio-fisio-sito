@@ -10,6 +10,7 @@ import { OpenDayAbout } from '../components/openday/OpenDayAbout';
 import { OpenDayFAQ } from '../components/openday/OpenDayFAQ';
 import { OpenDayProof } from '../components/openday/OpenDayProof';
 import { OpenDayLandingFooter } from '../components/openday/OpenDayLandingFooter';
+import { OPENDAY_CONFIG } from '../config/openday';
 
 export const OpenDay = () => {
     useEffect(() => {
@@ -31,11 +32,11 @@ export const OpenDay = () => {
         };
 
         setMeta('robots', 'noindex, nofollow');
-        setMeta('description', 'Open Day gratuito sulla Fibromialgia a Felino (PR) — 21 Marzo 2026. Consulenze gratuite con fisioterapista, nutrizionista e psicologa. Solo 30 posti.');
+        setMeta('description', `Open Day gratuito sulla Fibromialgia a Felino (PR) — ${OPENDAY_CONFIG.FORMATTED_DATE}. Consulenze gratuite con fisioterapista, nutrizionista e psicologa. Solo ${OPENDAY_CONFIG.MAX_SEATS} posti.`);
 
         // ─── Open Graph (Facebook / WhatsApp / Instagram) ───
         setMeta('og:title', 'Capire la Fibromialgia in 1 Mattina — Open Day Gratuito', true);
-        setMeta('og:description', 'Sabato 21 Marzo 2026, ore 9-13. Consulenze gratuite con 3 specialiste. Solo 30 posti disponibili. Prenota ora!', true);
+        setMeta('og:description', `${OPENDAY_CONFIG.FORMATTED_DATE}, ore 9-13. Consulenze gratuite con 3 specialiste. Solo ${OPENDAY_CONFIG.MAX_SEATS} posti disponibili. Prenota ora!`, true);
         setMeta('og:image', 'https://www.studiofisyo.com/images/og-openday.png', true);
         setMeta('og:url', 'https://www.studiofisyo.com/fibromialgia-open-day', true);
         setMeta('og:type', 'website', true);
@@ -45,7 +46,7 @@ export const OpenDay = () => {
         // ─── Twitter Card ───
         setMeta('twitter:card', 'summary_large_image');
         setMeta('twitter:title', 'Capire la Fibromialgia in 1 Mattina — Open Day Gratuito');
-        setMeta('twitter:description', 'Sabato 21 Marzo 2026, 9-13. Consulenze gratuite con 3 specialiste. Solo 30 posti.');
+        setMeta('twitter:description', `${OPENDAY_CONFIG.FORMATTED_DATE}, 9-13. Consulenze gratuite con 3 specialiste. Solo ${OPENDAY_CONFIG.MAX_SEATS} posti.`);
         setMeta('twitter:image', 'https://www.studiofisyo.com/images/og-openday.png');
 
         // ─── Canonical ───
@@ -63,11 +64,11 @@ export const OpenDay = () => {
             "@type": "Event",
             "name": "Capire la Fibromialgia in 1 Mattina — Open Day Studio Fisyo",
             "description": "Open Day gratuito dedicato alla Fibromialgia. Consulenze individuali gratuite con Fisioterapista, Nutrizionista e Psicologa.",
-            "startDate": "2026-03-21T09:00:00+01:00",
-            "endDate": "2026-03-21T13:00:00+01:00",
+            "startDate": OPENDAY_CONFIG.EVENT_DATE,
+            "endDate": OPENDAY_CONFIG.EVENT_DATE.replace('09:00', '13:00'),
             "eventStatus": "https://schema.org/EventScheduled",
             "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-            "maximumAttendeeCapacity": 30,
+            "maximumAttendeeCapacity": OPENDAY_CONFIG.MAX_SEATS,
             "isAccessibleForFree": true,
             "location": {
                 "@type": "Place",
@@ -85,7 +86,7 @@ export const OpenDay = () => {
                 "@type": "MedicalClinic",
                 "name": "Studio Fisyo",
                 "url": "https://www.studiofisyo.com",
-                "telephone": "+393406794660"
+                "telephone": OPENDAY_CONFIG.PHONE_HREF
             },
             "offers": {
                 "@type": "Offer",
@@ -109,7 +110,7 @@ export const OpenDay = () => {
         };
     }, []);
 
-    const whatsappMessage = encodeURIComponent("Ciao! Vorrei prenotare un posto per l'Open Day Fibromialgia del 21 Marzo 🩺");
+    const { PHONE_NUMBER, PHONE_HREF, WHATSAPP_MESSAGE } = OPENDAY_CONFIG;
 
     return (
         <main className="bg-background min-h-screen text-foreground relative z-10 selection:bg-accent selection:text-primary">
@@ -136,8 +137,8 @@ export const OpenDay = () => {
             {/* ─── Floating compact CTA pill (mobile only) ─── */}
             <div className="fixed bottom-5 right-5 z-[999] md:hidden flex items-center gap-2 p-1.5 rounded-full bg-white/80 backdrop-blur-xl border border-black/5 shadow-[0_8px_32px_rgba(0,0,0,0.12)]" role="group" aria-label="Prenota il tuo posto">
                 <a
-                    href="tel:+393406794660"
-                    aria-label="Chiama lo studio al 340 679 4660"
+                    href={`tel:${PHONE_HREF}`}
+                    aria-label={`Chiama lo studio al ${PHONE_NUMBER}`}
                     className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center active:scale-90 transition-transform"
                 >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -145,7 +146,7 @@ export const OpenDay = () => {
                     </svg>
                 </a>
                 <a
-                    href={`https://wa.me/393406794660?text=${whatsappMessage}`}
+                    href={`https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_MESSAGE}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Prenota su WhatsApp"

@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { MagneticButton } from '../MagneticButton';
+import { OPENDAY_CONFIG } from '../../config/openday';
 
 const symptoms = [
     "Dolori diffusi in tutto il corpo che cambiano sede",
@@ -44,7 +45,7 @@ export const OpenDayAwareness = () => {
         return () => ctx.revert();
     }, []);
 
-    const whatsappMessage = encodeURIComponent("Ciao! Vorrei prenotare un posto per l'Open Day Fibromialgia del 21 Marzo 🩺");
+    const { PHONE_NUMBER, WHATSAPP_MESSAGE } = OPENDAY_CONFIG;
 
     return (
         <section ref={comp} className="py-24 md:py-32 bg-[#FAF9F5] relative z-10 border-t border-black/5 overflow-hidden">
@@ -79,7 +80,7 @@ export const OpenDayAwareness = () => {
                         Se ti sei riconosciuta in <strong className="text-primary">3 o più</strong> di questi punti, vale la pena parlarne con uno specialista. Il <strong className="text-accent">21 Marzo</strong> puoi farlo <strong className="text-accent">gratuitamente</strong>.
                     </p>
                     <MagneticButton
-                        href={`https://wa.me/393406794660?text=${whatsappMessage}`}
+                        href={`https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_MESSAGE}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-white text-primary border-2 border-primary/10 px-8 py-4 sm:px-10 sm:py-5 font-sans font-bold text-base md:text-lg w-full sm:w-auto hover:bg-primary hover:text-white hover:border-primary shadow-sm"
@@ -117,7 +118,7 @@ export const OpenDayAwareness = () => {
                             La fibromialgia è una condizione reale, riconosciuta dall'OMS dal 1992. Merita un approccio serio, multidisciplinare e — soprattutto — <span className="text-accent font-bold">ti meriti di essere ascoltata</span>.
                         </p>
                         <MagneticButton
-                            href={`https://wa.me/393406794660?text=${whatsappMessage}`}
+                            href={`https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_MESSAGE}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="bg-white text-primary px-8 py-4 sm:px-10 sm:py-5 font-sans font-bold text-base md:text-lg w-full sm:w-auto hover:bg-white/90"

@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { OPENDAY_CONFIG } from '../../config/openday';
 
 export const OpenDayLandingFooter = () => {
+    const { PHONE_NUMBER, PHONE_HREF } = OPENDAY_CONFIG;
+    const formattedPhone = PHONE_NUMBER.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3");
     return (
         <footer className="bg-primary text-white relative z-10">
             <div className="max-w-6xl mx-auto px-6 lg:px-12 py-12 md:py-16">
@@ -26,8 +29,8 @@ export const OpenDayLandingFooter = () => {
                             Via Aldo Moro 1/A<br />
                             43035 Felino (PR)
                         </p>
-                        <a href="tel:+393406794660" className="font-sans text-accent hover:text-accent/80 text-sm font-bold transition-colors block mb-1">
-                            📱 340 679 4660
+                        <a href={`tel:${PHONE_HREF}`} className="font-sans text-accent hover:text-accent/80 text-sm font-bold transition-colors block mb-1">
+                            📱 {formattedPhone}
                         </a>
                         <a href="mailto:info@studiofisyo.com" className="font-sans text-white/60 hover:text-white text-sm transition-colors block">
                             ✉️ info@studiofisyo.com

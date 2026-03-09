@@ -2,32 +2,37 @@ import { useState, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const faqs = [
-    {
-        q: "Devo pagare qualcosa?",
-        a: "No, l'Open Day è completamente gratuito. Nessun costo nascosto."
-    },
-    {
-        q: "Quanto dura la mia consulenza?",
-        a: "Ogni consulenza individuale dura circa 15 minuti per specialista. In totale puoi avere fino a 45 minuti di valutazione personalizzata."
-    },
-    {
-        q: "Devo avere già una diagnosi di fibromialgia?",
-        a: "No. L'Open Day è aperto anche a chi ha sintomi sospetti o vuole capire meglio i propri dolori cronici."
-    },
-    {
-        q: "Posso venire con un familiare?",
-        a: "Assolutamente sì, anzi è consigliato."
-    },
-    {
-        q: "Come prenoto il mio posto?",
-        a: "Chiamaci o scrivici su WhatsApp al 340-6794660. Risponderemo entro poche ore."
-    }
-];
+import { OPENDAY_CONFIG } from '../../config/openday';
 
 export const OpenDayFAQ = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
     const comp = useRef<HTMLDivElement>(null);
+
+    const { PHONE_NUMBER } = OPENDAY_CONFIG;
+    const formattedPhone = PHONE_NUMBER.replace(/(\d{3})(\d{7})/, "$1-$2");
+
+    const faqs = [
+        {
+            q: "Devo pagare qualcosa?",
+            a: "No, l'Open Day è completamente gratuito. Nessun costo nascosto."
+        },
+        {
+            q: "Quanto dura la mia consulenza?",
+            a: "Ogni consulenza individuale dura circa 15 minuti per specialista. In totale puoi avere fino a 45 minuti di valutazione personalizzata."
+        },
+        {
+            q: "Devo avere già una diagnosi di fibromialgia?",
+            a: "No. L'Open Day è aperto anche a chi ha sintomi sospetti o vuole capire meglio i propri dolori cronici."
+        },
+        {
+            q: "Posso venire con un familiare?",
+            a: "Assolutamente sì, anzi è consigliato."
+        },
+        {
+            q: "Come prenoto il mio posto?",
+            a: `Chiamaci o scrivici su WhatsApp al ${formattedPhone}. Risponderemo entro poche ore.`
+        }
+    ];
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {

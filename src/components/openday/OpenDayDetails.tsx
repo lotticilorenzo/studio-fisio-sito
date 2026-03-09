@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { MagneticButton } from '../MagneticButton';
+import { OPENDAY_CONFIG } from '../../config/openday';
 
 export const OpenDayDetails = () => {
     const comp = useRef<HTMLDivElement>(null);
@@ -23,16 +24,16 @@ export const OpenDayDetails = () => {
         return () => ctx.revert();
     }, []);
 
+    const { PHONE_NUMBER, PHONE_HREF, WHATSAPP_MESSAGE, MAX_SEATS, FORMATTED_DATE } = OPENDAY_CONFIG;
+
     const details = [
-        { icon: "📅", label: "Data", value: "Sabato 21 Marzo 2026" },
+        { icon: "📅", label: "Data", value: FORMATTED_DATE },
         { icon: "🕘", label: "Orario", value: "9:00 – 13:00" },
         { icon: "📍", label: "Dove", value: "Studio Fisyo — Via Aldo Moro 1/A, Felino (PR)" },
         { icon: "💶", label: "Costo", value: "Completamente GRATUITO" },
-        { icon: "🪑", label: "Posti", value: "Solo 30 disponibili" },
-        { icon: "📱", label: "Prenotazioni", value: "340-6794660" },
+        { icon: "🪑", label: "Posti", value: `Solo ${MAX_SEATS} disponibili` },
+        { icon: "📱", label: "Prenotazioni", value: PHONE_NUMBER.replace(/(\d{3})(\d{7})/, "$1-$2") },
     ];
-
-    const whatsappMessage = encodeURIComponent("Ciao! Vorrei prenotare un posto per l'Open Day Fibromialgia del 21 Marzo 🩺");
 
     return (
         <section ref={comp} className="py-24 md:py-32 bg-background relative z-10">
@@ -64,7 +65,7 @@ export const OpenDayDetails = () => {
                         {/* CTA after details — the user just read all the info and is ready to book */}
                         <div className="det-cta pt-4 flex flex-col sm:flex-row gap-3">
                             <MagneticButton
-                                href="tel:+393406794660"
+                                href={`tel:${PHONE_HREF}`}
                                 className="bg-primary text-white px-8 py-4 font-sans font-bold text-base w-full sm:w-auto hover:bg-primary/90"
                             >
                                 <div className="flex items-center justify-center gap-3">
@@ -75,7 +76,7 @@ export const OpenDayDetails = () => {
                                 </div>
                             </MagneticButton>
                             <MagneticButton
-                                href={`https://wa.me/393406794660?text=${whatsappMessage}`}
+                                href={`https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_MESSAGE}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="bg-[#25D366] text-white px-8 py-4 font-sans font-bold text-base w-full sm:w-auto hover:bg-[#20bd5a]"
@@ -96,7 +97,6 @@ export const OpenDayDetails = () => {
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
-                            allowFullScreen={false}
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             title="Studio Fisyo Map"

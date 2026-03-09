@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { OPENDAY_CONFIG } from '../../config/openday';
 
 const specialists = [
     {
@@ -45,6 +46,8 @@ export const OpenDaySolution = () => {
         return () => ctx.revert();
     }, []);
 
+    const { MAX_SEATS } = OPENDAY_CONFIG;
+
     return (
         <section ref={comp} className="py-24 md:py-32 bg-[#FAF9F5] relative z-10 border-t border-black/5">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -89,7 +92,7 @@ export const OpenDaySolution = () => {
                         <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                         <span className="font-bold text-primary font-sans">Tutto gratis</span>
                         <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-                        <span className="font-bold text-accent font-sans animate-pulse">Solo 30 posti disponibili</span>
+                        <span className="font-bold text-accent font-sans animate-pulse">Solo {MAX_SEATS} posti disponibili</span>
                     </div>
                 </div>
             </div>

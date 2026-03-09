@@ -3,18 +3,18 @@ import { gsap } from 'gsap';
 
 const reviews = [
     {
-        name: "Marco P.",
-        text: "Dopo anni di dolori alla schiena, Studio Fisyo mi ha cambiato la vita.",
+        name: "Francesca P.",
+        text: "Dopo anni di dolori diffusi e visite a vuoto, l'approccio multidisciplinare mi ha finalmente dato delle risposte concrete. Soffro molto meno ora.",
         stars: 5,
     },
     {
         name: "Giulia M.",
-        text: "Sono tornata a giocare a tennis dopo soli 3 mesi. Approccio completamente diverso.",
+        text: "Credevo di dovermi rassegnare alla stanchezza cronica. Hanno ascoltato davvero il mio problema, oggi mi sento molto più energica.",
         stars: 5,
     },
     {
-        name: "Roberto L.",
-        text: "Competenza, dedizione e un ambiente accogliente. Ha cambiato la mia postura.",
+        name: "Silvia L.",
+        text: "Avere neuropsicologa, fisioterapista e nutrizionista insieme fa la differenza per la gestione di questi dolori complessi. Altamente consigliato.",
         stars: 5,
     },
 ];
