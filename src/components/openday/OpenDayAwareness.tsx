@@ -86,7 +86,6 @@ export const OpenDayAwareness = () => {
                         className="bg-white text-primary border-2 border-primary/10 px-8 py-4 sm:px-10 sm:py-5 font-sans font-bold text-base md:text-lg w-full sm:w-auto hover:bg-primary hover:text-white hover:border-primary shadow-sm"
                     >
                         <div className="flex items-center justify-center gap-3">
-                            <span className="text-xl" aria-hidden="true">💬</span>
                             Prenota il tuo posto gratuito
                         </div>
                     </MagneticButton>
@@ -115,7 +114,7 @@ export const OpenDayAwareness = () => {
                             Non stai esagerando.
                         </p>
                         <p className="font-sans text-lg md:text-xl text-white/80 leading-relaxed mb-8">
-                            La fibromialgia è una condizione reale, riconosciuta dall'OMS dal 1992. Merita un approccio serio, multidisciplinare e — soprattutto — <span className="text-accent font-bold">ti meriti di essere ascoltata</span>.
+                            La fibromialgia è una condizione reale, riconosciuta dall'OMS dal 1992. Merita un approccio serio, multidisciplinare e soprattutto <span className="text-accent font-bold">ti meriti di essere ascoltata</span>.
                         </p>
                         <MagneticButton
                             href={`https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_MESSAGE}`}

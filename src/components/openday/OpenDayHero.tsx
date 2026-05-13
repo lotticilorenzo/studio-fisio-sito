@@ -27,7 +27,7 @@ export const OpenDayHero = () => {
             <div className="absolute inset-0 z-0 overflow-hidden">
                 <img
                     src="/images/real/internistudiofisyo2.webp"
-                    alt="Studio Fisyo — ambiente professionale e accogliente"
+                    alt="Studio Fisyo, ambiente professionale e accogliente"
                     width={1200}
                     height={800}
                     fetchPriority="high"
@@ -49,7 +49,7 @@ export const OpenDayHero = () => {
                     </h1>
 
                     <p className="hero-subtitle font-sans text-xl md:text-2xl text-background/90 max-w-3xl leading-relaxed mb-8">
-                        Incontri la fisioterapista, la nutrizionista e la psicologa — insieme, in una sola mattina, gratuitamente.
+                        Incontri la fisioterapista, la nutrizionista e la psicologa, insieme, in una sola mattina, gratuitamente.
                     </p>
 
                     <div className="hero-datetime flex flex-wrap items-center gap-4 text-white/80 font-mono text-sm md:text-base bg-white/5 p-4 rounded-2xl border border-white/10 w-fit mb-12 backdrop-blur-sm">
@@ -64,7 +64,7 @@ export const OpenDayHero = () => {
                             <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            9:00 – 13:00
+                            9:00 - 13:00
                         </div>
                         <div className="hidden md:block w-1 h-1 rounded-full bg-white/30"></div>
                         <div className="flex items-center gap-2">

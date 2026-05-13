@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { OpenDayHero } from '../components/openday/OpenDayHero';
-import { CustomCursor } from '../components/CustomCursor';
 import { OpenDayProblem } from '../components/openday/OpenDayProblem';
 import { OpenDayAwareness } from '../components/openday/OpenDayAwareness';
 import { OpenDaySolution } from '../components/openday/OpenDaySolution';
@@ -17,7 +16,7 @@ export const OpenDay = () => {
         window.scrollTo(0, 0);
 
         // ─── Title ───
-        document.title = "Capire la Fibromialgia in 1 Mattina — Open Day Gratuito | Studio Fisyo";
+        document.title = "Capire la Fibromialgia in 1 Mattina | Open Day Gratuito | Studio Fisyo";
 
         // ─── Meta Description ───
         const setMeta = (name: string, content: string, property?: boolean) => {
@@ -32,10 +31,10 @@ export const OpenDay = () => {
         };
 
         setMeta('robots', 'noindex, nofollow');
-        setMeta('description', `Open Day gratuito sulla Fibromialgia a Felino (PR) — ${OPENDAY_CONFIG.FORMATTED_DATE}. Consulenze gratuite con fisioterapista, nutrizionista e psicologa. Solo ${OPENDAY_CONFIG.MAX_SEATS} posti.`);
+        setMeta('description', `Open Day gratuito sulla Fibromialgia a Felino (PR), ${OPENDAY_CONFIG.FORMATTED_DATE}. Consulenze gratuite con fisioterapista, nutrizionista e psicologa. Solo ${OPENDAY_CONFIG.MAX_SEATS} posti.`);
 
         // ─── Open Graph (Facebook / WhatsApp / Instagram) ───
-        setMeta('og:title', 'Capire la Fibromialgia in 1 Mattina — Open Day Gratuito', true);
+        setMeta('og:title', 'Capire la Fibromialgia in 1 Mattina | Open Day Gratuito', true);
         setMeta('og:description', `${OPENDAY_CONFIG.FORMATTED_DATE}, ore 9-13. Consulenze gratuite con 3 specialiste. Solo ${OPENDAY_CONFIG.MAX_SEATS} posti disponibili. Prenota ora!`, true);
         setMeta('og:image', 'https://www.studiofisyo.com/images/og-openday.png', true);
         setMeta('og:url', 'https://www.studiofisyo.com/fibromialgia-open-day', true);
@@ -45,7 +44,7 @@ export const OpenDay = () => {
 
         // ─── Twitter Card ───
         setMeta('twitter:card', 'summary_large_image');
-        setMeta('twitter:title', 'Capire la Fibromialgia in 1 Mattina — Open Day Gratuito');
+        setMeta('twitter:title', 'Capire la Fibromialgia in 1 Mattina | Open Day Gratuito');
         setMeta('twitter:description', `${OPENDAY_CONFIG.FORMATTED_DATE}, 9-13. Consulenze gratuite con 3 specialiste. Solo ${OPENDAY_CONFIG.MAX_SEATS} posti.`);
         setMeta('twitter:image', 'https://www.studiofisyo.com/images/og-openday.png');
 
@@ -62,7 +61,7 @@ export const OpenDay = () => {
         const schema = {
             "@context": "https://schema.org",
             "@type": "Event",
-            "name": "Capire la Fibromialgia in 1 Mattina — Open Day Studio Fisyo",
+            "name": "Capire la Fibromialgia in 1 Mattina | Open Day Studio Fisyo",
             "description": "Open Day gratuito dedicato alla Fibromialgia. Consulenze individuali gratuite con Fisioterapista, Nutrizionista e Psicologa.",
             "startDate": OPENDAY_CONFIG.EVENT_DATE,
             "endDate": OPENDAY_CONFIG.EVENT_DATE.replace('09:00', '13:00'),
@@ -104,7 +103,7 @@ export const OpenDay = () => {
         document.head.appendChild(scriptEl);
 
         return () => {
-            document.title = "Studio Fisyo — Fisioterapia e Riabilitazione a Felino";
+            document.title = "Studio Fisyo | Fisioterapia e Riabilitazione a Felino";
             // Clean up the schema script on unmount
             if (scriptEl.parentNode) scriptEl.parentNode.removeChild(scriptEl);
         };
@@ -113,7 +112,7 @@ export const OpenDay = () => {
     const { PHONE_NUMBER, PHONE_HREF, WHATSAPP_MESSAGE } = OPENDAY_CONFIG;
 
     return (
-        <main className="bg-background min-h-screen text-foreground relative z-10 selection:bg-accent selection:text-primary">
+        <main className="relative z-10 min-h-[100dvh] bg-background text-foreground selection:bg-accent selection:text-primary">
             {/* Push Iubenda widget above sticky CTA on mobile */}
             <style>{`
                 @media (max-width: 767px) {
@@ -122,7 +121,6 @@ export const OpenDay = () => {
                     }
                 }
             `}</style>
-            <CustomCursor />
             <OpenDayHero />
             <OpenDayProblem />
             <OpenDayAwareness />

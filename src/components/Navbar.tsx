@@ -1,181 +1,242 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { HamburgerMenuIcon, Cross1Icon, ChevronDownIcon } from '@radix-ui/react-icons';
 import { Link, useLocation } from 'react-router-dom';
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
 import { MagneticButton } from './MagneticButton';
+
+const serviceLinks = [
+  { to: '/servizi/fisioterapia', label: 'Fisioterapia' },
+  { to: '/servizi/pilates-clinico', label: 'Pilates Clinico' },
+  { to: '/servizi/salute-donna', label: 'Salute della Donna' },
+  { to: '/servizi/linfodrenaggio', label: 'Linfodrenaggio' },
+  { to: '/servizi/psicologia', label: 'Psicologia' },
+  { to: '/servizi/fisio4young', label: 'Fisio4Young' },
+  { to: '/servizi/nutrizione', label: 'Nutrizione' },
+];
+
 export const Navbar = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isHidden, setIsHidden] = useState(false);
-    const [lastScrollY, setLastScrollY] = useState(0);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const location = useLocation();
+  const { scrollY } = useScroll();
 
-    const isHomePage = location.pathname === '/';
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setIsScrolled(latest > 18);
 
-    const { scrollY } = useScroll();
+    if (latest > 180 && latest > lastScrollY) {
+      setIsHidden(true);
+      setIsMobileMenuOpen(false);
+      setIsServicesOpen(false);
+    } else if (latest < lastScrollY || latest < 60) {
+      setIsHidden(false);
+    }
 
-    useMotionValueEvent(scrollY, "change", (latest) => {
-        // Handle background styling
-        if (latest > 50) {
-            setIsScrolled(true);
-        } else {
-            setIsScrolled(false);
-        }
+    setLastScrollY(latest);
+  });
 
-        // Handle hiding/showing based on scroll direction
-        if (latest > 200 && latest > lastScrollY) {
-            setIsHidden(true);
-            // Close mobile menu if open while scrolling down
-            if (isMobileMenuOpen) setIsMobileMenuOpen(false);
-        } else if (latest < lastScrollY || latest < 50) {
-            setIsHidden(false);
-        }
+  const desktopClasses = useMemo(
+    () =>
+      isScrolled
+        ? 'border-primary/10 bg-[rgba(248,244,237,0.8)] shadow-[0_20px_50px_-32px_rgba(28,38,33,0.28)] backdrop-blur-xl'
+        : 'border-primary/8 bg-[rgba(248,244,237,0.62)] backdrop-blur-lg',
+    [isScrolled],
+  );
 
-        setLastScrollY(latest);
-    });
+  return (
+    <>
+      <div
+        className={`fixed left-1/2 top-5 z-50 w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isHidden ? '-translate-y-[150%] opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
+      >
+        <nav
+          className={`relative rounded-full border px-5 py-3 transition-all duration-500 md:px-6 ${desktopClasses}`}
+        >
+          <div className="flex items-center justify-between gap-4">
+            <Link to="/" className="flex items-center gap-3">
+              <img
+                src="/images/logo-fisyo.png"
+                alt="Studio Fisyo"
+                className="h-10 w-auto rounded-md object-contain"
+              />
+              <div className="hidden sm:block">
+                <p className="text-sm font-semibold tracking-[-0.03em] text-primary">Studio Fisyo</p>
+                <p className="text-xs text-primary/48">Felino, Parma</p>
+              </div>
+            </Link>
 
-    return (
-        <>
-            <div className={`fixed top-6 left-1/2 z-50 w-[90%] max-w-5xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHidden ? '-translate-y-[150%] opacity-0 pointer-events-none' : '-translate-x-1/2 opacity-100 pointer-events-auto'}`}>
-                <nav
-                    className={`rounded-full transition-all duration-500 flex items-center justify-between px-6 py-4 ${isScrolled
-                        ? 'bg-background/80 backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_40px_-15px_rgba(0,0,0,0.05)] text-primary'
-                        : `bg-transparent ${isHomePage ? 'text-background' : 'text-primary'}`
-                        }`}
+            <div className="hidden items-center gap-8 text-sm font-medium text-primary/76 md:flex">
+              <Link
+                to="/"
+                className={`transition-colors hover:text-primary ${location.pathname === '/' ? 'text-primary' : ''}`}
+              >
+                Home
+              </Link>
+
+              <div className="group relative">
+                <Link
+                  to="/servizi"
+                  className={`inline-flex items-center gap-2 transition-colors hover:text-primary ${
+                    location.pathname.startsWith('/servizi') ? 'text-primary' : ''
+                  }`}
                 >
-                    <div className="flex items-center gap-2">
-                        <Link to="/" className="hover:opacity-80 transition-opacity flex items-center h-full">
-                            <img
-                                src="/images/logo-fisyo.png"
-                                alt="Studio Fisyo Logo"
-                                className="h-8 w-auto object-contain transition-all duration-300 rounded-sm"
-                            />
-                        </Link>
-                    </div>
+                  Servizi
+                  <ChevronDownIcon className="h-4 w-4 text-primary/38 transition-transform group-hover:rotate-180" />
+                </Link>
 
-                    <div className="hidden md:flex items-center gap-8 font-sans text-sm font-medium">
-                        <Link to="/" className={`hover:-translate-y-[1px] active:scale-[0.98] transition-all hover:text-accent ${location.pathname === '/' ? 'text-accent' : ''}`}>Home</Link>
+                <div className="pointer-events-none absolute left-1/2 top-[calc(100%+0.8rem)] w-[320px] -translate-x-1/2 rounded-[1.75rem] border border-primary/8 bg-[rgba(249,245,238,0.96)] p-2 opacity-0 shadow-[0_28px_70px_-34px_rgba(31,42,36,0.28)] backdrop-blur-xl transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+                  <div className="grid gap-1">
+                    {serviceLinks.map((service) => (
+                      <Link
+                        key={service.to}
+                        to={service.to}
+                        className="rounded-2xl px-4 py-3 text-sm text-primary/70 transition-colors hover:bg-white hover:text-primary"
+                      >
+                        {service.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
-                        {/* Servizi Dropdown */}
-                        <div className="relative group">
-                            <Link to="/servizi" className={`hover:-translate-y-[1px] active:scale-[0.98] transition-all py-4 inline-block hover:text-accent ${location.pathname.startsWith('/servizi') ? 'text-accent' : ''}`}>Servizi</Link>
-                            <div className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-2 w-72 bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col pointer-events-none group-hover:pointer-events-auto text-left">
-                                <Link to="/servizi/fisioterapia" className="px-4 py-2.5 text-primary hover:bg-accent/10 hover:text-accent rounded-xl transition-colors">Fisioterapia e Riabilitazione</Link>
-                                <Link to="/servizi/pilates-clinico" className="px-4 py-2.5 text-primary hover:bg-accent/10 hover:text-accent rounded-xl transition-colors">Pilates Clinico</Link>
-                                <Link to="/servizi/salute-donna" className="px-4 py-2.5 text-primary hover:bg-accent/10 hover:text-accent rounded-xl transition-colors">Salute della Donna</Link>
-                                <Link to="/servizi/linfodrenaggio" className="px-4 py-2.5 text-primary hover:bg-accent/10 hover:text-accent rounded-xl transition-colors">Linfodrenaggio Manuale</Link>
-                                <Link to="/servizi/psicologia" className="px-4 py-2.5 text-primary hover:bg-accent/10 hover:text-accent rounded-xl transition-colors">Psicologia e Psicoterapia</Link>
-                                <Link to="/servizi/fisio4young" className="px-4 py-2.5 text-primary hover:bg-accent/10 hover:text-accent rounded-xl transition-colors">Fisio4Young</Link>
-                                <Link to="/servizi/nutrizione" className="px-4 py-2.5 text-primary hover:bg-accent/10 hover:text-accent rounded-xl transition-colors">Nutrizione Clinica</Link>
-                            </div>
-                        </div>
-
-                        <Link to="/chi-siamo" className={`hover:-translate-y-[1px] active:scale-[0.98] transition-all hover:text-accent ${location.pathname === '/chi-siamo' ? 'text-accent' : ''}`}>Chi Siamo</Link>
-                        <Link to="/contatti" className={`hover:-translate-y-[1px] active:scale-[0.98] transition-all hover:text-accent ${location.pathname === '/contatti' ? 'text-accent' : ''}`}>Contatti</Link>
-                    </div>
-
-                    <div className="hidden md:flex items-center gap-4">
-                        <a
-                            href="https://wa.me/393396508642"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-primary hover:text-accent transition-colors flex items-center justify-center p-2 rounded-full hover:bg-white/10"
-                            aria-label="Contattaci su WhatsApp"
-                        >
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
-                            </svg>
-                        </a>
-                        <MagneticButton to="/contatti" className="bg-accent text-primary px-6 py-2.5 font-sans font-bold text-sm">
-                            Inizia Ora
-                        </MagneticButton>
-                    </div>
-
-                    <div className="flex items-center gap-4 md:hidden">
-                        <a
-                            href="https://wa.me/393396508642"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-primary hover:text-accent transition-colors flex items-center justify-center p-3 rounded-full bg-white/5"
-                            aria-label="Contattaci su WhatsApp"
-                        >
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
-                            </svg>
-                        </a>
-                        <button
-                            aria-label="Toggle Menu"
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="bg-white/5 p-3 rounded-full"
-                        >
-                            {isMobileMenuOpen ? <Cross1Icon className="w-5 h-5" /> : <HamburgerMenuIcon className="w-5 h-5" />}
-                        </button>
-                    </div>
-                </nav>
+              <Link
+                to="/chi-siamo"
+                className={`transition-colors hover:text-primary ${
+                  location.pathname === '/chi-siamo' ? 'text-primary' : ''
+                }`}
+              >
+                Chi siamo
+              </Link>
+              <Link
+                to="/contatti"
+                className={`transition-colors hover:text-primary ${
+                  location.pathname === '/contatti' ? 'text-primary' : ''
+                }`}
+              >
+                Contatti
+              </Link>
             </div>
 
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="fixed inset-0 z-40 bg-background/95 backdrop-blur-3xl flex flex-col items-center justify-start gap-6 text-primary font-sans text-xl overflow-y-auto pt-28 pb-16"
-                    >
-                        <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className={location.pathname === '/' ? 'text-accent' : ''}>Home</Link>
+            <div className="hidden items-center gap-3 md:flex">
+              <a
+                href="https://wa.me/393396508642"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-primary/70 transition-colors hover:text-primary"
+                aria-label="Contattaci su WhatsApp"
+              >
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                </svg>
+              </a>
 
-                        <div className="flex flex-col items-center w-full">
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    const dropdown = document.getElementById('mobile-servizi-dropdown');
-                                    if (dropdown) {
-                                        dropdown.classList.toggle('hidden');
-                                        dropdown.classList.toggle('flex');
-                                    }
-                                }}
-                                className={`flex items-center gap-2 ${location.pathname.startsWith('/servizi') ? 'text-accent' : ''}`}
-                            >
-                                Servizi <ChevronDownIcon className="w-5 h-5" />
-                            </button>
-                            <div id="mobile-servizi-dropdown" className="hidden flex-col items-center gap-4 mt-6 text-lg text-primary/70">
-                                <Link to="/servizi" onClick={() => setIsMobileMenuOpen(false)}>Tutti i Servizi</Link>
-                                <Link to="/servizi/fisioterapia" onClick={() => setIsMobileMenuOpen(false)}>Fisioterapia</Link>
-                                <Link to="/servizi/pilates-clinico" onClick={() => setIsMobileMenuOpen(false)}>Pilates Clinico</Link>
-                                <Link to="/servizi/salute-donna" onClick={() => setIsMobileMenuOpen(false)}>Salute della Donna</Link>
-                                <Link to="/servizi/linfodrenaggio" onClick={() => setIsMobileMenuOpen(false)}>Linfodrenaggio</Link>
-                                <Link to="/servizi/psicologia" onClick={() => setIsMobileMenuOpen(false)}>Psicologia</Link>
-                                <Link to="/servizi/fisio4young" onClick={() => setIsMobileMenuOpen(false)}>Fisio4Young</Link>
-                                <Link to="/servizi/nutrizione" onClick={() => setIsMobileMenuOpen(false)}>Nutrizione Clinica</Link>
-                            </div>
-                        </div>
+              <MagneticButton
+                to="/contatti"
+                className="bg-primary px-6 py-3 text-sm font-semibold text-background shadow-[0_18px_40px_-30px_rgba(36,52,44,0.38)]"
+              >
+                Prenota
+              </MagneticButton>
+            </div>
 
-                        <Link to="/chi-siamo" onClick={() => setIsMobileMenuOpen(false)} className={location.pathname === '/chi-siamo' ? 'text-accent' : ''}>Chi Siamo</Link>
-                        <Link to="/contatti" onClick={() => setIsMobileMenuOpen(false)} className={location.pathname === '/contatti' ? 'text-accent' : ''}>Contatti</Link>
+            <div className="flex items-center gap-3 md:hidden">
+              <a
+                href="https://wa.me/393396508642"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-primary/70"
+                aria-label="Contattaci su WhatsApp"
+              >
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                </svg>
+              </a>
+              <button
+                aria-label="Apri il menu"
+                onClick={() => setIsMobileMenuOpen((value) => !value)}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-primary"
+              >
+                {isMobileMenuOpen ? <Cross1Icon className="h-4 w-4" /> : <HamburgerMenuIcon className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -18 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-3 top-[5.4rem] z-40 overflow-hidden rounded-[2rem] border border-primary/8 bg-[rgba(248,244,237,0.95)] p-5 shadow-[0_30px_70px_-36px_rgba(31,42,36,0.3)] backdrop-blur-xl md:hidden"
+          >
+            <div className="flex flex-col gap-2 text-primary">
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="rounded-2xl px-4 py-3 text-base">
+                Home
+              </Link>
+
+              <button
+                onClick={() => setIsServicesOpen((value) => !value)}
+                className="flex items-center justify-between rounded-2xl px-4 py-3 text-left text-base"
+              >
+                <span>Servizi</span>
+                <ChevronDownIcon className={`h-5 w-5 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence initial={false}>
+                {isServicesOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="grid gap-1 px-2 pb-2">
+                      <Link
+                        to="/servizi"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="rounded-2xl px-4 py-2.5 text-sm text-primary/68"
+                      >
+                        Tutti i servizi
+                      </Link>
+                      {serviceLinks.map((service) => (
                         <Link
-                            to="/contatti"
-                            className="rounded-full border border-accent text-accent font-bold px-8 py-3 mt-4 w-[280px] text-center flex items-center justify-center gap-2"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                          key={service.to}
+                          to={service.to}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="rounded-2xl px-4 py-2.5 text-sm text-primary/68"
                         >
-                            Prenota Visita
+                          {service.label}
                         </Link>
-                        <a
-                            href="https://wa.me/393396508642"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="rounded-full border border-accent text-accent font-bold px-8 py-3 mt-2 w-[280px] text-center flex items-center justify-center gap-2 mb-8 bg-accent/5"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
-                            </svg>
-                            Scrivici su WhatsApp
-                        </a>
-                    </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
                 )}
-            </AnimatePresence>
-        </>
-    );
+              </AnimatePresence>
+
+              <Link to="/chi-siamo" onClick={() => setIsMobileMenuOpen(false)} className="rounded-2xl px-4 py-3 text-base">
+                Chi siamo
+              </Link>
+              <Link to="/contatti" onClick={() => setIsMobileMenuOpen(false)} className="rounded-2xl px-4 py-3 text-base">
+                Contatti
+              </Link>
+            </div>
+
+            <MagneticButton
+              to="/contatti"
+              className="mt-4 w-full bg-primary px-6 py-3 text-sm font-semibold text-background"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Prenota una valutazione
+            </MagneticButton>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 };

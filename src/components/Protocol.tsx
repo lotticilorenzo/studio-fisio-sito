@@ -1,74 +1,78 @@
-import { useRef } from 'react';
-
-
 const steps = [
-    {
-        title: "Accoglienza",
-        desc: "Ascoltiamo davvero la tua storia. Ogni corpo è diverso, ogni percorso anche. Analizziamo le tue necessità in profondità.",
-        num: "01",
-        image: "/images/real/accoglienza.webp"
-    },
-    {
-        title: "Team multidisciplinare",
-        desc: "Fisioterapia, ostetricia, nutrizionista e psicologia si parlano. Un approccio unico che unisce corpo, mente e vita quotidiana.",
-        num: "02",
-        image: "/images/real/fototeamstudiofisyo.webp"
-    },
-    {
-        title: "Risultati concreti",
-        desc: "Il nostro obiettivo è farti tornare a stare bene davvero e non rivederti fra due mesi con lo stesso problema.",
-        num: "03",
-        image: "/images/real/analisi-posturale-schiena-uomo-felino-e1765147214730-768x591.webp"
-    }
+  {
+    title: 'Ascolto e valutazione',
+    text: 'Partiamo da come stai, da quello che ti limita e da cosa vuoi tornare a fare senza pensarci ogni volta.',
+    label: 'Fase 01',
+    image: '/images/real/accoglienza.webp',
+  },
+  {
+    title: 'Percorso condiviso',
+    text: 'Se serve, il caso si apre al confronto tra le professioniste dello studio. Tu hai una direzione chiara e un percorso che resta coerente.',
+    label: 'Fase 02',
+    image: '/images/real/fototeamstudiofisyo.webp',
+  },
+  {
+    title: 'Lavoro che continua',
+    text: 'Trattamento, esercizi e indicazioni pratiche devono aiutarti anche fuori dallo studio. E li che il risultato comincia a restare.',
+    label: 'Fase 03',
+    image: '/images/real/fisioterapia_studio_fisyo.webp',
+  },
 ];
 
 export const Protocol = () => {
-    const containerRef = useRef(null);
+  return (
+    <section className="px-6 py-24 lg:px-12 lg:py-32" id="il-metodo">
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)]">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            Il nostro metodo
+          </p>
+          <h2 className="max-w-xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
+            Un percorso in tre fasi, senza passaggi superflui.
+          </h2>
+          <p className="mt-5 max-w-md text-base leading-relaxed text-primary/64 md:text-lg">
+            Ogni fase ha un compito preciso. Capire il problema, impostare la strada
+            giusta e accompagnarti nel lavoro che conta davvero.
+          </p>
+        </div>
 
-    return (
-        <section ref={containerRef} className="py-24 bg-background relative" id="il-metodo">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-16 md:mb-24 relative z-20">
-                <h2 className="font-sans font-bold text-primary text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight max-w-2xl">
-                    Il nostro metodo <span className="text-accent italic font-drama font-normal">in 3 fasi</span>.
-                </h2>
-            </div>
+        <div className="relative flex flex-col gap-8 lg:gap-10">
+          <div className="absolute left-4 top-6 hidden h-[calc(100%-3rem)] w-px bg-primary/10 lg:block" />
+          {steps.map((step, index) => (
+            <article
+              key={step.title}
+              className="group relative overflow-hidden rounded-[2.7rem] border border-primary/8 bg-white/84 shadow-[0_28px_80px_-48px_rgba(31,42,36,0.28)] backdrop-blur-xl lg:ml-10"
+            >
+              <div className="grid gap-0 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+                <div className="relative overflow-hidden bg-[#e8dfd2]">
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    className="h-full min-h-[280px] w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/28 via-primary/8 to-transparent" />
+                  <span className="absolute left-5 top-5 rounded-full border border-white/30 bg-white/16 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-md">
+                    {step.label}
+                  </span>
+                </div>
 
-            <div className="relative flex flex-col items-center">
-                {steps.map((step, idx) => (
-                    <div
-                        key={idx}
-                        className="w-[90%] md:w-[80%] max-w-5xl h-auto md:h-[70vh] min-h-[500px] rounded-[3rem] bg-white/90 backdrop-blur-xl border border-slate-200/50 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] hover:shadow-[0_40px_80px_-15px_rgba(234,179,8,0.12)] transition-shadow duration-700 flex flex-col md:flex-row overflow-hidden sticky mb-24 lg:mb-32 flex-shrink-0 group"
-                        style={{
-                            top: `calc(15vh + ${idx * 40}px)`,
-                            zIndex: idx
-                        }}
-                    >
-                        {/* Visual Canvas Area */}
-                        <div className="w-full md:w-1/2 h-[300px] md:h-full relative overflow-hidden bg-slate-100">
-                            <img src={step.image} alt={step.title} loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s] ease-out" />
-                            <div className="absolute inset-0 bg-primary/20 mix-blend-overlay group-hover:opacity-50 transition-opacity duration-1000"></div>
-                            <div className="absolute top-8 left-8 font-mono text-sm tracking-widest text-white/90 drop-shadow-md z-10 bg-black/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-                                FASE_{step.num}
-                            </div>
-                        </div>
-
-                        {/* Content Area */}
-                        <div className="w-full md:w-1/2 flex-grow md:h-full p-8 md:p-16 lg:p-20 flex flex-col justify-center bg-transparent relative">
-                            {/* Decorative background blur */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-accent/10 transition-colors duration-1000 pointer-events-none"></div>
-
-                            <div className="relative z-10">
-                                <div className="font-mono text-4xl md:text-5xl lg:text-6xl text-slate-200 mb-8 font-light group-hover:text-accent/30 transition-colors duration-500">{step.num}</div>
-                                <h3 className="font-sans font-bold text-3xl md:text-4xl text-primary mb-6 group-hover:text-accent transition-colors duration-500">{step.title}</h3>
-                                <div className="w-12 h-1 bg-accent/30 rounded-full mb-6 group-hover:w-20 transition-all duration-500"></div>
-                                <p className="font-sans text-foreground/70 text-lg md:text-xl leading-relaxed">
-                                    {step.desc}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </section>
-    );
+                <div className="flex flex-col justify-center p-8 md:p-10">
+                  <p className="text-sm font-medium uppercase tracking-[0.22em] text-primary/36">
+                    0{index + 1}
+                  </p>
+                  <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] text-primary md:text-4xl">
+                    {step.title}
+                  </h3>
+                  <div className="mt-5 h-px w-16 bg-accent/45 transition-all duration-500 group-hover:w-28" />
+                  <p className="mt-6 max-w-lg text-base leading-relaxed text-primary/66 md:text-lg">
+                    {step.text}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };

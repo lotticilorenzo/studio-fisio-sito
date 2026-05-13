@@ -1,133 +1,158 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const MultidisciplinareCard = () => {
-    return (
-        <div className="flex flex-col gap-6 group h-full">
-            <div className="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 lg:p-10 border border-slate-200/50 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(234,179,8,0.1)] transition-all duration-500 h-64 lg:h-72 flex justify-center items-center relative overflow-hidden bg-gradient-to-br from-white/90 to-slate-50/90">
-                {/* Animated interconnected nodes */}
-                <div className="relative w-40 h-40">
-                    <motion.div className="absolute top-0 left-1/2 -ml-6 w-12 h-12 bg-accent/10 rounded-full border border-accent/20 flex items-center justify-center z-10 group-hover:bg-accent/20 group-hover:scale-110 transition-all duration-500" animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-                        <div className="w-2 h-2 bg-accent rounded-full group-hover:scale-150 transition-transform duration-500"></div>
-                    </motion.div>
-                    <motion.div className="absolute bottom-0 left-0 w-12 h-12 bg-primary/10 rounded-full border border-primary/20 flex items-center justify-center z-10 group-hover:border-primary/40 transition-colors duration-500" animate={{ x: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
-                        <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    </motion.div>
-                    <motion.div className="absolute bottom-0 right-0 w-12 h-12 bg-primary/10 rounded-full border border-primary/20 flex items-center justify-center z-10 group-hover:border-primary/40 transition-colors duration-500" animate={{ x: [0, 5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}>
-                        <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    </motion.div>
-
-                    {/* Connecting lines */}
-                    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 160 160">
-                        <motion.path d="M80 24 L24 136" stroke="currentColor" strokeWidth="1.5" className="text-slate-200 group-hover:text-accent/30 transition-colors duration-500" strokeDasharray="4 4" animate={{ strokeDashoffset: [0, 20] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} />
-                        <motion.path d="M80 24 L136 136" stroke="currentColor" strokeWidth="1.5" className="text-slate-200 group-hover:text-accent/30 transition-colors duration-500" strokeDasharray="4 4" animate={{ strokeDashoffset: [0, 20] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} />
-                        <motion.path d="M24 136 L136 136" stroke="currentColor" strokeWidth="1.5" className="text-slate-200 group-hover:text-slate-300 transition-colors duration-500" strokeDasharray="4 4" animate={{ strokeDashoffset: [0, 20] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} />
-                    </svg>
-
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="bg-white px-3 py-1 rounded-full text-[10px] tracking-widest font-bold text-primary shadow-sm border border-slate-100 z-20 group-hover:shadow-md transition-shadow duration-500">PAZIENTE</div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h3 className="font-sans font-bold text-2xl text-primary mb-2">Approccio Multidisciplinare</h3>
-                <p className="font-sans text-foreground/70 text-base leading-relaxed mb-4">
-                    Ogni persona è unica. Integriamo fisioterapia, nutrizione, psicologia e ostetricia in un unico piano coerente per curare la persona, non solo il sintomo.
-                </p>
-                <Link to="/chi-siamo" className="font-sans font-bold text-primary bg-accent/10 hover:bg-accent/20 px-5 py-2.5 rounded-full text-xs tracking-widest uppercase transition-colors flex items-center justify-between gap-3 w-fit border border-accent/20 hover:border-accent/40">
-                    Scopri il team <span className="text-accent text-lg leading-none group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-            </div>
-        </div>
-    );
-};
-
-const PersonalizzatoCard = () => {
-    return (
-        <div className="flex flex-col gap-6 group h-full">
-            <div className="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 lg:p-10 border border-slate-200/50 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(234,179,8,0.1)] transition-all duration-500 h-64 lg:h-72 flex justify-center items-center relative overflow-hidden bg-gradient-to-br from-white/90 to-slate-50/90">
-                <div className="flex flex-col gap-5 w-full max-w-[160px]">
-                    {[0, 1, 2].map((i) => (
-                        <div key={i} className="h-2 w-full bg-slate-100 rounded-full overflow-hidden relative group-hover:bg-slate-200 transition-colors duration-500">
-                            <motion.div
-                                className="absolute top-0 left-0 h-full bg-accent/60 group-hover:bg-accent rounded-full transition-colors duration-500"
-                                initial={{ width: "20%" }}
-                                animate={{ width: i === 0 ? ["20%", "70%", "70%", "20%"] : i === 1 ? ["20%", "40%", "40%", "20%"] : ["20%", "85%", "85%", "20%"] }}
-                                transition={{ duration: 4, repeat: Infinity, delay: i * 0.2, times: [0, 0.4, 0.8, 1], ease: "easeInOut" }}
-                            />
-                            <motion.div
-                                className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-accent rounded-full shadow-sm group-hover:scale-125 transition-transform duration-500"
-                                initial={{ left: "20%" }}
-                                animate={{ left: i === 0 ? ["20%", "70%", "70%", "20%"] : i === 1 ? ["20%", "40%", "40%", "20%"] : ["20%", "85%", "85%", "20%"] }}
-                                transition={{ duration: 4, repeat: Infinity, delay: i * 0.2, times: [0, 0.4, 0.8, 1], ease: "easeInOut" }}
-                                style={{ marginLeft: "-8px" }}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <div>
-                <h3 className="font-sans font-bold text-2xl text-primary mb-2">Percorso Personalizzato</h3>
-                <p className="font-sans text-foreground/70 text-base leading-relaxed mb-4">
-                    Nessun protocollo standard o fotocopia. Dopo un'anamnesi profonda, creiamo una terapia su misura basata sui tuoi specifici obiettivi di salute.
-                </p>
-                <Link to="/servizi" className="font-sans font-bold text-primary bg-accent/10 hover:bg-accent/20 px-5 py-2.5 rounded-full text-xs tracking-widest uppercase transition-colors flex items-center justify-between gap-3 w-fit border border-accent/20 hover:border-accent/40">
-                    Visualizza i percorsi <span className="text-accent text-lg leading-none group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-            </div>
-        </div>
-    );
-};
-
-const PilatesCard = () => {
-    return (
-        <div className="flex flex-col gap-6 group h-full md:col-span-2 lg:col-span-1">
-            <div className="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 lg:p-10 border border-slate-200/50 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(234,179,8,0.1)] transition-all duration-500 h-64 lg:h-72 flex justify-center items-center relative overflow-hidden bg-gradient-to-br from-white/90 to-slate-50/90">
-                <div className="relative w-32 h-32 flex justify-center items-center">
-                    <motion.div
-                        className="absolute w-full h-full rounded-full border-[1.5px] border-primary/20 group-hover:border-accent/30 transition-colors duration-500"
-                        animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0.1, 0.5] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                        className="absolute w-24 h-24 rounded-full border-[1.5px] border-accent/40"
-                        animate={{ scale: [1, 0.8, 1], opacity: [0.5, 0.8, 0.5] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    <div className="text-primary/50 font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-center leading-tight group-hover:text-primary transition-colors duration-500">
-                        Controllo<br />Motori
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h3 className="font-sans font-bold text-2xl text-primary mb-2">Pilates Clinico</h3>
-                <p className="font-sans text-foreground/70 text-base leading-relaxed mb-4">
-                    Condotto esclusivamente da fisioterapisti esperti, in piccoli gruppi o singolarmente. Una vera terapia attiva per rieducare il movimento.
-                </p>
-                <Link to="/servizi/pilates-clinico" className="font-sans font-bold text-primary bg-accent/10 hover:bg-accent/20 px-5 py-2.5 rounded-full text-xs tracking-widest uppercase transition-colors flex items-center justify-between gap-3 w-fit border border-accent/20 hover:border-accent/40">
-                    Scopri il pilates <span className="text-accent text-lg leading-none group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-            </div>
-        </div>
-    );
+const fadeUp = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
 };
 
 export const Features = () => {
-    return (
-        <section className="py-24 md:py-32 px-6 lg:px-12 bg-background relative z-10">
-            <div className="max-w-7xl mx-auto">
-                <div className="mb-16 md:mb-24 flex justify-between items-end">
-                    <h2 className="font-sans font-bold text-primary text-4xl md:text-5xl lg:text-6xl tracking-tight max-w-2xl leading-tight">
-                        Tre pilastri per <br /><span className="text-accent italic font-drama font-normal text-5xl md:text-7xl">risolvere</span> il problema alla radice.
-                    </h2>
-                </div>
+  return (
+    <section className="relative px-6 py-24 lg:px-12 lg:py-32">
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          {...fadeUp}
+          className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end"
+        >
+          <div>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/48">
+              Perche sceglierci
+            </p>
+            <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
+              Tre motivi per cui qui il percorso
+              <span className="font-drama italic font-normal text-accent"> si sente diverso.</span>
+            </h2>
+          </div>
+          <p className="max-w-xl text-lg leading-relaxed text-primary/68">
+            Non stiamo aggiungendo servizi uno accanto all altro. Stiamo costruendo
+            un modo di lavorare in cui ogni parte dello studio ha un ruolo chiaro.
+          </p>
+        </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                    <MultidisciplinareCard />
-                    <PersonalizzatoCard />
-                    <PilatesCard />
-                </div>
+        <div className="grid gap-6 lg:grid-cols-12 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
+          <motion.article
+            {...fadeUp}
+            transition={{ ...fadeUp.transition, delay: 0.06 }}
+            className="group relative overflow-hidden rounded-[2.7rem] border border-primary/8 bg-primary text-background lg:col-span-7 lg:row-span-2"
+          >
+            <div className="absolute inset-0">
+              <img
+                src="/images/real/fototeamstudiofisyo.webp"
+                alt="Il team dello Studio Fisyo."
+                className="h-full w-full object-cover object-center opacity-34 transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/92 via-primary/82 to-[#162019]/94" />
             </div>
-        </section>
-    );
+
+            <div className="relative flex h-full flex-col justify-between p-8 md:p-10 lg:p-12">
+              <div className="max-w-md">
+                <p className="text-xs uppercase tracking-[0.24em] text-background/45">
+                  Primo pilastro
+                </p>
+                <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] md:text-5xl">
+                  Un solo studio, piu competenze che si parlano davvero.
+                </h3>
+                <p className="mt-5 text-base leading-relaxed text-background/72 md:text-lg">
+                  Quando serve, il percorso non resta chiuso in una stanza. Le
+                  professioniste si confrontano e il lavoro rimane coerente.
+                </p>
+              </div>
+
+              <div className="mt-10 flex flex-wrap gap-3 text-sm text-background/72">
+                {['Fisioterapia', 'Pilates clinico', 'Salute della donna', 'Nutrizione', 'Psicologia'].map(
+                  (item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-white/12 bg-white/6 px-4 py-2 backdrop-blur-sm"
+                    >
+                      {item}
+                    </span>
+                  ),
+                )}
+              </div>
+            </div>
+          </motion.article>
+
+          <motion.article
+            {...fadeUp}
+            transition={{ ...fadeUp.transition, delay: 0.14 }}
+            className="rounded-[2.4rem] border border-primary/10 bg-white/82 p-8 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.25)] backdrop-blur-xl lg:col-span-5"
+          >
+            <p className="text-xs uppercase tracking-[0.24em] text-primary/42">Secondo pilastro</p>
+            <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
+              Ogni percorso parte da una domanda semplice.
+            </h3>
+            <p className="mt-4 max-w-lg text-base leading-relaxed text-primary/68">
+              Di cosa hai bisogno oggi e che cosa vuoi tornare a fare senza paura,
+              senza compensi e senza rinunce inutili.
+            </p>
+
+            <div className="mt-8 space-y-4">
+              {[
+                ['Valutazione iniziale', 'Si parte da ascolto, storia clinica e obiettivi concreti.'],
+                ['Scelte leggibili', 'Ti spieghiamo cosa facciamo, perche lo facciamo e come si prosegue.'],
+                ['Passi sostenibili', 'Non carichiamo il percorso di cose che non servono.'],
+              ].map(([title, text], index) => (
+                <div key={title} className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/12 text-sm font-semibold text-accent">
+                    0{index + 1}
+                  </span>
+                  <div>
+                    <p className="font-medium text-primary">{title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-primary/60">{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.article>
+
+          <motion.article
+            {...fadeUp}
+            transition={{ ...fadeUp.transition, delay: 0.2 }}
+            className="relative overflow-hidden rounded-[2.4rem] border border-accent/12 bg-[#efe7d8] p-8 lg:col-span-5"
+          >
+            <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-white/40 to-transparent" />
+            <p className="relative z-10 text-xs uppercase tracking-[0.24em] text-primary/42">Terzo pilastro</p>
+            <h3 className="relative z-10 mt-4 max-w-sm text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
+              Trattamento e lavoro attivo devono stare insieme.
+            </h3>
+            <p className="relative z-10 mt-4 max-w-md text-base leading-relaxed text-primary/68">
+              Per questo i percorsi non si fermano al lettino. Quando serve, il corpo
+              va accompagnato a ritrovare fiducia nel movimento.
+            </p>
+
+            <div className="relative z-10 mt-8 space-y-4">
+              {[78, 58, 88].map((width, index) => (
+                <div key={width} className="space-y-2">
+                  <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-primary/42">
+                    <span>{['Controllo', 'Mobilita', 'Continuita'][index]}</span>
+                    <span>{width}%</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-white/70">
+                    <motion.div
+                      initial={{ width: '24%' }}
+                      whileInView={{ width: `${width}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.15 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                      className="h-full rounded-full bg-primary"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              to="/servizi/pilates-clinico"
+              className="relative z-10 mt-8 inline-flex items-center gap-3 text-sm font-semibold text-primary transition-colors hover:text-accent"
+            >
+              Scopri il Pilates Clinico
+              <span className="text-accent">→</span>
+            </Link>
+          </motion.article>
+        </div>
+      </div>
+    </section>
+  );
 };

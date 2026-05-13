@@ -1,5 +1,12 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import {
+    CalendarIcon,
+    ClockIcon,
+    HomeIcon,
+    MobileIcon,
+    SewingPinIcon,
+} from '@radix-ui/react-icons';
 import { MagneticButton } from '../MagneticButton';
 import { OPENDAY_CONFIG } from '../../config/openday';
 
@@ -27,12 +34,12 @@ export const OpenDayDetails = () => {
     const { PHONE_NUMBER, PHONE_HREF, WHATSAPP_MESSAGE, MAX_SEATS, FORMATTED_DATE } = OPENDAY_CONFIG;
 
     const details = [
-        { icon: "📅", label: "Data", value: FORMATTED_DATE },
-        { icon: "🕘", label: "Orario", value: "9:00 – 13:00" },
-        { icon: "📍", label: "Dove", value: "Studio Fisyo — Via Aldo Moro 1/A, Felino (PR)" },
-        { icon: "💶", label: "Costo", value: "Completamente GRATUITO" },
-        { icon: "🪑", label: "Posti", value: `Solo ${MAX_SEATS} disponibili` },
-        { icon: "📱", label: "Prenotazioni", value: PHONE_NUMBER.replace(/(\d{3})(\d{7})/, "$1-$2") },
+        { icon: CalendarIcon, label: "Data", value: FORMATTED_DATE },
+        { icon: ClockIcon, label: "Orario", value: "9:00 - 13:00" },
+        { icon: HomeIcon, label: "Dove", value: "Studio Fisyo, Via Aldo Moro 1/A, Felino (PR)" },
+        { icon: SewingPinIcon, label: "Costo", value: "Completamente gratuito" },
+        { icon: SewingPinIcon, label: "Posti", value: `Solo ${MAX_SEATS} disponibili` },
+        { icon: MobileIcon, label: "Prenotazioni", value: PHONE_NUMBER.replace(/(\d{3})(\d{7})/, "$1-$2") },
     ];
 
     return (
@@ -49,7 +56,7 @@ export const OpenDayDetails = () => {
                         {details.map((detail, i) => (
                             <div key={i} className="det-item flex items-center gap-4 p-4 rounded-2xl bg-white border border-black/5 shadow-sm hover:shadow-md transition-shadow">
                                 <div className="text-3xl shrink-0 p-2 bg-accent/10 rounded-xl">
-                                    {detail.icon}
+                                    <detail.icon className="h-7 w-7 text-accent" />
                                 </div>
                                 <div>
                                     <div className="font-sans text-sm text-primary/50 uppercase tracking-widest font-bold">
@@ -62,7 +69,7 @@ export const OpenDayDetails = () => {
                             </div>
                         ))}
 
-                        {/* CTA after details — the user just read all the info and is ready to book */}
+                        {/* CTA after details so the visitor can book right after reading the key info */}
                         <div className="det-cta pt-4 flex flex-col sm:flex-row gap-3">
                             <MagneticButton
                                 href={`tel:${PHONE_HREF}`}

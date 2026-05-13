@@ -5,10 +5,9 @@ export const Preloader = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Simulate loading time (e.g., waiting for fonts/images or just a minimum aesthetic delay)
         const timer = setTimeout(() => {
             setIsLoading(false);
-        }, 2200);
+        }, 900);
 
         return () => clearTimeout(timer);
     }, []);
@@ -20,9 +19,8 @@ export const Preloader = () => {
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0, y: -50 }}
                     transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                    className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center overflow-hidden"
+                    className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-background"
                 >
-                    {/* Breathing animated rings (Pilates/Wellness vibe) */}
                     <div className="relative w-32 h-32 flex justify-center items-center mb-12">
                         <motion.div
                             className="absolute w-full h-full rounded-full border-[1px] border-primary/20"
@@ -41,7 +39,7 @@ export const Preloader = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="font-sans font-bold text-3xl tracking-tighter text-primary"
+                            className="font-sans text-3xl font-semibold tracking-[-0.04em] text-primary"
                         >
                             Studio Fisyo
                         </motion.h1>
@@ -49,7 +47,7 @@ export const Preloader = () => {
                             initial={{ width: 0 }}
                             animate={{ width: "100%" }}
                             transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
-                            className="h-[1px] bg-accent/50 mt-6"
+                            className="mt-6 h-[1px] bg-accent/50"
                         />
                     </motion.div>
                 </motion.div>

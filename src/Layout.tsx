@@ -3,35 +3,39 @@ import { motion } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Footer, CTA } from './components/Footer';
 import { Preloader } from './components/Preloader';
-import { CustomCursor } from './components/CustomCursor';
 import { WhatsAppFAB } from './components/WhatsAppFAB';
+import { ScrollProgress } from './components/ScrollProgress';
 
 export const Layout = () => {
     const location = useLocation();
 
     return (
-        <div className="bg-background min-h-[100dvh] font-sans text-foreground selection:bg-accent/20 cursor-none sm:cursor-auto">
-            <CustomCursor />
+        <div className="relative min-h-[100dvh] overflow-x-clip bg-background font-sans text-foreground selection:bg-accent/20">
+            <ScrollProgress />
             <Preloader />
+            <div className="pointer-events-none fixed inset-0 z-0">
+                <div className="absolute left-[-10rem] top-[8rem] h-[26rem] w-[26rem] rounded-full bg-accent/10 blur-[120px]" />
+                <div className="absolute bottom-[-8rem] right-[-6rem] h-[22rem] w-[22rem] rounded-full bg-primary/10 blur-[120px]" />
+                <div className="noise-overlay" aria-hidden="true" />
+            </div>
 
-            {/* Global Noise Overlay */}
-            <div className="noise-overlay" aria-hidden="true" />
+            <div className="relative z-10">
+                <Navbar />
+                <WhatsAppFAB />
 
-            <Navbar />
-            <WhatsAppFAB />
+                <motion.main
+                    key={location.pathname}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -16 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <Outlet />
+                </motion.main>
 
-            <motion.main
-                key={location.pathname}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
-                <Outlet />
-            </motion.main>
-
-            <CTA />
-            <Footer />
+                <CTA />
+                <Footer />
+            </div>
         </div>
     );
 };

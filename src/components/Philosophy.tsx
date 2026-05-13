@@ -1,76 +1,99 @@
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+const values = [
+  {
+    title: 'Ascolto clinico',
+    text: 'Prima di proporre una strada, ci prendiamo il tempo di capire il quadro e il momento che stai vivendo.',
+  },
+  {
+    title: 'Confronto tra professioniste',
+    text: 'Se il caso lo richiede, il percorso si apre al dialogo interno dello studio senza perdere chiarezza.',
+  },
+  {
+    title: 'Obiettivi concreti',
+    text: 'Meno enfasi e piu sostanza. Ci interessa cosa vuoi tornare a fare, non solo come ti senti sul momento.',
+  },
+];
 
 export const Philosophy = () => {
-    const sectionRef = useRef(null);
-    const textRef1 = useRef(null);
-    const textRef2 = useRef(null);
+  return (
+    <section className="relative overflow-hidden bg-[#161f1a] px-6 py-24 text-background lg:px-12 lg:py-32">
+      <div className="absolute inset-0">
+        <img
+          src="/images/real/internistudiofisyo2.webp"
+          alt="Interno dello Studio Fisyo."
+          className="h-full w-full object-cover opacity-[0.11]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#111813]/92 via-[#161f1a]/92 to-[#1c271f]/95" />
+      </div>
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Very subtle parallax on the background
-            gsap.to(".philo-bg", {
-                yPercent: 20,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
+      <div className="absolute left-[6%] top-[14%] h-56 w-56 rounded-full bg-accent/10 blur-[140px]" />
+      <div className="absolute bottom-[6%] right-[8%] h-72 w-72 rounded-full bg-accent/8 blur-[140px]" />
 
-            // Split text fade-up simulation
-            gsap.fromTo(textRef1.current,
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: textRef1.current, start: "top 80%" } }
-            );
+      <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] lg:items-start">
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-background/45">
+            Il nostro modo di lavorare
+          </p>
+          <h2 className="max-w-3xl text-4xl font-semibold leading-[0.96] tracking-[-0.05em] md:text-6xl">
+            Non lavoriamo per spegnere il sintomo e rivederti presto.
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-background/70 md:text-xl">
+            Cerchiamo di capire cosa mantiene acceso il problema e come aiutarti a
+            tornare a una vita piu libera, piu stabile e piu tua.
+          </p>
 
-            gsap.fromTo(textRef2.current,
-                { y: 40, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, delay: 0.2, ease: "power3.out", scrollTrigger: { trigger: textRef2.current, start: "top 80%" } }
-            );
-        }, sectionRef);
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <Link
+              to="/chi-siamo"
+              className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/7 px-7 py-4 text-base font-medium text-background backdrop-blur-md transition-colors hover:bg-white/10"
+            >
+              Conosci il team
+            </Link>
+            <Link
+              to="/contatti"
+              className="inline-flex items-center justify-center rounded-full bg-accent px-7 py-4 text-base font-semibold text-primary transition-colors hover:bg-[#e4b14a]"
+            >
+              Scrivici
+            </Link>
+          </div>
+        </motion.div>
 
-        return () => ctx.revert();
-    }, []);
-
-    return (
-        <section ref={sectionRef} className="relative w-full py-40 md:py-56 px-6 lg:px-12 bg-[#0A0F0D] overflow-hidden group">
-            {/* Background Texture in Parallax */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
-                <img
-                    src="/images/real/internistudiofisyo2.webp"
-                    alt="Texture organica scura"
-                    loading="lazy"
-                    decoding="async"
-                    className="philo-bg w-full h-[120%] object-cover object-center opacity-[0.08] absolute -top-[10%] group-hover:scale-110 transition-transform duration-[3s] ease-out filter grayscale-[50%]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F0D] via-[#0A0F0D]/90 to-[#0A0F0D]"></div>
-
-                {/* Decorative Premium Orbs */}
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2"></div>
-            </div>
-
-            <div className="relative z-10 max-w-6xl mx-auto flex flex-col justify-center h-full">
-                <p ref={textRef1} className="font-sans text-white/50 text-xl md:text-3xl lg:text-4xl tracking-tight mb-8 md:mb-12 max-w-4xl leading-relaxed">
-                    La maggior parte centri standard si concentra su un unico scopo limitato: <span className="text-white/80">spegnere il sintomo momentaneamente per vederti tornare fra due mesi</span>.
-                </p>
-                <h2 ref={textRef2} className="font-sans text-white font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter leading-[1.05] max-w-5xl mb-16">
-                    Noi progettiamo <span className="font-drama italic font-normal text-accent/90">un percorso clinico integrato</span> che agisce su corpo e mente per una soluzione vera e definitiva.
-                </h2>
-
-                <div className="flex">
-                    <Link to="/chi-siamo" className="group/btn rounded-full bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-xl px-10 py-5 text-white font-sans text-lg font-medium transition-all flex items-center gap-4 hover:border-accent/30 hover:shadow-[0_0_30px_rgba(234,179,8,0.1)]">
-                        Scopri il team <span className="text-accent text-2xl group-hover/btn:translate-x-2 transition-transform">→</span>
-                    </Link>
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-[2.7rem] border border-white/10 bg-white/5 p-7 backdrop-blur-xl md:p-8"
+        >
+          <div className="space-y-6">
+            {values.map((value, index) => (
+              <div
+                key={value.title}
+                className="grid gap-4 border-b border-white/8 pb-6 last:border-b-0 last:pb-0 md:grid-cols-[auto_1fr]"
+              >
+                <span className="text-sm font-semibold tracking-[0.22em] text-accent/85">
+                  0{index + 1}
+                </span>
+                <div>
+                  <h3 className="text-2xl font-semibold tracking-[-0.04em] text-white">
+                    {value.title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-base leading-relaxed text-background/68">
+                    {value.text}
+                  </p>
                 </div>
-            </div>
-        </section>
-    );
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 };

@@ -30,10 +30,10 @@ export const OpenDayLandingFooter = () => {
                             43035 Felino (PR)
                         </p>
                         <a href={`tel:${PHONE_HREF}`} className="font-sans text-accent hover:text-accent/80 text-sm font-bold transition-colors block mb-1">
-                            📱 {formattedPhone}
+                            {formattedPhone}
                         </a>
                         <a href="mailto:info@studiofisyo.com" className="font-sans text-white/60 hover:text-white text-sm transition-colors block">
-                            ✉️ info@studiofisyo.com
+                            info@studiofisyo.com
                         </a>
                     </div>
 

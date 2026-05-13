@@ -63,7 +63,7 @@ export const OpenDaySolution = () => {
                             <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-6 border-4 border-[#F2F0E9] group-hover:border-accent transition-colors duration-300 shadow-sm relative">
                                 <img
                                     src={spec.image}
-                                    alt={`${spec.name} — ${spec.role} Studio Fisyo`}
+                                    alt={`${spec.name}, ${spec.role} Studio Fisyo`}
                                     width={256}
                                     height={256}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

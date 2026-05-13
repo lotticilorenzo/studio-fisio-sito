@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 interface MagneticButtonProps {
     children: React.ReactNode;
@@ -70,11 +70,10 @@ export const MagneticButton = ({ children, href, to, className = "", onClick, ta
             <Component
                 {...props}
                 style={{ x: mouseXSpring, y: mouseYSpring }}
-                className={`group relative overflow-hidden inline-flex items-center justify-center rounded-full transition-colors active:scale-[0.98] ${className}`}
+                className={`group relative inline-flex items-center justify-center overflow-hidden rounded-full transition-[background-color,color,border-color,transform,box-shadow] duration-300 active:scale-[0.98] ${className}`}
                 whileTap={{ scale: 0.98 }}
             >
-                {/* Hover slide bg effect */}
-                <span className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out z-0"></span>
+                <span className="absolute inset-0 z-0 translate-y-full bg-white/12 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0" />
                 <span className="relative z-10">{children}</span>
             </Component>
         </div>

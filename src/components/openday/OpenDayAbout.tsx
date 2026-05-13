@@ -40,7 +40,7 @@ export const OpenDayAbout = () => {
 
                     <div className="abt-content">
                         <h2 className="font-drama text-4xl md:text-5xl lg:text-6xl text-primary leading-tight mb-8">
-                            Studio Fisyo — <br />
+                            Studio Fisyo, <br />
                             <span className="italic text-accent">Felino (Parma)</span>
                         </h2>
 
