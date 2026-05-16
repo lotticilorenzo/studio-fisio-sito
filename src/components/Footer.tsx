@@ -116,6 +116,11 @@ export const Footer = () => {
               <a href="mailto:info@studiofisyo.com" className="block transition-colors hover:text-background">
                 info@studiofisyo.com
               </a>
+              <div className="pt-1">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-background/36">Orari</p>
+                <p className="mt-1">Lun–Ven 08:00–20:00</p>
+                <p>Sab su appuntamento</p>
+              </div>
             </div>
 
             <div className="mt-6 flex items-center gap-3">

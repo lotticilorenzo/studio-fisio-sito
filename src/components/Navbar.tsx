@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, useCallback } from 'react';
 import { HamburgerMenuIcon, Cross1Icon, ChevronDownIcon } from '@radix-ui/react-icons';
 import { Link, useLocation } from 'react-router-dom';
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
@@ -19,9 +19,20 @@ export const Navbar = () => {
   const [isHidden, setIsHidden] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
   const lastScrollY = useRef(0);
+  const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openDropdown = useCallback(() => {
+    if (dropdownTimer.current) clearTimeout(dropdownTimer.current);
+    setIsServicesDropdownOpen(true);
+  }, []);
+
+  const closeDropdown = useCallback(() => {
+    dropdownTimer.current = setTimeout(() => setIsServicesDropdownOpen(false), 100);
+  }, []);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const nextScrolled = latest > 18;
@@ -77,61 +88,120 @@ export const Navbar = () => {
             </Link>
 
             <div className="hidden items-center gap-8 text-sm font-medium md:flex">
-              <Link
-                to="/"
-                aria-current={location.pathname === '/' ? 'page' : undefined}
-                className={`transition-colors hover:text-primary ${
-                  location.pathname === '/' ? 'text-primary' : 'text-primary/72'
-                }`}
-              >
-                Home
-              </Link>
+              <div className="relative">
+                <Link
+                  to="/"
+                  aria-current={location.pathname === '/' ? 'page' : undefined}
+                  className={`transition-colors hover:text-primary ${
+                    location.pathname === '/' ? 'text-primary' : 'text-primary/72'
+                  }`}
+                >
+                  Home
+                </Link>
+                {location.pathname === '/' && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute -bottom-[3px] left-0 right-0 h-[1.5px] rounded-full bg-accent"
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                )}
+              </div>
 
-              <div className="group relative">
+              <div
+                className="relative"
+                onMouseEnter={openDropdown}
+                onMouseLeave={closeDropdown}
+              >
                 <Link
                   to="/servizi"
                   aria-current={location.pathname.startsWith('/servizi') ? 'page' : undefined}
+                  aria-expanded={isServicesDropdownOpen}
                   className={`inline-flex items-center gap-2 transition-colors hover:text-primary ${
                     location.pathname.startsWith('/servizi') ? 'text-primary' : 'text-primary/72'
                   }`}
                 >
                   Servizi
-                  <ChevronDownIcon className="h-4 w-4 text-primary/38 transition-transform group-hover:rotate-180" />
+                  <motion.span
+                    animate={{ rotate: isServicesDropdownOpen ? 180 : 0 }}
+                    transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-flex"
+                  >
+                    <ChevronDownIcon className="h-4 w-4 text-primary/38" />
+                  </motion.span>
                 </Link>
 
-                <div className="pointer-events-none absolute left-1/2 top-[calc(100%+0.8rem)] w-[320px] -translate-x-1/2 rounded-[1.75rem] border border-primary/8 bg-[rgba(249,245,238,0.96)] p-2 opacity-0 shadow-[0_28px_70px_-34px_rgba(31,42,36,0.28)] backdrop-blur-xl transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
-                  <div className="grid gap-1">
-                    {serviceLinks.map((service) => (
-                      <Link
-                        key={service.to}
-                        to={service.to}
-                        className="rounded-2xl px-4 py-3 text-sm text-primary/70 transition-colors hover:bg-white hover:text-primary"
-                      >
-                        {service.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                <AnimatePresence>
+                  {isServicesDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.97 }}
+                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-1/2 top-[calc(100%+0.8rem)] w-[320px] -translate-x-1/2 rounded-[1.75rem] border border-primary/8 bg-[rgba(249,245,238,0.96)] p-2 shadow-[0_28px_70px_-34px_rgba(31,42,36,0.28)] backdrop-blur-xl"
+                      onMouseEnter={openDropdown}
+                      onMouseLeave={closeDropdown}
+                    >
+                      <div className="grid gap-1">
+                        {serviceLinks.map((service) => (
+                          <Link
+                            key={service.to}
+                            to={service.to}
+                            onClick={() => setIsServicesDropdownOpen(false)}
+                            className="rounded-2xl px-4 py-3 text-sm text-primary/70 transition-colors hover:bg-white hover:text-primary"
+                          >
+                            {service.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {location.pathname.startsWith('/servizi') && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute -bottom-[3px] left-0 right-0 h-[1.5px] rounded-full bg-accent"
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                )}
               </div>
 
-              <Link
-                to="/chi-siamo"
-                aria-current={location.pathname === '/chi-siamo' ? 'page' : undefined}
-                className={`transition-colors hover:text-primary ${
-                  location.pathname === '/chi-siamo' ? 'text-primary' : 'text-primary/72'
-                }`}
-              >
-                Chi siamo
-              </Link>
-              <Link
-                to="/contatti"
-                aria-current={location.pathname === '/contatti' ? 'page' : undefined}
-                className={`transition-colors hover:text-primary ${
-                  location.pathname === '/contatti' ? 'text-primary' : 'text-primary/72'
-                }`}
-              >
-                Contatti
-              </Link>
+              <div className="relative">
+                <Link
+                  to="/chi-siamo"
+                  aria-current={location.pathname === '/chi-siamo' ? 'page' : undefined}
+                  className={`transition-colors hover:text-primary ${
+                    location.pathname === '/chi-siamo' ? 'text-primary' : 'text-primary/72'
+                  }`}
+                >
+                  Chi siamo
+                </Link>
+                {location.pathname === '/chi-siamo' && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute -bottom-[3px] left-0 right-0 h-[1.5px] rounded-full bg-accent"
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                )}
+              </div>
+              <div className="relative">
+                <Link
+                  to="/contatti"
+                  aria-current={location.pathname === '/contatti' ? 'page' : undefined}
+                  className={`transition-colors hover:text-primary ${
+                    location.pathname === '/contatti' ? 'text-primary' : 'text-primary/72'
+                  }`}
+                >
+                  Contatti
+                </Link>
+                {location.pathname === '/contatti' && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute -bottom-[3px] left-0 right-0 h-[1.5px] rounded-full bg-accent"
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                )}
+              </div>
             </div>
 
             <div className="hidden items-center gap-3 md:flex">

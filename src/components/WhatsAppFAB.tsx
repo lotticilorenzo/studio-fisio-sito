@@ -29,10 +29,11 @@ export const WhatsAppFAB = () => {
                     <AnimatePresence>
                         {showTooltip && (
                             <motion.div
-                                initial={{ opacity: 0, x: 10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: 10 }}
-                                className="bg-white text-primary text-sm font-sans font-medium px-3 py-2 rounded-xl shadow-lg border border-slate-100 whitespace-nowrap"
+                                initial={{ opacity: 0, x: 8, scale: 0.97 }}
+                                animate={{ opacity: 1, x: 0, scale: 1 }}
+                                exit={{ opacity: 0, x: 8, scale: 0.97 }}
+                                transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                                className="bg-white text-primary text-sm font-sans font-medium px-3 py-2 rounded-xl shadow-lg border border-primary/8 whitespace-nowrap"
                             >
                                 Scrivici su WhatsApp
                             </motion.div>
@@ -55,8 +56,8 @@ export const WhatsAppFAB = () => {
                         <motion.div
                             className="absolute inset-0 rounded-full"
                             style={{ backgroundColor: '#25D366' }}
-                            animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
-                            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                            animate={{ scale: [1, 1.22, 1], opacity: [0.5, 0, 0.5] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: [0.4, 0, 0.6, 1] }}
                         />
                         {/* WhatsApp Icon */}
                         <svg className="w-7 h-7 text-white relative z-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

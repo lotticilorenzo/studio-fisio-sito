@@ -1,72 +1,64 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { ease, duration } from '../lib/motion';
 
 const shouldSkipPreloader = () => {
-    if (typeof window === 'undefined') {
-        return false;
-    }
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-
-    return prefersReducedMotion || Boolean(connection?.saveData);
+  if (typeof window === 'undefined') return false;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  return prefersReducedMotion || Boolean(connection?.saveData);
 };
 
 export const Preloader = () => {
-    const [isLoading, setIsLoading] = useState(() => !shouldSkipPreloader());
+  const [isLoading, setIsLoading] = useState(() => !shouldSkipPreloader());
 
-    useEffect(() => {
-        if (!isLoading) {
-            return undefined;
-        }
+  useEffect(() => {
+    if (!isLoading) return undefined;
+    // 1600ms: barra finisce a ~1400ms (delay:0.2 + dur:1.2), 200ms di buffer
+    const timer = setTimeout(() => setIsLoading(false), 1600);
+    return () => clearTimeout(timer);
+  }, [isLoading]);
 
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 420);
+  return (
+    <AnimatePresence>
+      {isLoading && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, y: -24, scale: 0.99 }}
+          transition={{ duration: duration.enter, ease: ease.out }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-background"
+        >
+          <div className="relative mb-12 flex h-32 w-32 items-center justify-center">
+            <motion.div
+              className="absolute h-full w-full rounded-full border border-primary/20"
+              animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.08, 0.3] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: ease.inOut }}
+            />
+            <motion.div
+              className="absolute h-20 w-20 rounded-full border border-accent/35"
+              animate={{ scale: [1, 0.8, 1], opacity: [0.25, 0.7, 0.25] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: ease.inOut, delay: 0.3 }}
+            />
+          </div>
 
-        return () => clearTimeout(timer);
-    }, [isLoading]);
-
-    return (
-        <AnimatePresence>
-            {isLoading && (
-                <motion.div
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0, y: -50 }}
-                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                    className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-background"
-                >
-                    <div className="relative w-32 h-32 flex justify-center items-center mb-12">
-                        <motion.div
-                            className="absolute w-full h-full rounded-full border-[1px] border-primary/20"
-                            animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.1, 0.3] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                        <motion.div
-                            className="absolute w-20 h-20 rounded-full border-[1px] border-accent/40"
-                            animate={{ scale: [1, 0.8, 1], opacity: [0.3, 0.8, 0.3] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-                        />
-                    </div>
-
-                    <motion.div className="flex flex-col items-center overflow-hidden">
-                        <motion.h1
-                            initial={{ y: 50, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="font-sans text-3xl font-semibold tracking-[-0.04em] text-primary"
-                        >
-                            Studio Fisyo
-                        </motion.h1>
-                        <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: "100%" }}
-                            transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
-                            className="mt-6 h-[1px] bg-accent/50"
-                        />
-                    </motion.div>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    );
+          <motion.div className="flex flex-col items-center overflow-hidden">
+            <motion.h1
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: duration.enter, delay: 0.1, ease: ease.out }}
+              className="font-drama text-3xl font-normal italic tracking-[-0.02em] text-primary"
+            >
+              Studio Fisyo
+            </motion.h1>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: '100%' }}
+              transition={{ duration: 1.2, delay: 0.2, ease: ease.out }}
+              className="mt-5 h-px w-48 bg-accent/45"
+            />
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 };

@@ -1,6 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -21,24 +20,20 @@ const NotFound = lazy(async () => ({ default: (await import('./pages/NotFound'))
 const OpenDay = lazy(async () => ({ default: (await import('./pages/OpenDay')).OpenDay }));
 
 function AppRoutes() {
-  const location = useLocation();
-
   return (
-    <AnimatePresence mode="wait">
-      <Suspense fallback={<div className="min-h-screen bg-background" aria-hidden="true" />}>
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="servizi" element={<Servizi />} />
-            <Route path="servizi/:id" element={<ServizioDetail />} />
-            <Route path="chi-siamo" element={<ChiSiamo />} />
-            <Route path="contatti" element={<Contatti />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-          <Route path="/fibromialgia-open-day" element={<OpenDay />} />
-        </Routes>
-      </Suspense>
-    </AnimatePresence>
+    <Suspense fallback={<div className="min-h-screen bg-background" aria-hidden="true" />}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="servizi" element={<Servizi />} />
+          <Route path="servizi/:id" element={<ServizioDetail />} />
+          <Route path="chi-siamo" element={<ChiSiamo />} />
+          <Route path="contatti" element={<Contatti />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="/fibromialgia-open-day" element={<OpenDay />} />
+      </Routes>
+    </Suspense>
   );
 }
 

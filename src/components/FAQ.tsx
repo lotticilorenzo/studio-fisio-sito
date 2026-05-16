@@ -5,7 +5,7 @@ import { Reveal } from './Reveal';
 const faqs = [
   {
     q: 'Serve la prescrizione medica per iniziare?',
-    a: 'Per un trattamento privato no. Se hai gia referti o esami, portali con te alla prima visita.',
+    a: 'Per un trattamento privato no. Se hai già referti o esami, portali con te alla prima visita.',
   },
   {
     q: 'Quanto dura una seduta?',
@@ -13,15 +13,15 @@ const faqs = [
   },
   {
     q: 'Come posso prenotare una valutazione?',
-    a: 'Puoi scriverci su WhatsApp, chiamarci oppure usare il modulo di contatto. Ti indichiamo noi il passo piu semplice.',
+    a: 'Puoi scriverci su WhatsApp, chiamarci oppure usare il modulo di contatto. Ti indichiamo noi il passo più semplice.',
   },
   {
     q: 'Lavorate solo sul sintomo o anche sulle cause?',
-    a: 'Il sintomo conta, ma non e tutto. Cerchiamo sempre di capire che cosa lo alimenta e come aiutarti a non ritrovarti da capo dopo poco.',
+    a: 'Il sintomo conta, ma non è tutto. Cerchiamo sempre di capire che cosa lo alimenta e come aiutarti a non ritrovarti da capo dopo poco.',
   },
   {
     q: 'Avete una prima valutazione gratuita?',
-    a: 'Si. La usiamo per ascoltare bene il problema, capire da dove partire e suggerirti il percorso piu adatto.',
+    a: 'Sì. La usiamo per ascoltare bene il problema, capire da dove partire e suggerirti il percorso più adatto.',
   },
 ];
 
@@ -30,19 +30,28 @@ const FAQItem = ({
   answer,
   isOpen,
   onToggle,
+  number,
 }: {
   question: string;
   answer: string;
   isOpen: boolean;
   onToggle: () => void;
+  number: string;
 }) => (
-  <div className="overflow-hidden rounded-[1.8rem] border border-primary/8 bg-white/78 backdrop-blur-xl">
+  <div
+    className={`overflow-hidden rounded-[1.8rem] border border-primary/8 backdrop-blur-xl transition-colors duration-200 ${
+      isOpen ? 'border-l-2 border-l-accent bg-surface' : 'bg-white/78'
+    }`}
+  >
     <button
       onClick={onToggle}
-      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-white"
+      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-white/40"
       aria-expanded={isOpen}
     >
-      <span className="text-base font-medium leading-snug text-primary md:text-lg">{question}</span>
+      <span className="text-base font-medium leading-snug text-primary md:text-lg">
+        <span className="mr-3 font-mono text-xs text-accent">{number}</span>
+        {question}
+      </span>
       <motion.div
         animate={{ rotate: isOpen ? 45 : 0 }}
         transition={{ duration: 0.22, ease: 'easeInOut' }}
@@ -110,6 +119,7 @@ export const FAQ = () => {
                 answer={faq.a}
                 isOpen={openIndex === index}
                 onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+                number={`0${index + 1}`}
               />
             </Reveal>
           ))}

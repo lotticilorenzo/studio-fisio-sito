@@ -1,100 +1,68 @@
-import { motion, useSpring } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export const CustomCursor = () => {
-    const [isHovering, setIsHovering] = useState(false);
-    const [isVisible, setIsVisible] = useState(false); // Hide until mouse moves
-    const [isMobile, setIsMobile] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const [isPointer, setIsPointer] = useState(false);
 
-    // Smooth spring physics for the cursor
-    const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
-    const cursorX = useSpring(-100, springConfig);
-    const cursorY = useSpring(-100, springConfig);
+  const rawX = useMotionValue(-100);
+  const rawY = useMotionValue(-100);
+  const x = useSpring(rawX, { stiffness: 380, damping: 28, mass: 0.35 });
+  const y = useSpring(rawY, { stiffness: 380, damping: 28, mass: 0.35 });
 
-    useEffect(() => {
-        // Only activate on desktop (touch devices don't need a cursor)
-        const checkMobile = () => {
-            const hasTouch = window.matchMedia("(pointer: coarse)").matches;
-            setIsMobile(hasTouch);
-        };
+  useEffect(() => {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    setMounted(true);
+    document.documentElement.style.cursor = 'none';
 
-        checkMobile();
-        // Fallback for resizing (e.g. Chrome DevTools toggle)
-        window.addEventListener('resize', checkMobile);
+    const onMove = (e: MouseEvent) => {
+      rawX.set(e.clientX);
+      rawY.set(e.clientY);
+    };
+    const onOver = (e: MouseEvent) => {
+      setIsPointer(
+        !!(e.target as Element).closest(
+          'a, button, [role="button"], input, label, select, textarea, [tabindex]',
+        ),
+      );
+    };
 
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseover', onOver);
+    return () => {
+      document.documentElement.style.cursor = '';
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+    };
+  }, [rawX, rawY]);
 
-    useEffect(() => {
-        if (isMobile) return;
+  if (!mounted) return null;
 
-        const handleMouseMove = (e: MouseEvent) => {
-            if (!isVisible) setIsVisible(true);
-
-            // Offset by half the cursor size (standard size is 24px)
-            const offset = isHovering ? 32 : 12;
-
-            cursorX.set(e.clientX - offset);
-            cursorY.set(e.clientY - offset);
-        };
-
-        const handleMouseOver = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            // Check if hovering over a link, button, or custom magnetic element
-            if (
-                target.tagName.toLowerCase() === 'a' ||
-                target.tagName.toLowerCase() === 'button' ||
-                target.closest('a') ||
-                target.closest('button') ||
-                target.classList.contains('magnetic-target') ||
-                getComputedStyle(target).cursor === 'pointer'
-            ) {
-                setIsHovering(true);
-            } else {
-                setIsHovering(false);
-            }
-        };
-
-        const handleMouseLeave = () => setIsVisible(false);
-        const handleMouseEnter = () => setIsVisible(true);
-
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseover', handleMouseOver);
-        document.body.addEventListener('mouseleave', handleMouseLeave);
-        document.body.addEventListener('mouseenter', handleMouseEnter);
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseover', handleMouseOver);
-            document.body.removeEventListener('mouseleave', handleMouseLeave);
-            document.body.removeEventListener('mouseenter', handleMouseEnter);
-        };
-    }, [isMobile, isVisible, isHovering, cursorX, cursorY]);
-
-    if (isMobile) return null;
-
-    return (
-        <motion.div
-            className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-exclusion rounded-full flex items-center justify-center"
-            style={{
-                x: cursorX,
-                y: cursorY,
-                width: isHovering ? 64 : 24,
-                height: isHovering ? 64 : 24,
-                backgroundColor: isHovering ? "rgba(255, 255, 255, 0.1)" : "#fdf6e9",
-                border: isHovering ? "1px solid rgba(255, 255, 255, 0.5)" : "none",
-                opacity: isVisible ? 1 : 0,
-            }}
-            transition={{ type: "tween", ease: "backOut", duration: 0.2 }}
-        >
-            {/* Optional inner dot or text for hover state */}
-            {isHovering && (
-                <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="w-1.5 h-1.5 rounded-full bg-white"
-                />
-            )}
-        </motion.div>
-    );
+  return (
+    <>
+      {/* Anello — segue con spring */}
+      <motion.span
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[200] hidden rounded-full border lg:block"
+        style={{ x, y, translateX: '-50%', translateY: '-50%' }}
+        animate={{
+          width: isPointer ? 42 : 26,
+          height: isPointer ? 42 : 26,
+          opacity: isPointer ? 0.65 : 0.4,
+          borderColor: isPointer
+            ? 'rgba(217,164,59,0.7)'
+            : 'rgba(36,52,44,0.45)',
+        }}
+        transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+      />
+      {/* Punto — posizione istantanea */}
+      <motion.span
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[200] hidden h-[5px] w-[5px] rounded-full bg-accent lg:block"
+        style={{ x: rawX, y: rawY, translateX: '-50%', translateY: '-50%' }}
+        animate={{ scale: isPointer ? 0 : 1 }}
+        transition={{ duration: 0.14 }}
+      />
+    </>
+  );
 };

@@ -1,4 +1,5 @@
 import { Hero } from '../components/Hero';
+import { TrustBar } from '../components/TrustBar';
 import { Features } from '../components/Features';
 import { Philosophy } from '../components/Philosophy';
 import { Protocol } from '../components/Protocol';
@@ -62,6 +63,7 @@ export const Home = () => {
     return (
         <div className="flex flex-col">
             <Hero />
+            <TrustBar />
             <Features />
             <Philosophy />
             <Testimonials />
