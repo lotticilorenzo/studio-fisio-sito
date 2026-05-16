@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
-import { Reveal } from '../components/Reveal';
+import { motion } from 'framer-motion';
+import { PageHero } from '../components/PageHero';
+import { SectionDivider } from '../components/SectionDivider';
 import { useSEO } from '../hooks/useSEO';
+import { ease, duration, viewport } from '../lib/motion';
 
 const values = [
   {
@@ -80,128 +83,142 @@ export const ChiSiamo = () => {
     <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
       <div className="page-aura" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl">
-        <header className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
-          <Reveal width="100%">
-            <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
-                Chi siamo
-              </p>
-              <h1 className="max-w-3xl text-5xl font-semibold leading-[0.96] tracking-[-0.06em] text-primary md:text-7xl">
-                Uno studio nato per lavorare bene insieme.
-              </h1>
-            </div>
-          </Reveal>
+        <PageHero
+          label="Chi siamo"
+          title="Uno studio nato per lavorare bene insieme."
+          subtitle="Siamo un team di professioniste con competenze diverse. La cosa che ci unisce non è una formula, ma un modo di lavorare: ascoltare, confrontarci e costruire un percorso coerente per ogni persona."
+          image="/images/real/fototeamstudiofisyo.webp"
+          imageAlt="Il team dello Studio Fisyo."
+        />
 
-          <Reveal width="100%" delay={0.08}>
-            <p className="max-w-2xl text-lg leading-relaxed text-primary/68 md:text-xl">
-              Siamo un team di professioniste con competenze diverse. La cosa che ci
-              unisce non è una formula, ma un modo di lavorare: ascoltare,
-              confrontarci e costruire un percorso coerente per ogni persona.
+        <SectionDivider className="mt-16 mb-14" />
+
+        {/* Story section */}
+        <section className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewport.section}
+            transition={{ duration: duration.slow, ease: ease.out }}
+          >
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+              Dentro Studio Fisyo
             </p>
-          </Reveal>
-        </header>
+            <h2 className="text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
+              Un posto in cui le competenze si parlano davvero.
+            </h2>
+          </motion.div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <Reveal width="100%">
-            <div className="overflow-hidden rounded-[2.8rem] border border-primary/8 bg-white/70 shadow-[0_28px_80px_-46px_rgba(31,42,36,0.22)] backdrop-blur-xl">
-              <img
-                src="/images/real/fototeamstudiofisyo.webp"
-                alt="Il team dello Studio Fisyo."
-                width={900}
-                height={1125}
-                loading="lazy"
-                decoding="async"
-                className="aspect-[5/4] w-full object-cover"
-              />
-            </div>
-          </Reveal>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewport.section}
+            transition={{ duration: duration.slow, delay: 0.1, ease: ease.out }}
+            className="rounded-[2.8rem] border border-primary/8 bg-white/78 p-8 shadow-[0_28px_80px_-46px_rgba(31,42,36,0.2)] backdrop-blur-xl md:p-10"
+          >
+            <p className="text-lg leading-relaxed text-primary/70">
+              Lo studio nasce dal desiderio di offrire a Felino un posto in cui le
+              persone possano sentirsi seguite con più continuità. A volte serve
+              un trattamento, a volte un lavoro sul movimento, a volte uno sguardo
+              più ampio. Per questo le competenze convivono e si parlano.
+            </p>
+            <p className="mt-5 text-lg leading-relaxed text-primary/70">
+              Non inseguiamo effetti speciali. Cerchiamo chiarezza, attenzione e
+              un modo di lavorare che abbia senso per chi entra qui con un dubbio,
+              un dolore o la voglia di ripartire meglio.
+            </p>
+          </motion.div>
+        </section>
 
-          <Reveal width="100%" delay={0.1}>
-            <div className="rounded-[2.8rem] border border-primary/8 bg-white/78 p-8 shadow-[0_28px_80px_-46px_rgba(31,42,36,0.2)] backdrop-blur-xl md:p-10">
-              <p className="text-sm font-medium uppercase tracking-[0.22em] text-primary/42">
-                Dentro Studio Fisyo
-              </p>
-              <p className="mt-6 text-lg leading-relaxed text-primary/70">
-                Lo studio nasce dal desiderio di offrire a Felino un posto in cui le
-                persone possano sentirsi seguite con più continuità. A volte serve
-                un trattamento, a volte un lavoro sul movimento, a volte uno sguardo
-                più ampio. Per questo le competenze convivono e si parlano.
-              </p>
-              <p className="mt-5 text-lg leading-relaxed text-primary/70">
-                Non inseguiamo effetti speciali. Cerchiamo chiarezza, attenzione e
-                un modo di lavorare che abbia senso per chi entra qui con un dubbio,
-                un dolore o la voglia di ripartire meglio.
-              </p>
-            </div>
-          </Reveal>
-        </div>
+        <SectionDivider className="mt-16 mb-14" />
 
-        <section className="mt-24 overflow-hidden rounded-[3rem] bg-primary px-8 py-12 text-background md:px-10 md:py-14">
+        {/* Values section */}
+        <section className="overflow-hidden rounded-[3rem] bg-primary px-8 py-12 text-background md:px-10 md:py-14">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
-            <Reveal width="100%">
-              <div>
-                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/42">
-                  Il nostro modo di lavorare
-                </p>
-                <h2 className="max-w-md text-4xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-5xl">
-                  Cura, confronto e continuità.
-                </h2>
-              </div>
-            </Reveal>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewport.section}
+              transition={{ duration: duration.slow, ease: ease.out }}
+            >
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/42">
+                Il nostro modo di lavorare
+              </p>
+              <h2 className="max-w-md text-4xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-5xl">
+                Cura, confronto e continuità.
+              </h2>
+            </motion.div>
 
             <div className="grid gap-6 md:grid-cols-3">
               {values.map((value, index) => (
-                <Reveal key={value.title} width="100%" delay={index * 0.06}>
-                  <article className="rounded-[2rem] border border-white/10 bg-white/6 p-6 backdrop-blur-md">
-                    <p className="text-sm font-semibold tracking-[0.24em] text-accent">0{index + 1}</p>
-                    <h3 className="mt-4 text-2xl font-semibold">{value.title}</h3>
-                    <p className="mt-3 text-base leading-relaxed text-background/68">{value.text}</p>
-                  </article>
-                </Reveal>
+                <motion.article
+                  key={value.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewport.item}
+                  transition={{ duration: duration.slow, delay: index * 0.06, ease: ease.out }}
+                  className="rounded-[2rem] border border-white/10 bg-white/6 p-6 backdrop-blur-md"
+                >
+                  <p className="text-sm font-semibold tracking-[0.24em] text-accent">0{index + 1}</p>
+                  <h3 className="mt-4 text-2xl font-semibold">{value.title}</h3>
+                  <p className="mt-3 text-base leading-relaxed text-background/68">{value.text}</p>
+                </motion.article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="mt-24">
-          <Reveal width="100%">
-            <div className="mb-12 max-w-3xl">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
-                Il team
-              </p>
-              <h2 className="text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
-                Le persone che trovi in studio.
-              </h2>
-            </div>
-          </Reveal>
+        <SectionDivider className="mt-16 mb-14" />
+
+        {/* Team section */}
+        <section>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewport.section}
+            transition={{ duration: duration.slow, ease: ease.out }}
+            className="mb-12 max-w-3xl"
+          >
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+              Il team
+            </p>
+            <h2 className="text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
+              Le persone che trovi in studio.
+            </h2>
+          </motion.div>
 
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {team.map((member, index) => (
-              <Reveal key={member.name} width="100%" delay={index * 0.05}>
-                <article className="group overflow-hidden rounded-[2.4rem] border border-primary/8 bg-white/80 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl">
-                  <div className="relative aspect-[4/4.5] overflow-hidden bg-[#e9dfd0]">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      width={800}
-                      height={900}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/35 to-transparent" />
-                  </div>
-                  <div className="p-7 md:p-8">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">
-                      {member.role}
-                    </p>
-                    <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary">
-                      {member.name}
-                    </h3>
-                    <p className="mt-4 text-base leading-relaxed text-primary/66">{member.desc}</p>
-                  </div>
-                </article>
-              </Reveal>
+              <motion.article
+                key={member.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewport.item}
+                transition={{ duration: duration.slow, delay: index * 0.05, ease: ease.out }}
+                className="group overflow-hidden rounded-[2.4rem] border border-primary/8 bg-white/80 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl"
+              >
+                <div className="relative aspect-[4/4.5] overflow-hidden bg-[#e9dfd0]">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    width={800}
+                    height={900}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/35 to-transparent" />
+                </div>
+                <div className="p-7 md:p-8">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">
+                    {member.role}
+                  </p>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary">
+                    {member.name}
+                  </h3>
+                  <p className="mt-4 text-base leading-relaxed text-primary/66">{member.desc}</p>
+                </div>
+              </motion.article>
             ))}
           </div>
         </section>

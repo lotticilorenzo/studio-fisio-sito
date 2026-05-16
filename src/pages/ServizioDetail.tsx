@@ -5,10 +5,12 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 import { servicesById } from '../data/services';
 import { MagneticButton } from '../components/MagneticButton';
+import { SectionDivider } from '../components/SectionDivider';
+import { ease, duration, viewport } from '../lib/motion';
 
 const accordionTransition = {
   duration: 0.26,
-  ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+  ease: ease.out,
 };
 
 const FAQAccordion = ({
@@ -154,7 +156,7 @@ export const ServizioDetail = () => {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: duration.slow, ease: ease.out }}
             className="overflow-hidden rounded-[2.8rem] border border-primary/8 bg-white/74 p-3 shadow-[0_30px_80px_-44px_rgba(31,42,36,0.24)] backdrop-blur-xl"
           >
             <div className="overflow-hidden rounded-[2.2rem] bg-[#eadfce]">
@@ -164,6 +166,7 @@ export const ServizioDetail = () => {
                 width={800}
                 height={900}
                 loading="eager"
+                fetchPriority="high"
                 decoding="async"
                 className="aspect-[4/4.3] w-full object-cover"
               />
@@ -171,14 +174,16 @@ export const ServizioDetail = () => {
           </motion.div>
         </section>
 
-        <section className="mt-16 grid gap-6 lg:grid-cols-2">
+        <SectionDivider className="mt-14 mb-12" />
+
+        <section className="grid gap-6 lg:grid-cols-2">
           {service.intro.map((paragraph, index) => (
             <motion.div
               key={paragraph}
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.75, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              viewport={viewport.item}
+              transition={{ duration: duration.std, delay: index * 0.08, ease: ease.out }}
               className="rounded-[2.3rem] border border-primary/8 bg-white/76 p-7 backdrop-blur-xl md:p-8"
             >
               <p className="text-lg leading-relaxed text-primary/70">{paragraph}</p>
@@ -186,7 +191,9 @@ export const ServizioDetail = () => {
           ))}
         </section>
 
-        <section className="mt-20 grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+        <SectionDivider className="mt-14 mb-12" />
+
+        <section className="grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
           <div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
               Come lavoriamo
@@ -203,8 +210,8 @@ export const ServizioDetail = () => {
                   key={item.title}
                   initial={{ opacity: 0, y: 22 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 0.72, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={viewport.item}
+                  transition={{ duration: duration.std, delay: index * 0.08, ease: ease.out }}
                   className="rounded-[2rem] border border-primary/8 bg-white/78 p-6 backdrop-blur-xl"
                 >
                   <ItemIcon className="h-5 w-5 text-accent" />
@@ -218,13 +225,15 @@ export const ServizioDetail = () => {
           </div>
         </section>
 
-        <section className="mt-20">
+        <SectionDivider className="mt-14 mb-12" />
+
+        <section>
           <div className="mb-8">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
-              Quando puo essere utile
+              Quando può essere utile
             </p>
             <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
-              Alcuni casi in cui questo percorso puo fare la differenza.
+              Alcuni casi in cui questo percorso può fare la differenza.
             </h2>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
@@ -235,8 +244,8 @@ export const ServizioDetail = () => {
                   key={item.title}
                   initial={{ opacity: 0, y: 22 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 0.72, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={viewport.item}
+                  transition={{ duration: duration.std, delay: index * 0.08, ease: ease.out }}
                   className="rounded-[2rem] border border-primary/8 bg-[#f7f1e6] p-6"
                 >
                   <CaseIcon className="h-5 w-5 text-accent" />
@@ -250,7 +259,9 @@ export const ServizioDetail = () => {
           </div>
         </section>
 
-        <section className="mt-20">
+        <SectionDivider className="mt-14 mb-12" />
+
+        <section>
           <div className="mb-8">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
               Professioniste
@@ -266,8 +277,8 @@ export const ServizioDetail = () => {
                 key={specialist.name}
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.75, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                viewport={viewport.item}
+                transition={{ duration: duration.std, delay: index * 0.08, ease: ease.out }}
                 className="overflow-hidden rounded-[2.5rem] border border-primary/8 bg-white/80 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl"
               >
                 <div className="grid gap-0 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
@@ -299,7 +310,9 @@ export const ServizioDetail = () => {
           </div>
         </section>
 
-        <section className="mt-20 grid gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
+        <SectionDivider className="mt-14 mb-12" />
+
+        <section className="grid gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
           <div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
               Domande frequenti

@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { PageHero } from '../components/PageHero';
+import { SectionDivider } from '../components/SectionDivider';
 import { useSEO } from '../hooks/useSEO';
+import { ease, duration, viewport } from '../lib/motion';
 
 const contactCards = [
   {
@@ -17,6 +20,12 @@ const contactCards = [
     href: 'tel:+393396508642',
     cta: 'Chiama lo studio',
   },
+];
+
+const trustItems = [
+  { label: '5.0 ★★★★★', sub: '47 recensioni Google' },
+  { label: 'Risposta entro 24 h', sub: 'dal lunedì al venerdì' },
+  { label: 'Lun–Ven 08:00–20:00', sub: 'Sab su appuntamento' },
 ];
 
 type FormErrors = Partial<Record<'name' | 'phone' | 'email' | 'message' | 'submit', string>>;
@@ -46,7 +55,7 @@ export const Contatti = () => {
   }, []);
 
   const clearError = (field: keyof FormErrors) => {
-    setErrors(prev => {
+    setErrors((prev) => {
       if (!prev[field]) return prev;
       const next = { ...prev };
       delete next[field];
@@ -113,47 +122,59 @@ export const Contatti = () => {
     <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
       <div className="page-aura" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl">
-        <header className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
-              Contatti
-            </p>
-            <h1 className="max-w-3xl text-5xl font-semibold leading-[0.96] tracking-[-0.06em] text-primary md:text-7xl">
-              Scrivici quando vuoi iniziare,
-              <span className="block font-drama font-normal italic text-accent">
-                o anche solo capire da dove partire.
-              </span>
-            </h1>
-          </div>
+        <PageHero
+          label="Contatti"
+          title="Scrivici quando vuoi iniziare,"
+          titleAccent="o anche solo capire da dove partire."
+          subtitle="Puoi prenotare una valutazione, chiedere informazioni su un servizio o raccontarci in breve che cosa ti sta limitando in questo momento."
+        />
 
-          <p className="max-w-2xl text-lg leading-relaxed text-primary/68 md:text-xl">
-            Puoi prenotare una valutazione, chiedere informazioni su un servizio o
-            raccontarci in breve che cosa ti sta limitando in questo momento.
-          </p>
-        </header>
+        {/* Trust indicators */}
+        <div className="mt-10 flex flex-wrap gap-3">
+          {trustItems.map((item) => (
+            <div
+              key={item.label}
+              className="inline-flex items-center gap-2.5 rounded-full border border-primary/8 bg-white/70 px-5 py-2.5 backdrop-blur-md"
+            >
+              <span className="text-sm font-semibold text-primary">{item.label}</span>
+              <span className="h-1 w-1 shrink-0 rounded-full bg-primary/20" aria-hidden="true" />
+              <span className="text-sm text-primary/52">{item.sub}</span>
+            </div>
+          ))}
+        </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <SectionDivider className="mt-10 mb-10" />
+
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6">
             {contactCards.map((card, index) => (
               <motion.article
                 key={card.label}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.72, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                viewport={viewport.item}
+                transition={{ duration: duration.std, delay: index * 0.08, ease: ease.out }}
                 className={`rounded-[2.5rem] border p-7 md:p-8 ${
                   index === 0
                     ? 'border-primary/10 bg-primary text-background shadow-[0_30px_80px_-42px_rgba(36,52,44,0.42)]'
                     : 'border-primary/8 bg-white/80 text-primary shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl'
                 }`}
               >
-                <p className={`text-xs font-semibold uppercase tracking-[0.22em] ${index === 0 ? 'text-background/42' : 'text-primary/42'}`}>
+                <p
+                  className={`text-xs font-semibold uppercase tracking-[0.22em] ${
+                    index === 0 ? 'text-background/42' : 'text-primary/42'
+                  }`}
+                >
                   {card.label}
                 </p>
                 <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em]">
                   {card.title}
                 </h2>
-                <p className={`mt-4 text-base leading-relaxed ${index === 0 ? 'text-background/68' : 'text-primary/66'}`}>
+                <p
+                  className={`mt-4 text-base leading-relaxed ${
+                    index === 0 ? 'text-background/68' : 'text-primary/66'
+                  }`}
+                >
                   {card.text}
                 </p>
                 <a
@@ -174,8 +195,8 @@ export const Contatti = () => {
             <motion.article
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.78, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              viewport={viewport.item}
+              transition={{ duration: duration.std, delay: 0.16, ease: ease.out }}
               className="overflow-hidden rounded-[2.5rem] border border-primary/8 bg-white/78 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl"
             >
               <div className="aspect-[16/10] overflow-hidden" data-lenis-prevent>
@@ -200,16 +221,17 @@ export const Contatti = () => {
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">Orari</p>
                   <p className="mt-3 text-sm leading-relaxed text-primary/66">
-                    Lun - Ven
-                    <br />
-                    08:00 - 20:00
+                    Lun–Ven 08:00–20:00
                     <br />
                     Sabato su appuntamento
                   </p>
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">Email</p>
-                  <a href="mailto:info@studiofisyo.com" className="mt-3 block text-sm leading-relaxed text-primary/66 transition-colors hover:text-primary">
+                  <a
+                    href="mailto:info@studiofisyo.com"
+                    className="mt-3 block text-sm leading-relaxed text-primary/66 transition-colors hover:text-primary"
+                  >
                     info@studiofisyo.com
                   </a>
                 </div>
@@ -220,14 +242,20 @@ export const Contatti = () => {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.78, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            viewport={viewport.item}
+            transition={{ duration: duration.std, delay: 0.08, ease: ease.out }}
             className="rounded-[2.8rem] border border-primary/8 bg-white/82 p-8 shadow-[0_28px_80px_-46px_rgba(31,42,36,0.22)] backdrop-blur-xl md:p-10"
           >
             {isSuccess ? (
               <div className="flex h-full min-h-[420px] flex-col items-center justify-center text-center">
                 <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent/14 text-accent">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-10 w-10"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
@@ -353,7 +381,9 @@ export const Contatti = () => {
                     type="submit"
                     disabled={isSubmitting}
                     className={`inline-flex w-full items-center justify-center rounded-full px-7 py-4 text-base font-semibold transition-colors md:w-auto ${
-                      isSubmitting ? 'cursor-not-allowed bg-primary/70 text-background' : 'bg-primary text-background hover:bg-[#1c2822]'
+                      isSubmitting
+                        ? 'cursor-not-allowed bg-primary/70 text-background'
+                        : 'bg-primary text-background hover:bg-[#1c2822]'
                     }`}
                   >
                     {isSubmitting ? 'Invio in corso' : 'Invia la richiesta'}

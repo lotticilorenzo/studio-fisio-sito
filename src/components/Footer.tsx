@@ -34,14 +34,17 @@ export const CTA = () => {
             >
               Prenota la valutazione
             </MagneticButton>
-            <a
+            <MagneticButton
               href="https://wa.me/393396508642?text=Ciao%20Studio%20Fisyo!%20Vorrei%20prenotare%20una%20valutazione."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/7 px-8 py-4 text-base font-medium text-background transition-colors hover:bg-white/10"
+              className="border border-white/12 bg-white/7 px-8 py-4 text-base font-medium text-background hover:bg-white/10"
             >
               Scrivici su WhatsApp
-            </a>
+            </MagneticButton>
+            <p className="text-center text-xs text-background/42 lg:text-right">
+              Lun–Ven 08:00–20:00 · Sab su appuntamento
+            </p>
           </div>
         </div>
       </motion.div>
