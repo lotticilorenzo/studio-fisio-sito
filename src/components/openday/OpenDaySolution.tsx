@@ -66,8 +66,9 @@ export const OpenDaySolution = () => {
                                     alt={`${spec.name}, ${spec.role} Studio Fisyo`}
                                     width={256}
                                     height={256}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                     loading="lazy"
+                                    decoding="async"
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 />
                             </div>
                             <div className="font-mono text-xs md:text-sm tracking-widest text-primary/50 font-bold mb-2 uppercase">

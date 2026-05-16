@@ -9,10 +9,10 @@ const values = [
   },
   {
     title: 'Confronto',
-    text: 'Le professioniste dello studio si parlano, cosi il lavoro resta coerente quando il caso lo richiede.',
+    text: 'Le professioniste dello studio si parlano, così il lavoro resta coerente quando il caso lo richiede.',
   },
   {
-    title: 'Continuita',
+    title: 'Continuità',
     text: 'Trattamento, movimento e indicazioni pratiche devono aiutarti anche fuori dallo studio.',
   },
 ];
@@ -33,19 +33,19 @@ const team = [
   {
     name: 'Valentina Mazza',
     role: 'Psicologa clinica',
-    desc: 'Accoglie le persone con uno sguardo attento e costruisce percorsi che aiutano a mettere a fuoco cio che oggi pesa di piu.',
+    desc: 'Accoglie le persone con uno sguardo attento e costruisce percorsi che aiutano a mettere a fuoco ciò che oggi pesa di più.',
     image: '/images/real/staff-valentina-mazza-fisioterapista-studio-fisyo.webp',
   },
   {
     name: 'Valentina Corradi',
     role: 'Fisioterapista',
-    desc: 'Segue il Pilates Clinico con grande cura del dettaglio, qualita del gesto e sicurezza del percorso.',
+    desc: 'Segue il Pilates Clinico con grande cura del dettaglio, qualità del gesto e sicurezza del percorso.',
     image: '/images/real/staff-valentina-corradi-pilates-clinico-studio-fisyo.webp',
   },
   {
     name: 'Elisa Zanacca',
     role: 'Ostetrica',
-    desc: 'Accompagna le donne in un percorso riservato e rispettoso, dal pavimento pelvico alla fase del post parto.',
+    desc: 'Accompagna le donne in un percorso riservato e rispettoso, dal pavimento pelvico alla fase del post-parto.',
     image: '/images/real/fotoostetrica.webp',
   },
   {
@@ -60,7 +60,7 @@ export const ChiSiamo = () => {
   useSEO({
     title: 'Chi siamo | Studio Fisyo - Fisioterapia a Felino',
     description:
-      'Scopri il team di Studio Fisyo a Felino. Fisioterapia, osteopatia, ostetricia, nutrizione e psicologia in un unico spazio di lavoro.',
+      'Scopri il team di Studio Fisyo a Felino. Fisioterapia, ostetricia, nutrizione e psicologia in un unico spazio di lavoro.',
     image: 'https://www.studiofisyo.com/images/real/fototeamstudiofisyo.webp',
     url: 'https://www.studiofisyo.com/chi-siamo',
     schema: {
@@ -77,8 +77,9 @@ export const ChiSiamo = () => {
   }, []);
 
   return (
-    <div className="px-6 pb-24 pt-32 lg:px-12">
-      <div className="mx-auto max-w-7xl">
+    <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
+      <div className="page-aura" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl">
         <header className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
           <Reveal width="100%">
             <div>
@@ -94,7 +95,7 @@ export const ChiSiamo = () => {
           <Reveal width="100%" delay={0.08}>
             <p className="max-w-2xl text-lg leading-relaxed text-primary/68 md:text-xl">
               Siamo un team di professioniste con competenze diverse. La cosa che ci
-              unisce non e una formula, ma un modo di lavorare: ascoltare,
+              unisce non è una formula, ma un modo di lavorare: ascoltare,
               confrontarci e costruire un percorso coerente per ogni persona.
             </p>
           </Reveal>
@@ -106,6 +107,10 @@ export const ChiSiamo = () => {
               <img
                 src="/images/real/fototeamstudiofisyo.webp"
                 alt="Il team dello Studio Fisyo."
+                width={900}
+                height={1125}
+                loading="lazy"
+                decoding="async"
                 className="aspect-[5/4] w-full object-cover"
               />
             </div>
@@ -118,9 +123,9 @@ export const ChiSiamo = () => {
               </p>
               <p className="mt-6 text-lg leading-relaxed text-primary/70">
                 Lo studio nasce dal desiderio di offrire a Felino un posto in cui le
-                persone possano sentirsi seguite con piu continuita. A volte serve
+                persone possano sentirsi seguite con più continuità. A volte serve
                 un trattamento, a volte un lavoro sul movimento, a volte uno sguardo
-                piu ampio. Per questo le competenze convivono e si parlano.
+                più ampio. Per questo le competenze convivono e si parlano.
               </p>
               <p className="mt-5 text-lg leading-relaxed text-primary/70">
                 Non inseguiamo effetti speciali. Cerchiamo chiarezza, attenzione e
@@ -139,7 +144,7 @@ export const ChiSiamo = () => {
                   Il nostro modo di lavorare
                 </p>
                 <h2 className="max-w-md text-4xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-5xl">
-                  Cura, confronto e continuita.
+                  Cura, confronto e continuità.
                 </h2>
               </div>
             </Reveal>
@@ -178,6 +183,8 @@ export const ChiSiamo = () => {
                     <img
                       src={member.image}
                       alt={member.name}
+                      width={800}
+                      height={900}
                       loading="lazy"
                       decoding="async"
                       className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"

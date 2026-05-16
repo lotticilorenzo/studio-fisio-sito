@@ -17,8 +17,8 @@ export const Home = () => {
             "@context": "https://schema.org",
             "@type": "MedicalClinic",
             "name": "Studio Fisyo",
-            "image": "https://www.studiofisyo.com/images/real/internistudiofisyo.webp",
-            "description": "Studio di fisioterapia, pilates clinico, osteopatia e nutrizione a Felino (Parma).",
+            "image": "https://www.studiofisyo.com/images/real/internistudiofisyo2.webp",
+            "description": "Studio di fisioterapia, pilates clinico, salute della donna, nutrizione e percorsi integrati a Felino (Parma).",
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Via Aldo Moro 1/A",

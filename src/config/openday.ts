@@ -5,4 +5,5 @@ export const OPENDAY_CONFIG = {
     MAX_SEATS: 10,
     EVENT_DATE: '2026-03-21T09:00:00+01:00',
     FORMATTED_DATE: 'Sabato 21 Marzo 2026',
+    IS_PAST_EVENT: new Date() > new Date('2026-03-21T09:00:00+01:00'),
 };

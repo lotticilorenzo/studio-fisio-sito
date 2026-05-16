@@ -1,16 +1,31 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
+const shouldSkipPreloader = () => {
+    if (typeof window === 'undefined') {
+        return false;
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+
+    return prefersReducedMotion || Boolean(connection?.saveData);
+};
+
 export const Preloader = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(() => !shouldSkipPreloader());
 
     useEffect(() => {
+        if (!isLoading) {
+            return undefined;
+        }
+
         const timer = setTimeout(() => {
             setIsLoading(false);
-        }, 900);
+        }, 420);
 
         return () => clearTimeout(timer);
-    }, []);
+    }, [isLoading]);
 
     return (
         <AnimatePresence>

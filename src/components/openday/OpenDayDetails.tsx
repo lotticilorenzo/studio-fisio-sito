@@ -98,7 +98,7 @@ export const OpenDayDetails = () => {
                         </div>
                     </div>
 
-                    <div className="det-map rounded-[2.5rem] overflow-hidden shadow-lg border-4 border-white h-[400px] lg:h-[100%] min-h-[400px]">
+                    <div className="det-map rounded-[2.5rem] overflow-hidden shadow-lg border-4 border-white h-[400px] lg:h-[100%] min-h-[400px]" data-lenis-prevent>
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2836.852109404!2d10.24522437613768!3d44.68239077107198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47806f7aa112cefb%3A0xbc72dfc4ed6fbc55!2sFisyo!5e0!3m2!1sit!2sit!4v1709476123995!5m2!1sit!2sit"
                             width="100%"

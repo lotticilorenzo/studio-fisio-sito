@@ -61,7 +61,7 @@ export const services: ServiceData[] = [
     highlights: ['Dolore acuto o cronico', 'Recupero post intervento', 'Lavoro attivo sul movimento'],
     intro: [
       'Partiamo da quello che senti oggi, ma il lavoro non finisce quando il dolore si abbassa. Guardiamo come ti muovi, cosa ti limita e quali abitudini stanno tenendo acceso il problema.',
-      'L obiettivo e semplice. Farti tornare a muoverti bene, con meno paura e piu autonomia nella vita di tutti i giorni.',
+      "L'obiettivo è semplice. Farti tornare a muoverti bene, con meno paura e più autonomia nella vita di tutti i giorni.",
     ],
     approach: [
       {
@@ -71,12 +71,12 @@ export const services: ServiceData[] = [
       },
       {
         title: 'Trattamento mirato',
-        body: 'Usiamo terapia manuale ed esercizio terapeutico per ridurre dolore, rigidita e compensi.',
+        body: 'Usiamo terapia manuale ed esercizio terapeutico per ridurre dolore, rigidità e compensi.',
         icon: ActivityLogIcon,
       },
       {
-        title: 'Continuita a casa',
-        body: 'Ti lasciamo indicazioni semplici e utili, cosi il lavoro fatto in studio continua davvero.',
+        title: 'Continuità a casa',
+        body: 'Ti lasciamo indicazioni semplici e utili, così il lavoro fatto in studio continua davvero.',
         icon: LightningBoltIcon,
       },
     ],
@@ -88,7 +88,7 @@ export const services: ServiceData[] = [
       },
       {
         title: 'Post operatorio',
-        body: 'Un percorso guidato dopo un intervento per recuperare mobilita, forza e sicurezza nei gesti quotidiani.',
+        body: 'Un percorso guidato dopo un intervento per recuperare mobilità, forza e sicurezza nei gesti quotidiani.',
         icon: SunIcon,
       },
       {
@@ -127,7 +127,7 @@ export const services: ServiceData[] = [
       {
         question: 'Fate anche esercizi oltre al trattamento manuale?',
         answer:
-          'Si. Per noi e una parte fondamentale del percorso, soprattutto quando vogliamo consolidare il risultato e prevenire ricadute.',
+          'Sì. Per noi è una parte fondamentale del percorso, soprattutto quando vogliamo consolidare il risultato e prevenire ricadute.',
       },
     ],
   },
@@ -136,21 +136,21 @@ export const services: ServiceData[] = [
     title: 'Pilates clinico',
     label: 'Movimento guidato',
     summary:
-      'Un lavoro sul corpo condotto da fisioterapiste, pensato per postura, controllo e continuita nel movimento.',
+      'Un lavoro sul corpo condotto da fisioterapiste, pensato per postura, controllo e continuità nel movimento.',
     subtitle:
-      'Non una lezione standard, ma un lavoro guidato su respirazione, controllo e qualita del gesto.',
+      'Non una lezione standard, ma un lavoro guidato su respirazione, controllo e qualità del gesto.',
     image: '/images/real/staff-valentina-corradi-pilates-clinico-studio-fisyo.webp',
     imageAlt: 'La fisioterapista che segue una seduta di pilates clinico.',
     icon: MixIcon,
     highlights: ['Piccoli gruppi', 'Controllo posturale', 'Guidato da fisioterapiste'],
     intro: [
-      'Il Pilates Clinico e utile quando hai bisogno di rimettere ordine nel movimento, non solo di fare attivita fisica. Ti aiuta a sentire meglio il corpo, distribuire meglio il carico e lavorare con piu continuita.',
-      'E adatto sia a chi convive con dolore o rigidita, sia a chi vuole riprendere a muoversi in modo piu consapevole dopo una fase delicata.',
+      'Il Pilates Clinico è utile quando hai bisogno di rimettere ordine nel movimento, non solo di fare attività fisica. Ti aiuta a sentire meglio il corpo, distribuire meglio il carico e lavorare con più continuità.',
+      'È adatto sia a chi convive con dolore o rigidità, sia a chi vuole riprendere a muoversi in modo più consapevole dopo una fase delicata.',
     ],
     approach: [
       {
         title: 'Ingresso valutato',
-        body: 'Partiamo sempre da una valutazione, cosi sappiamo da dove iniziare e cosa evitare.',
+        body: 'Partiamo sempre da una valutazione, così sappiamo da dove iniziare e cosa evitare.',
         icon: TargetIcon,
       },
       {
@@ -160,19 +160,19 @@ export const services: ServiceData[] = [
       },
       {
         title: 'Progressione graduale',
-        body: 'Il carico cresce quando il corpo e pronto. Senza fretta e senza farti inseguire esercizi che non ti appartengono.',
+        body: 'Il carico cresce quando il corpo è pronto. Senza fretta e senza farti inseguire esercizi che non ti appartengono.',
         icon: LightningBoltIcon,
       },
     ],
     cases: [
       {
         title: 'Postura e schiena',
-        body: 'Utile quando senti rigidita, instabilita o affaticamento continuo nella zona lombare e dorsale.',
+        body: 'Utile quando senti rigidità, instabilità o affaticamento continuo nella zona lombare e dorsale.',
         icon: ActivityLogIcon,
       },
       {
         title: 'Ripresa dopo il dolore',
-        body: 'Aiuta a tornare al movimento con gradualita quando non te la senti ancora di ripartire da solo.',
+        body: 'Aiuta a tornare al movimento con gradualità quando non te la senti ancora di ripartire da solo.',
         icon: SunIcon,
       },
       {
@@ -186,7 +186,7 @@ export const services: ServiceData[] = [
         name: 'Valentina Corradi',
         role: 'Fisioterapista',
         description:
-          'Segue il Pilates Clinico con attenzione al dettaglio, alla qualita del gesto e alla sicurezza del percorso.',
+          'Segue il Pilates Clinico con attenzione al dettaglio, alla qualità del gesto e alla sicurezza del percorso.',
         image: '/images/real/staff-valentina-corradi-pilates-clinico-studio-fisyo.webp',
       },
     ],
@@ -194,17 +194,17 @@ export const services: ServiceData[] = [
       {
         question: 'Posso iniziare anche se non ho mai fatto Pilates?',
         answer:
-          'Si. Il percorso nasce proprio per accompagnarti passo dopo passo, senza richiedere esperienza precedente.',
+          'Sì. Il percorso nasce proprio per accompagnarti passo dopo passo, senza richiedere esperienza precedente.',
       },
       {
-        question: 'E adatto se ho male alla schiena?',
+        question: 'È adatto se ho male alla schiena?',
         answer:
-          'Spesso si, ma prima va capito in che fase sei e che cosa sta succedendo. Per questo partiamo sempre da una valutazione.',
+          'Spesso sì, ma prima va capito in che fase sei e che cosa sta succedendo. Per questo partiamo sempre da una valutazione.',
       },
       {
         question: 'Le sedute sono individuali o di gruppo?',
         answer:
-          'Lavoriamo in modo individuale o in piccoli gruppi, cosi possiamo seguirti davvero durante gli esercizi.',
+          'Lavoriamo in modo individuale o in piccoli gruppi, così possiamo seguirti davvero durante gli esercizi.',
       },
     ],
   },
@@ -213,21 +213,21 @@ export const services: ServiceData[] = [
     title: 'Salute della donna',
     label: 'Area dedicata',
     summary:
-      'Uno spazio di lavoro riservato per pavimento pelvico, gravidanza, post parto e benessere femminile.',
+      'Uno spazio di lavoro riservato per pavimento pelvico, gravidanza, post-parto e benessere femminile.',
     subtitle:
       'Un percorso delicato, competente e rispettoso dei tempi con cui ogni donna sceglie di farsi seguire.',
     image: '/images/real/salute_donna.webp',
     imageAlt: 'Un trattamento dedicato alla salute della donna.',
     icon: HeartIcon,
-    highlights: ['Pavimento pelvico', 'Gravidanza e post parto', 'Ascolto riservato'],
+    highlights: ['Pavimento pelvico', 'Gravidanza e post-parto', 'Ascolto riservato'],
     intro: [
-      'Ci sono sintomi che molte donne tengono per se troppo a lungo. Dolore, peso pelvico, fastidi dopo il parto, difficolta legate al pavimento pelvico o al cambiamento del corpo.',
+      'Ci sono sintomi che molte donne tengono per sé troppo a lungo. Dolore, peso pelvico, fastidi dopo il parto, difficoltà legate al pavimento pelvico o al cambiamento del corpo.',
       'Qui trovi un ambiente riservato e una professionista che sa come affrontare questi temi con delicatezza, chiarezza e rispetto.',
     ],
     approach: [
       {
         title: 'Colloquio e valutazione',
-        body: 'Prima di tutto ascolto. Capire il contesto e il vissuto e parte del lavoro clinico.',
+        body: 'Prima di tutto ascolto. Capire il contesto e il vissuto è parte del lavoro clinico.',
         icon: PersonIcon,
       },
       {
@@ -254,7 +254,7 @@ export const services: ServiceData[] = [
       },
       {
         title: 'Post parto',
-        body: 'Per ricominciare con ordine, ascoltare il corpo e ritrovare stabilita nel tempo giusto.',
+        body: 'Per ricominciare con ordine, ascoltare il corpo e ritrovare stabilità nel tempo giusto.',
         icon: ActivityLogIcon,
       },
     ],
@@ -263,23 +263,23 @@ export const services: ServiceData[] = [
         name: 'Elisa Zanacca',
         role: 'Ostetrica',
         description:
-          'Accompagna le donne con un approccio attento, rispettoso e molto concreto, dal pavimento pelvico al post parto.',
+          'Accompagna le donne con un approccio attento, rispettoso e molto concreto, dal pavimento pelvico al post-parto.',
         image: '/images/real/fotoostetrica.webp',
       },
     ],
     faqs: [
       {
-        question: 'La prima visita puo mettermi a disagio. Come funziona?',
+        question: 'La prima visita può mettermi a disagio. Come funziona?',
         answer:
           'Si parte sempre da un colloquio. Ogni passaggio viene spiegato e nulla viene fatto senza il tuo consenso.',
       },
       {
         question: 'Posso iniziare anche a distanza di tempo dal parto?',
         answer:
-          'Si. Molte donne iniziano anche mesi o anni dopo, quando sentono che e arrivato il momento giusto.',
+          'Sì. Molte donne iniziano anche mesi o anni dopo, quando sentono che è arrivato il momento giusto.',
       },
       {
-        question: 'Serve avere gia una diagnosi?',
+        question: 'Serve avere già una diagnosi?',
         answer:
           'Non necessariamente. La prima visita serve anche a capire meglio da dove partono i sintomi.',
       },
@@ -290,31 +290,31 @@ export const services: ServiceData[] = [
     title: 'Linfodrenaggio manuale',
     label: 'Terapia decongestiva',
     summary:
-      'Un trattamento delicato e preciso per gonfiore, ristagno, fase post operatoria e bisogno di alleggerire i tessuti.',
+      'Un trattamento delicato e preciso per gonfiore, ristagno, fase post-operatoria e bisogno di alleggerire i tessuti.',
     subtitle:
       'Non un massaggio generico, ma un lavoro clinico fatto con tecnica, attenzione e tempi corretti.',
     image: '/images/real/linfodrenaggiobendaggigambe.webp',
     imageAlt: 'Una seduta di linfodrenaggio manuale.',
     icon: MixIcon,
-    highlights: ['Edemi e gonfiore', 'Post operatorio', 'Manualita delicata'],
+    highlights: ['Edemi e gonfiore', 'Post operatorio', 'Manualità delicata'],
     intro: [
-      'Quando i tessuti sono gonfi, pesanti o in una fase delicata del recupero, servono mani esperte e una tecnica rispettosa. Il linfodrenaggio manuale lavora proprio li.',
-      'E un trattamento utile in diversi momenti, dal post operatorio al gonfiore persistente, sempre con un ritmo delicato e un obiettivo chiaro.',
+      'Quando i tessuti sono gonfi, pesanti o in una fase delicata del recupero, servono mani esperte e una tecnica rispettosa. Il linfodrenaggio manuale lavora proprio lì.',
+      'È un trattamento utile in diversi momenti, dal post operatorio al gonfiore persistente, sempre con un ritmo delicato e un obiettivo chiaro.',
     ],
     approach: [
       {
         title: 'Valutazione del quadro',
-        body: 'Capire da dove nasce il gonfiore e in che fase sei e il primo passo per scegliere il ritmo giusto.',
+        body: 'Capire da dove nasce il gonfiore e in che fase sei è il primo passo per scegliere il ritmo giusto.',
         icon: TargetIcon,
       },
       {
         title: 'Tecnica manuale',
-        body: 'Il trattamento e leggero, progressivo e rispettoso dei tessuti. Non deve essere aggressivo per essere efficace.',
+        body: 'Il trattamento è leggero, progressivo e rispettoso dei tessuti. Non deve essere aggressivo per essere efficace.',
         icon: MixIcon,
       },
       {
         title: 'Indicazioni pratiche',
-        body: 'Quando serve, affianchiamo consigli semplici su gestione quotidiana, bendaggio o continuita del percorso.',
+        body: 'Quando serve, affianchiamo consigli semplici su gestione quotidiana, bendaggio o continuità del percorso.',
         icon: LightningBoltIcon,
       },
     ],
@@ -326,12 +326,12 @@ export const services: ServiceData[] = [
       },
       {
         title: 'Gonfiore e pesantezza',
-        body: 'Quando senti gambe o braccia piu tese, pesanti o segnate dal ristagno.',
+        body: 'Quando senti gambe o braccia più tese, pesanti o segnate dal ristagno.',
         icon: ActivityLogIcon,
       },
       {
-        title: 'Percorsi piu lunghi',
-        body: 'Per chi ha bisogno di continuita e di una gestione costante nel tempo, con obiettivi realistici.',
+        title: 'Percorsi più lunghi',
+        body: 'Per chi ha bisogno di continuità e di una gestione costante nel tempo, con obiettivi realistici.',
         icon: TargetIcon,
       },
     ],
@@ -346,9 +346,9 @@ export const services: ServiceData[] = [
     ],
     faqs: [
       {
-        question: 'Il trattamento e doloroso?',
+        question: 'Il trattamento è doloroso?',
         answer:
-          'No. Il lavoro e delicato e viene adattato alla sensibilita dei tessuti e al momento del recupero.',
+          'No. Il lavoro è delicato e viene adattato alla sensibilità dei tessuti e al momento del recupero.',
       },
       {
         question: 'Quante sedute servono?',
@@ -358,7 +358,7 @@ export const services: ServiceData[] = [
       {
         question: 'Serve sempre il bendaggio?',
         answer:
-          'Non sempre. Viene proposto solo quando puo essere davvero utile al percorso.',
+          'Non sempre. Viene proposto solo quando può essere davvero utile al percorso.',
       },
     ],
   },
@@ -367,21 +367,21 @@ export const services: ServiceData[] = [
     title: 'Psicologia e psicoterapia',
     label: 'Spazio di ascolto',
     summary:
-      'Un percorso per dare ordine a stanchezza, ansia, fatica emotiva o momenti in cui il corpo e la testa non vanno piu nella stessa direzione.',
+      'Un percorso per dare ordine a stanchezza, ansia, fatica emotiva o momenti in cui il corpo e la testa non vanno più nella stessa direzione.',
     subtitle:
-      'Perche a volte il benessere cambia davvero quando qualcuno ti aiuta a mettere a fuoco quello che stai vivendo.',
+      'Perché a volte il benessere cambia davvero quando qualcuno ti aiuta a mettere a fuoco quello che stai vivendo.',
     image: '/images/real/psicologia.webp',
-    imageAlt: 'Uno spazio dedicato all ascolto psicologico.',
+    imageAlt: "Uno spazio dedicato all'ascolto psicologico.",
     icon: LightningBoltIcon,
     highlights: ['Ansia e stress', 'Supporto emotivo', 'Percorsi individuali'],
     intro: [
-      'Non sempre si arriva in studio con un bisogno solo fisico. A volte il dolore pesa anche sulla testa. A volte e il contrario.',
-      'Avere uno spazio di ascolto puo aiutare a rimettere ordine, prendere fiato e capire come affrontare meglio quello che stai vivendo.',
+      'Non sempre si arriva in studio con un bisogno solo fisico. A volte il dolore pesa anche sulla testa. A volte è il contrario.',
+      'Avere uno spazio di ascolto può aiutare a rimettere ordine, prendere fiato e capire come affrontare meglio quello che stai vivendo.',
     ],
     approach: [
       {
         title: 'Colloquio iniziale',
-        body: 'Serve a capire che cosa stai attraversando e se questo e il percorso giusto per te in questo momento.',
+        body: 'Serve a capire che cosa stai attraversando e se questo è il percorso giusto per te in questo momento.',
         icon: PersonIcon,
       },
       {
@@ -391,7 +391,7 @@ export const services: ServiceData[] = [
       },
       {
         title: 'Lavoro integrato',
-        body: 'Quando ha senso, il supporto psicologico puo camminare accanto agli altri percorsi dello studio.',
+        body: 'Quando ha senso, il supporto psicologico può camminare accanto agli altri percorsi dello studio.',
         icon: MixIcon,
       },
     ],
@@ -417,38 +417,38 @@ export const services: ServiceData[] = [
         name: 'Valentina Mazza',
         role: 'Psicologa clinica',
         description:
-          'Accoglie le persone con uno sguardo attento e concreto, costruendo percorsi che aiutano a dare forma a cio che oggi pesa di piu.',
+          'Accoglie le persone con uno sguardo attento e concreto, costruendo percorsi che aiutano a dare forma a ciò che oggi pesa di più.',
         image: '/images/real/staff-valentina-mazza-fisioterapista-studio-fisyo.webp',
       },
     ],
     faqs: [
       {
-        question: 'Devo avere gia le idee chiare per iniziare?',
+        question: 'Devo avere già le idee chiare per iniziare?',
         answer:
           'No. Spesso si comincia proprio da una sensazione confusa o da una fatica che non sai ancora raccontare bene.',
       },
       {
         question: 'Quanto dura un percorso?',
         answer:
-          'Dipende dal bisogno e dall obiettivo. Dopo i primi incontri capiamo insieme che forma puo avere.',
+          "Dipende dal bisogno e dall'obiettivo. Dopo i primi incontri capiamo insieme che forma può avere.",
       },
       {
-        question: 'Il percorso puo affiancare fisioterapia o altri trattamenti?',
+        question: 'Il percorso può affiancare fisioterapia o altri trattamenti?',
         answer:
-          'Si, quando ha senso puo diventare un supporto utile anche dentro un lavoro piu ampio sul benessere.',
+          'Sì, quando ha senso può diventare un supporto utile anche dentro un lavoro più ampio sul benessere.',
       },
     ],
   },
   {
     id: 'fisio4young',
     title: 'Fisio4Young',
-    label: 'Eta evolutiva',
+    label: 'Età evolutiva',
     summary:
       'Un percorso dedicato a bambini e ragazzi per postura, crescita, movimento e recupero dopo piccoli o grandi stop.',
     subtitle:
       'Per seguire il corpo mentre cresce, senza aspettare che un fastidio diventi un limite vero.',
     image: '/images/real/esercizibambinifisioterapia.webp',
-    imageAlt: 'Una seduta dedicata al movimento in eta evolutiva.',
+    imageAlt: 'Una seduta dedicata al movimento in età evolutiva.',
     icon: SunIcon,
     highlights: ['Bambini e ragazzi', 'Postura e crescita', 'Rientro allo sport'],
     intro: [
@@ -458,17 +458,17 @@ export const services: ServiceData[] = [
     approach: [
       {
         title: 'Osservazione e confronto',
-        body: 'Capire come si muove il ragazzo e cosa notano famiglia, scuola o allenatori e il primo passo.',
+        body: 'Capire come si muove il ragazzo e cosa notano famiglia, scuola o allenatori è il primo passo.',
         icon: PersonIcon,
       },
       {
-        title: 'Lavoro adatto all eta',
+        title: 'Lavoro adatto all età',
         body: 'Gli esercizi vengono proposti in modo semplice, concreto e adatto a chi li deve fare davvero.',
         icon: SunIcon,
       },
       {
         title: 'Obiettivi chiari',
-        body: 'Piu sicurezza nel corpo, meno fastidi e un ritorno al movimento fatto con i tempi giusti.',
+        body: 'Più sicurezza nel corpo, meno fastidi e un ritorno al movimento fatto con i tempi giusti.',
         icon: TargetIcon,
       },
     ],
@@ -485,7 +485,7 @@ export const services: ServiceData[] = [
       },
       {
         title: 'Movimento quotidiano',
-        body: 'Per accompagnare il ragazzo a sentirsi piu sicuro, coordinato e libero nei gesti di tutti i giorni.',
+        body: 'Per accompagnare il ragazzo a sentirsi più sicuro, coordinato e libero nei gesti di tutti i giorni.',
         icon: MixIcon,
       },
     ],
@@ -507,10 +507,10 @@ export const services: ServiceData[] = [
       {
         question: 'Serve la presenza di un genitore?',
         answer:
-          'Nella prima fase si, per raccogliere bene la storia e costruire un percorso condiviso.',
+          'Nella prima fase sì, per raccogliere bene la storia e costruire un percorso condiviso.',
       },
       {
-        question: 'Gli esercizi vengono adattati all eta?',
+        question: 'Gli esercizi vengono adattati all età?',
         answer:
           'Sempre. Il lavoro deve essere comprensibile, sostenibile e adatto a chi lo sta facendo.',
       },
@@ -523,14 +523,14 @@ export const services: ServiceData[] = [
     summary:
       'Un supporto concreto per ritrovare equilibrio nel rapporto con il cibo, con il corpo e con alcuni bisogni clinici specifici.',
     subtitle:
-      'Per lavorare su alimentazione e benessere in modo serio, senza rigidita inutili e senza soluzioni standard.',
+      'Per lavorare su alimentazione e benessere in modo serio, senza rigidità inutili e senza soluzioni standard.',
     image: '/images/real/elisa-cardinali-nutrizionista-e1766323699892.webp',
     imageAlt: 'La nutrizionista dello studio durante un incontro.',
     icon: HeartIcon,
     highlights: ['Piani personalizzati', 'Obiettivi realistici', 'Collaborazione con il team'],
     intro: [
       'Mangiare meglio non significa vivere in controllo continuo. Un percorso nutrizionale fatto bene ti aiuta a capire cosa ti serve davvero e come portarlo dentro la tua vita.',
-      'Quando serve, la nutrizione si integra con gli altri percorsi dello studio. Questo rende il lavoro piu coerente e spesso piu sostenibile nel tempo.',
+      'Quando serve, la nutrizione si integra con gli altri percorsi dello studio. Questo rende il lavoro più coerente e spesso più sostenibile nel tempo.',
     ],
     approach: [
       {
@@ -552,7 +552,7 @@ export const services: ServiceData[] = [
     cases: [
       {
         title: 'Equilibrio e benessere',
-        body: 'Per sentirti piu stabile, piu leggero e meno in lotta con l alimentazione.',
+        body: "Per sentirti più stabile, più leggero e meno in lotta con l'alimentazione.",
         icon: SunIcon,
       },
       {
@@ -562,7 +562,7 @@ export const services: ServiceData[] = [
       },
       {
         title: 'Percorsi integrati',
-        body: 'Quando il lavoro nutrizionale puo sostenere fisioterapia, movimento o altri obiettivi di salute.',
+        body: 'Quando il lavoro nutrizionale può sostenere fisioterapia, movimento o altri obiettivi di salute.',
         icon: MixIcon,
       },
     ],
@@ -577,9 +577,9 @@ export const services: ServiceData[] = [
     ],
     faqs: [
       {
-        question: 'Il piano alimentare e molto rigido?',
+        question: 'Il piano alimentare è molto rigido?',
         answer:
-          'No. L obiettivo e trovare una struttura che funzioni davvero nella tua quotidianita.',
+          "No. L'obiettivo è trovare una struttura che funzioni davvero nella tua quotidianità.",
       },
       {
         question: 'Devo arrivare con esami del sangue recenti?',
@@ -589,7 +589,7 @@ export const services: ServiceData[] = [
       {
         question: 'Posso affiancare la nutrizione a un altro percorso dello studio?',
         answer:
-          'Si. Quando ha senso, il lavoro nutrizionale si integra bene con fisioterapia, movimento o altri bisogni specifici.',
+          'Sì. Quando ha senso, il lavoro nutrizionale si integra bene con fisioterapia, movimento o altri bisogni specifici.',
       },
     ],
   },

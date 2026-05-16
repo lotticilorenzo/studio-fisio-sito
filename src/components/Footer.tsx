@@ -1,17 +1,24 @@
-import { MagneticButton } from './MagneticButton';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { MagneticButton } from './MagneticButton';
 
 export const CTA = () => {
   return (
     <section className="px-6 pb-8 pt-20 lg:px-12 lg:pb-10 lg:pt-28" id="prenota">
-      <div className="mx-auto max-w-6xl overflow-hidden rounded-[3rem] border border-primary/10 bg-primary px-8 py-14 text-background shadow-[0_36px_90px_-42px_rgba(36,52,44,0.48)] md:px-12 md:py-16 lg:px-16">
+      <motion.div
+        initial={{ opacity: 0, y: 26 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="mx-auto max-w-6xl overflow-hidden rounded-[3rem] border border-primary/10 bg-primary px-8 py-14 text-background shadow-[0_36px_90px_-42px_rgba(36,52,44,0.48)] md:px-12 md:py-16 lg:px-16"
+      >
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-background/42">
               Primo passo
             </p>
             <h2 className="mt-4 max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-6xl">
-              Se senti che e il momento giusto,
+              Se senti che è il momento giusto,
               <span className="font-drama italic font-normal text-accent"> partiamo da una valutazione fatta bene.</span>
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-background/68 md:text-lg">
@@ -37,15 +44,21 @@ export const CTA = () => {
             </a>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
 
 export const Footer = () => {
   return (
-    <footer className="mt-6 bg-[#141c18] px-6 pb-12 pt-18 text-background lg:px-12 lg:pt-24">
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-t-[3rem] border border-white/6 bg-[#121915] px-8 py-12 shadow-[0_-18px_40px_-30px_rgba(0,0,0,0.2)] md:px-10 lg:px-12 lg:py-14">
+    <footer className="mt-6 bg-[#141c18] px-6 pb-12 pt-20 text-background lg:px-12 lg:pt-24">
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        className="mx-auto max-w-7xl overflow-hidden rounded-t-[3rem] border border-white/6 bg-[#121915] px-8 py-12 shadow-[0_-18px_40px_-30px_rgba(0,0,0,0.2)] md:px-10 lg:px-12 lg:py-14"
+      >
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.7fr)_minmax(0,0.9fr)]">
           <div>
             <img
@@ -57,7 +70,7 @@ export const Footer = () => {
             />
             <p className="mt-6 max-w-sm text-base leading-relaxed text-background/62">
               Studio Fisyo a Felino. Fisioterapia, Pilates Clinico e percorsi
-              integrati costruiti con attenzione, chiarezza e continuita.
+              integrati costruiti con attenzione, chiarezza e continuità.
             </p>
             <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-accent/20 bg-accent/8 px-4 py-2">
               <span className="h-2 w-2 rounded-full bg-accent" />
@@ -133,7 +146,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-xs text-background/36 md:flex-row md:items-center md:justify-between">
-          <p>© 2026 Studio Fisyo. Tutti i diritti riservati. P.IVA 02551160340</p>
+          <p>2026 Studio Fisyo. Tutti i diritti riservati. P.IVA 02551160340</p>
           <div className="flex gap-5">
             <a
               href="https://www.iubenda.com/privacy-policy/25963224"
@@ -151,7 +164,7 @@ export const Footer = () => {
             </a>
           </div>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 };

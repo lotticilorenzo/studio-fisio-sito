@@ -20,7 +20,7 @@ export const OpenDayHero = () => {
         return () => ctx.revert();
     }, []);
 
-    const { PHONE_NUMBER, PHONE_HREF, WHATSAPP_MESSAGE, MAX_SEATS, FORMATTED_DATE } = OPENDAY_CONFIG;
+    const { PHONE_NUMBER, PHONE_HREF, WHATSAPP_MESSAGE, MAX_SEATS, FORMATTED_DATE, IS_PAST_EVENT } = OPENDAY_CONFIG;
 
     return (
         <section ref={comp} className="relative w-full min-h-[100svh] flex flex-col justify-end pt-24 md:pt-40 pb-16 md:pb-24 lg:pb-32 px-6 lg:px-12 bg-primary overflow-hidden">
@@ -31,6 +31,7 @@ export const OpenDayHero = () => {
                     width={1200}
                     height={800}
                     fetchPriority="high"
+                    loading="eager"
                     decoding="async"
                     className="w-full h-full object-cover filter brightness-[0.35]"
                 />
@@ -40,8 +41,8 @@ export const OpenDayHero = () => {
             <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col justify-end">
                 <div className="max-w-4xl">
                     <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-primary font-bold text-sm tracking-wider uppercase mb-8">
-                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                        SOLO {MAX_SEATS} POSTI &middot; GRATUITO
+                        <span className={`w-2 h-2 rounded-full bg-primary ${IS_PAST_EVENT ? '' : 'animate-pulse'}`}></span>
+                        {IS_PAST_EVENT ? 'Evento Concluso' : <>SOLO {MAX_SEATS} POSTI &middot; GRATUITO</>}
                     </div>
 
                     <h1 className="hero-title font-sans font-bold text-white text-4xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1] mb-6">

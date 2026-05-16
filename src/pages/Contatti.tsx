@@ -1,26 +1,30 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useSEO } from '../hooks/useSEO';
 
 const contactCards = [
   {
     label: 'WhatsApp',
-    title: 'Il modo piu rapido per sentirci',
-    text: 'Se preferisci un contatto diretto, scrivici qui. Di solito e il canale piu veloce.',
+    title: 'Il modo più rapido per sentirci',
+    text: 'Se preferisci un contatto diretto, scrivici qui. Di solito è il canale più veloce.',
     href: 'https://wa.me/393396508642?text=Ciao%20Studio%20Fisyo!%20Vorrei%20prenotare%20una%20valutazione.',
     cta: 'Apri WhatsApp',
   },
   {
     label: 'Telefono',
     title: 'Se vuoi parlare con noi',
-    text: 'Puoi chiamarci in studio e capire subito qual e il primo passo migliore per te.',
+    text: 'Puoi chiamarci in studio e capire subito qual è il primo passo migliore per te.',
     href: 'tel:+393396508642',
     cta: 'Chiama lo studio',
   },
 ];
 
+type FormErrors = Partial<Record<'name' | 'phone' | 'email' | 'message' | 'submit', string>>;
+
 export const Contatti = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
 
   useSEO({
     title: 'Contatti | Prenota a Studio Fisyo Felino',
@@ -41,11 +45,46 @@ export const Contatti = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const clearError = (field: keyof FormErrors) => {
+    setErrors(prev => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  };
+
+  const validate = (formData: FormData): FormErrors => {
+    const errs: FormErrors = {};
+    const name = String(formData.get('name') ?? '').trim();
+    const phone = String(formData.get('phone') ?? '').trim();
+    const email = String(formData.get('email') ?? '').trim();
+    const message = String(formData.get('message') ?? '').trim();
+
+    if (!name) errs.name = 'Il nome è obbligatorio.';
+    if (!phone) errs.phone = 'Il telefono è obbligatorio.';
+    if (!email) {
+      errs.email = "L'email è obbligatoria.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errs.email = 'Inserisci un indirizzo email valido.';
+    }
+    if (!message) errs.message = 'Il messaggio è obbligatorio.';
+    return errs;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
     const form = e.currentTarget;
     const formData = new FormData(form);
+
+    const validationErrors = validate(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors({});
+    setIsSubmitting(true);
 
     try {
       const response = await fetch('https://formsubmit.co/ajax/info@studiofisyo.com', {
@@ -60,19 +99,20 @@ export const Contatti = () => {
         setIsSuccess(true);
         form.reset();
       } else {
-        alert("Si e verificato un errore durante l invio. Riprova piu tardi.");
+        setErrors({ submit: "Si è verificato un errore durante l'invio. Riprova più tardi." });
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      alert("Si e verificato un errore di rete. Riprova piu tardi.");
+      setErrors({ submit: 'Si è verificato un errore di rete. Riprova più tardi.' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="px-6 pb-24 pt-32 lg:px-12">
-      <div className="mx-auto max-w-7xl">
+    <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
+      <div className="page-aura" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl">
         <header className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
           <div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
@@ -95,8 +135,12 @@ export const Contatti = () => {
         <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6">
             {contactCards.map((card, index) => (
-              <article
+              <motion.article
                 key={card.label}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.72, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className={`rounded-[2.5rem] border p-7 md:p-8 ${
                   index === 0
                     ? 'border-primary/10 bg-primary text-background shadow-[0_30px_80px_-42px_rgba(36,52,44,0.42)]'
@@ -124,11 +168,17 @@ export const Contatti = () => {
                 >
                   {card.cta}
                 </a>
-              </article>
+              </motion.article>
             ))}
 
-            <article className="overflow-hidden rounded-[2.5rem] border border-primary/8 bg-white/78 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl">
-              <div className="aspect-[16/10] overflow-hidden">
+            <motion.article
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.78, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden rounded-[2.5rem] border border-primary/8 bg-white/78 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl"
+            >
+              <div className="aspect-[16/10] overflow-hidden" data-lenis-prevent>
                 <iframe
                   src="https://maps.google.com/maps?q=Via%20Aldo%20Moro%201%2FA%2C%20Felino&t=&z=15&ie=UTF8&iwloc=&output=embed"
                   className="h-full w-full border-0"
@@ -164,10 +214,16 @@ export const Contatti = () => {
                   </a>
                 </div>
               </div>
-            </article>
+            </motion.article>
           </div>
 
-          <div className="rounded-[2.8rem] border border-primary/8 bg-white/82 p-8 shadow-[0_28px_80px_-46px_rgba(31,42,36,0.22)] backdrop-blur-xl md:p-10">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.78, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-[2.8rem] border border-primary/8 bg-white/82 p-8 shadow-[0_28px_80px_-46px_rgba(31,42,36,0.22)] backdrop-blur-xl md:p-10"
+          >
             {isSuccess ? (
               <div className="flex h-full min-h-[420px] flex-col items-center justify-center text-center">
                 <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent/14 text-accent">
@@ -202,10 +258,17 @@ export const Contatti = () => {
                   recapito e ti richiamiamo noi.
                 </p>
 
-                <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-6">
+                <form onSubmit={handleSubmit} noValidate className="relative mt-8 flex flex-col gap-6">
                   <input type="hidden" name="_subject" value="Nuova richiesta dal sito Studio Fisyo" />
                   <input type="hidden" name="_template" value="table" />
-                  <input type="text" name="_honey" style={{ display: 'none' }} aria-hidden="true" />
+                  <input
+                    type="text"
+                    name="_honey"
+                    aria-hidden="true"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="absolute -left-[9999px] top-0 h-px w-px opacity-0"
+                  />
 
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="text-sm font-medium text-primary">
@@ -216,9 +279,13 @@ export const Contatti = () => {
                       id="name"
                       name="name"
                       required
-                      className="w-full rounded-2xl border border-primary/10 bg-[#fbf8f2] px-4 py-3 text-primary outline-none transition-colors focus:border-accent"
+                      onChange={() => clearError('name')}
+                      className={`w-full rounded-2xl border bg-[#fbf8f2] px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
+                        errors.name ? 'border-red-400' : 'border-primary/10'
+                      }`}
                       placeholder="Mario Rossi"
                     />
+                    {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
                   </div>
 
                   <div className="grid gap-6 md:grid-cols-2">
@@ -231,9 +298,13 @@ export const Contatti = () => {
                         id="phone"
                         name="phone"
                         required
-                        className="w-full rounded-2xl border border-primary/10 bg-[#fbf8f2] px-4 py-3 text-primary outline-none transition-colors focus:border-accent"
+                        onChange={() => clearError('phone')}
+                        className={`w-full rounded-2xl border bg-[#fbf8f2] px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
+                          errors.phone ? 'border-red-400' : 'border-primary/10'
+                        }`}
                         placeholder="+39"
                       />
+                      {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
                     </div>
                     <div className="flex flex-col gap-2">
                       <label htmlFor="email" className="text-sm font-medium text-primary">
@@ -243,9 +314,14 @@ export const Contatti = () => {
                         type="email"
                         id="email"
                         name="email"
-                        className="w-full rounded-2xl border border-primary/10 bg-[#fbf8f2] px-4 py-3 text-primary outline-none transition-colors focus:border-accent"
+                        required
+                        onChange={() => clearError('email')}
+                        className={`w-full rounded-2xl border bg-[#fbf8f2] px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
+                          errors.email ? 'border-red-400' : 'border-primary/10'
+                        }`}
                         placeholder="nome@email.com"
                       />
+                      {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
                     </div>
                   </div>
 
@@ -258,10 +334,20 @@ export const Contatti = () => {
                       name="message"
                       required
                       rows={5}
-                      className="w-full resize-none rounded-[1.6rem] border border-primary/10 bg-[#fbf8f2] px-4 py-3 text-primary outline-none transition-colors focus:border-accent"
-                      placeholder="Spiegaci in breve cosa ti sta creando difficolta."
+                      onChange={() => clearError('message')}
+                      className={`w-full resize-none rounded-[1.6rem] border bg-[#fbf8f2] px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
+                        errors.message ? 'border-red-400' : 'border-primary/10'
+                      }`}
+                      placeholder="Spiegaci in breve cosa ti sta creando difficoltà."
                     />
+                    {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}
                   </div>
+
+                  {errors.submit && (
+                    <p className="rounded-2xl border border-red-400/30 bg-red-50 px-4 py-3 text-sm text-red-500">
+                      {errors.submit}
+                    </p>
+                  )}
 
                   <button
                     type="submit"
@@ -275,7 +361,7 @@ export const Contatti = () => {
                 </form>
               </>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

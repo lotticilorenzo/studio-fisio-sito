@@ -48,6 +48,10 @@ export const Protocol = () => {
                   <img
                     src={step.image}
                     alt={step.title}
+                    width={900}
+                    height={1125}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full min-h-[280px] w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/28 via-primary/8 to-transparent" />

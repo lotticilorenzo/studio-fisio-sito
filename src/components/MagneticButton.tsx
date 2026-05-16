@@ -54,10 +54,10 @@ export const MagneticButton = ({ children, href, to, className = "", onClick, ta
 
     if (to) {
         Component = MotionLink;
-        props = { to };
+        props = { to, ...(onClick && { onClick }) };
     } else if (href) {
         Component = motion.a;
-        props = { href, ...(target && { target }), ...(rel && { rel }) };
+        props = { href, ...(onClick && { onClick }), ...(target && { target }), ...(rel && { rel }) };
     }
 
     return (

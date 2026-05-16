@@ -17,17 +17,18 @@ export const Hero = () => {
   const imageRotate = useTransform(scrollY, [0, 900], [-1.5, 1.5]);
 
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#efe8dc] via-background to-[#ece5d8] px-6 pb-16 pt-32 lg:px-12 lg:pt-36">
+    <section className="relative isolate overflow-hidden bg-[linear-gradient(180deg,#f0e7da_0%,#f5efe7_46%,#ece4d7_100%)] px-6 pb-20 pt-28 sm:pt-32 lg:px-12 lg:pb-24 lg:pt-36">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute left-0 top-0 h-40 w-full bg-gradient-to-b from-white/55 to-transparent" />
         <div className="absolute left-[12%] top-[14%] h-48 w-48 rounded-full bg-accent/12 blur-3xl" />
         <div className="absolute bottom-[8%] right-[10%] h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/35 to-transparent" />
       </div>
 
-      <div className="relative mx-auto grid min-h-[calc(100svh-7rem)] max-w-7xl items-end gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14">
+      <div className="relative mx-auto grid min-h-[calc(100svh-6.75rem)] max-w-7xl items-center gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end lg:gap-14">
         <motion.div
           style={{ y: textY }}
-          className="flex max-w-2xl flex-col justify-center pb-4 lg:pb-10"
+          className="flex max-w-2xl flex-col justify-center pb-2 lg:pb-8"
         >
           <motion.p
             initial={{ opacity: 0, y: 18 }}
@@ -42,7 +43,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-3xl text-5xl font-semibold leading-[0.94] tracking-[-0.06em] text-primary md:text-7xl lg:text-[5.6rem]"
+            className="max-w-3xl text-[clamp(3.25rem,7vw,5.6rem)] font-semibold leading-[0.94] tracking-[-0.06em] text-primary"
           >
             Fisioterapia e salute integrata,
             <span className="mt-3 block font-drama text-[1.08em] font-normal italic text-accent">
@@ -107,12 +108,16 @@ export const Hero = () => {
           transition={{ duration: 0.9, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
           className="relative lg:justify-self-end"
         >
-          <div className="relative overflow-hidden rounded-[2.8rem] border border-white/60 bg-white/55 p-3 shadow-[0_30px_90px_-40px_rgba(30,38,33,0.35)] backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-[2.8rem] border border-white/60 bg-white/60 p-3 shadow-[0_34px_100px_-42px_rgba(30,38,33,0.35)] backdrop-blur-xl">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2.2rem] bg-[#e9e0d3] sm:aspect-[5/6]">
               <img
                 src="/images/real/fisioterapia_studio_fisyo.webp"
                 alt="Una seduta di fisioterapia nello Studio Fisyo."
+                width={900}
+                height={1125}
                 fetchPriority="high"
+                loading="eager"
+                decoding="async"
                 className="h-full w-full object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/24 via-transparent to-white/10" />
@@ -138,6 +143,10 @@ export const Hero = () => {
               <img
                 src="/images/real/fototeamstudiofisyo.webp"
                 alt="Parte del team dello Studio Fisyo."
+                width={900}
+                height={1125}
+                loading="eager"
+                decoding="async"
                 className="aspect-[4/5] w-full object-cover"
               />
             </div>

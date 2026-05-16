@@ -72,16 +72,19 @@ export const ServizioDetail = () => {
       ? {
           title: `${service.title} | Studio Fisyo`,
           description: service.summary,
+          image: `https://www.studiofisyo.com${service.image}`,
           url: `https://www.studiofisyo.com/servizi/${id}`,
           schema: {
             '@context': 'https://schema.org',
-            '@type': 'MedicalSpecialty',
+            '@type': 'Service',
             name: service.title,
             description: service.summary,
             provider: {
               '@type': 'MedicalClinic',
               name: 'Studio Fisyo',
+              url: 'https://www.studiofisyo.com',
             },
+            areaServed: 'Felino, Parma',
             url: `https://www.studiofisyo.com/servizi/${id}`,
           },
         }
@@ -95,8 +98,9 @@ export const ServizioDetail = () => {
   const Icon = service.icon;
 
   return (
-    <div className="px-6 pb-24 pt-32 lg:px-12">
-      <div className="mx-auto max-w-7xl">
+    <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
+      <div className="page-aura" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl">
         <Link
           to="/servizi"
           className="inline-flex items-center gap-2 text-sm font-medium text-primary/52 transition-colors hover:text-primary"
@@ -157,6 +161,10 @@ export const ServizioDetail = () => {
               <img
                 src={service.image}
                 alt={service.imageAlt}
+                width={800}
+                height={900}
+                loading="eager"
+                decoding="async"
                 className="aspect-[4/4.3] w-full object-cover"
               />
             </div>
@@ -267,6 +275,10 @@ export const ServizioDetail = () => {
                     <img
                       src={specialist.image}
                       alt={specialist.name}
+                      width={800}
+                      height={900}
+                      loading="lazy"
+                      decoding="async"
                       className="aspect-[4/4.5] h-full w-full object-cover"
                     />
                   </div>

@@ -1,69 +1,104 @@
 import { useEffect } from 'react';
 
 interface SEOProps {
-    title: string;
-    description: string;
-    image?: string;
-    url?: string;
-    schema?: Record<string, unknown>;
+  title: string;
+  description: string;
+  image?: string;
+  url?: string;
+  robots?: string;
+  schema?: Record<string, unknown>;
+  type?: 'website' | 'article';
 }
 
-export const useSEO = ({ title, description, image, url, schema }: SEOProps) => {
-    useEffect(() => {
-        // Update Title
-        document.title = title;
+const removeManagedTag = (selector: string) => {
+  const tag = document.querySelector(selector);
 
-        // Helper to set meta tags robustly
-        const setMetaTag = (selector: string, attr: string, attrValue: string, content: string) => {
-            let tag = document.querySelector(`meta[${selector}]`);
-            if (!tag) {
-                tag = document.createElement('meta');
-                tag.setAttribute(attr, attrValue);
-                document.head.appendChild(tag);
-            }
-            tag.setAttribute('content', content);
-        };
+  if (tag) {
+    tag.remove();
+  }
+};
 
-        // Standard Meta Description
-        setMetaTag('name="description"', 'name', 'description', description);
+const setMetaTag = (attr: string, attrValue: string, content?: string) => {
+  if (!content) {
+    removeManagedTag(`meta[data-seo="${attrValue}"]`);
+    return;
+  }
 
-        // OpenGraph Tags (Facebook, LinkedIn, iMessage, etc.)
-        setMetaTag('property="og:title"', 'property', 'og:title', title);
-        setMetaTag('property="og:description"', 'property', 'og:description', description);
-        setMetaTag('property="og:type"', 'property', 'og:type', 'website');
-        if (image) setMetaTag('property="og:image"', 'property', 'og:image', image);
-        if (url) setMetaTag('property="og:url"', 'property', 'og:url', url);
+  let tag = document.querySelector(`meta[data-seo="${attrValue}"]`);
+  if (!tag) {
+    tag = document.createElement('meta');
+    tag.setAttribute(attr, attrValue);
+    tag.setAttribute('data-seo', attrValue);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute('content', content);
+};
 
-        // Twitter Cards (X)
-        setMetaTag('name="twitter:card"', 'name', 'twitter:card', 'summary_large_image');
-        setMetaTag('name="twitter:title"', 'name', 'twitter:title', title);
-        setMetaTag('name="twitter:description"', 'name', 'twitter:description', description);
-        if (image) setMetaTag('name="twitter:image"', 'name', 'twitter:image', image);
+const setLinkTag = (content?: string) => {
+  if (!content) {
+    removeManagedTag('link[data-seo="canonical"]');
+    return;
+  }
 
-        // Canonical URL (Critical for SEO deduplication)
-        if (url) {
-            let canonical = document.querySelector('link[rel="canonical"]');
-            if (!canonical) {
-                canonical = document.createElement('link');
-                canonical.setAttribute('rel', 'canonical');
-                document.head.appendChild(canonical);
-            }
-            canonical.setAttribute('href', url);
-        }
+  let canonical = document.querySelector('link[data-seo="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.setAttribute('rel', 'canonical');
+    canonical.setAttribute('data-seo', 'canonical');
+    document.head.appendChild(canonical);
+  }
+  canonical.setAttribute('href', content);
+};
 
-        // Structured Data Schema (JSON-LD for Google Rich Snippets)
-        if (schema) {
-            let scriptTag = document.querySelector('script[type="application/ld+json"]');
-            if (!scriptTag) {
-                scriptTag = document.createElement('script');
-                scriptTag.setAttribute('type', 'application/ld+json');
-                document.head.appendChild(scriptTag);
-            }
-            scriptTag.textContent = JSON.stringify(schema);
-        } else {
-            const scriptTag = document.querySelector('script[type="application/ld+json"]');
-            if (scriptTag) scriptTag.remove();
-        }
+const setSchemaTag = (schema?: Record<string, unknown>) => {
+  if (!schema) {
+    removeManagedTag('script[data-seo="schema"]');
+    return;
+  }
 
-    }, [title, description, image, url, schema]);
+  let scriptTag = document.querySelector('script[data-seo="schema"]');
+  if (!scriptTag) {
+    scriptTag = document.createElement('script');
+    scriptTag.setAttribute('type', 'application/ld+json');
+    scriptTag.setAttribute('data-seo', 'schema');
+    document.head.appendChild(scriptTag);
+  }
+  scriptTag.textContent = JSON.stringify(schema);
+};
+
+export const useSEO = ({
+  title,
+  description,
+  image,
+  url,
+  robots = 'index, follow',
+  schema,
+  type = 'website',
+}: SEOProps) => {
+  useEffect(() => {
+    document.title = title;
+
+    setMetaTag('name', 'description', description);
+    setMetaTag('name', 'robots', robots);
+
+    setMetaTag('property', 'og:title', title);
+    setMetaTag('property', 'og:description', description);
+    setMetaTag('property', 'og:type', type);
+    setMetaTag('property', 'og:site_name', 'Studio Fisyo');
+    setMetaTag('property', 'og:locale', 'it_IT');
+    setMetaTag('property', 'og:image', image);
+    setMetaTag('property', 'og:url', url);
+
+    setMetaTag(
+      'name',
+      'twitter:card',
+      image ? 'summary_large_image' : 'summary',
+    );
+    setMetaTag('name', 'twitter:title', title);
+    setMetaTag('name', 'twitter:description', description);
+    setMetaTag('name', 'twitter:image', image);
+
+    setLinkTag(url);
+    setSchemaTag(schema);
+  }, [description, image, robots, schema, title, type, url]);
 };

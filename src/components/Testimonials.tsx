@@ -10,7 +10,7 @@ const testimonials = [
   {
     name: 'Giulia M.',
     condition: 'Recupero dopo un infortunio',
-    text: 'Il percorso e stato chiaro dall inizio. Ho capito cosa fare, cosa evitare e come rientrare a muovermi con fiducia.',
+    text: "Il percorso è stato chiaro dall'inizio. Ho capito cosa fare, cosa evitare e come rientrare a muovermi con fiducia.",
     featured: true,
   },
   {
@@ -42,19 +42,32 @@ export const Testimonials = () => {
           </div>
         </Reveal>
 
-        <div className="grid gap-6 lg:grid-cols-12">
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-stretch">
           {testimonials.map((testimonial, index) => (
-            <Reveal key={testimonial.name} width="100%" delay={index * 0.08}>
+            <Reveal
+              key={testimonial.name}
+              width="100%"
+              delay={index * 0.08}
+              className={testimonial.featured ? 'lg:col-span-6' : 'lg:col-span-3'}
+            >
               <motion.article
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -6 }}
                 transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-                className={`rounded-[2.5rem] border p-8 ${
+                className={`group relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border p-8 md:p-9 ${
                   testimonial.featured
-                    ? 'border-primary/10 bg-primary text-background shadow-[0_30px_80px_-40px_rgba(36,52,44,0.42)] lg:col-span-5'
-                    : 'border-primary/8 bg-white/78 text-primary shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl lg:col-span-3'
+                    ? 'border-primary/10 bg-primary text-background shadow-[0_30px_80px_-40px_rgba(36,52,44,0.42)]'
+                    : 'border-primary/8 bg-white/78 text-primary shadow-[0_24px_70px_-42px_rgba(31,42,36,0.18)] backdrop-blur-xl'
                 }`}
               >
-                <div className="flex items-center gap-2">
+                <div
+                  className={`pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${
+                    testimonial.featured
+                      ? 'bg-[radial-gradient(circle_at_top_right,rgba(217,164,59,0.18),transparent_34%)]'
+                      : 'bg-[radial-gradient(circle_at_top_right,rgba(217,164,59,0.12),transparent_34%)]'
+                  }`}
+                />
+
+                <div className="relative flex items-center gap-2">
                   {Array.from({ length: 5 }).map((_, starIndex) => (
                     <span
                       key={starIndex}
@@ -66,15 +79,15 @@ export const Testimonials = () => {
                 </div>
 
                 <blockquote
-                  className={`mt-8 text-lg leading-relaxed ${
+                  className={`relative mt-8 text-lg leading-relaxed ${
                     testimonial.featured ? 'text-background/78 md:text-[1.38rem]' : 'text-primary/72'
                   }`}
                 >
-                  “{testimonial.text}”
+                  "{testimonial.text}"
                 </blockquote>
 
                 <div
-                  className={`mt-8 border-t pt-5 ${
+                  className={`relative mt-auto border-t pt-5 ${
                     testimonial.featured ? 'border-white/10' : 'border-primary/8'
                   }`}
                 >

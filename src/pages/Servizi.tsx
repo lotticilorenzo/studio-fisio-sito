@@ -29,8 +29,9 @@ export const Servizi = () => {
   }, []);
 
   return (
-    <div className="px-6 pb-24 pt-32 lg:px-12">
-      <div className="mx-auto max-w-7xl">
+    <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
+      <div className="page-aura" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl">
         <header className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
           <div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
@@ -43,7 +44,7 @@ export const Servizi = () => {
           </div>
 
           <p className="max-w-2xl text-lg leading-relaxed text-primary/68 md:text-xl">
-            Ogni area dello studio ha una competenza precisa. Il punto non e offrirti
+            Ogni area dello studio ha una competenza precisa. Il punto non è offrirti
             tante cose, ma aiutarti a capire quale strada ha davvero senso per te.
           </p>
         </header>
@@ -70,6 +71,8 @@ export const Servizi = () => {
                       <img
                         src={service.image}
                         alt={service.imageAlt}
+                        width={800}
+                        height={900}
                         loading="lazy"
                         decoding="async"
                         className="aspect-[4/4.4] w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"

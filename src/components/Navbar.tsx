@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { HamburgerMenuIcon, Cross1Icon, ChevronDownIcon } from '@radix-ui/react-icons';
 import { Link, useLocation } from 'react-router-dom';
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
@@ -17,24 +17,25 @@ const serviceLinks = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
+  const lastScrollY = useRef(0);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
-    setIsScrolled(latest > 18);
+    const nextScrolled = latest > 18;
+    setIsScrolled((current) => (current === nextScrolled ? current : nextScrolled));
 
-    if (latest > 180 && latest > lastScrollY) {
-      setIsHidden(true);
+    if (latest > 180 && latest > lastScrollY.current) {
+      setIsHidden((current) => (current ? current : true));
       setIsMobileMenuOpen(false);
       setIsServicesOpen(false);
-    } else if (latest < lastScrollY || latest < 60) {
-      setIsHidden(false);
+    } else if (latest < lastScrollY.current || latest < 60) {
+      setIsHidden((current) => (current ? false : current));
     }
 
-    setLastScrollY(latest);
+    lastScrollY.current = latest;
   });
 
   const desktopClasses = useMemo(
@@ -48,15 +49,22 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`fixed left-1/2 top-5 z-50 w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed left-1/2 top-3 z-50 w-[calc(100%-1rem)] max-w-6xl -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:top-5 sm:w-[calc(100%-2rem)] ${
           isHidden ? '-translate-y-[150%] opacity-0 pointer-events-none' : 'opacity-100'
         }`}
       >
         <nav
-          className={`relative rounded-full border px-5 py-3 transition-all duration-500 md:px-6 ${desktopClasses}`}
+          className={`relative rounded-[2rem] border px-4 py-3 transition-all duration-500 sm:rounded-full sm:px-5 md:px-6 ${desktopClasses}`}
         >
           <div className="flex items-center justify-between gap-4">
-            <Link to="/" className="flex items-center gap-3">
+            <Link
+              to="/"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsServicesOpen(false);
+              }}
+              className="flex items-center gap-3"
+            >
               <img
                 src="/images/logo-fisyo.png"
                 alt="Studio Fisyo"
@@ -68,10 +76,13 @@ export const Navbar = () => {
               </div>
             </Link>
 
-            <div className="hidden items-center gap-8 text-sm font-medium text-primary/76 md:flex">
+            <div className="hidden items-center gap-8 text-sm font-medium md:flex">
               <Link
                 to="/"
-                className={`transition-colors hover:text-primary ${location.pathname === '/' ? 'text-primary' : ''}`}
+                aria-current={location.pathname === '/' ? 'page' : undefined}
+                className={`transition-colors hover:text-primary ${
+                  location.pathname === '/' ? 'text-primary' : 'text-primary/72'
+                }`}
               >
                 Home
               </Link>
@@ -79,15 +90,16 @@ export const Navbar = () => {
               <div className="group relative">
                 <Link
                   to="/servizi"
+                  aria-current={location.pathname.startsWith('/servizi') ? 'page' : undefined}
                   className={`inline-flex items-center gap-2 transition-colors hover:text-primary ${
-                    location.pathname.startsWith('/servizi') ? 'text-primary' : ''
+                    location.pathname.startsWith('/servizi') ? 'text-primary' : 'text-primary/72'
                   }`}
                 >
                   Servizi
                   <ChevronDownIcon className="h-4 w-4 text-primary/38 transition-transform group-hover:rotate-180" />
                 </Link>
 
-                <div className="pointer-events-none absolute left-1/2 top-[calc(100%+0.8rem)] w-[320px] -translate-x-1/2 rounded-[1.75rem] border border-primary/8 bg-[rgba(249,245,238,0.96)] p-2 opacity-0 shadow-[0_28px_70px_-34px_rgba(31,42,36,0.28)] backdrop-blur-xl transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+                <div className="pointer-events-none absolute left-1/2 top-[calc(100%+0.8rem)] w-[320px] -translate-x-1/2 rounded-[1.75rem] border border-primary/8 bg-[rgba(249,245,238,0.96)] p-2 opacity-0 shadow-[0_28px_70px_-34px_rgba(31,42,36,0.28)] backdrop-blur-xl transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
                   <div className="grid gap-1">
                     {serviceLinks.map((service) => (
                       <Link
@@ -104,16 +116,18 @@ export const Navbar = () => {
 
               <Link
                 to="/chi-siamo"
+                aria-current={location.pathname === '/chi-siamo' ? 'page' : undefined}
                 className={`transition-colors hover:text-primary ${
-                  location.pathname === '/chi-siamo' ? 'text-primary' : ''
+                  location.pathname === '/chi-siamo' ? 'text-primary' : 'text-primary/72'
                 }`}
               >
                 Chi siamo
               </Link>
               <Link
                 to="/contatti"
+                aria-current={location.pathname === '/contatti' ? 'page' : undefined}
                 className={`transition-colors hover:text-primary ${
-                  location.pathname === '/contatti' ? 'text-primary' : ''
+                  location.pathname === '/contatti' ? 'text-primary' : 'text-primary/72'
                 }`}
               >
                 Contatti
@@ -155,6 +169,8 @@ export const Navbar = () => {
               </a>
               <button
                 aria-label="Apri il menu"
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-site-menu"
                 onClick={() => setIsMobileMenuOpen((value) => !value)}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-primary"
               >
@@ -168,20 +184,31 @@ export const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            id="mobile-site-menu"
             initial={{ opacity: 0, y: -18 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -18 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-3 top-[5.4rem] z-40 overflow-hidden rounded-[2rem] border border-primary/8 bg-[rgba(248,244,237,0.95)] p-5 shadow-[0_30px_70px_-36px_rgba(31,42,36,0.3)] backdrop-blur-xl md:hidden"
+            className="fixed inset-x-3 top-[5.2rem] z-40 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-[2rem] border border-primary/8 bg-[rgba(248,244,237,0.95)] p-5 shadow-[0_30px_70px_-36px_rgba(31,42,36,0.3)] backdrop-blur-xl md:hidden"
+            data-lenis-prevent
           >
             <div className="flex flex-col gap-2 text-primary">
-              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="rounded-2xl px-4 py-3 text-base">
+              <Link
+                to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-current={location.pathname === '/' ? 'page' : undefined}
+                className={`rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
+                  location.pathname === '/' ? 'bg-white/80' : ''
+                }`}
+              >
                 Home
               </Link>
 
               <button
                 onClick={() => setIsServicesOpen((value) => !value)}
-                className="flex items-center justify-between rounded-2xl px-4 py-3 text-left text-base"
+                aria-expanded={isServicesOpen}
+                aria-controls="mobile-services-menu"
+                className="flex items-center justify-between rounded-2xl px-4 py-3 text-left text-base transition-colors hover:bg-white/80"
               >
                 <span>Servizi</span>
                 <ChevronDownIcon className={`h-5 w-5 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
@@ -190,6 +217,7 @@ export const Navbar = () => {
               <AnimatePresence initial={false}>
                 {isServicesOpen && (
                   <motion.div
+                    id="mobile-services-menu"
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -200,7 +228,7 @@ export const Navbar = () => {
                       <Link
                         to="/servizi"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="rounded-2xl px-4 py-2.5 text-sm text-primary/68"
+                        className="rounded-2xl px-4 py-2.5 text-sm text-primary/68 transition-colors hover:bg-white/80"
                       >
                         Tutti i servizi
                       </Link>
@@ -209,7 +237,7 @@ export const Navbar = () => {
                           key={service.to}
                           to={service.to}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="rounded-2xl px-4 py-2.5 text-sm text-primary/68"
+                          className="rounded-2xl px-4 py-2.5 text-sm text-primary/68 transition-colors hover:bg-white/80"
                         >
                           {service.label}
                         </Link>
@@ -219,10 +247,24 @@ export const Navbar = () => {
                 )}
               </AnimatePresence>
 
-              <Link to="/chi-siamo" onClick={() => setIsMobileMenuOpen(false)} className="rounded-2xl px-4 py-3 text-base">
+              <Link
+                to="/chi-siamo"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-current={location.pathname === '/chi-siamo' ? 'page' : undefined}
+                className={`rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
+                  location.pathname === '/chi-siamo' ? 'bg-white/80' : ''
+                }`}
+              >
                 Chi siamo
               </Link>
-              <Link to="/contatti" onClick={() => setIsMobileMenuOpen(false)} className="rounded-2xl px-4 py-3 text-base">
+              <Link
+                to="/contatti"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-current={location.pathname === '/contatti' ? 'page' : undefined}
+                className={`rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
+                  location.pathname === '/contatti' ? 'bg-white/80' : ''
+                }`}
+              >
                 Contatti
               </Link>
             </div>

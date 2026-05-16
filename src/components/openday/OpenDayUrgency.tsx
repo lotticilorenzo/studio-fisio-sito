@@ -57,6 +57,8 @@ export const OpenDayUrgency = () => {
 
     const { PHONE_NUMBER, PHONE_HREF, WHATSAPP_MESSAGE, MAX_SEATS } = OPENDAY_CONFIG;
 
+    if (OPENDAY_CONFIG.IS_PAST_EVENT) return null;
+
     return (
         <section ref={comp} className="py-24 md:py-32 px-6 lg:px-12 bg-primary relative overflow-hidden text-center z-10">
             {/* Background elements */}

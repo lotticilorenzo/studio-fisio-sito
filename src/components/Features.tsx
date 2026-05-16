@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ export const Features = () => {
         >
           <div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/48">
-              Perche sceglierci
+              Perché sceglierci
             </p>
             <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
               Tre motivi per cui qui il percorso
@@ -26,7 +27,7 @@ export const Features = () => {
             </h2>
           </div>
           <p className="max-w-xl text-lg leading-relaxed text-primary/68">
-            Non stiamo aggiungendo servizi uno accanto all altro. Stiamo costruendo
+            Non stiamo aggiungendo servizi uno accanto all'altro. Stiamo costruendo
             un modo di lavorare in cui ogni parte dello studio ha un ruolo chiaro.
           </p>
         </motion.div>
@@ -41,6 +42,10 @@ export const Features = () => {
               <img
                 src="/images/real/fototeamstudiofisyo.webp"
                 alt="Il team dello Studio Fisyo."
+                width={900}
+                height={1125}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover object-center opacity-34 transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-primary/92 via-primary/82 to-[#162019]/94" />
@@ -52,7 +57,7 @@ export const Features = () => {
                   Primo pilastro
                 </p>
                 <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] md:text-5xl">
-                  Un solo studio, piu competenze che si parlano davvero.
+                  Un solo studio, più competenze che si parlano davvero.
                 </h3>
                 <p className="mt-5 text-base leading-relaxed text-background/72 md:text-lg">
                   Quando serve, il percorso non resta chiuso in una stanza. Le
@@ -92,7 +97,7 @@ export const Features = () => {
             <div className="mt-8 space-y-4">
               {[
                 ['Valutazione iniziale', 'Si parte da ascolto, storia clinica e obiettivi concreti.'],
-                ['Scelte leggibili', 'Ti spieghiamo cosa facciamo, perche lo facciamo e come si prosegue.'],
+                ['Scelte leggibili', 'Ti spieghiamo cosa facciamo, perché lo facciamo e come si prosegue.'],
                 ['Passi sostenibili', 'Non carichiamo il percorso di cose che non servono.'],
               ].map(([title, text], index) => (
                 <div key={title} className="flex items-start gap-4">
@@ -127,7 +132,7 @@ export const Features = () => {
               {[78, 58, 88].map((width, index) => (
                 <div key={width} className="space-y-2">
                   <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-primary/42">
-                    <span>{['Controllo', 'Mobilita', 'Continuita'][index]}</span>
+                    <span>{['Controllo', 'Mobilità', 'Continuità'][index]}</span>
                     <span>{width}%</span>
                   </div>
                   <div className="h-2 rounded-full bg-white/70">
@@ -148,7 +153,7 @@ export const Features = () => {
               className="relative z-10 mt-8 inline-flex items-center gap-3 text-sm font-semibold text-primary transition-colors hover:text-accent"
             >
               Scopri il Pilates Clinico
-              <span className="text-accent">→</span>
+              <ArrowRight className="h-4 w-4 text-accent" />
             </Link>
           </motion.article>
         </div>

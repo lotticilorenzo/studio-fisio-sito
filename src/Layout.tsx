@@ -11,6 +11,12 @@ export const Layout = () => {
 
     return (
         <div className="relative min-h-[100dvh] overflow-x-clip bg-background font-sans text-foreground selection:bg-accent/20">
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-background"
+            >
+                Vai al contenuto
+            </a>
             <ScrollProgress />
             <Preloader />
             <div className="pointer-events-none fixed inset-0 z-0">
@@ -24,6 +30,7 @@ export const Layout = () => {
                 <WhatsAppFAB />
 
                 <motion.main
+                    id="main-content"
                     key={location.pathname}
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
