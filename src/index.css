@@ -183,6 +183,10 @@ html.lenis {
 }
 
 @media (max-width: 767px) {
+  body {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+
   #iubenda-cs-banner {
     bottom: 88px !important;
     left: 10px !important;

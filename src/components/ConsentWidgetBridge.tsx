@@ -24,9 +24,7 @@ export const ConsentWidgetBridge = () => {
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['style', 'class'],
+      subtree: false,
     });
 
     const handleResize = () => applyConsentWidgetAdjustments();

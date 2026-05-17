@@ -23,9 +23,9 @@ const contactCards = [
 ];
 
 const trustItems = [
-  { label: '5.0 ★★★★★', sub: '47 recensioni Google' },
+  { label: '5.0 �~.�~.�~.�~.�~.', sub: '47 recensioni Google' },
   { label: 'Risposta entro 24 h', sub: 'dal lunedì al venerdì' },
-  { label: 'Lun–Ven 08:00–20:00', sub: 'Sab su appuntamento' },
+  { label: 'Lun�?"Ven 08:00�?"20:00', sub: 'Sab su appuntamento' },
 ];
 
 type FormErrors = Partial<Record<'name' | 'phone' | 'email' | 'message' | 'submit', string>>;
@@ -138,7 +138,7 @@ export const Contatti = () => {
             >
               <span className="text-sm font-semibold text-primary">{item.label}</span>
               <span className="h-1 w-1 shrink-0 rounded-full bg-primary/20" aria-hidden="true" />
-              <span className="text-sm text-primary/52">{item.sub}</span>
+              <span className="text-sm text-primary/62">{item.sub}</span>
             </div>
           ))}
         </div>
@@ -162,7 +162,7 @@ export const Contatti = () => {
               >
                 <p
                   className={`text-xs font-semibold uppercase tracking-[0.22em] ${
-                    index === 0 ? 'text-background/42' : 'text-primary/42'
+                    index === 0 ? 'text-background/42' : 'text-primary/58'
                   }`}
                 >
                   {card.label}
@@ -172,7 +172,7 @@ export const Contatti = () => {
                 </h2>
                 <p
                   className={`mt-4 text-base leading-relaxed ${
-                    index === 0 ? 'text-background/68' : 'text-primary/66'
+                    index === 0 ? 'text-background/68' : 'text-primary/72'
                   }`}
                 >
                   {card.text}
@@ -211,26 +211,26 @@ export const Contatti = () => {
               </div>
               <div className="grid gap-4 border-t border-primary/6 p-6 md:grid-cols-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">Indirizzo</p>
-                  <p className="mt-3 text-sm leading-relaxed text-primary/66">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">Indirizzo</p>
+                  <p className="mt-3 text-sm leading-relaxed text-primary/72">
                     Via Aldo Moro 1/A
                     <br />
                     43035 Felino (PR)
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">Orari</p>
-                  <p className="mt-3 text-sm leading-relaxed text-primary/66">
-                    Lun–Ven 08:00–20:00
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">Orari</p>
+                  <p className="mt-3 text-sm leading-relaxed text-primary/72">
+                    Lun�?"Ven 08:00�?"20:00
                     <br />
                     Sabato su appuntamento
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">Email</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">Email</p>
                   <a
                     href="mailto:info@studiofisyo.com"
-                    className="mt-3 block text-sm leading-relaxed text-primary/66 transition-colors hover:text-primary"
+                    className="mt-3 block text-sm leading-relaxed text-primary/72 transition-colors hover:text-primary"
                   >
                     info@studiofisyo.com
                   </a>
@@ -262,7 +262,7 @@ export const Contatti = () => {
                 <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-primary">
                   Messaggio inviato
                 </h2>
-                <p className="mt-4 max-w-md text-base leading-relaxed text-primary/66">
+                <p className="mt-4 max-w-md text-base leading-relaxed text-primary/72">
                   Abbiamo ricevuto la tua richiesta. Ti ricontattiamo appena possibile
                   per capire insieme il passo successivo.
                 </p>
@@ -275,13 +275,13 @@ export const Contatti = () => {
               </div>
             ) : (
               <>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">
                   Modulo di contatto
                 </p>
                 <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] text-primary">
                   Raccontaci in breve di cosa hai bisogno.
                 </h2>
-                <p className="mt-4 max-w-xl text-base leading-relaxed text-primary/66">
+                <p className="mt-4 max-w-xl text-base leading-relaxed text-primary/72">
                   Bastano poche righe. Se preferisci, puoi anche lasciarci solo un
                   recapito e ti richiamiamo noi.
                 </p>

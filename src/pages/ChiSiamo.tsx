@@ -72,6 +72,16 @@ export const ChiSiamo = () => {
       name: 'Chi siamo - Team Studio Fisyo',
       description: 'Il team multidisciplinare di Studio Fisyo a Felino.',
       url: 'https://www.studiofisyo.com/chi-siamo',
+      mainEntity: {
+        '@type': 'MedicalClinic',
+        name: 'Studio Fisyo',
+        url: 'https://www.studiofisyo.com',
+        employee: team.map((member) => ({
+          '@type': 'Person',
+          name: member.name,
+          jobTitle: member.role,
+        })),
+      },
     },
   });
 
@@ -101,7 +111,7 @@ export const ChiSiamo = () => {
             viewport={viewport.section}
             transition={{ duration: duration.slow, ease: ease.out }}
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
               Dentro Studio Fisyo
             </p>
             <h2 className="text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
@@ -179,7 +189,7 @@ export const ChiSiamo = () => {
             transition={{ duration: duration.slow, ease: ease.out }}
             className="mb-12 max-w-3xl"
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
               Il team
             </p>
             <h2 className="text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
@@ -200,7 +210,8 @@ export const ChiSiamo = () => {
                 <div className="relative aspect-[4/4.5] overflow-hidden bg-[#e9dfd0]">
                   <img
                     src={member.image}
-                    alt={member.name}
+                    alt=""
+                    role="presentation"
                     width={800}
                     height={900}
                     loading="lazy"
@@ -210,13 +221,13 @@ export const ChiSiamo = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/35 to-transparent" />
                 </div>
                 <div className="p-7 md:p-8">
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">
                     {member.role}
                   </p>
                   <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary">
                     {member.name}
                   </h3>
-                  <p className="mt-4 text-base leading-relaxed text-primary/66">{member.desc}</p>
+                  <p className="mt-4 text-base leading-relaxed text-primary/72">{member.desc}</p>
                 </div>
               </motion.article>
             ))}

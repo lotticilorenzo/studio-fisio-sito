@@ -34,11 +34,14 @@ export const Servizi = () => {
     schema: {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
+      name: 'Servizi di Studio Fisyo',
+      description: 'Fisioterapia, Pilates Clinico, salute della donna, linfodrenaggio, psicologia, nutrizione a Felino (Parma).',
+      numberOfItems: services.length,
       itemListElement: services.map((service, idx) => ({
         '@type': 'ListItem',
         position: idx + 1,
-        url: `https://www.studiofisyo.com/servizi/${service.id}`,
         name: service.title,
+        url: `https://www.studiofisyo.com/servizi/${service.id}`,
       })),
     },
   });
@@ -76,7 +79,7 @@ export const Servizi = () => {
               className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
                 cat === activeCategory
                   ? 'bg-primary text-background shadow-[0_4px_20px_-8px_rgba(36,52,44,0.35)]'
-                  : 'border border-primary/10 bg-white/70 text-primary/66 backdrop-blur-md hover:bg-white hover:text-primary'
+                  : 'border border-primary/10 bg-white/70 text-primary/72 backdrop-blur-md hover:bg-white hover:text-primary'
               }`}
             >
               {cat}
@@ -95,7 +98,7 @@ export const Servizi = () => {
             className="mt-14 flex flex-col gap-16 md:gap-20"
           >
             {filtered.length === 0 && (
-              <p className="text-lg text-primary/46">Nessun servizio in questa categoria.</p>
+              <p className="text-lg text-primary/60">Nessun servizio in questa categoria.</p>
             )}
             {filtered.map((service, index) => {
               const Icon = service.icon;
@@ -120,6 +123,7 @@ export const Servizi = () => {
                   <div>
                     <Link
                       to={`/servizi/${service.id}`}
+                      aria-label={`Scopri ${service.title}`}
                       className="group block overflow-hidden rounded-[2.8rem] border border-primary/8 bg-white/70 p-3 shadow-[0_28px_80px_-46px_rgba(31,42,36,0.22)] backdrop-blur-xl"
                     >
                       <div className="relative overflow-hidden rounded-[2.2rem] bg-[#e9dfd0]">
@@ -160,6 +164,7 @@ export const Servizi = () => {
                     </div>
                     <MagneticButton
                       to={`/servizi/${service.id}`}
+                      aria-label={`Approfondisci ${service.title}`}
                       className="mt-8 bg-primary px-7 py-4 text-base font-semibold text-background"
                     >
                       Approfondisci il servizio

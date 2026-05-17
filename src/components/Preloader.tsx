@@ -14,8 +14,7 @@ export const Preloader = () => {
 
   useEffect(() => {
     if (!isLoading) return undefined;
-    // 1600ms: barra finisce a ~1400ms (delay:0.2 + dur:1.2), 200ms di buffer
-    const timer = setTimeout(() => setIsLoading(false), 1600);
+    const timer = setTimeout(() => setIsLoading(false), 600);
     return () => clearTimeout(timer);
   }, [isLoading]);
 
@@ -42,14 +41,15 @@ export const Preloader = () => {
           </div>
 
           <motion.div className="flex flex-col items-center overflow-hidden">
-            <motion.h1
+            <motion.p
+              aria-hidden="true"
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: duration.enter, delay: 0.1, ease: ease.out }}
               className="font-drama text-3xl font-normal italic tracking-[-0.02em] text-primary"
             >
               Studio Fisyo
-            </motion.h1>
+            </motion.p>
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: '100%' }}

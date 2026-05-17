@@ -30,7 +30,7 @@ export const PageHero = ({
 
   return (
     <header>
-      {/* Mobile image — visible only on mobile when image prop is provided */}
+      {/* Mobile image �?" visible only on mobile when image prop is provided */}
       {image && (
         <motion.div {...fadeUp(0)} className="mb-8 lg:hidden">
           <div className="relative h-[58vw] max-h-[380px] overflow-hidden rounded-[2.4rem] bg-[#e9e0d3]">
@@ -54,7 +54,7 @@ export const PageHero = ({
         <div>
           <motion.p
             {...fadeUp(0)}
-            className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46"
+            className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60"
           >
             {label}
           </motion.p>

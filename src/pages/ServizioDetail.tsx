@@ -29,12 +29,14 @@ const FAQAccordion = ({
         >
           <button
             onClick={() => setOpenIndex(openIndex === index ? null : index)}
+            aria-expanded={openIndex === index}
             className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left"
           >
             <span className="text-base font-medium leading-snug text-primary md:text-lg">
               {faq.question}
             </span>
             <ChevronDownIcon
+              aria-hidden="true"
               className={`h-5 w-5 shrink-0 text-accent transition-transform ${
                 openIndex === index ? 'rotate-180' : ''
               }`}
@@ -49,7 +51,7 @@ const FAQAccordion = ({
                 transition={accordionTransition}
                 className="overflow-hidden"
               >
-                <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-primary/66">
+                <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-primary/72">
                   {faq.answer}
                 </p>
               </motion.div>
@@ -76,19 +78,36 @@ export const ServizioDetail = () => {
           description: service.summary,
           image: `https://www.studiofisyo.com${service.image}`,
           url: `https://www.studiofisyo.com/servizi/${id}`,
-          schema: {
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            name: service.title,
-            description: service.summary,
-            provider: {
-              '@type': 'MedicalClinic',
-              name: 'Studio Fisyo',
-              url: 'https://www.studiofisyo.com',
+          schema: [
+            {
+              '@type': 'Service',
+              name: service.title,
+              description: service.summary,
+              provider: {
+                '@type': 'MedicalClinic',
+                name: 'Studio Fisyo',
+                url: 'https://www.studiofisyo.com',
+              },
+              areaServed: 'Felino, Parma',
+              url: `https://www.studiofisyo.com/servizi/${id}`,
             },
-            areaServed: 'Felino, Parma',
-            url: `https://www.studiofisyo.com/servizi/${id}`,
-          },
+            {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+                { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+                { '@type': 'ListItem', position: 3, name: service.title, item: `https://www.studiofisyo.com/servizi/${id}` },
+              ],
+            },
+            {
+              '@type': 'FAQPage',
+              mainEntity: service.faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+              })),
+            },
+          ],
         }
       : { title: 'Servizio | Studio Fisyo', description: '', url: '' },
   );
@@ -105,9 +124,9 @@ export const ServizioDetail = () => {
       <div className="relative mx-auto max-w-7xl">
         <Link
           to="/servizi"
-          className="inline-flex items-center gap-2 text-sm font-medium text-primary/52 transition-colors hover:text-primary"
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary/62 transition-colors hover:text-primary"
         >
-          <ArrowLeftIcon className="h-4 w-4" />
+          <ArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
           Torna a tutti i servizi
         </Link>
 
@@ -195,7 +214,7 @@ export const ServizioDetail = () => {
 
         <section className="grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
               Come lavoriamo
             </p>
             <h2 className="max-w-md text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
@@ -218,7 +237,7 @@ export const ServizioDetail = () => {
                   <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em] text-primary">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-base leading-relaxed text-primary/66">{item.body}</p>
+                  <p className="mt-3 text-base leading-relaxed text-primary/72">{item.body}</p>
                 </motion.article>
               );
             })}
@@ -229,7 +248,7 @@ export const ServizioDetail = () => {
 
         <section>
           <div className="mb-8">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
               Quando può essere utile
             </p>
             <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
@@ -252,7 +271,7 @@ export const ServizioDetail = () => {
                   <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em] text-primary">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-base leading-relaxed text-primary/66">{item.body}</p>
+                  <p className="mt-3 text-base leading-relaxed text-primary/72">{item.body}</p>
                 </motion.article>
               );
             })}
@@ -263,7 +282,7 @@ export const ServizioDetail = () => {
 
         <section>
           <div className="mb-8">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
               Professioniste
             </p>
             <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
@@ -285,7 +304,8 @@ export const ServizioDetail = () => {
                   <div className="bg-[#eadfce]">
                     <img
                       src={specialist.image}
-                      alt={specialist.name}
+                      alt=""
+                      role="presentation"
                       width={800}
                       height={900}
                       loading="lazy"
@@ -294,13 +314,13 @@ export const ServizioDetail = () => {
                     />
                   </div>
                   <div className="p-7 md:p-8">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/42">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">
                       {specialist.role}
                     </p>
                     <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
                       {specialist.name}
                     </h3>
-                    <p className="mt-4 text-base leading-relaxed text-primary/66">
+                    <p className="mt-4 text-base leading-relaxed text-primary/72">
                       {specialist.description}
                     </p>
                   </div>
@@ -314,7 +334,7 @@ export const ServizioDetail = () => {
 
         <section className="grid gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
               Domande frequenti
             </p>
             <h2 className="max-w-md text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
@@ -322,6 +342,37 @@ export const ServizioDetail = () => {
             </h2>
           </div>
           <FAQAccordion faqs={service.faqs} />
+        </section>
+
+        <SectionDivider className="mt-14 mb-12" />
+
+        <section className="overflow-hidden rounded-[3rem] bg-primary px-8 py-12 text-background md:px-12 md:py-14">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.26em] text-background/46">
+                Inizia il percorso
+              </p>
+              <h2 className="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.05em] md:text-4xl">
+                Hai ancora dubbi? Parliamone �?" la prima valutazione è gratuita.
+              </h2>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
+              <MagneticButton
+                to="/contatti"
+                className="bg-background px-7 py-4 text-base font-semibold text-primary"
+              >
+                Prenota ora
+              </MagneticButton>
+              <a
+                href={`https://wa.me/393396508642?text=${encodeURIComponent('Ciao Studio Fisyo! Vorrei avere informazioni su ' + service.title + '.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-7 py-4 text-base font-medium text-background backdrop-blur-md transition-colors hover:bg-white/16"
+              >
+                Chiedi su WhatsApp
+              </a>
+            </div>
+          </div>
         </section>
       </div>
     </div>

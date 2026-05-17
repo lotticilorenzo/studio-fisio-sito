@@ -3,16 +3,9 @@ import { HamburgerMenuIcon, Cross1Icon, ChevronDownIcon } from '@radix-ui/react-
 import { Link, useLocation } from 'react-router-dom';
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
 import { MagneticButton } from './MagneticButton';
+import { services } from '../data/services';
 
-const serviceLinks = [
-  { to: '/servizi/fisioterapia', label: 'Fisioterapia' },
-  { to: '/servizi/pilates-clinico', label: 'Pilates Clinico' },
-  { to: '/servizi/salute-donna', label: 'Salute della Donna' },
-  { to: '/servizi/linfodrenaggio', label: 'Linfodrenaggio' },
-  { to: '/servizi/psicologia', label: 'Psicologia' },
-  { to: '/servizi/fisio4young', label: 'Fisio4Young' },
-  { to: '/servizi/nutrizione', label: 'Nutrizione' },
-];
+const serviceLinks = services.map((s) => ({ to: `/servizi/${s.id}`, label: s.title }));
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

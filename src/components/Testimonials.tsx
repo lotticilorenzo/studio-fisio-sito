@@ -112,7 +112,7 @@ export const Testimonials = () => {
           className="mb-14 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between"
         >
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
               Recensioni
             </p>
             <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
@@ -128,7 +128,7 @@ export const Testimonials = () => {
           </p>
         </motion.div>
 
-        {/* ── MOBILE CAROUSEL (hidden on lg+) ── */}
+        {/* �"?�"? MOBILE CAROUSEL (hidden on lg+) �"?�"? */}
         <div className="lg:hidden">
           <div className="overflow-hidden">
             <motion.div
@@ -157,15 +157,19 @@ export const Testimonials = () => {
                 key={i}
                 onClick={() => goToIndex(i)}
                 aria-label={`Vai alla recensione ${i + 1}`}
-                className={`h-2 w-2 rounded-full transition-colors duration-300 ${
-                  i === activeIndex ? 'bg-accent' : 'bg-primary/20'
-                }`}
-              />
+                className="inline-flex h-11 w-11 items-center justify-center"
+              >
+                <span
+                  className={`h-2 w-2 rounded-full transition-colors duration-300 ${
+                    i === activeIndex ? 'bg-accent' : 'bg-primary/20'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>
 
-        {/* ── DESKTOP GRID (hidden below lg) ── */}
+        {/* �"?�"? DESKTOP GRID (hidden below lg) �"?�"? */}
         <div className="hidden gap-6 lg:grid lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <motion.div
@@ -182,10 +186,13 @@ export const Testimonials = () => {
 
         {/* Google reviews link */}
         <a
-          href="#"
+          href="https://www.google.com/maps/place/Studio+Fisyo/@44.5186,10.2279,17z/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-8 flex items-center justify-center gap-2 text-sm text-primary/56 transition-colors hover:text-primary"
         >
-          ★ 5.0 su Google · 47 recensioni →
+          �~. 5.0 su Google · 47 recensioni �?'
+          <span className="sr-only">(apre in una nuova scheda)</span>
         </a>
       </div>
     </section>

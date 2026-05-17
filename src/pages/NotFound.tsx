@@ -39,14 +39,14 @@ export const NotFound = () => {
         </motion.div>
 
         <div className="-mt-12 w-full rounded-[3rem] border border-white/40 bg-white/60 p-10 shadow-[0_30px_80px_-24px_rgba(36,52,44,0.12)] backdrop-blur-xl md:-mt-20 md:p-14">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/42">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/58">
             Pagina non trovata
           </p>
           <h1 className="text-4xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl">
             Il percorso che cerchi{' '}
             <span className="font-drama font-normal italic text-accent">non esiste più.</span>
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-primary/66">
+          <p className="mt-5 text-lg leading-relaxed text-primary/72">
             Forse il link è cambiato o la pagina è stata spostata. Torniamo al punto di partenza.
           </p>
 
@@ -66,7 +66,7 @@ export const NotFound = () => {
           </div>
         </div>
 
-        <div className="mt-8 flex gap-5 text-sm text-primary/46">
+        <div className="mt-8 flex gap-5 text-sm text-primary/60">
           <Link to="/servizi" className="transition-colors hover:text-primary">Servizi</Link>
           <span aria-hidden="true">·</span>
           <Link to="/chi-siamo" className="transition-colors hover:text-primary">Chi siamo</Link>

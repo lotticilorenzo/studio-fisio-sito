@@ -19,7 +19,7 @@ export const WhatsAppFAB = () => {
         <AnimatePresence>
             {isVisible && (
                 <motion.div
-                    className="fixed bottom-6 right-6 z-40 md:hidden flex items-center gap-3"
+                    className="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-3"
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0, opacity: 0 }}

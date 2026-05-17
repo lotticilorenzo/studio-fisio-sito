@@ -4,7 +4,7 @@ const metrics = [
   { value: '8+', label: 'anni di attività' },
   { value: '6', label: 'professioniste' },
   { value: '5.0 ★', label: 'rating Google' },
-  { value: '100%', label: 'prima valutazione gratuita' },
+  { value: '100%', label: 'Prima visita gratuita' },
 ];
 
 export const TrustBar = () => (
@@ -20,7 +20,7 @@ export const TrustBar = () => (
           className="flex flex-col items-center gap-1 text-center"
         >
           <span className="font-drama text-4xl font-normal text-primary">{metric.value}</span>
-          <span className="text-xs uppercase tracking-[0.2em] text-primary/50">{metric.label}</span>
+          <span className="text-sm font-medium text-primary/72">{metric.label}</span>
         </motion.div>
       ))}
     </div>

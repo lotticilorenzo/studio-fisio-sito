@@ -29,7 +29,7 @@ export class ErrorBoundary extends Component<Props, State> {
         return (
             <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 text-center">
                 <img
-                    src="/images/logo.svg"
+                    src="/images/logo-fisyo.png"
                     alt="Studio Fisyo"
                     width={120}
                     height={40}

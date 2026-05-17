@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Footer, CTA } from './components/Footer';
 import { Preloader } from './components/Preloader';
 import { WhatsAppFAB } from './components/WhatsAppFAB';
+import { MobileBookingBar } from './components/MobileBookingBar';
 import { ScrollProgress } from './components/ScrollProgress';
 import { CustomCursor } from './components/CustomCursor';
 import { ease, duration } from './lib/motion';
@@ -31,6 +32,7 @@ export const Layout = () => {
       <div className="relative z-10">
         <Navbar />
         <WhatsAppFAB />
+        <MobileBookingBar />
 
         <main id="main-content">
           <AnimatePresence mode="wait" initial={false}>

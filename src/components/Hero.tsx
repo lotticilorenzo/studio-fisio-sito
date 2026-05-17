@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { MagneticButton } from './MagneticButton';
 
 const serviceList = [
-  'Fisioterapia',
-  'Pilates clinico',
-  'Salute della donna',
-  'Psicologia',
-  'Nutrizione',
+  { label: 'Fisioterapia', id: 'fisioterapia' },
+  { label: 'Pilates clinico', id: 'pilates-clinico' },
+  { label: 'Salute della donna', id: 'salute-donna' },
+  { label: 'Psicologia', id: 'psicologia' },
+  { label: 'Nutrizione', id: 'nutrizione' },
 ];
 
 export const Hero = () => {
@@ -38,10 +38,6 @@ export const Hero = () => {
   const handleStatsViewport = () => {
     animate(yearsVal, 8, { duration: 1.5, delay: 0.5, ease: 'easeOut' });
     animate(staffVal, 6, { duration: 1.5, delay: 0.5, ease: 'easeOut' });
-  };
-
-  const scrollToFeatures = () => {
-    document.getElementById('perche-sceglierci')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -238,14 +234,14 @@ export const Hero = () => {
             </p>
             <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-primary/68 md:text-[15px]">
               {serviceList.map((service) => (
-                <button
-                  key={service}
-                  onClick={scrollToFeatures}
+                <Link
+                  key={service.id}
+                  to={`/servizi/${service.id}`}
                   className="inline-flex items-center gap-2 transition-colors hover:text-primary"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-accent/85" />
-                  {service}
-                </button>
+                  {service.label}
+                </Link>
               ))}
             </div>
           </motion.div>

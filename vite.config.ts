@@ -5,8 +5,15 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
+    target: 'es2020',
+    assetsInlineLimit: 8192,
+    cssCodeSplit: true,
+    minify: 'esbuild',
     rollupOptions: {
       output: {
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks(id) {
           if (!id.includes('node_modules')) {
             return undefined
@@ -22,6 +29,10 @@ export default defineConfig({
 
           if (id.includes('lenis')) {
             return 'lenis'
+          }
+
+          if (id.includes('react-router')) {
+            return 'router'
           }
 
           if (

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRightIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import type { RefObject } from 'react';
@@ -80,7 +80,7 @@ export const Features = () => {
           </p>
         </motion.div>
 
-        {/* ── MOBILE ACCORDION (hidden on lg+) ── */}
+        {/* �"?�"? MOBILE ACCORDION (hidden on lg+) �"?�"? */}
         <div className="flex flex-col gap-3 lg:hidden">
 
           {/* Accordion: Primo pilastro (dark) */}
@@ -96,7 +96,7 @@ export const Features = () => {
                   Un solo studio, più competenze che si parlano davvero.
                 </h3>
               </div>
-              <ChevronDown
+              <ChevronDownIcon
                 className={`h-5 w-5 shrink-0 text-accent transition-transform duration-300 ${openIndex === 0 ? 'rotate-180' : ''}`}
               />
             </button>
@@ -138,12 +138,12 @@ export const Features = () => {
               aria-expanded={openIndex === 1}
             >
               <div>
-                <p className="text-[10px] uppercase tracking-[0.24em] text-primary/42">Secondo pilastro</p>
+                <p className="text-[10px] uppercase tracking-[0.24em] text-primary/58">Secondo pilastro</p>
                 <h3 className="mt-1 text-lg font-semibold leading-snug tracking-[-0.03em] text-primary">
                   Ogni percorso parte da una domanda semplice.
                 </h3>
               </div>
-              <ChevronDown
+              <ChevronDownIcon
                 className={`h-5 w-5 shrink-0 text-accent transition-transform duration-300 ${openIndex === 1 ? 'rotate-180' : ''}`}
               />
             </button>
@@ -188,12 +188,12 @@ export const Features = () => {
               aria-expanded={openIndex === 2}
             >
               <div>
-                <p className="text-[10px] uppercase tracking-[0.24em] text-primary/42">Terzo pilastro</p>
+                <p className="text-[10px] uppercase tracking-[0.24em] text-primary/58">Terzo pilastro</p>
                 <h3 className="mt-1 text-lg font-semibold leading-snug tracking-[-0.03em] text-primary">
                   Trattamento e lavoro attivo devono stare insieme.
                 </h3>
               </div>
-              <ChevronDown
+              <ChevronDownIcon
                 className={`h-5 w-5 shrink-0 text-accent transition-transform duration-300 ${openIndex === 2 ? 'rotate-180' : ''}`}
               />
             </button>
@@ -214,7 +214,7 @@ export const Features = () => {
                     <div className="mt-5 space-y-4">
                       {progressBars.map(({ label, width }, index) => (
                         <div key={label} className="space-y-2">
-                          <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-primary/42">
+                          <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-primary/58">
                             <span>{label}</span>
                             <span>{width}%</span>
                           </div>
@@ -235,7 +235,7 @@ export const Features = () => {
                       className="mt-6 inline-flex items-center gap-3 text-sm font-semibold text-primary transition-colors hover:text-accent"
                     >
                       Scopri il Pilates Clinico
-                      <ArrowRight className="h-4 w-4 text-accent" />
+                      <ArrowRightIcon className="h-4 w-4 text-accent" />
                     </Link>
                   </div>
                 </motion.div>
@@ -244,7 +244,7 @@ export const Features = () => {
           </div>
         </div>
 
-        {/* ── DESKTOP GRID (hidden below lg) ── */}
+        {/* �"?�"? DESKTOP GRID (hidden below lg) �"?�"? */}
         <div className="hidden gap-6 lg:grid lg:grid-cols-12 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
           <motion.article
             ref={tiltMain.ref}
@@ -265,7 +265,7 @@ export const Features = () => {
                 decoding="async"
                 className="h-full w-full object-cover object-center opacity-34 transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
               />
-              {/* Fixed overlay — was /92 /82 /94, now darker to cover logo */}
+              {/* Fixed overlay �?" was /92 /82 /94, now darker to cover logo */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/88 to-[#0e1a12]/96" />
             </div>
 
@@ -305,7 +305,7 @@ export const Features = () => {
             transition={{ ...fadeUp.transition, delay: 0.14 }}
             className="rounded-[2.4rem] border border-primary/10 bg-white/82 p-8 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.25)] backdrop-blur-xl lg:col-span-5"
           >
-            <p className="text-xs uppercase tracking-[0.24em] text-primary/42">Secondo pilastro</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-primary/58">Secondo pilastro</p>
             <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
               Ogni percorso parte da una domanda semplice.
             </h3>
@@ -339,7 +339,7 @@ export const Features = () => {
             className="relative overflow-hidden rounded-[2.4rem] border border-accent/12 bg-[#efe7d8] p-8 lg:col-span-5"
           >
             <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-white/40 to-transparent" />
-            <p className="relative z-10 text-xs uppercase tracking-[0.24em] text-primary/42">Terzo pilastro</p>
+            <p className="relative z-10 text-xs uppercase tracking-[0.24em] text-primary/58">Terzo pilastro</p>
             <h3 className="relative z-10 mt-4 max-w-sm text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
               Trattamento e lavoro attivo devono stare insieme.
             </h3>
@@ -351,7 +351,7 @@ export const Features = () => {
             <div className="relative z-10 mt-8 space-y-4">
               {progressBars.map(({ label, width }, index) => (
                 <div key={label} className="space-y-2">
-                  <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-primary/42">
+                  <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-primary/58">
                     <span>{label}</span>
                     <span>{width}%</span>
                   </div>
@@ -373,7 +373,7 @@ export const Features = () => {
               className="relative z-10 mt-8 inline-flex items-center gap-3 text-sm font-semibold text-primary transition-colors hover:text-accent"
             >
               Scopri il Pilates Clinico
-              <ArrowRight className="h-4 w-4 text-accent" />
+              <ArrowRightIcon className="h-4 w-4 text-accent" />
             </Link>
           </motion.article>
         </div>

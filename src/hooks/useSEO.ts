@@ -6,7 +6,7 @@ interface SEOProps {
   image?: string;
   url?: string;
   robots?: string;
-  schema?: Record<string, unknown>;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
   type?: 'website' | 'article';
 }
 
@@ -50,7 +50,7 @@ const setLinkTag = (content?: string) => {
   canonical.setAttribute('href', content);
 };
 
-const setSchemaTag = (schema?: Record<string, unknown>) => {
+const setSchemaTag = (schema?: Record<string, unknown> | Record<string, unknown>[]) => {
   if (!schema) {
     removeManagedTag('script[data-seo="schema"]');
     return;
@@ -63,7 +63,10 @@ const setSchemaTag = (schema?: Record<string, unknown>) => {
     scriptTag.setAttribute('data-seo', 'schema');
     document.head.appendChild(scriptTag);
   }
-  scriptTag.textContent = JSON.stringify(schema);
+  const payload = Array.isArray(schema)
+    ? { '@context': 'https://schema.org', '@graph': schema }
+    : schema;
+  scriptTag.textContent = JSON.stringify(payload);
 };
 
 export const useSEO = ({
@@ -75,6 +78,8 @@ export const useSEO = ({
   schema,
   type = 'website',
 }: SEOProps) => {
+  const schemaStr = schema ? JSON.stringify(schema) : '';
+
   useEffect(() => {
     document.title = title;
 
@@ -94,11 +99,13 @@ export const useSEO = ({
       'twitter:card',
       image ? 'summary_large_image' : 'summary',
     );
+    setMetaTag('name', 'twitter:site', '@studiofisyo');
     setMetaTag('name', 'twitter:title', title);
     setMetaTag('name', 'twitter:description', description);
     setMetaTag('name', 'twitter:image', image);
 
     setLinkTag(url);
     setSchemaTag(schema);
-  }, [description, image, robots, schema, title, type, url]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [description, image, robots, schemaStr, title, type, url]);
 };

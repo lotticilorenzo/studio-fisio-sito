@@ -72,7 +72,7 @@ const FAQItem = ({
           transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
           className="overflow-hidden"
         >
-          <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-primary/66">
+          <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-primary/72">
             {answer}
           </p>
         </motion.div>
@@ -89,7 +89,7 @@ export const FAQ = () => {
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <Reveal width="100%">
           <div className="lg:sticky lg:top-28">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/46">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
               Domande frequenti
             </p>
             <h2 className="max-w-xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">

@@ -30,15 +30,9 @@ export const SmoothScrollProvider = ({ children }: { children: ReactNode }) => {
 
     updatePreference();
 
-    if (typeof mediaQuery.addEventListener === 'function') {
-      mediaQuery.addEventListener('change', updatePreference);
+    mediaQuery.addEventListener('change', updatePreference);
 
-      return () => mediaQuery.removeEventListener('change', updatePreference);
-    }
-
-    mediaQuery.addListener(updatePreference);
-
-    return () => mediaQuery.removeListener(updatePreference);
+    return () => mediaQuery.removeEventListener('change', updatePreference);
   }, []);
 
   useEffect(() => {

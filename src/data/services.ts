@@ -441,7 +441,7 @@ export const services: ServiceData[] = [
   },
   {
     id: 'fisio4young',
-    title: 'Fisio4Young',
+    title: 'Fisioterapia per bambini e ragazzi',
     label: 'Età evolutiva',
     summary:
       'Un percorso dedicato a bambini e ragazzi per postura, crescita, movimento e recupero dopo piccoli o grandi stop.',

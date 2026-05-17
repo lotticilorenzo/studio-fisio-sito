@@ -72,18 +72,22 @@ const routes = [
     schema: {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
+      name: 'Servizi di Studio Fisyo',
+      description: 'Fisioterapia, Pilates Clinico, salute della donna, linfodrenaggio, psicologia, nutrizione a Felino (Parma).',
+      numberOfItems: 7,
       itemListElement: [
-        'fisioterapia',
-        'pilates-clinico',
-        'salute-donna',
-        'linfodrenaggio',
-        'psicologia',
-        'fisio4young',
-        'nutrizione',
-      ].map((id, index) => ({
+        { id: 'fisioterapia', title: 'Fisioterapia e riabilitazione funzionale' },
+        { id: 'pilates-clinico', title: 'Pilates clinico' },
+        { id: 'salute-donna', title: 'Salute della donna' },
+        { id: 'linfodrenaggio', title: 'Linfodrenaggio manuale' },
+        { id: 'psicologia', title: 'Psicologia e psicoterapia' },
+        { id: 'fisio4young', title: 'Fisioterapia per bambini e ragazzi' },
+        { id: 'nutrizione', title: 'Nutrizione clinica' },
+      ].map((s, index) => ({
         '@type': 'ListItem',
         position: index + 1,
-        url: `https://www.studiofisyo.com/servizi/${id}`,
+        name: s.title,
+        url: `https://www.studiofisyo.com/servizi/${s.id}`,
       })),
     },
   },
@@ -95,13 +99,24 @@ const routes = [
     image: 'https://www.studiofisyo.com/images/real/fisioterapia_studio_fisyo.webp',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: 'Fisioterapia e riabilitazione funzionale',
-      description:
-        'Valutazione, terapia manuale ed esercizio terapeutico dentro un percorso costruito sul tuo caso.',
-      provider: providerSchema,
-      areaServed: 'Felino, Parma',
-      url: 'https://www.studiofisyo.com/servizi/fisioterapia',
+      '@graph': [
+        {
+          '@type': 'Service',
+          name: 'Fisioterapia e riabilitazione funzionale',
+          description: 'Valutazione, terapia manuale ed esercizio terapeutico dentro un percorso costruito sul tuo caso.',
+          provider: providerSchema,
+          areaServed: 'Felino, Parma',
+          url: 'https://www.studiofisyo.com/servizi/fisioterapia',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+            { '@type': 'ListItem', position: 3, name: 'Fisioterapia e riabilitazione funzionale', item: 'https://www.studiofisyo.com/servizi/fisioterapia' },
+          ],
+        },
+      ],
     },
   },
   {
@@ -113,13 +128,24 @@ const routes = [
       'https://www.studiofisyo.com/images/real/staff-valentina-corradi-pilates-clinico-studio-fisyo.webp',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: 'Pilates clinico',
-      description:
-        'Un lavoro sul corpo condotto da fisioterapiste, pensato per postura, controllo e continuità nel movimento.',
-      provider: providerSchema,
-      areaServed: 'Felino, Parma',
-      url: 'https://www.studiofisyo.com/servizi/pilates-clinico',
+      '@graph': [
+        {
+          '@type': 'Service',
+          name: 'Pilates clinico',
+          description: 'Un lavoro sul corpo condotto da fisioterapiste, pensato per postura, controllo e continuità nel movimento.',
+          provider: providerSchema,
+          areaServed: 'Felino, Parma',
+          url: 'https://www.studiofisyo.com/servizi/pilates-clinico',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+            { '@type': 'ListItem', position: 3, name: 'Pilates clinico', item: 'https://www.studiofisyo.com/servizi/pilates-clinico' },
+          ],
+        },
+      ],
     },
   },
   {
@@ -130,13 +156,24 @@ const routes = [
     image: 'https://www.studiofisyo.com/images/real/salute_donna.webp',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: 'Salute della donna',
-      description:
-        'Uno spazio di lavoro riservato per pavimento pelvico, gravidanza, post parto e benessere femminile.',
-      provider: providerSchema,
-      areaServed: 'Felino, Parma',
-      url: 'https://www.studiofisyo.com/servizi/salute-donna',
+      '@graph': [
+        {
+          '@type': 'Service',
+          name: 'Salute della donna',
+          description: 'Uno spazio di lavoro riservato per pavimento pelvico, gravidanza, post parto e benessere femminile.',
+          provider: providerSchema,
+          areaServed: 'Felino, Parma',
+          url: 'https://www.studiofisyo.com/servizi/salute-donna',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+            { '@type': 'ListItem', position: 3, name: 'Salute della donna', item: 'https://www.studiofisyo.com/servizi/salute-donna' },
+          ],
+        },
+      ],
     },
   },
   {
@@ -147,13 +184,24 @@ const routes = [
     image: 'https://www.studiofisyo.com/images/real/linfodrenaggiobendaggigambe.webp',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: 'Linfodrenaggio manuale',
-      description:
-        'Un trattamento delicato e preciso per gonfiore, ristagno, fase post operatoria e bisogno di alleggerire i tessuti.',
-      provider: providerSchema,
-      areaServed: 'Felino, Parma',
-      url: 'https://www.studiofisyo.com/servizi/linfodrenaggio',
+      '@graph': [
+        {
+          '@type': 'Service',
+          name: 'Linfodrenaggio manuale',
+          description: 'Un trattamento delicato e preciso per gonfiore, ristagno, fase post operatoria e bisogno di alleggerire i tessuti.',
+          provider: providerSchema,
+          areaServed: 'Felino, Parma',
+          url: 'https://www.studiofisyo.com/servizi/linfodrenaggio',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+            { '@type': 'ListItem', position: 3, name: 'Linfodrenaggio manuale', item: 'https://www.studiofisyo.com/servizi/linfodrenaggio' },
+          ],
+        },
+      ],
     },
   },
   {
@@ -164,30 +212,52 @@ const routes = [
     image: 'https://www.studiofisyo.com/images/real/psicologia.webp',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: 'Psicologia e psicoterapia',
-      description:
-        'Un percorso per dare ordine a stanchezza, ansia, fatica emotiva o momenti in cui il corpo e la testa non vanno più nella stessa direzione.',
-      provider: providerSchema,
-      areaServed: 'Felino, Parma',
-      url: 'https://www.studiofisyo.com/servizi/psicologia',
+      '@graph': [
+        {
+          '@type': 'Service',
+          name: 'Psicologia e psicoterapia',
+          description: "Un percorso per dare ordine a stanchezza, ansia, fatica emotiva o momenti in cui il corpo e la testa non vanno più nella stessa direzione.",
+          provider: providerSchema,
+          areaServed: 'Felino, Parma',
+          url: 'https://www.studiofisyo.com/servizi/psicologia',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+            { '@type': 'ListItem', position: 3, name: 'Psicologia e psicoterapia', item: 'https://www.studiofisyo.com/servizi/psicologia' },
+          ],
+        },
+      ],
     },
   },
   {
     path: '/servizi/fisio4young',
-    title: 'Fisio4Young | Studio Fisyo',
+    title: 'Fisioterapia per bambini e ragazzi | Studio Fisyo',
     description:
       'Un percorso dedicato a bambini e ragazzi per postura, crescita, movimento e recupero dopo piccoli o grandi stop.',
     image: 'https://www.studiofisyo.com/images/real/esercizibambinifisioterapia.webp',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: 'Fisio4Young',
-      description:
-        'Un percorso dedicato a bambini e ragazzi per postura, crescita, movimento e recupero dopo piccoli o grandi stop.',
-      provider: providerSchema,
-      areaServed: 'Felino, Parma',
-      url: 'https://www.studiofisyo.com/servizi/fisio4young',
+      '@graph': [
+        {
+          '@type': 'Service',
+          name: 'Fisioterapia per bambini e ragazzi',
+          description: 'Un percorso dedicato a bambini e ragazzi per postura, crescita, movimento e recupero dopo piccoli o grandi stop.',
+          provider: providerSchema,
+          areaServed: 'Felino, Parma',
+          url: 'https://www.studiofisyo.com/servizi/fisio4young',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+            { '@type': 'ListItem', position: 3, name: 'Fisioterapia per bambini e ragazzi', item: 'https://www.studiofisyo.com/servizi/fisio4young' },
+          ],
+        },
+      ],
     },
   },
   {
@@ -199,13 +269,24 @@ const routes = [
       'https://www.studiofisyo.com/images/real/elisa-cardinali-nutrizionista-e1766323699892.webp',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: 'Nutrizione clinica',
-      description:
-        'Un supporto concreto per ritrovare equilibrio nel rapporto con il cibo, con il corpo e con alcuni bisogni clinici specifici.',
-      provider: providerSchema,
-      areaServed: 'Felino, Parma',
-      url: 'https://www.studiofisyo.com/servizi/nutrizione',
+      '@graph': [
+        {
+          '@type': 'Service',
+          name: 'Nutrizione clinica',
+          description: 'Un supporto concreto per ritrovare equilibrio nel rapporto con il cibo, con il corpo e con alcuni bisogni clinici specifici.',
+          provider: providerSchema,
+          areaServed: 'Felino, Parma',
+          url: 'https://www.studiofisyo.com/servizi/nutrizione',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+            { '@type': 'ListItem', position: 3, name: 'Nutrizione clinica', item: 'https://www.studiofisyo.com/servizi/nutrizione' },
+          ],
+        },
+      ],
     },
   },
   {

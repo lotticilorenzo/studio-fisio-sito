@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /assets/
+Disallow: /fibromialgia-open-day
 
 # Sitemap
 Sitemap: https://www.studiofisyo.com/sitemap.xml
