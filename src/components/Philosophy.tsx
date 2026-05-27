@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -145,7 +145,7 @@ export const Philosophy = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="aspect-[4/3] overflow-hidden rounded-[2.4rem]"
+                className="aspect-[4/3] overflow-hidden rounded-card-md"
               >
                 <img
                   src={step.image}

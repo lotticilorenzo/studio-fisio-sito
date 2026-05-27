@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { MagneticButton } from '../components/MagneticButton';
 import { PageHero } from '../components/PageHero';
 import { SectionDivider } from '../components/SectionDivider';
+import { InteractiveSurface } from '../components/InteractiveSurface';
 import { useSEO } from '../hooks/useSEO';
+import { STUDIO, waUrl } from '../config/constants';
 import { services } from '../data/services';
 import { ease, duration } from '../lib/motion';
 
@@ -13,12 +15,15 @@ type Category = (typeof categories)[number];
 
 function matchesCategory(label: string, cat: Category): boolean {
   if (cat === 'Tutti') return true;
-  const l = label.toLowerCase();
-  if (cat === 'Fisioterapia') return l.includes('fisioterapia');
-  if (cat === 'Movimento') return l.includes('pilates') || l.includes('movimento');
-  if (cat === 'Donna') return l.includes('donna');
-  if (cat === 'Benessere')
-    return ['psicologia', 'nutrizione', 'linfodrenaggio'].some((k) => l.includes(k));
+  const normalized = label.toLowerCase();
+  if (cat === 'Fisioterapia') return normalized.includes('fisioterapia');
+  if (cat === 'Movimento') return normalized.includes('pilates') || normalized.includes('movimento');
+  if (cat === 'Donna') return normalized.includes('donna');
+  if (cat === 'Benessere') {
+    return ['psicologia', 'nutrizione', 'linfodrenaggio'].some((keyword) =>
+      normalized.includes(keyword),
+    );
+  }
   return false;
 }
 
@@ -31,19 +36,38 @@ export const Servizi = () => {
       'Scopri i servizi di Studio Fisyo a Felino: fisioterapia, Pilates Clinico, salute della donna, linfodrenaggio, psicologia, Fisio4Young e nutrizione.',
     image: 'https://www.studiofisyo.com/images/real/internistudiofisyo2.webp',
     url: 'https://www.studiofisyo.com/servizi',
-    schema: {
-      '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      name: 'Servizi di Studio Fisyo',
-      description: 'Fisioterapia, Pilates Clinico, salute della donna, linfodrenaggio, psicologia, nutrizione a Felino (Parma).',
-      numberOfItems: services.length,
-      itemListElement: services.map((service, idx) => ({
-        '@type': 'ListItem',
-        position: idx + 1,
-        name: service.title,
-        url: `https://www.studiofisyo.com/servizi/${service.id}`,
-      })),
-    },
+    schema: [
+      {
+        '@type': 'CollectionPage',
+        name: 'Servizi di Studio Fisyo',
+        description:
+          'Fisioterapia, Pilates Clinico, salute della donna, linfodrenaggio, psicologia, nutrizione a Felino (Parma).',
+        url: 'https://www.studiofisyo.com/servizi',
+      },
+      {
+        '@type': 'ItemList',
+        name: 'Servizi di Studio Fisyo',
+        numberOfItems: services.length,
+        itemListElement: services.map((service, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          name: service.title,
+          url: `https://www.studiofisyo.com/servizi/${service.id}`,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Servizi',
+            item: 'https://www.studiofisyo.com/servizi',
+          },
+        ],
+      },
+    ],
   });
 
   useEffect(() => {
@@ -53,7 +77,7 @@ export const Servizi = () => {
   const filtered =
     activeCategory === 'Tutti'
       ? services
-      : services.filter((s) => matchesCategory(s.label, activeCategory));
+      : services.filter((service) => matchesCategory(service.label, activeCategory));
 
   return (
     <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
@@ -61,33 +85,93 @@ export const Servizi = () => {
       <div className="relative mx-auto max-w-7xl">
         <PageHero
           label="Servizi"
+          badge="Prima valutazione gratuita"
           title="Percorsi diversi."
           titleAccent="Uno stesso modo di lavorare."
-          subtitle="Ogni area dello studio ha una competenza precisa. Il punto non è offrirti tante cose, ma aiutarti a capire quale strada ha davvero senso per te."
+          subtitle="Ogni area dello studio ha una competenza precisa. Il punto non e offrirti tante cose, ma aiutarti a capire quale strada ha davvero senso per te."
         />
 
-        <SectionDivider className="mt-14 mb-10" />
+        <SectionDivider className="mb-10 mt-14" />
 
-        {/* Category filter */}
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filtra per categoria">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              role="tab"
-              aria-selected={cat === activeCategory}
-              onClick={() => setActiveCategory(cat)}
-              className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
-                cat === activeCategory
-                  ? 'bg-primary text-background shadow-[0_4px_20px_-8px_rgba(36,52,44,0.35)]'
-                  : 'border border-primary/10 bg-white/70 text-primary/72 backdrop-blur-md hover:bg-white hover:text-primary'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        <section className="grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-start">
+          <div>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+              Filtra i percorsi
+            </p>
+            <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filtra per categoria">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  role="tab"
+                  aria-selected={category === activeCategory}
+                  onClick={() => setActiveCategory(category)}
+                  className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
+                    category === activeCategory
+                      ? 'bg-primary text-background shadow-[0_4px_20px_-8px_rgba(36,52,44,0.35)]'
+                      : 'border border-primary/10 bg-white/70 text-primary/72 backdrop-blur-md hover:bg-white hover:text-primary'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            <p className="mt-5 text-sm leading-relaxed text-primary/58">
+              {filtered.length} {filtered.length === 1 ? 'percorso visibile' : 'percorsi visibili'}.
+              Se non sai ancora quale scegliere, va bene: il primo contatto serve proprio a questo.
+            </p>
+          </div>
 
-        {/* Service list */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: duration.slow, ease: ease.out }}
+            className="rounded-card-lg border border-primary/8 bg-white/80 p-7 shadow-card-md backdrop-blur-xl md:p-8"
+          >
+            <InteractiveSurface className="rounded-card-md">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+                Aiuto nella scelta
+              </p>
+              <h2 className="mt-4 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.04em] text-primary md:text-4xl">
+                Non serve arrivare con le idee perfette.
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary/70 md:text-lg">
+                Se ci racconti in breve che cosa ti sta limitando oggi, ti aiutiamo a capire
+                se partire da fisioterapia, movimento guidato o da un altro percorso dello studio.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/62">
+                  Prima valutazione gratuita
+                </span>
+                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/62">
+                  Risposta entro 24 h feriali
+                </span>
+                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/62">
+                  {STUDIO.city}
+                </span>
+              </div>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <MagneticButton
+                  to="/contatti"
+                  className="bg-primary px-7 py-4 text-base font-semibold text-background"
+                >
+                  Ti aiutiamo a scegliere
+                </MagneticButton>
+                <a
+                  href={waUrl('Ciao Studio Fisyo! Vorrei capire quale servizio e piu adatto a me.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-primary/10 bg-white px-7 py-4 text-base font-medium text-primary transition-colors hover:bg-warm-50"
+                >
+                  Scrivici su WhatsApp
+                </a>
+              </div>
+            </InteractiveSurface>
+          </motion.article>
+        </section>
+
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -100,6 +184,7 @@ export const Servizi = () => {
             {filtered.length === 0 && (
               <p className="text-lg text-primary/60">Nessun servizio in questa categoria.</p>
             )}
+
             {filtered.map((service, index) => {
               const Icon = service.icon;
               const isEven = index % 2 === 0;
@@ -109,24 +194,18 @@ export const Servizi = () => {
                   key={service.id}
                   initial={{ opacity: 0, y: 26 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: duration.slow,
-                    delay: index * 0.06,
-                    ease: ease.out,
-                  }}
+                  transition={{ duration: duration.slow, delay: index * 0.06, ease: ease.out }}
                   className={`grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center ${
-                    isEven
-                      ? ''
-                      : 'lg:[&>div:first-child]:order-2 lg:[&>div:last-child]:order-1'
+                    isEven ? '' : 'lg:[&>div:first-child]:order-2 lg:[&>div:last-child]:order-1'
                   }`}
                 >
-                  <div>
+                  <InteractiveSurface className="rounded-card-lg">
                     <Link
                       to={`/servizi/${service.id}`}
                       aria-label={`Scopri ${service.title}`}
-                      className="group block overflow-hidden rounded-[2.8rem] border border-primary/8 bg-white/70 p-3 shadow-[0_28px_80px_-46px_rgba(31,42,36,0.22)] backdrop-blur-xl"
+                      className="group block overflow-hidden rounded-card-lg border border-primary/8 bg-white/70 p-3 shadow-card-md backdrop-blur-xl"
                     >
-                      <div className="relative overflow-hidden rounded-[2.2rem] bg-[#e9dfd0]">
+                      <div className="relative overflow-hidden rounded-card-md bg-warm-300">
                         <img
                           src={service.image}
                           alt={service.imageAlt}
@@ -139,7 +218,7 @@ export const Servizi = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/24 to-transparent" />
                       </div>
                     </Link>
-                  </div>
+                  </InteractiveSurface>
 
                   <div className="px-1">
                     <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/54 backdrop-blur-md">
@@ -162,13 +241,21 @@ export const Servizi = () => {
                         </span>
                       ))}
                     </div>
-                    <MagneticButton
-                      to={`/servizi/${service.id}`}
-                      aria-label={`Approfondisci ${service.title}`}
-                      className="mt-8 bg-primary px-7 py-4 text-base font-semibold text-background"
-                    >
-                      Approfondisci il servizio
-                    </MagneticButton>
+                    <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                      <MagneticButton
+                        to={`/servizi/${service.id}`}
+                        aria-label={`Approfondisci ${service.title}`}
+                        className="bg-primary px-7 py-4 text-base font-semibold text-background"
+                      >
+                        Approfondisci il servizio
+                      </MagneticButton>
+                      <Link
+                        to={`/contatti?service=${service.id}`}
+                        className="inline-flex items-center justify-center rounded-full border border-primary/10 bg-white/72 px-7 py-4 text-base font-medium text-primary backdrop-blur-md transition-colors hover:bg-white"
+                      >
+                        Prenota questo percorso
+                      </Link>
+                    </div>
                   </div>
                 </motion.article>
               );

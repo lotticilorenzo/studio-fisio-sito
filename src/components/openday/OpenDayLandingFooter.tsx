@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { OPENDAY_CONFIG } from '../../config/openday';
+import { STUDIO } from '../../config/constants';
 
 export const OpenDayLandingFooter = () => {
   const { PHONE_NUMBER, PHONE_HREF } = OPENDAY_CONFIG;
@@ -36,10 +37,10 @@ export const OpenDayLandingFooter = () => {
               {formattedPhone}
             </a>
             <a
-              href="mailto:info@studiofisyo.com"
+              href={`mailto:${STUDIO.email}`}
               className="block text-sm text-white/60 transition-colors hover:text-white"
             >
-              info@studiofisyo.com
+              {STUDIO.email}
             </a>
           </div>
 
@@ -58,7 +59,7 @@ export const OpenDayLandingFooter = () => {
             </Link>
             <div className="mt-4 flex gap-4">
               <a
-                href="https://www.instagram.com/studiofisyo/"
+                href={STUDIO.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -69,7 +70,7 @@ export const OpenDayLandingFooter = () => {
                 </svg>
               </a>
               <a
-                href="https://www.facebook.com/studiofisyo"
+                href={STUDIO.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"

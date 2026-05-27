@@ -74,7 +74,7 @@ export const SmoothScrollProvider = ({ children }: { children: ReactNode }) => {
       lenisRef.current?.lenis?.resize();
       ScrollTrigger.refresh();
     });
-  }, [location.pathname, prefersReducedMotion]);
+  }, [location.pathname, location.search, prefersReducedMotion]);
 
   if (prefersReducedMotion) {
     return <>{children}</>;

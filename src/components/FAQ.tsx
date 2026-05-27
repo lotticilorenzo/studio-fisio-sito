@@ -1,29 +1,8 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Reveal } from './Reveal';
-
-const faqs = [
-  {
-    q: 'Serve la prescrizione medica per iniziare?',
-    a: 'Per un trattamento privato no. Se hai già referti o esami, portali con te alla prima visita.',
-  },
-  {
-    q: 'Quanto dura una seduta?',
-    a: 'Di solito tra 50 e 60 minuti. Lo definiamo in base al tipo di lavoro e alla fase del percorso.',
-  },
-  {
-    q: 'Come posso prenotare una valutazione?',
-    a: 'Puoi scriverci su WhatsApp, chiamarci oppure usare il modulo di contatto. Ti indichiamo noi il passo più semplice.',
-  },
-  {
-    q: 'Lavorate solo sul sintomo o anche sulle cause?',
-    a: 'Il sintomo conta, ma non è tutto. Cerchiamo sempre di capire che cosa lo alimenta e come aiutarti a non ritrovarti da capo dopo poco.',
-  },
-  {
-    q: 'Avete una prima valutazione gratuita?',
-    a: 'Sì. La usiamo per ascoltare bene il problema, capire da dove partire e suggerirti il percorso più adatto.',
-  },
-];
+import { waUrl } from '../config/constants';
+import { homepageFaqs } from '../data/homepageFaqs';
 
 const FAQItem = ({
   question,
@@ -39,7 +18,7 @@ const FAQItem = ({
   number: string;
 }) => (
   <div
-    className={`overflow-hidden rounded-[1.8rem] border border-primary/8 backdrop-blur-xl transition-colors duration-200 ${
+    className={`overflow-hidden rounded-card-sm border border-primary/8 backdrop-blur-xl transition-colors duration-200 ${
       isOpen ? 'border-l-2 border-l-accent bg-surface' : 'bg-white/78'
     }`}
   >
@@ -101,7 +80,7 @@ export const FAQ = () => {
             </p>
 
             <a
-              href={`https://wa.me/393396508642?text=${encodeURIComponent('Ciao Studio Fisyo, avrei una domanda.')}`}
+              href={waUrl('Ciao Studio Fisyo, avrei una domanda.')}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-background transition-colors hover:bg-[#1c2822]"
@@ -112,7 +91,7 @@ export const FAQ = () => {
         </Reveal>
 
         <div className="flex flex-col gap-3">
-          {faqs.map((faq, index) => (
+          {homepageFaqs.map((faq, index) => (
             <Reveal key={faq.q} width="100%" delay={index * 0.04}>
               <FAQItem
                 question={faq.q}

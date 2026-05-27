@@ -1,9 +1,11 @@
-import { useMemo, useRef, useState, useCallback } from 'react';
+﻿import { useMemo, useRef, useState, useCallback, useEffect } from 'react';
 import { HamburgerMenuIcon, Cross1Icon, ChevronDownIcon } from '@radix-ui/react-icons';
 import { Link, useLocation } from 'react-router-dom';
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight, Clock3, PhoneCall } from 'lucide-react';
 import { MagneticButton } from './MagneticButton';
 import { services } from '../data/services';
+import { STUDIO, waUrl } from '../config/constants';
 
 const serviceLinks = services.map((s) => ({ to: `/servizi/${s.id}`, label: s.title }));
 
@@ -27,6 +29,13 @@ export const Navbar = () => {
     dropdownTimer.current = setTimeout(() => setIsServicesDropdownOpen(false), 100);
   }, []);
 
+  useEffect(
+    () => () => {
+      if (dropdownTimer.current) clearTimeout(dropdownTimer.current);
+    },
+    [],
+  );
+
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const nextScrolled = latest > 18;
     setIsScrolled((current) => (current === nextScrolled ? current : nextScrolled));
@@ -45,7 +54,7 @@ export const Navbar = () => {
   const desktopClasses = useMemo(
     () =>
       isScrolled
-        ? 'border-primary/10 bg-[rgba(248,244,237,0.8)] shadow-[0_20px_50px_-32px_rgba(28,38,33,0.28)] backdrop-blur-xl'
+        ? 'border-primary/10 bg-[rgba(248,244,237,0.8)] shadow-card-sm backdrop-blur-xl'
         : 'border-primary/8 bg-[rgba(248,244,237,0.62)] backdrop-blur-lg',
     [isScrolled],
   );
@@ -58,7 +67,7 @@ export const Navbar = () => {
         }`}
       >
         <nav
-          className={`relative rounded-[2rem] border px-4 py-3 transition-all duration-500 sm:rounded-full sm:px-5 md:px-6 ${desktopClasses}`}
+          className={`relative rounded-card-md border px-4 py-3 transition-all duration-500 sm:rounded-full sm:px-5 md:px-6 ${desktopClasses}`}
         >
           <div className="flex items-center justify-between gap-4">
             <Link
@@ -130,21 +139,43 @@ export const Navbar = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.97 }}
                       transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute left-1/2 top-[calc(100%+0.8rem)] w-[320px] -translate-x-1/2 rounded-[1.75rem] border border-primary/8 bg-[rgba(249,245,238,0.96)] p-2 shadow-[0_28px_70px_-34px_rgba(31,42,36,0.28)] backdrop-blur-xl"
+                      className="absolute left-1/2 top-[calc(100%+0.8rem)] w-[360px] -translate-x-1/2 overflow-hidden rounded-card-sm border border-primary/8 bg-[rgba(249,245,238,0.96)] shadow-card-md backdrop-blur-xl"
                       onMouseEnter={openDropdown}
                       onMouseLeave={closeDropdown}
                     >
-                      <div className="grid gap-1">
+                      <div className="border-b border-primary/6 px-5 py-4">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/42">
+                          Percorsi
+                        </p>
+                        <p className="mt-2 max-w-[16rem] text-sm leading-relaxed text-primary/68">
+                          Servizi pensati per orientarti bene prima ancora di iniziare.
+                        </p>
+                      </div>
+
+                      <div className="grid gap-1 p-2">
                         {serviceLinks.map((service) => (
                           <Link
                             key={service.to}
                             to={service.to}
                             onClick={() => setIsServicesDropdownOpen(false)}
-                            className="rounded-2xl px-4 py-3 text-sm text-primary/70 transition-colors hover:bg-white hover:text-primary"
+                            className="flex items-center justify-between gap-4 rounded-2xl px-4 py-3 text-sm text-primary/70 transition-colors hover:bg-white hover:text-primary"
                           >
-                            {service.label}
+                            <span>{service.label}</span>
+                            <ArrowUpRight className="h-4 w-4 text-accent/80" />
                           </Link>
                         ))}
+                      </div>
+
+                      <div className="border-t border-primary/6 bg-white/48 px-5 py-4">
+                        <p className="text-sm font-medium text-primary">Non sai ancora quale scegliere?</p>
+                        <Link
+                          to="/contatti"
+                          onClick={() => setIsServicesDropdownOpen(false)}
+                          className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-accent"
+                        >
+                          Ti aiutiamo a capire il primo passo
+                          <ArrowUpRight className="h-4 w-4 text-accent" />
+                        </Link>
                       </div>
                     </motion.div>
                   )}
@@ -198,8 +229,19 @@ export const Navbar = () => {
             </div>
 
             <div className="hidden items-center gap-3 md:flex">
+              <div className="hidden items-center gap-3 rounded-full border border-primary/8 bg-white/55 px-4 py-2.5 text-left xl:flex">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/12 text-accent">
+                  <Clock3 className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/42">
+                    Contatto rapido
+                  </p>
+                  <p className="text-sm font-medium text-primary/74">Risposta entro 24 h feriali</p>
+                </div>
+              </div>
               <a
-                href="https://wa.me/393396508642"
+                href={waUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-primary/70 transition-colors hover:text-primary"
@@ -212,7 +254,7 @@ export const Navbar = () => {
 
               <MagneticButton
                 to="/contatti"
-                className="bg-primary px-6 py-3 text-sm font-semibold text-background shadow-[0_18px_40px_-30px_rgba(36,52,44,0.38)]"
+                className="bg-primary px-6 py-3 text-sm font-semibold text-background shadow-card-sm"
               >
                 Prenota
               </MagneticButton>
@@ -220,7 +262,7 @@ export const Navbar = () => {
 
             <div className="flex items-center gap-3 md:hidden">
               <a
-                href="https://wa.me/393396508642"
+                href={waUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-primary/70"
@@ -252,10 +294,24 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -18 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-3 top-[5.2rem] z-40 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-[2rem] border border-primary/8 bg-[rgba(248,244,237,0.95)] p-5 shadow-[0_30px_70px_-36px_rgba(31,42,36,0.3)] backdrop-blur-xl md:hidden"
+            className="fixed inset-x-3 top-[5.2rem] z-40 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-card-md border border-primary/8 bg-[rgba(248,244,237,0.95)] p-5 shadow-card-lg backdrop-blur-xl md:hidden"
             data-lenis-prevent
           >
             <div className="flex flex-col gap-2 text-primary">
+              <div className="mb-2 rounded-card-sm border border-primary/8 bg-white/65 p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/42">
+                  Studio Fisyo
+                </p>
+                <p className="mt-2 text-lg font-semibold tracking-[-0.04em] text-primary">
+                  Prima visita gratuita e risposta umana.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2 text-xs text-primary/58">
+                  <span className="rounded-full border border-primary/8 px-3 py-1.5">Felino, Parma</span>
+                  <span className="rounded-full border border-primary/8 px-3 py-1.5">6 professioniste</span>
+                  <span className="rounded-full border border-primary/8 px-3 py-1.5">WhatsApp attivo</span>
+                </div>
+              </div>
+
               <Link
                 to="/"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -332,9 +388,27 @@ export const Navbar = () => {
               </Link>
             </div>
 
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <a
+                href={`tel:${STUDIO.phoneRaw}`}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/8 bg-white/75 px-5 py-3 text-sm font-medium text-primary"
+              >
+                <PhoneCall className="h-4 w-4 text-accent" />
+                Chiama
+              </a>
+              <a
+                href={waUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white"
+              >
+                WhatsApp
+              </a>
+            </div>
+
             <MagneticButton
               to="/contatti"
-              className="mt-4 w-full bg-primary px-6 py-3 text-sm font-semibold text-background"
+              className="mt-3 w-full bg-primary px-6 py-3 text-sm font-semibold text-background"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Prenota una valutazione

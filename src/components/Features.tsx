@@ -1,8 +1,10 @@
+﻿/* eslint-disable react-hooks/refs */
 import { useState, useRef } from 'react';
 import { ArrowRightIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import type { RefObject } from 'react';
+import { ease, duration, viewport } from '../lib/motion';
 
 function useTilt(factor = 8) {
   const ref = useRef<HTMLElement>(null);
@@ -36,10 +38,19 @@ const fadeUp = {
 
 const accordionTransition = { duration: 0.26, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
 
-const progressBars = [
-  { label: 'Pazienti che tornano all\'attività', width: 78 },
-  { label: 'Riduzione del dolore cronico', width: 58 },
-  { label: 'Continuità nel movimento', width: 88 },
+const qualitativeItems = [
+  {
+    title: 'Controllo',
+    desc: 'Riconosciamo i movimenti che ti limitano e impostiamo il lavoro per recuperarli.',
+  },
+  {
+    title: 'Mobilità',
+    desc: 'Sblocchiamo le aree rigide con tecnica manuale e esercizio mirato.',
+  },
+  {
+    title: 'Continuità',
+    desc: 'Ti accompagniamo oltre la seduta con indicazioni pratiche e follow-up.',
+  },
 ];
 
 const steps = [
@@ -80,11 +91,11 @@ export const Features = () => {
           </p>
         </motion.div>
 
-        {/* �"?�"? MOBILE ACCORDION (hidden on lg+) �"?�"? */}
+        {/* Mobile accordion */}
         <div className="flex flex-col gap-3 lg:hidden">
 
           {/* Accordion: Primo pilastro (dark) */}
-          <div className="overflow-hidden rounded-[2.4rem] border border-white/10 bg-primary text-background">
+          <div className="overflow-hidden rounded-card-md border border-white/10 bg-primary text-background">
             <button
               onClick={() => toggle(0)}
               className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
@@ -131,7 +142,7 @@ export const Features = () => {
           </div>
 
           {/* Accordion: Secondo pilastro (light) */}
-          <div className="overflow-hidden rounded-[2.4rem] border border-primary/10 bg-white/82 backdrop-blur-xl">
+          <div className="overflow-hidden rounded-card-md border border-primary/10 bg-white/82 backdrop-blur-xl">
             <button
               onClick={() => toggle(1)}
               className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
@@ -181,7 +192,7 @@ export const Features = () => {
           </div>
 
           {/* Accordion: Terzo pilastro (warm neutral) */}
-          <div className="overflow-hidden rounded-[2.4rem] border border-accent/12 bg-[#efe7d8]">
+          <div className="overflow-hidden rounded-card-md border border-accent/12 bg-warm-200">
             <button
               onClick={() => toggle(2)}
               className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
@@ -211,23 +222,23 @@ export const Features = () => {
                       Per questo i percorsi non si fermano al lettino. Quando serve, il corpo
                       va accompagnato a ritrovare fiducia nel movimento.
                     </p>
-                    <div className="mt-5 space-y-4">
-                      {progressBars.map(({ label, width }, index) => (
-                        <div key={label} className="space-y-2">
-                          <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-primary/58">
-                            <span>{label}</span>
-                            <span>{width}%</span>
-                          </div>
-                          <div className="h-2 rounded-full bg-white/70">
-                            <motion.div
-                              initial={{ width: '24%' }}
-                              whileInView={{ width: `${width}%` }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 1, delay: 0.15 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                              className="h-full rounded-full bg-primary"
-                            />
-                          </div>
-                        </div>
+                    <div className="mt-5 space-y-5">
+                      {qualitativeItems.map((item, i) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, y: 16 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={viewport.item}
+                          transition={{ duration: duration.std, ease: ease.out, delay: i * 0.08 }}
+                          className="border-l-2 border-accent/40 pl-4"
+                        >
+                          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/60">
+                            {item.title}
+                          </p>
+                          <p className="mt-1.5 text-[14px] leading-relaxed text-primary/72">
+                            {item.desc}
+                          </p>
+                        </motion.div>
                       ))}
                     </div>
                     <Link
@@ -244,7 +255,7 @@ export const Features = () => {
           </div>
         </div>
 
-        {/* �"?�"? DESKTOP GRID (hidden below lg) �"?�"? */}
+        {/* Desktop grid */}
         <div className="hidden gap-6 lg:grid lg:grid-cols-12 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
           <motion.article
             ref={tiltMain.ref}
@@ -253,7 +264,7 @@ export const Features = () => {
             style={{ rotateX: tiltMain.rotateX, rotateY: tiltMain.rotateY, transformPerspective: 1000 }}
             {...fadeUp}
             transition={{ ...fadeUp.transition, delay: 0.06 }}
-            className="group relative overflow-hidden rounded-[2.7rem] border border-primary/8 bg-primary text-background lg:col-span-7 lg:row-span-2"
+            className="group relative overflow-hidden rounded-card-lg border border-primary/8 bg-primary text-background lg:col-span-7 lg:row-span-2"
           >
             <div className="absolute inset-0">
               <img
@@ -265,7 +276,7 @@ export const Features = () => {
                 decoding="async"
                 className="h-full w-full object-cover object-center opacity-34 transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
               />
-              {/* Fixed overlay �?" was /92 /82 /94, now darker to cover logo */}
+              {/* Darker overlay to keep the image background calm under copy */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/88 to-[#0e1a12]/96" />
             </div>
 
@@ -303,7 +314,7 @@ export const Features = () => {
             style={{ rotateX: tiltSecond.rotateX, rotateY: tiltSecond.rotateY, transformPerspective: 1000 }}
             {...fadeUp}
             transition={{ ...fadeUp.transition, delay: 0.14 }}
-            className="rounded-[2.4rem] border border-primary/10 bg-white/82 p-8 shadow-[0_24px_70px_-42px_rgba(31,42,36,0.25)] backdrop-blur-xl lg:col-span-5"
+            className="rounded-card-md border border-primary/10 bg-white/82 p-8 shadow-card-md backdrop-blur-xl lg:col-span-5"
           >
             <p className="text-xs uppercase tracking-[0.24em] text-primary/58">Secondo pilastro</p>
             <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
@@ -336,7 +347,7 @@ export const Features = () => {
             style={{ rotateX: tiltThird.rotateX, rotateY: tiltThird.rotateY, transformPerspective: 1000 }}
             {...fadeUp}
             transition={{ ...fadeUp.transition, delay: 0.2 }}
-            className="relative overflow-hidden rounded-[2.4rem] border border-accent/12 bg-[#efe7d8] p-8 lg:col-span-5"
+            className="relative overflow-hidden rounded-card-md border border-accent/12 bg-warm-200 p-8 lg:col-span-5"
           >
             <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-white/40 to-transparent" />
             <p className="relative z-10 text-xs uppercase tracking-[0.24em] text-primary/58">Terzo pilastro</p>
@@ -348,23 +359,23 @@ export const Features = () => {
               va accompagnato a ritrovare fiducia nel movimento.
             </p>
 
-            <div className="relative z-10 mt-8 space-y-4">
-              {progressBars.map(({ label, width }, index) => (
-                <div key={label} className="space-y-2">
-                  <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-primary/58">
-                    <span>{label}</span>
-                    <span>{width}%</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-white/70">
-                    <motion.div
-                      initial={{ width: '24%' }}
-                      whileInView={{ width: `${width}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.15 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                      className="h-full rounded-full bg-primary"
-                    />
-                  </div>
-                </div>
+            <div className="relative z-10 mt-8 space-y-5">
+              {qualitativeItems.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewport.item}
+                  transition={{ duration: duration.std, ease: ease.out, delay: i * 0.08 }}
+                  className="border-l-2 border-accent/40 pl-4"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/60">
+                    {item.title}
+                  </p>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-primary/72">
+                    {item.desc}
+                  </p>
+                </motion.div>
               ))}
             </div>
 

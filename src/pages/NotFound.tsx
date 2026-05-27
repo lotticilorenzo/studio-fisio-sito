@@ -1,9 +1,31 @@
-import { useEffect } from 'react';
+﻿import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 import { MagneticButton } from '../components/MagneticButton';
+import { InteractiveSurface } from '../components/InteractiveSurface';
 import { ease, duration } from '../lib/motion';
+
+const recoveryLinks = [
+  {
+    to: '/servizi',
+    label: 'Servizi',
+    title: 'Guarda i percorsi dello studio',
+    text: 'Fisioterapia, movimento guidato, salute della donna e altri percorsi integrati.',
+  },
+  {
+    to: '/chi-siamo',
+    label: 'Team',
+    title: 'Conosci lo studio',
+    text: 'Scopri il tono, il metodo e le professioniste che lavorano insieme in Studio Fisyo.',
+  },
+  {
+    to: '/contatti',
+    label: 'Contatti',
+    title: 'Riparti da un contatto diretto',
+    text: 'Se avevi già in mente un bisogno preciso, ti aiutiamo noi a rimetterlo a fuoco.',
+  },
+] as const;
 
 export const NotFound = () => {
   useSEO({
@@ -23,7 +45,7 @@ export const NotFound = () => {
       <div className="pointer-events-none absolute right-0 top-0 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[100px]" />
 
       <motion.div
-        className="relative z-10 flex max-w-2xl flex-col items-center text-center"
+        className="relative z-10 flex max-w-4xl flex-col items-center text-center"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: duration.slow, ease: ease.out }}
@@ -38,16 +60,16 @@ export const NotFound = () => {
           404
         </motion.div>
 
-        <div className="-mt-12 w-full rounded-[3rem] border border-white/40 bg-white/60 p-10 shadow-[0_30px_80px_-24px_rgba(36,52,44,0.12)] backdrop-blur-xl md:-mt-20 md:p-14">
+        <div className="-mt-12 w-full rounded-card-xl border border-white/40 bg-white/60 p-10 shadow-[0_30px_80px_-24px_rgba(36,52,44,0.12)] backdrop-blur-xl md:-mt-20 md:p-14">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/58">
             Pagina non trovata
           </p>
           <h1 className="text-4xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl">
-            Il percorso che cerchi{' '}
-            <span className="font-drama font-normal italic text-accent">non esiste più.</span>
+            Il percorso che cerchi <span className="font-drama font-normal italic text-accent">non esiste più.</span>
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-primary/72">
-            Forse il link è cambiato o la pagina è stata spostata. Torniamo al punto di partenza.
+            Forse il link è cambiato o la pagina è stata spostata. Torniamo al punto di partenza
+            e ti rimettiamo subito dentro il sito giusto.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
@@ -63,6 +85,27 @@ export const NotFound = () => {
             >
               Contattaci
             </Link>
+          </div>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {recoveryLinks.map((item) => (
+              <InteractiveSurface
+                key={item.to}
+                className="rounded-card-md border border-primary/8 bg-warm-50 p-5 text-left"
+              >
+                <Link to={item.to} className="block">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/48">
+                    {item.label}
+                  </p>
+                  <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
+                    {item.title}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-primary/66">
+                    {item.text}
+                  </p>
+                </Link>
+              </InteractiveSurface>
+            ))}
           </div>
         </div>
 

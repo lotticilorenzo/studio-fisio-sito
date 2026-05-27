@@ -1,7 +1,7 @@
-import { useLayoutEffect, useRef } from 'react';
+﻿import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { MagneticButton } from '../MagneticButton';
-import { OPENDAY_CONFIG } from '../../config/openday';
+import { OPENDAY_CONFIG, openDayWaUrl } from '../../config/openday';
 
 const symptoms = [
     "Dolori diffusi in tutto il corpo che cambiano sede",
@@ -45,7 +45,7 @@ export const OpenDayAwareness = () => {
         return () => ctx.revert();
     }, []);
 
-    const { PHONE_NUMBER, WHATSAPP_MESSAGE } = OPENDAY_CONFIG;
+    const { WHATSAPP_MESSAGE } = OPENDAY_CONFIG;
 
     return (
         <section ref={comp} className="py-24 md:py-32 bg-[#FAF9F5] relative z-10 border-t border-black/5 overflow-hidden">
@@ -80,7 +80,7 @@ export const OpenDayAwareness = () => {
                         Se ti sei riconosciuta in <strong className="text-primary">3 o più</strong> di questi punti, vale la pena parlarne con uno specialista. Il <strong className="text-accent">21 Marzo</strong> puoi farlo <strong className="text-accent">gratuitamente</strong>.
                     </p>
                     <MagneticButton
-                        href={`https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_MESSAGE}`}
+                        href={openDayWaUrl(WHATSAPP_MESSAGE)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-white text-primary border-2 border-primary/10 px-8 py-4 sm:px-10 sm:py-5 font-sans font-bold text-base md:text-lg w-full sm:w-auto hover:bg-primary hover:text-white hover:border-primary shadow-sm"
@@ -94,7 +94,7 @@ export const OpenDayAwareness = () => {
                 {/* ─── BLOCCO 3: 3 Statistiche ─── */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-20 md:mb-24">
                     {stats.map((stat, i) => (
-                        <div key={i} className="aw-stat bg-white p-8 md:p-10 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-black/5 transition-all duration-300 text-center group">
+                        <div key={i} className="aw-stat bg-white p-8 md:p-10 rounded-card-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-black/5 transition-all duration-300 text-center group">
                             <div className="font-mono text-5xl md:text-6xl lg:text-7xl font-bold text-primary mb-4 tracking-tighter group-hover:text-accent transition-colors duration-300">
                                 {stat.number}
                             </div>
@@ -106,7 +106,7 @@ export const OpenDayAwareness = () => {
                 </div>
 
                 {/* ─── BLOCCO 4: Testo Empatico Finale ─── */}
-                <div className="aw-empathy relative p-8 md:p-12 rounded-[2.5rem] bg-primary text-white overflow-hidden text-center">
+                <div className="aw-empathy relative p-8 md:p-12 rounded-card-lg bg-primary text-white overflow-hidden text-center">
                     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_bottom_left,rgba(234,179,8,0.15),transparent)] pointer-events-none" aria-hidden="true"></div>
                     <div className="relative z-10 max-w-3xl mx-auto">
                         <p className="font-drama text-2xl md:text-3xl lg:text-4xl leading-snug mb-6 italic">
@@ -117,7 +117,7 @@ export const OpenDayAwareness = () => {
                             La fibromialgia è una condizione reale, riconosciuta dall'OMS dal 1992. Merita un approccio serio, multidisciplinare e soprattutto <span className="text-accent font-bold">ti meriti di essere ascoltata</span>.
                         </p>
                         <MagneticButton
-                            href={`https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_MESSAGE}`}
+                            href={openDayWaUrl(WHATSAPP_MESSAGE)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="bg-white text-primary px-8 py-4 sm:px-10 sm:py-5 font-sans font-bold text-base md:text-lg w-full sm:w-auto hover:bg-white/90"

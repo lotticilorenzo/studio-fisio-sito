@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { WA_MESSAGE_ERROR, waUrl } from '../config/constants';
 
 interface Props {
     children: ReactNode;
@@ -15,16 +16,17 @@ export class ErrorBoundary extends Component<Props, State> {
         return { hasError: true };
     }
 
-    componentDidCatch(_error: Error, _info: ErrorInfo) {
+    componentDidCatch(error: Error, info: ErrorInfo) {
+        void error;
+        void info;
+
         // Intentionally not logging to external services
     }
 
     render() {
         if (!this.state.hasError) return this.props.children;
 
-        const waHref =
-            'https://wa.me/393396508642?text=' +
-            encodeURIComponent('Ciao Studio Fisyo, il sito ha avuto un problema tecnico. Potete aiutarmi?');
+        const waHref = waUrl(WA_MESSAGE_ERROR);
 
         return (
             <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 text-center">

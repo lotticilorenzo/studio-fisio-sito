@@ -21,17 +21,17 @@ export const Reveal = ({
 }: RevealProps) => {
   const reduced = useReducedMotion();
 
-  const yOffset = !!reduced ? 0 : direction === 'up' ? 32 : direction === 'down' ? -32 : 0;
-  const xOffset = !!reduced ? 0 : direction === 'left' ? 32 : direction === 'right' ? -32 : 0;
+  const yOffset = reduced ? 0 : direction === 'up' ? 32 : direction === 'down' ? -32 : 0;
+  const xOffset = reduced ? 0 : direction === 'left' ? 32 : direction === 'right' ? -32 : 0;
 
   return (
     <div style={{ width, position: 'relative' }} className={`min-w-0 ${className}`}>
       <motion.div
-        initial={{ opacity: !!reduced ? 1 : 0, y: yOffset, x: xOffset }}
+        initial={{ opacity: reduced ? 1 : 0, y: yOffset, x: xOffset }}
         whileInView={{ opacity: 1, y: 0, x: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={
-          !!reduced
+          reduced
             ? { duration: 0 }
             : { duration: duration.slow, delay, ease: ease.out }
         }

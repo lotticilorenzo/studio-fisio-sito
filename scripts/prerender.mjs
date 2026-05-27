@@ -30,37 +30,86 @@ const routes = [
     image: defaultImage,
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'MedicalClinic',
-      name: 'Studio Fisyo',
-      image: defaultImage,
-      description:
-        'Studio di fisioterapia, Pilates Clinico, salute della donna, nutrizione e percorsi integrati a Felino (Parma).',
-      address: providerSchema.address,
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: 44.6937,
-        longitude: 10.2443,
-      },
-      openingHoursSpecification: [
+      '@graph': [
         {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-          opens: '08:00',
-          closes: '20:00',
+          '@type': 'MedicalClinic',
+          name: 'Studio Fisyo',
+          image: defaultImage,
+          description:
+            'Studio di fisioterapia, Pilates Clinico, salute della donna, nutrizione e percorsi integrati a Felino (Parma).',
+          address: providerSchema.address,
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: 44.6937,
+            longitude: 10.2443,
+          },
+          openingHoursSpecification: [
+            {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+              opens: '08:00',
+              closes: '20:00',
+            },
+          ],
+          contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+39-339-6508642',
+            contactType: 'Customer Support',
+          },
+          priceRange: '$$',
+          areaServed: 'Felino, Parma, Emilia-Romagna',
+          sameAs: [
+            'https://www.instagram.com/studiofisyo',
+            'https://www.facebook.com/studiofisyo',
+          ],
+          url: 'https://www.studiofisyo.com/',
+        },
+        {
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'Serve la prescrizione medica per iniziare?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Per un trattamento privato no. Se hai già referti o esami, portali con te alla prima visita.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Quanto dura una seduta?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Di solito tra 50 e 60 minuti. Lo definiamo in base al tipo di lavoro e alla fase del percorso.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Come posso prenotare una valutazione?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Puoi scriverci su WhatsApp, chiamarci oppure usare il modulo di contatto. Ti indichiamo noi il passo più semplice.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Lavorate solo sul sintomo o anche sulle cause?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Il sintomo conta, ma non è tutto. Cerchiamo sempre di capire che cosa lo alimenta e come aiutarti a non ritrovarti da capo dopo poco.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Avete una prima valutazione gratuita?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Sì. La usiamo per ascoltare bene il problema, capire da dove partire e suggerirti il percorso più adatto.',
+              },
+            },
+          ],
         },
       ],
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+39-339-6508642',
-        contactType: 'Customer Support',
-      },
-      priceRange: '$$',
-      areaServed: 'Felino, Parma, Emilia-Romagna',
-      sameAs: [
-        'https://www.instagram.com/studiofisyo',
-        'https://www.facebook.com/studiofisyo',
-      ],
-      url: 'https://www.studiofisyo.com/',
     },
   },
   {
@@ -71,24 +120,40 @@ const routes = [
     image: defaultImage,
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      name: 'Servizi di Studio Fisyo',
-      description: 'Fisioterapia, Pilates Clinico, salute della donna, linfodrenaggio, psicologia, nutrizione a Felino (Parma).',
-      numberOfItems: 7,
-      itemListElement: [
-        { id: 'fisioterapia', title: 'Fisioterapia e riabilitazione funzionale' },
-        { id: 'pilates-clinico', title: 'Pilates clinico' },
-        { id: 'salute-donna', title: 'Salute della donna' },
-        { id: 'linfodrenaggio', title: 'Linfodrenaggio manuale' },
-        { id: 'psicologia', title: 'Psicologia e psicoterapia' },
-        { id: 'fisio4young', title: 'Fisioterapia per bambini e ragazzi' },
-        { id: 'nutrizione', title: 'Nutrizione clinica' },
-      ].map((s, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: s.title,
-        url: `https://www.studiofisyo.com/servizi/${s.id}`,
-      })),
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          name: 'Servizi di Studio Fisyo',
+          description: 'Fisioterapia, Pilates Clinico, salute della donna, linfodrenaggio, psicologia, nutrizione a Felino (Parma).',
+          url: 'https://www.studiofisyo.com/servizi',
+        },
+        {
+          '@type': 'ItemList',
+          name: 'Servizi di Studio Fisyo',
+          numberOfItems: 7,
+          itemListElement: [
+            { id: 'fisioterapia', title: 'Fisioterapia e riabilitazione funzionale' },
+            { id: 'pilates-clinico', title: 'Pilates clinico' },
+            { id: 'salute-donna', title: 'Salute della donna' },
+            { id: 'linfodrenaggio', title: 'Linfodrenaggio manuale' },
+            { id: 'psicologia', title: 'Psicologia e psicoterapia' },
+            { id: 'fisio4young', title: 'Fisioterapia per bambini e ragazzi' },
+            { id: 'nutrizione', title: 'Nutrizione clinica' },
+          ].map((s, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: s.title,
+            url: `https://www.studiofisyo.com/servizi/${s.id}`,
+          })),
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Servizi', item: 'https://www.studiofisyo.com/servizi' },
+          ],
+        },
+      ],
     },
   },
   {
@@ -311,10 +376,36 @@ const routes = [
     image: defaultImage,
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'ContactPage',
-      name: 'Contatta Studio Fisyo',
-      description: 'Pagina contatti per prenotare una valutazione a Felino.',
-      url: 'https://www.studiofisyo.com/contatti',
+      '@graph': [
+        {
+          '@type': 'ContactPage',
+          name: 'Contatta Studio Fisyo',
+          description: 'Pagina contatti per prenotare una valutazione a Felino.',
+          url: 'https://www.studiofisyo.com/contatti',
+        },
+        {
+          '@type': 'MedicalClinic',
+          name: 'Studio Fisyo',
+          url: 'https://www.studiofisyo.com/',
+          telephone: '+39-339-6508642',
+          email: 'info@studiofisyo.com',
+          address: providerSchema.address,
+          contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+39-339-6508642',
+            contactType: 'customer support',
+            areaServed: 'Felino, Parma',
+            availableLanguage: ['it'],
+          },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.studiofisyo.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Contatti', item: 'https://www.studiofisyo.com/contatti' },
+          ],
+        },
+      ],
     },
   },
   {

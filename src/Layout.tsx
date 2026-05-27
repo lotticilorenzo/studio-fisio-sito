@@ -1,13 +1,11 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Footer, CTA } from './components/Footer';
 import { Preloader } from './components/Preloader';
 import { WhatsAppFAB } from './components/WhatsAppFAB';
 import { MobileBookingBar } from './components/MobileBookingBar';
 import { ScrollProgress } from './components/ScrollProgress';
-import { CustomCursor } from './components/CustomCursor';
-import { ease, duration } from './lib/motion';
+import { PageTransitionFrame } from './components/PageTransitionFrame';
 
 export const Layout = () => {
   const location = useLocation();
@@ -20,12 +18,11 @@ export const Layout = () => {
       >
         Vai al contenuto
       </a>
-      <CustomCursor />
       <ScrollProgress />
       <Preloader />
       <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute left-[-10rem] top-[8rem] h-[26rem] w-[26rem] rounded-full bg-accent/10 blur-[120px]" />
-        <div className="absolute bottom-[-8rem] right-[-6rem] h-[22rem] w-[22rem] rounded-full bg-primary/10 blur-[120px]" />
+        <div className="absolute left-[-10rem] top-[6rem] h-[28rem] w-[28rem] rounded-full bg-accent/8 blur-[130px]" />
+        <div className="absolute bottom-[-8rem] right-[-6rem] h-[24rem] w-[24rem] rounded-full bg-primary/8 blur-[130px]" />
         <div className="noise-overlay" aria-hidden="true" />
       </div>
 
@@ -35,17 +32,9 @@ export const Layout = () => {
         <MobileBookingBar />
 
         <main id="main-content">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: duration.base, ease: ease.page }}
-            >
-              <Outlet />
-            </motion.div>
-          </AnimatePresence>
+          <PageTransitionFrame routeKey={`${location.pathname}${location.search}`}>
+            <Outlet />
+          </PageTransitionFrame>
         </main>
 
         <CTA />

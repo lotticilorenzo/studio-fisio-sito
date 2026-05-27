@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, animate } from 'framer-motion';
+﻿import { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useMotionValue, animate, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { MagneticButton } from './MagneticButton';
+import { ease } from '../lib/motion';
 
 const serviceList = [
   { label: 'Fisioterapia', id: 'fisioterapia' },
@@ -12,6 +13,7 @@ const serviceList = [
 ];
 
 export const Hero = () => {
+  const prefersReducedMotion = useReducedMotion();
   const [isLg, setIsLg] = useState(() =>
     typeof window !== 'undefined'
       ? window.matchMedia('(min-width: 1024px)').matches
@@ -54,13 +56,13 @@ export const Hero = () => {
         {/* IMAGE — first on mobile, right column on desktop */}
         <motion.div
           style={isLg ? { y: imageY, rotate: imageRotate } : undefined}
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
+          initial={prefersReducedMotion ? { opacity: 0 } : { clipPath: 'inset(100% 0 0 0)' }}
+          animate={prefersReducedMotion ? { opacity: 1 } : { clipPath: 'inset(0% 0 0 0)' }}
+          transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 1.2, ease: ease.out, delay: 0.15 }}
           className="relative order-1 lg:order-2 lg:justify-self-end"
         >
           {/* Mobile image (simplified, height-constrained, above fold) */}
-          <div className="relative h-[58vw] max-h-[400px] overflow-hidden rounded-[2.4rem] bg-[#e9e0d3] lg:hidden">
+          <div className="relative h-[58vw] max-h-[400px] overflow-hidden rounded-card-md bg-warm-300 lg:hidden">
             <img
               src="/images/real/fisioterapia_studio_fisyo.webp"
               alt="Una seduta di fisioterapia nello Studio Fisyo."
@@ -79,7 +81,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute bottom-4 left-4 rounded-[1.4rem] border border-white/25 bg-primary/84 px-4 py-3 text-background backdrop-blur-xl"
+              className="absolute bottom-4 left-4 rounded-card-sm border border-white/25 bg-primary/84 px-4 py-3 text-background backdrop-blur-xl"
             >
               <p className="text-[10px] uppercase tracking-[0.22em] text-background/55">Studio Fisyo</p>
               <p className="mt-1 text-base font-semibold leading-snug">
@@ -91,8 +93,8 @@ export const Hero = () => {
 
           {/* Desktop image — original framed design */}
           <div className="hidden lg:block">
-            <div className="relative overflow-hidden rounded-[2.8rem] border border-white/60 bg-white/60 p-3 shadow-[0_34px_100px_-42px_rgba(30,38,33,0.35)] backdrop-blur-xl">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2.2rem] bg-[#e9e0d3] sm:aspect-[5/6]">
+            <div className="relative overflow-hidden rounded-card-lg border border-white/60 bg-white/60 p-3 shadow-card-xl backdrop-blur-xl">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-card-md bg-warm-300 sm:aspect-[5/6]">
                 <img
                   src="/images/real/fisioterapia_studio_fisyo.webp"
                   alt="Una seduta di fisioterapia nello Studio Fisyo."
@@ -104,7 +106,7 @@ export const Hero = () => {
                   className="h-full w-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/24 via-transparent to-white/10" />
-                <div className="absolute bottom-5 left-5 right-5 rounded-[1.7rem] border border-white/25 bg-primary/84 px-5 py-5 text-background backdrop-blur-xl">
+                <div className="absolute bottom-5 left-5 right-5 rounded-card-sm border border-white/25 bg-primary/84 px-5 py-5 text-background backdrop-blur-xl">
                   <p className="text-[11px] uppercase tracking-[0.24em] text-background/55">
                     Come lavoriamo
                   </p>
@@ -119,9 +121,9 @@ export const Hero = () => {
               initial={{ opacity: 0, x: -18, y: 18 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-7 left-0 w-[46%] rounded-[2rem] border border-white/70 bg-white/85 p-3 shadow-[0_24px_70px_-32px_rgba(36,52,44,0.4)] backdrop-blur-xl"
+              className="absolute -bottom-7 left-0 w-[46%] rounded-card-md border border-white/70 bg-white/85 p-3 shadow-card-md backdrop-blur-xl"
             >
-              <div className="overflow-hidden rounded-[1.5rem]">
+              <div className="overflow-hidden rounded-card-sm">
                 <img
                   src="/images/real/fototeamstudiofisyo.webp"
                   alt="Parte del team dello Studio Fisyo."
@@ -160,7 +162,7 @@ export const Hero = () => {
                 className="block"
                 initial={{ y: '110%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 0.75, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               >
                 Fisioterapia e salute integrata,
               </motion.span>
@@ -211,7 +213,7 @@ export const Hero = () => {
           >
             <MagneticButton
               to="/contatti"
-              className="w-full bg-primary px-7 py-4 text-base font-semibold text-background shadow-[0_22px_50px_-28px_rgba(36,52,44,0.45)] sm:max-w-[340px]"
+              className="w-full bg-primary px-7 py-4 text-base font-semibold text-background shadow-card-sm sm:max-w-[340px]"
             >
               Prenota una valutazione
             </MagneticButton>

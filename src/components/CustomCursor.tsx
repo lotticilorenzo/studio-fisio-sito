@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export const CustomCursor = () => {
-  const [mounted, setMounted] = useState(false);
+  const [mounted] = useState(
+    () => typeof window !== 'undefined' && !window.matchMedia('(pointer: coarse)').matches,
+  );
   const [isPointer, setIsPointer] = useState(false);
 
   const rawX = useMotionValue(-100);
@@ -11,8 +13,8 @@ export const CustomCursor = () => {
   const y = useSpring(rawY, { stiffness: 380, damping: 28, mass: 0.35 });
 
   useEffect(() => {
-    if (window.matchMedia('(pointer: coarse)').matches) return;
-    setMounted(true);
+    if (!mounted) return;
+
     document.documentElement.style.cursor = 'none';
 
     const onMove = (e: MouseEvent) => {
@@ -34,7 +36,7 @@ export const CustomCursor = () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseover', onOver);
     };
-  }, [rawX, rawY]);
+  }, [mounted, rawX, rawY]);
 
   if (!mounted) return null;
 

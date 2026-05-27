@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+﻿import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ export const OpenDayAbout = () => {
     <section ref={comp} className="relative z-10 overflow-hidden border-y border-black/5 bg-[#FAF9F5] py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="abt-image relative rounded-[2.5rem] overflow-hidden shadow-lg">
+          <div className="abt-image relative rounded-card-lg overflow-hidden shadow-lg">
             <div className="aspect-[4/3]">
               <img
                 src="/images/real/fisioterapia_studio_fisyo.webp"
@@ -41,7 +41,7 @@ export const OpenDayAbout = () => {
                 className="h-full w-full object-cover"
               />
             </div>
-            <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] border-4 border-white/20" />
+            <div className="pointer-events-none absolute inset-0 rounded-card-lg border-4 border-white/20" />
           </div>
 
           <div className="abt-content min-w-0">

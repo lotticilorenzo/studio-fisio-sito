@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+﻿import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 export const OpenDayProblem = () => {
@@ -48,7 +48,7 @@ export const OpenDayProblem = () => {
                     ))}
                 </div>
 
-                <div className="prob-text relative p-8 md:p-10 rounded-[2.5rem] bg-primary text-white overflow-hidden">
+                <div className="prob-text relative p-8 md:p-10 rounded-card-lg bg-primary text-white overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(234,179,8,0.15),transparent)] pointer-events-none"></div>
                     <p className="relative z-10 font-sans text-xl md:text-2xl font-medium leading-relaxed">
                         Noi ti crediamo. <br className="hidden md:block" />

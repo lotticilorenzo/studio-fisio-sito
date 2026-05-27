@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+﻿import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { OPENDAY_CONFIG } from '../../config/openday';
 
@@ -59,7 +59,7 @@ export const OpenDaySolution = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16">
                     {specialists.map((spec, i) => (
-                        <div key={i} className="sol-card bg-white p-8 md:p-10 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col items-center text-center group border border-transparent hover:border-black/5">
+                        <div key={i} className="sol-card bg-white p-8 md:p-10 rounded-card-lg shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col items-center text-center group border border-transparent hover:border-black/5">
                             <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-6 border-4 border-[#F2F0E9] group-hover:border-accent transition-colors duration-300 shadow-sm relative">
                                 <img
                                     src={spec.image}

@@ -1,5 +1,7 @@
-import { motion, useReducedMotion } from 'framer-motion';
+﻿import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import { ease, duration } from '../lib/motion';
+import { InteractiveSurface } from './InteractiveSurface';
 
 interface PageHeroProps {
   label: string;
@@ -21,6 +23,14 @@ export const PageHero = ({
   badge,
 }: PageHeroProps) => {
   const reduced = !!useReducedMotion();
+  const headerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ['start start', 'end start'],
+  });
+  const mediaY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, 40]);
+  const mediaScale = useTransform(scrollYProgress, [0, 1], reduced ? [1, 1] : [1, 1.06]);
+  const copyY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, -24]);
 
   const fadeUp = (delay = 0) => ({
     initial: { opacity: reduced ? 1 : 0, y: reduced ? 0 : 18 },
@@ -29,12 +39,19 @@ export const PageHero = ({
   });
 
   return (
-    <header>
-      {/* Mobile image �?" visible only on mobile when image prop is provided */}
+    <header
+      ref={headerRef}
+      className="relative overflow-hidden rounded-card-xl border border-primary/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.58),rgba(255,255,255,0.18))] px-7 py-8 shadow-card-lg backdrop-blur-xl md:px-10 md:py-10 lg:px-14 lg:py-14"
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[8%] top-[12%] h-40 w-40 rounded-full bg-accent/12 blur-[100px]" />
+        <div className="absolute right-[6%] top-[8%] h-48 w-48 rounded-full bg-primary/8 blur-[110px]" />
+      </div>
+
       {image && (
-        <motion.div {...fadeUp(0)} className="mb-8 lg:hidden">
-          <div className="relative h-[58vw] max-h-[380px] overflow-hidden rounded-[2.4rem] bg-[#e9e0d3]">
-            <img
+        <motion.div {...fadeUp(0)} className="relative mb-8 lg:hidden" style={{ y: mediaY }}>
+          <div className="relative h-[58vw] max-h-[380px] overflow-hidden rounded-card-md bg-warm-300">
+            <motion.img
               src={image}
               alt={imageAlt ?? ''}
               width={800}
@@ -43,35 +60,44 @@ export const PageHero = ({
               fetchPriority="high"
               decoding="async"
               className="h-full w-full object-cover object-center"
+              style={{ scale: mediaScale }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/24 to-transparent" />
           </div>
         </motion.div>
       )}
 
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
-        {/* Left: eyebrow, badge, h1, subtitle (when image is present) */}
-        <div>
+      <div className="relative grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end">
+        <motion.div style={{ y: copyY }}>
           <motion.p
             {...fadeUp(0)}
-            className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60"
+            className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/52"
           >
             {label}
           </motion.p>
 
-          {badge && (
+          <div className="flex flex-wrap items-center gap-3">
+            {badge && (
+              <motion.div
+                {...fadeUp(0.04)}
+                className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/8 px-4 py-2"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/90">
+                  {badge}
+                </span>
+              </motion.div>
+            )}
             <motion.div
-              {...fadeUp(0.04)}
-              className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/8 px-4 py-2"
+              {...fadeUp(0.08)}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/8 bg-white/68 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/54"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/90">
-                {badge}
-              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-primary/40" aria-hidden="true" />
+              Felino, Parma
             </motion.div>
-          )}
+          </div>
 
-          <h1 className="max-w-3xl text-5xl font-semibold leading-[0.96] tracking-[-0.06em] text-primary md:text-7xl">
+          <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-[0.94] tracking-[-0.06em] text-primary md:text-7xl">
             <div className="overflow-hidden">
               <motion.span
                 className="block"
@@ -96,23 +122,19 @@ export const PageHero = ({
             )}
           </h1>
 
-          {/* Subtitle below h1 when image is present */}
-          {image && (
-            <motion.p
-              {...fadeUp(0.22)}
-              className="mt-6 max-w-2xl text-lg leading-relaxed text-primary/68 md:text-xl"
-            >
-              {subtitle}
-            </motion.p>
-          )}
-        </div>
+          <motion.p
+            {...fadeUp(0.22)}
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-primary/68 md:text-xl"
+          >
+            {subtitle}
+          </motion.p>
+        </motion.div>
 
-        {/* Right column: image frame (desktop) or subtitle (no image) */}
         {image ? (
-          <motion.div {...fadeUp(0.14)} className="hidden lg:block">
-            <div className="overflow-hidden rounded-[2.8rem] border border-white/60 bg-white/55 p-3 shadow-[0_30px_90px_-40px_rgba(30,38,33,0.35)] backdrop-blur-xl">
-              <div className="relative overflow-hidden rounded-[2.2rem] bg-[#e9e0d3]">
-                <img
+          <motion.div {...fadeUp(0.14)} className="hidden lg:block" style={{ y: mediaY }}>
+            <InteractiveSurface className="overflow-hidden rounded-card-lg border border-white/60 bg-white/55 p-3 shadow-card-lg backdrop-blur-xl">
+              <div className="relative overflow-hidden rounded-card-md bg-warm-300">
+                <motion.img
                   src={image}
                   alt={imageAlt ?? ''}
                   width={800}
@@ -120,19 +142,52 @@ export const PageHero = ({
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
-                  className="aspect-[4/3] w-full object-cover object-center"
+                  className="aspect-[4/3.2] w-full object-cover object-center"
+                  style={{ scale: mediaScale }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/24 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/26 to-transparent" />
+                <div className="absolute inset-x-5 bottom-5 rounded-card-sm border border-white/20 bg-white/14 px-5 py-4 text-background backdrop-blur-xl">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-background/55">
+                    Studio Fisyo
+                  </p>
+                  <p className="mt-2 text-base leading-snug">
+                    Uno studio in cui estetica, atmosfera e chiarezza accompagnano il lavoro
+                    clinico senza distrarlo.
+                  </p>
+                </div>
               </div>
-            </div>
+            </InteractiveSurface>
           </motion.div>
         ) : (
-          <motion.p
+          <motion.div
             {...fadeUp(0.18)}
-            className="max-w-2xl text-lg leading-relaxed text-primary/68 md:text-xl"
+            className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1"
           >
-            {subtitle}
-          </motion.p>
+            <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white/72 p-5 backdrop-blur-xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/46">
+                Primo passo
+              </p>
+              <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
+                Valutazione orientata al caso
+              </p>
+            </InteractiveSurface>
+            <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white/72 p-5 backdrop-blur-xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/46">
+                Tono dello studio
+              </p>
+              <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
+                Caldo, professionale, mai impersonale
+              </p>
+            </InteractiveSurface>
+            <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white/72 p-5 backdrop-blur-xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/46">
+                Contatto
+              </p>
+              <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
+                Risposte rapide e percorso leggibile
+              </p>
+            </InteractiveSurface>
+          </motion.div>
         )}
       </div>
     </header>

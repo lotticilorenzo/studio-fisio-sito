@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useRef } from 'react';
+﻿import { useState, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -69,12 +69,12 @@ export const OpenDayFAQ = () => {
                         return (
                             <div
                                 key={index}
-                                className={`faq-item border transition-colors duration-300 rounded-[2rem] overflow-hidden ${isOpen ? 'bg-white border-black/5 shadow-sm' : 'bg-transparent border-black/5 hover:border-black/10'
+                                className={`faq-item border transition-colors duration-300 rounded-card-md overflow-hidden ${isOpen ? 'bg-white border-black/5 shadow-sm' : 'bg-transparent border-black/5 hover:border-black/10'
                                     }`}
                             >
                                 <button
                                     onClick={() => setOpenIndex(isOpen ? null : index)}
-                                    className="w-full px-6 py-6 md:px-8 md:py-8 flex items-center justify-between text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-[2rem]"
+                                    className="w-full px-6 py-6 md:px-8 md:py-8 flex items-center justify-between text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-card-md"
                                 >
                                     <h3 className="font-sans font-bold text-lg md:text-xl text-primary pr-8 leading-tight">
                                         {faq.q}

@@ -10,7 +10,7 @@ import { OpenDayProblem } from '../components/openday/OpenDayProblem';
 import { OpenDayProof } from '../components/openday/OpenDayProof';
 import { OpenDaySolution } from '../components/openday/OpenDaySolution';
 import { OpenDayUrgency } from '../components/openday/OpenDayUrgency';
-import { OPENDAY_CONFIG } from '../config/openday';
+import { OPENDAY_CONFIG, openDayWaUrl } from '../config/openday';
 import { useSEO } from '../hooks/useSEO';
 
 export const OpenDay = () => {
@@ -87,7 +87,7 @@ export const OpenDay = () => {
             <p className="mt-2 text-base text-primary/70">
               L&apos;Open Day del {OPENDAY_CONFIG.FORMATTED_DATE} si è concluso. Vuoi sapere quando organizziamo il prossimo?{' '}
               <a
-                href={`https://wa.me/${OPENDAY_CONFIG.PHONE_NUMBER}?text=${encodeURIComponent('Ciao! Vorrei essere informato sui prossimi eventi di Studio Fisyo.')}`}
+                href={openDayWaUrl(OPENDAY_CONFIG.NEXT_EVENT_MESSAGE)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-accent underline underline-offset-2"
@@ -136,7 +136,7 @@ export const OpenDay = () => {
           </svg>
         </a>
         <a
-          href={`https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_MESSAGE}`}
+          href={openDayWaUrl(WHATSAPP_MESSAGE)}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Prenota su WhatsApp"
