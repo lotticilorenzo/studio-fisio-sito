@@ -149,7 +149,7 @@ export const Home = () => {
                 className="block"
                 initial={{ opacity: 0, y: 26 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: duration.enter, delay: 0.08, ease: ease.out }}
+                transition={{ duration: duration.enter, delay: 0.12, ease: ease.out }}
               >
                 Fisioterapia e salute integrata,
               </motion.span>
@@ -157,7 +157,7 @@ export const Home = () => {
                 className="mt-3 block font-drama text-[0.9em] font-normal italic text-accent"
                 initial={{ opacity: 0, y: 26 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: duration.enter, delay: 0.18, ease: ease.out }}
+                transition={{ duration: duration.enter, delay: 0.22, ease: ease.out }}
               >
                 in un luogo che ricompone il percorso, non soltanto il sintomo.
               </motion.span>
@@ -166,7 +166,7 @@ export const Home = () => {
             <motion.p
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: duration.enter, delay: 0.28, ease: ease.out }}
+              transition={{ duration: duration.enter, delay: 0.40, ease: ease.out }}
               className="mt-7 max-w-xl text-lg leading-relaxed text-primary/72 md:text-xl"
             >
               Studio Fisyo nasce per chi non cerca una seduta qualsiasi, ma un posto in cui
@@ -177,7 +177,7 @@ export const Home = () => {
             <motion.div
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: duration.enter, delay: 0.36, ease: ease.out }}
+              transition={{ duration: duration.enter, delay: 0.48, ease: ease.out }}
               className="mt-10 flex flex-col gap-4 sm:flex-row"
             >
               <MagneticButton
@@ -197,7 +197,7 @@ export const Home = () => {
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: duration.enter, delay: 0.44, ease: ease.out }}
+              transition={{ duration: duration.enter, delay: 0.56, ease: ease.out }}
               className="mt-10 grid gap-4 border-t border-primary/10 pt-6 sm:grid-cols-3"
             >
               {/* Card 1 — Counter recensioni */}
@@ -244,7 +244,7 @@ export const Home = () => {
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.14, ease: ease.out }}
+            transition={{ duration: 0.9, delay: 0.35, ease: ease.out }}
             className="grid gap-4 lg:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)]"
           >
             <div className="order-2 grid gap-4 lg:order-1">

@@ -36,7 +36,7 @@ export const CTA = () => {
               Primo passo
             </p>
             <h2 className="mt-4 max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-6xl">
-              Se senti che e il momento giusto,
+              Se senti che è il momento giusto,
               <span className="font-drama italic font-normal text-accent"> partiamo bene.</span>
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-background/68 md:text-lg">
@@ -61,10 +61,10 @@ export const CTA = () => {
               Contatto rapido
             </p>
             <p className="mt-4 text-2xl font-semibold tracking-[-0.04em]">
-              Ti aiutiamo a capire qual e il primo passo piu sensato.
+              Ti aiutiamo a capire qual è il primo passo più sensato.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-background/68">
-              Modulo, telefono o WhatsApp: scegli il canale che ti viene piu naturale.
+              Modulo, telefono o WhatsApp: scegli il canale che ti viene più naturale.
             </p>
 
             <div className="mt-6 flex flex-col gap-4">
@@ -113,7 +113,7 @@ export const Footer = () => {
             />
             <p className="mt-6 max-w-sm text-base leading-relaxed text-background/62">
               Studio Fisyo a Felino. Fisioterapia, Pilates Clinico e percorsi integrati costruiti
-              con attenzione, chiarezza e continuita.
+              con attenzione, chiarezza e continuità.
             </p>
 
             <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-accent/20 bg-accent/8 px-4 py-2">
