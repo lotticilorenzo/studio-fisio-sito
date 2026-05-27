@@ -46,7 +46,7 @@ export const OpenDayLandingFooter = () => {
 
           <div>
             <div className="mb-4 text-sm font-bold uppercase tracking-widest text-white/40">
-              Scopri di piu
+              Scopri di più
             </div>
             <Link
               to="/"

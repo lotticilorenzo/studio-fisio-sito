@@ -12,15 +12,15 @@ import { ease, duration, viewport } from '../lib/motion';
 const contactCards = [
   {
     label: 'WhatsApp',
-    title: 'Il modo piu rapido per sentirci',
-    text: 'Se preferisci un contatto diretto, scrivici qui. Di solito e il canale piu veloce.',
+    title: 'Il modo più rapido per sentirci',
+    text: 'Se preferisci un contatto diretto, scrivici qui. Di solito è il canale più veloce.',
     href: waUrl('Ciao Studio Fisyo! Vorrei prenotare una valutazione.'),
     cta: 'Apri WhatsApp',
   },
   {
     label: 'Telefono',
     title: 'Se vuoi parlare con noi',
-    text: 'Puoi chiamarci in studio e capire subito qual e il primo passo migliore per te.',
+    text: 'Puoi chiamarci in studio e capire subito qual è il primo passo migliore per te.',
     href: `tel:+${STUDIO.phoneRaw}`,
     cta: 'Chiama lo studio',
   },
@@ -28,7 +28,7 @@ const contactCards = [
 
 const trustItems = [
   { label: '5.0 stelle', sub: '47 recensioni Google' },
-  { label: 'Risposta entro 24 h', sub: 'dal lunedi al venerdi' },
+  { label: 'Risposta entro 24 h', sub: 'dal lunedì al venerdì' },
   { label: 'Lun-Ven 08:00-20:00', sub: 'Sab su appuntamento' },
 ] as const;
 
@@ -65,7 +65,7 @@ const inquiryReasons: Array<{
     id: 'movimento',
     label: 'Movimento e postura',
     title: 'Vuoi rimettere ordine nel movimento',
-    text: 'Pilates clinico e lavoro attivo possono essere il primo passo piu utile.',
+    text: 'Pilates clinico e lavoro attivo possono essere il primo passo più utile.',
   },
   {
     id: 'donna',
@@ -77,13 +77,13 @@ const inquiryReasons: Array<{
     id: 'benessere',
     label: 'Benessere integrato',
     title: 'Vuoi lavorare su equilibrio, energia o stress',
-    text: 'Qui puo rientrare nutrizione, psicologia o un percorso integrato.',
+    text: 'Qui può rientrare nutrizione, psicologia o un percorso integrato.',
   },
   {
     id: 'orientamento',
     label: 'Non ne sono sicuro',
     title: 'Ti aiutiamo noi a mettere a fuoco il punto di partenza',
-    text: 'Basta dirci cosa ti sta limitando oggi e troviamo la strada piu sensata.',
+    text: 'Basta dirci cosa ti sta limitando oggi e troviamo la strada più sensata.',
   },
 ];
 
@@ -100,13 +100,13 @@ const serviceReasonMap: Record<string, InquiryReason> = {
 const promptsByReason: Record<InquiryReason, string[]> = {
   dolore: [
     'Da quanto tempo senti questo fastidio?',
-    'Cosa ti limita di piu oggi?',
-    'Hai gia fatto visite o esami?',
+    'Cosa ti limita di più oggi?',
+    'Hai già fatto visite o esami?',
   ],
   movimento: [
     'Cosa senti di aver perso nel movimento?',
     'Ci sono gesti o posture che ti stancano presto?',
-    'Stai cercando continuita, prevenzione o rientro graduale?',
+    'Stai cercando continuità, prevenzione o rientro graduale?',
   ],
   donna: [
     'In che fase ti trovi in questo momento?',
@@ -115,11 +115,11 @@ const promptsByReason: Record<InquiryReason, string[]> = {
   ],
   benessere: [
     'Vuoi lavorare su energia, relazione con il corpo o stress?',
-    'C e un obiettivo concreto che vorresti rimettere a fuoco?',
+    "C'è un obiettivo concreto che vorresti rimettere a fuoco?",
     'Cerchi un supporto singolo o un percorso integrato?',
   ],
   orientamento: [
-    'Qual e la cosa che oggi ti limita di piu?',
+    "Qual è la cosa che oggi ti limita di più?",
     'Che cosa vorresti tornare a fare meglio?',
     'Hai bisogno di capire prima a chi rivolgerti?',
   ],
@@ -258,17 +258,17 @@ export const Contatti = () => {
     const nextErrors: FormErrors = {};
 
     if (step === 1) {
-      if (!formState.name.trim()) nextErrors.name = 'Il nome e obbligatorio.';
-      if (!formState.phone.trim()) nextErrors.phone = 'Il telefono e obbligatorio.';
+      if (!formState.name.trim()) nextErrors.name = 'Il nome è obbligatorio.';
+      if (!formState.phone.trim()) nextErrors.phone = 'Il telefono è obbligatorio.';
       if (!formState.email.trim()) {
-        nextErrors.email = "L'email e obbligatoria.";
+        nextErrors.email = "L'email è obbligatoria.";
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) {
         nextErrors.email = 'Inserisci un indirizzo email valido.';
       }
     }
 
     if (step === 2 && !formState.message.trim()) {
-      nextErrors.message = 'Il messaggio e obbligatorio.';
+      nextErrors.message = 'Il messaggio è obbligatorio.';
     }
 
     return nextErrors;
@@ -351,11 +351,11 @@ export const Contatti = () => {
           setCurrentStep(guidedSteps.length - 1);
         });
       } else {
-        setErrors({ submit: "Si e verificato un errore durante l'invio. Riprova piu tardi." });
+        setErrors({ submit: "Si è verificato un errore durante l'invio. Riprova più tardi." });
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      setErrors({ submit: 'Si e verificato un errore di rete. Riprova piu tardi.' });
+      setErrors({ submit: 'Si è verificato un errore di rete. Riprova più tardi.' });
     } finally {
       setIsSubmitting(false);
     }
@@ -371,6 +371,8 @@ export const Contatti = () => {
           title="Scrivici quando vuoi iniziare,"
           titleAccent="o anche solo capire da dove partire."
           subtitle="Puoi prenotare una valutazione, chiedere informazioni su un servizio o raccontarci in breve che cosa ti sta limitando in questo momento."
+          captionEyebrow="Iniziamo insieme"
+          captionText="La prima valutazione è gratuita. Ti aiutiamo a capire da dove partire."
         />
 
         <div className="mt-10 flex flex-wrap gap-3">
@@ -691,8 +693,8 @@ export const Contatti = () => {
                           {selectedService.title}
                         </p>
                         <p className="mt-2 max-w-xl text-sm leading-relaxed text-primary/66">
-                          Abbiamo gia collegato il modulo al servizio che stavi guardando,
-                          cosi il tuo messaggio arriva con piu contesto.
+                          Abbiamo già collegato il modulo al servizio che stavi guardando,
+                          così il tuo messaggio arriva con più contesto.
                         </p>
                       </div>
                       <Link
@@ -761,7 +763,7 @@ export const Contatti = () => {
                                   Servizi consigliati
                                 </p>
                                 <p className="mt-2 text-sm leading-relaxed text-primary/66">
-                                  Se vuoi, puoi gia indicarci il percorso che senti piu vicino.
+                                  Se vuoi, puoi già indicarci il percorso che senti più vicino.
                                 </p>
                               </div>
                               <select
@@ -889,7 +891,7 @@ export const Contatti = () => {
 
                           <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
                             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
-                              Quando e piu comodo sentirci?
+                              Quando è più comodo sentirci?
                             </p>
                             <div className="mt-4 flex flex-wrap gap-3">
                               {availabilityPresets.map((preset) => (
@@ -956,7 +958,7 @@ export const Contatti = () => {
                               className={`w-full resize-none rounded-card-sm border bg-warm-50 px-4 py-4 text-primary outline-none transition-colors focus:border-accent ${
                                 errors.message ? 'border-red-400' : 'border-primary/10'
                               }`}
-                              placeholder="Spiegaci in breve cosa ti sta limitando, cosa hai gia provato e che tipo di aiuto ti aspetti da questo primo contatto."
+                              placeholder="Spiegaci in breve cosa ti sta limitando, cosa hai già provato e che tipo di aiuto ti aspetti da questo primo contatto."
                             />
                             {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}
                           </div>
@@ -1039,7 +1041,7 @@ export const Contatti = () => {
                     </div>
 
                     <p className="text-sm leading-relaxed text-primary/58">
-                      Ti rispondiamo di solito entro 24 ore feriali. Se vuoi una risposta piu
+                      Ti rispondiamo di solito entro 24 ore feriali. Se vuoi una risposta più
                       rapida, puoi anche scriverci direttamente su WhatsApp.
                     </p>
                   </div>

@@ -76,7 +76,7 @@ export const InteractiveSurface = ({
         <motion.div
           aria-hidden="true"
           style={{ backgroundImage: glow }}
-          className={`pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${glowClassName}`}
+          className={`pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-200 group-hover:opacity-100 ${glowClassName}`}
         />
       )}
       <div className="relative h-full">{children}</div>

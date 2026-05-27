@@ -88,7 +88,9 @@ export const Servizi = () => {
           badge="Prima valutazione gratuita"
           title="Percorsi diversi."
           titleAccent="Uno stesso modo di lavorare."
-          subtitle="Ogni area dello studio ha una competenza precisa. Il punto non e offrirti tante cose, ma aiutarti a capire quale strada ha davvero senso per te."
+          subtitle="Ogni area dello studio ha una competenza precisa. Il punto non è offrirti tante cose, ma aiutarti a capire quale strada ha davvero senso per te."
+          captionEyebrow="I nostri percorsi"
+          captionText="Ogni servizio nasce da una competenza precisa e da un modo di lavorare condiviso."
         />
 
         <SectionDivider className="mb-10 mt-14" />
@@ -160,7 +162,7 @@ export const Servizi = () => {
                   Ti aiutiamo a scegliere
                 </MagneticButton>
                 <a
-                  href={waUrl('Ciao Studio Fisyo! Vorrei capire quale servizio e piu adatto a me.')}
+                  href={waUrl('Ciao Studio Fisyo! Vorrei capire quale servizio è più adatto a me.')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-primary/10 bg-white px-7 py-4 text-base font-medium text-primary transition-colors hover:bg-warm-50"
@@ -194,7 +196,7 @@ export const Servizi = () => {
                   key={service.id}
                   initial={{ opacity: 0, y: 26 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: duration.slow, delay: index * 0.06, ease: ease.out }}
+                  transition={{ duration: duration.slow, delay: Math.min(index, 3) * 0.06, ease: ease.out }}
                   className={`grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center ${
                     isEven ? '' : 'lg:[&>div:first-child]:order-2 lg:[&>div:last-child]:order-1'
                   }`}
@@ -213,7 +215,7 @@ export const Servizi = () => {
                           height={900}
                           loading="lazy"
                           decoding="async"
-                          className="aspect-[4/4.4] w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
+                          className={`w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04] ${service.id === 'fisioterapia' ? 'aspect-[4/5]' : 'aspect-[4/4.4]'}`}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/24 to-transparent" />
                       </div>
@@ -225,7 +227,13 @@ export const Servizi = () => {
                       <Icon className="h-4 w-4 text-accent" />
                       {service.label}
                     </div>
-                    <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl">
+                    {service.id === 'fisioterapia' && (
+                      <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-accent">
+                        <span className="h-1 w-1 rounded-full bg-accent" />
+                        Servizio principale
+                      </p>
+                    )}
+                    <h2 className={`mt-6 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl ${service.id === 'fisioterapia' ? 'lg:text-6xl' : ''}`}>
                       {service.title}
                     </h2>
                     <p className="mt-5 max-w-2xl text-lg leading-relaxed text-primary/68">

@@ -12,7 +12,7 @@ const testimonials = [
   {
     name: 'Giulia M.',
     condition: 'Recupero dopo un infortunio',
-    text: "Il percorso e stato chiaro dall'inizio. Ho capito cosa fare, cosa evitare e come rientrare a muovermi con fiducia.",
+    text: "Il percorso è stato chiaro dall'inizio. Ho capito cosa fare, cosa evitare e come rientrare a muovermi con fiducia.",
     featured: false,
   },
   {

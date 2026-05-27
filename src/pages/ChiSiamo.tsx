@@ -123,6 +123,8 @@ export const ChiSiamo = () => {
           subtitle="Siamo un team di professioniste con competenze diverse. La cosa che ci unisce non è una formula, ma un modo di lavorare: ascoltare, confrontarci e costruire un percorso coerente per ogni persona."
           image="/images/real/fototeamstudiofisyo.webp"
           imageAlt="Il team dello Studio Fisyo."
+          captionEyebrow="Il team"
+          captionText="Sei professioniste che si confrontano davvero, non una somma di trattamenti scollegati."
         />
 
         <SectionDivider className="mb-14 mt-16" />

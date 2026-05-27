@@ -68,7 +68,7 @@ export const OpenDayAbout = () => {
               to="/"
               className="group inline-flex items-center gap-3 text-lg font-bold text-accent transition-colors hover:text-primary"
             >
-              Scopri di piu su www.studiofisyo.com
+              Scopri di più su www.studiofisyo.com
               <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>

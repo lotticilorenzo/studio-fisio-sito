@@ -94,13 +94,13 @@ export const CTA = () => {
 
 export const Footer = () => {
   return (
-    <footer className="mt-6 bg-[#141c18] px-6 pb-12 pt-20 text-background lg:px-12 lg:pt-24">
+    <footer className="mt-6 bg-[#141c18] px-6 pb-12 pt-24 text-background lg:px-12 lg:pt-28">
       <motion.div
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto max-w-7xl overflow-hidden rounded-t-[3rem] border border-white/6 bg-[#121915] px-8 py-12 shadow-[0_-18px_40px_-30px_rgba(0,0,0,0.2)] md:px-10 lg:px-12 lg:py-14"
+        className="mx-auto max-w-7xl overflow-hidden rounded-t-card-lg border border-white/6 border-t-white/4 bg-[#0e1612] px-8 py-12 shadow-[0_-18px_40px_-30px_rgba(0,0,0,0.2)] md:px-10 lg:px-12 lg:py-14"
       >
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.8fr)_minmax(0,1fr)]">
           <div>

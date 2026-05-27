@@ -262,8 +262,10 @@ export const Features = () => {
             onMouseMove={tiltMain.onMouseMove}
             onMouseLeave={tiltMain.onMouseLeave}
             style={{ rotateX: tiltMain.rotateX, rotateY: tiltMain.rotateY, transformPerspective: 1000 }}
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.06 }}
+            initial={{ opacity: 0, y: 32, scale: 0.97 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.9, ease: ease.out, delay: 0.04 }}
             className="group relative overflow-hidden rounded-card-lg border border-primary/8 bg-primary text-background lg:col-span-7 lg:row-span-2"
           >
             <div className="absolute inset-0">

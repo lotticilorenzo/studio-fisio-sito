@@ -11,6 +11,8 @@ interface PageHeroProps {
   image?: string;
   imageAlt?: string;
   badge?: string;
+  captionEyebrow?: string;
+  captionText?: string;
 }
 
 export const PageHero = ({
@@ -21,6 +23,8 @@ export const PageHero = ({
   image,
   imageAlt,
   badge,
+  captionEyebrow,
+  captionText,
 }: PageHeroProps) => {
   const reduced = !!useReducedMotion();
   const headerRef = useRef<HTMLElement>(null);
@@ -148,11 +152,10 @@ export const PageHero = ({
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/26 to-transparent" />
                 <div className="absolute inset-x-5 bottom-5 rounded-card-sm border border-white/20 bg-white/14 px-5 py-4 text-background backdrop-blur-xl">
                   <p className="text-[11px] uppercase tracking-[0.24em] text-background/55">
-                    Studio Fisyo
+                    {captionEyebrow ?? 'Studio Fisyo'}
                   </p>
                   <p className="mt-2 text-base leading-snug">
-                    Uno studio in cui estetica, atmosfera e chiarezza accompagnano il lavoro
-                    clinico senza distrarlo.
+                    {captionText ?? 'Uno studio in cui estetica, atmosfera e chiarezza accompagnano il lavoro clinico senza distrarlo.'}
                   </p>
                 </div>
               </div>

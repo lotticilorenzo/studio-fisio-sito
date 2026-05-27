@@ -290,15 +290,15 @@ export const Navbar = () => {
         {isMobileMenuOpen && (
           <motion.div
             id="mobile-site-menu"
-            initial={{ opacity: 0, y: -18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -18 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: -24, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -24, scale: 0.985 }}
+            transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-x-3 top-[5.2rem] z-40 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-card-md border border-primary/8 bg-[rgba(248,244,237,0.95)] p-5 shadow-card-lg backdrop-blur-xl md:hidden"
             data-lenis-prevent
           >
             <div className="flex flex-col gap-2 text-primary">
-              <div className="mb-2 rounded-card-sm border border-primary/8 bg-white/65 p-4">
+              <div className="mb-2 rounded-card-sm border border-primary/8 bg-white/40 p-4">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/42">
                   Studio Fisyo
                 </p>
@@ -312,80 +312,105 @@ export const Navbar = () => {
                 </div>
               </div>
 
-              <Link
-                to="/"
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-current={location.pathname === '/' ? 'page' : undefined}
-                className={`rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
-                  location.pathname === '/' ? 'bg-white/80' : ''
-                }`}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
               >
-                Home
-              </Link>
+                <Link
+                  to="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-current={location.pathname === '/' ? 'page' : undefined}
+                  className={`block rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
+                    location.pathname === '/' ? 'bg-white/80' : ''
+                  }`}
+                >
+                  Home
+                </Link>
+              </motion.div>
 
-              <button
-                onClick={() => setIsServicesOpen((value) => !value)}
-                aria-expanded={isServicesOpen}
-                aria-controls="mobile-services-menu"
-                className="flex items-center justify-between rounded-2xl px-4 py-3 text-left text-base transition-colors hover:bg-white/80"
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
               >
-                <span>Servizi</span>
-                <ChevronDownIcon className={`h-5 w-5 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
-              </button>
+                <button
+                  onClick={() => setIsServicesOpen((value) => !value)}
+                  aria-expanded={isServicesOpen}
+                  aria-controls="mobile-services-menu"
+                  className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-base transition-colors hover:bg-white/80"
+                >
+                  <span>Servizi</span>
+                  <ChevronDownIcon className={`h-5 w-5 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
 
-              <AnimatePresence initial={false}>
-                {isServicesOpen && (
-                  <motion.div
-                    id="mobile-services-menu"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="grid gap-1 px-2 pb-2">
-                      <Link
-                        to="/servizi"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="rounded-2xl px-4 py-2.5 text-sm text-primary/68 transition-colors hover:bg-white/80"
-                      >
-                        Tutti i servizi
-                      </Link>
-                      {serviceLinks.map((service) => (
+                <AnimatePresence initial={false}>
+                  {isServicesOpen && (
+                    <motion.div
+                      id="mobile-services-menu"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="grid gap-1 px-2 pb-2">
                         <Link
-                          key={service.to}
-                          to={service.to}
+                          to="/servizi"
                           onClick={() => setIsMobileMenuOpen(false)}
                           className="rounded-2xl px-4 py-2.5 text-sm text-primary/68 transition-colors hover:bg-white/80"
                         >
-                          {service.label}
+                          Tutti i servizi
                         </Link>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                        {serviceLinks.map((service) => (
+                          <Link
+                            key={service.to}
+                            to={service.to}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="rounded-2xl px-4 py-2.5 text-sm text-primary/68 transition-colors hover:bg-white/80"
+                          >
+                            {service.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
-              <Link
-                to="/chi-siamo"
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-current={location.pathname === '/chi-siamo' ? 'page' : undefined}
-                className={`rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
-                  location.pathname === '/chi-siamo' ? 'bg-white/80' : ''
-                }`}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1], delay: 0.16 }}
               >
-                Chi siamo
-              </Link>
-              <Link
-                to="/contatti"
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-current={location.pathname === '/contatti' ? 'page' : undefined}
-                className={`rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
-                  location.pathname === '/contatti' ? 'bg-white/80' : ''
-                }`}
+                <Link
+                  to="/chi-siamo"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-current={location.pathname === '/chi-siamo' ? 'page' : undefined}
+                  className={`block rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
+                    location.pathname === '/chi-siamo' ? 'bg-white/80' : ''
+                  }`}
+                >
+                  Chi siamo
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1], delay: 0.20 }}
               >
-                Contatti
-              </Link>
+                <Link
+                  to="/contatti"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-current={location.pathname === '/contatti' ? 'page' : undefined}
+                  className={`block rounded-2xl px-4 py-3 text-base transition-colors hover:bg-white/80 ${
+                    location.pathname === '/contatti' ? 'bg-white/80' : ''
+                  }`}
+                >
+                  Contatti
+                </Link>
+              </motion.div>
             </div>
 
             <div className="mt-4 grid gap-3 sm:grid-cols-2">

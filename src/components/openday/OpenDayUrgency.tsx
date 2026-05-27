@@ -78,7 +78,7 @@ export const OpenDayUrgency = () => {
                     {isExpired ? (
                         "Le prenotazioni per questo Open Day sono terminate. Resta aggiornato sui prossimi eventi seguendoci."
                     ) : (
-                        `Ogni consulenza dura 15 minuti per specialista. Per garantire qualita, possiamo accogliere solo ${MAX_SEATS} persone. I posti stanno finendo rapidamente.`
+                        `Ogni consulenza dura 15 minuti per specialista. Per garantire qualità, possiamo accogliere solo ${MAX_SEATS} persone. I posti stanno finendo rapidamente.`
                     )}
                 </p>
 

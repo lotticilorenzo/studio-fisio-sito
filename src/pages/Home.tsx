@@ -27,6 +27,13 @@ const reveal = (delay = 0) => ({
   transition: { duration: duration.slow, delay, ease: ease.out },
 });
 
+const revealHeading = () => ({
+  initial: { opacity: 0, y: 32 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.85, ease: ease.out },
+});
+
 
 const signatureDetails = [
   {
@@ -194,14 +201,14 @@ export const Home = () => {
               </Link>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: duration.enter, delay: 0.56, ease: ease.out }}
-              className="mt-10 grid gap-4 border-t border-primary/10 pt-6 sm:grid-cols-3"
-            >
+            <div className="mt-10 grid gap-4 border-t border-primary/10 pt-6 sm:grid-cols-3">
               {/* Card 1 — Counter recensioni */}
-              <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: duration.enter, delay: 0.44, ease: ease.out }}
+                className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm"
+              >
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/56">
                   Recensioni
                 </p>
@@ -210,10 +217,15 @@ export const Home = () => {
                   <span className="text-2xl text-accent">★</span>
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-primary/64">su Google</p>
-              </div>
+              </motion.div>
 
               {/* Card 2 — Avatar stack team */}
-              <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: duration.enter, delay: 0.50, ease: ease.out }}
+                className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm"
+              >
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/56">
                   Il team
                 </p>
@@ -225,10 +237,15 @@ export const Home = () => {
                   <span className="-ml-2 h-9 w-9 rounded-full border-2 border-white bg-accent/50" />
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-primary/64">6 professioniste</p>
-              </div>
+              </motion.div>
 
               {/* Card 3 — Live status */}
-              <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: duration.enter, delay: 0.56, ease: ease.out }}
+                className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm"
+              >
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/56">
                   Risposta
                 </p>
@@ -237,8 +254,8 @@ export const Home = () => {
                   <span className="font-drama text-2xl font-normal italic text-primary">Attivo ora</span>
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-primary/64">Ti rispondiamo entro 2 ore</p>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
 
           <motion.div
@@ -304,7 +321,7 @@ export const Home = () => {
       <section className="px-6 py-24 lg:px-12 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            {...reveal()}
+            {...revealHeading()}
             className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(0,1.02fr)] lg:items-end"
           >
             <div>
@@ -326,7 +343,10 @@ export const Home = () => {
 
           <div className="grid gap-6 lg:grid-cols-12 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
             <motion.article
-              {...reveal(0.06)}
+              initial={{ opacity: 0, y: 32, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.9, ease: ease.out, delay: 0.04 }}
               className="group relative overflow-hidden rounded-card-xl border border-primary/8 bg-primary text-background lg:col-span-7 lg:row-span-2"
             >
               <div className="absolute inset-0">
@@ -438,7 +458,7 @@ export const Home = () => {
       <section className="px-6 py-24 lg:px-12 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            {...reveal()}
+            {...revealHeading()}
             className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end"
           >
             <div>
@@ -462,7 +482,15 @@ export const Home = () => {
             {featuredServices.map((service, index) => (
               <motion.article
                 key={service.id}
-                {...reveal(index * 0.06)}
+                {...(index === 0
+                  ? {
+                      initial: { opacity: 0, y: 32, scale: 0.97 },
+                      whileInView: { opacity: 1, y: 0, scale: 1 },
+                      viewport: { once: true, margin: '-80px' },
+                      transition: { duration: 0.9, ease: ease.out, delay: 0.04 },
+                    }
+                  : reveal(index * 0.06))}
+                whileHover={{ y: -4 }}
                 className={`group relative overflow-hidden rounded-card-lg border border-primary/8 bg-white/75 shadow-card-md backdrop-blur-xl ${featuredServiceClasses[index]}`}
               >
                 <div className="absolute inset-0">
@@ -473,7 +501,7 @@ export const Home = () => {
                     height={1125}
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.03]"
+                    className="h-full w-full object-cover transition-transform duration-400 ease-out group-hover:scale-[1.06]"
                   />
                   <div
                     className={`absolute inset-0 ${
@@ -559,7 +587,7 @@ export const Home = () => {
 
         <div className="relative mx-auto max-w-7xl">
           <motion.div
-            {...reveal()}
+            {...revealHeading()}
             className="grid gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-end"
           >
             <div>
@@ -583,7 +611,10 @@ export const Home = () => {
             {visitSteps.map((step, index) => (
               <motion.article
                 key={step.step}
-                {...reveal(index * 0.08)}
+                initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
+                whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.85, ease: ease.out, delay: index * 0.12 }}
                 className="overflow-hidden rounded-card-lg border border-white/10 bg-white/6 backdrop-blur-md"
               >
                 <div className="overflow-hidden bg-[#1f2a23]">
