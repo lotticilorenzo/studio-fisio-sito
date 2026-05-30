@@ -123,26 +123,6 @@ export const Footer = () => {
               </span>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-card-sm border border-white/8 bg-white/5 p-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-background/36">
-                  Google
-                </p>
-                <p className="mt-2 text-xl font-semibold tracking-[-0.04em]">5.0</p>
-              </div>
-              <div className="rounded-card-sm border border-white/8 bg-white/5 p-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-background/36">
-                  Team
-                </p>
-                <p className="mt-2 text-xl font-semibold tracking-[-0.04em]">6 profili</p>
-              </div>
-              <div className="rounded-card-sm border border-white/8 bg-white/5 p-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-background/36">
-                  Primo passo
-                </p>
-                <p className="mt-2 text-xl font-semibold tracking-[-0.04em]">Gratuito</p>
-              </div>
-            </div>
           </div>
 
           <div className="grid gap-3 text-sm text-background/58">
