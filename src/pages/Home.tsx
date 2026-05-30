@@ -572,76 +572,70 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#161f1a] px-6 py-24 text-background lg:px-12 lg:py-28">
-        <div className="absolute inset-0">
-          <img
-            src="/images/real/internistudiofisyo2.webp"
-            alt=""
-            role="presentation"
-            className="h-full w-full object-cover opacity-[0.1]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#111813]/92 via-[#161f1a]/94 to-[#1b251f]/96" />
-        </div>
-        <div className="absolute left-[8%] top-[12%] h-56 w-56 rounded-full bg-accent/10 blur-[140px]" />
-        <div className="absolute bottom-[4%] right-[8%] h-72 w-72 rounded-full bg-accent/8 blur-[140px]" />
-
-        <div className="relative mx-auto max-w-7xl">
+      <section className="px-6 py-24 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-7xl">
           <motion.div
             {...revealHeading()}
             className="grid gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-end"
           >
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-background/45">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-primary/48">
                 Il percorso in pratica
               </p>
-              <h2 className="max-w-3xl text-4xl font-semibold leading-[0.96] tracking-[-0.05em] md:text-6xl">
+              <h2 className="max-w-3xl text-4xl font-semibold leading-[0.96] tracking-[-0.05em] text-primary md:text-6xl">
                 Prima capiamo bene.
                 <span className="font-drama italic font-normal text-accent">
                   {' '}Poi scegliamo cosa vale la pena fare davvero.
                 </span>
               </h2>
             </div>
-            <p className="max-w-2xl text-lg leading-relaxed text-background/68">
+            <p className="max-w-2xl text-lg leading-relaxed text-primary/68">
               Il valore di Studio Fisyo non è fare più cose. È tenere insieme le cose giuste,
               nel momento giusto, con un ritmo che la persona riesce a sentire come sostenibile.
             </p>
           </motion.div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {visitSteps.map((step, index) => (
-              <motion.article
-                key={step.step}
-                initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
-                whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.85, ease: ease.out, delay: index * 0.12 }}
-                className="overflow-hidden rounded-card-lg border border-white/10 bg-white/6 backdrop-blur-md"
-              >
-                <div className="overflow-hidden bg-[#1f2a23]">
-                  <img
-                    src={step.image}
-                    alt={step.imageAlt}
-                    width={900}
-                    height={720}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-[16/11] w-full object-cover"
-                  />
-                </div>
-                <div className="p-7 md:p-8">
-                  <p className="text-sm font-semibold tracking-[0.24em] text-accent">{step.step}</p>
-                  <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.04em] md:text-3xl">
-                    {step.title}
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-background/68">{step.text}</p>
-                </div>
-              </motion.article>
-            ))}
+          <div className="mt-16 flex flex-col gap-16 md:gap-20">
+            {visitSteps.map((step, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <motion.article
+                  key={step.step}
+                  {...reveal(index * 0.08)}
+                  className={`grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center ${
+                    !isEven
+                      ? 'lg:[&>div:first-child]:order-2 lg:[&>div:last-child]:order-1'
+                      : ''
+                  }`}
+                >
+                  <div className="overflow-hidden rounded-card-lg border border-primary/8 bg-warm-200 shadow-card-md">
+                    <img
+                      src={step.image}
+                      alt={step.imageAlt}
+                      width={900}
+                      height={720}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-[4/3] w-full object-cover"
+                    />
+                  </div>
+                  <div className="px-1 lg:px-8">
+                    <p className="text-sm font-semibold tracking-[0.24em] text-accent">{step.step}</p>
+                    <h3 className="mt-5 text-2xl font-semibold leading-tight tracking-[-0.04em] text-primary md:text-3xl lg:text-4xl">
+                      {step.title}
+                    </h3>
+                    <p className="mt-4 text-base leading-relaxed text-primary/70 md:text-lg">
+                      {step.text}
+                    </p>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
 
           <motion.div
             {...reveal(0.18)}
-            className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap"
+            className="mt-12 flex flex-col gap-4 sm:flex-row sm:flex-wrap"
           >
             <MagneticButton
               to="/contatti"
@@ -651,7 +645,7 @@ export const Home = () => {
             </MagneticButton>
             <a
               href={`tel:${STUDIO.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/12 bg-white/8 px-8 py-4 text-base font-medium text-background transition-colors hover:bg-white/12"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-primary/12 bg-white/80 px-8 py-4 text-base font-medium text-primary transition-colors hover:bg-white"
             >
               <PhoneCall className="h-4 w-4 text-accent" />
               {STUDIO.phone}
@@ -660,7 +654,7 @@ export const Home = () => {
               href={STUDIO.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/12 bg-white/8 px-8 py-4 text-base font-medium text-background transition-colors hover:bg-white/12"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-primary/12 bg-white/80 px-8 py-4 text-base font-medium text-primary transition-colors hover:bg-white"
             >
               <MapPin className="h-4 w-4 text-accent" />
               Via Aldo Moro 1/A, Felino
