@@ -181,7 +181,7 @@ export const Servizi = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: duration.fast, ease: ease.out }}
-            className="mt-14 flex flex-col gap-16 md:gap-20"
+            className="mt-14 flex flex-col gap-24 md:gap-32"
           >
             {filtered.length === 0 && (
               <p className="text-lg text-primary/60">Nessun servizio in questa categoria.</p>
@@ -191,13 +191,96 @@ export const Servizi = () => {
               const Icon = service.icon;
               const isEven = index % 2 === 0;
 
+              if (service.id === 'fisioterapia') {
+                const Icon = service.icon;
+                return (
+                  <motion.article
+                    key={service.id}
+                    initial={{ opacity: 0, y: 28 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: duration.slow, ease: ease.out }}
+                    className="overflow-hidden rounded-card-xl border border-primary/8 bg-warm-50 shadow-card-lg"
+                  >
+                    <div className="grid lg:grid-cols-[minmax(0,0.58fr)_minmax(0,0.42fr)]">
+                      <Link
+                        to={`/servizi/${service.id}`}
+                        aria-label={`Scopri ${service.title}`}
+                        className="group block overflow-hidden bg-warm-200"
+                      >
+                        <img
+                          src={service.image}
+                          alt={service.imageAlt}
+                          width={800}
+                          height={900}
+                          loading="lazy"
+                          decoding="async"
+                          className="aspect-[4/3] lg:aspect-auto lg:h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
+                        />
+                      </Link>
+                      <div className="flex flex-col justify-between p-8 lg:p-12">
+                        <div>
+                          <div className="mb-6 flex flex-wrap items-center gap-3">
+                            <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/54 backdrop-blur-md">
+                              <Icon className="h-4 w-4 text-accent" />
+                              {service.label}
+                            </div>
+                            <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-accent">
+                              <span className="h-1 w-1 rounded-full bg-accent" />
+                              Servizio principale
+                            </span>
+                          </div>
+                          <h2 className="max-w-2xl text-4xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl lg:text-6xl">
+                            {service.title}
+                          </h2>
+                          <p className="mt-5 text-lg leading-relaxed text-primary/68">{service.summary}</p>
+                        </div>
+                        <div>
+                          <div className="mt-6 flex flex-wrap gap-3">
+                            {service.highlights.map((highlight) => (
+                              <span
+                                key={highlight}
+                                className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/62"
+                              >
+                                {highlight}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                            <MagneticButton
+                              to={`/servizi/${service.id}`}
+                              aria-label={`Approfondisci ${service.title}`}
+                              className="bg-primary px-7 py-4 text-base font-semibold text-background"
+                            >
+                              Approfondisci il servizio
+                            </MagneticButton>
+                            <Link
+                              to={`/contatti?service=${service.id}`}
+                              className="inline-flex items-center justify-center rounded-full border border-primary/10 bg-white/72 px-7 py-4 text-base font-medium text-primary backdrop-blur-md transition-colors hover:bg-white"
+                            >
+                              Prenota questo percorso
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.article>
+                );
+              }
+
+              const colClass =
+                index % 3 === 0
+                  ? 'lg:grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)]'
+                  : index % 3 === 1
+                    ? 'lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]'
+                    : 'lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]';
+
               return (
                 <motion.article
                   key={service.id}
                   initial={{ opacity: 0, y: 26 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: duration.slow, delay: Math.min(index, 3) * 0.06, ease: ease.out }}
-                  className={`grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center ${
+                  className={`grid gap-8 ${colClass} lg:items-center ${
                     isEven ? '' : 'lg:[&>div:first-child]:order-2 lg:[&>div:last-child]:order-1'
                   }`}
                 >
@@ -215,7 +298,7 @@ export const Servizi = () => {
                           height={900}
                           loading="lazy"
                           decoding="async"
-                          className={`w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04] ${service.id === 'fisioterapia' ? 'aspect-[4/5]' : 'aspect-[4/4.4]'}`}
+                          className="aspect-[4/4.4] w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/24 to-transparent" />
                       </div>
@@ -227,13 +310,7 @@ export const Servizi = () => {
                       <Icon className="h-4 w-4 text-accent" />
                       {service.label}
                     </div>
-                    {service.id === 'fisioterapia' && (
-                      <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-accent">
-                        <span className="h-1 w-1 rounded-full bg-accent" />
-                        Servizio principale
-                      </p>
-                    )}
-                    <h2 className={`mt-6 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl ${service.id === 'fisioterapia' ? 'lg:text-6xl' : ''}`}>
+                    <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl">
                       {service.title}
                     </h2>
                     <p className="mt-5 max-w-2xl text-lg leading-relaxed text-primary/68">
@@ -243,7 +320,7 @@ export const Servizi = () => {
                       {service.highlights.map((highlight) => (
                         <span
                           key={highlight}
-                          className="rounded-full border border-primary/8 bg-transparent px-4 py-2 text-sm text-primary/56"
+                          className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/56"
                         >
                           {highlight}
                         </span>
