@@ -3,13 +3,9 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ArrowUpRight,
-  Building2,
-  Clock3,
-  HeartPulse,
   MapPin,
   PhoneCall,
   Sparkles,
-  Users,
 } from 'lucide-react';
 import { MagneticButton } from '../components/MagneticButton';
 import { Testimonials } from '../components/Testimonials';
@@ -341,15 +337,15 @@ export const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 lg:grid-cols-12 lg:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-stretch">
             <motion.article
               initial={{ opacity: 0, y: 32, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.9, ease: ease.out, delay: 0.04 }}
-              className="group relative overflow-hidden rounded-card-xl border border-primary/8 bg-primary text-background lg:col-span-7 lg:row-span-2"
+              className="group overflow-hidden rounded-card-xl border border-primary/8 bg-warm-200 shadow-card-lg"
             >
-              <div className="absolute inset-0">
+              <div className="overflow-hidden">
                 <img
                   src={signatureDetails[0].image}
                   alt={signatureDetails[0].imageAlt}
@@ -357,61 +353,33 @@ export const Home = () => {
                   height={1125}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover opacity-32 transition-transform duration-[1600ms] ease-out group-hover:scale-[1.03]"
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/96 via-primary/88 to-[#101712]/96" />
               </div>
-              <div className="relative flex h-full flex-col justify-between p-8 md:p-10 lg:p-12">
-                <div className="max-w-xl">
-                  <p className="text-xs uppercase tracking-[0.24em] text-background/45">
-                    Metodo integrato
-                  </p>
-                  <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] md:text-5xl">
-                    {signatureDetails[0].title}
-                  </h3>
-                  <p className="mt-5 text-base leading-relaxed text-background/72 md:text-lg">
-                    {signatureDetails[0].text}
-                  </p>
-                </div>
-
-                <div className="mt-10 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-card-sm border border-white/10 bg-white/6 p-5 backdrop-blur-sm">
-                    <Users className="h-5 w-5 text-accent" />
-                    <p className="mt-4 text-lg font-semibold">Confronto reale tra professioniste</p>
-                    <p className="mt-2 text-sm leading-relaxed text-background/65">
-                      Quando serve, il caso non resta chiuso in una sola competenza.
-                    </p>
-                  </div>
-                  <div className="rounded-card-sm border border-white/10 bg-white/6 p-5 backdrop-blur-sm">
-                    <HeartPulse className="h-5 w-5 text-accent" />
-                    <p className="mt-4 text-lg font-semibold">Percorsi che non inseguono il sintomo</p>
-                    <p className="mt-2 text-sm leading-relaxed text-background/65">
-                      L’obiettivo è aiutarti a stare meglio anche dopo la seduta.
-                    </p>
-                  </div>
-                </div>
+              <div className="p-8 md:p-10">
+                <h3 className="text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
+                  {signatureDetails[0].title}
+                </h3>
+                <p className="mt-4 text-base leading-relaxed text-primary/70">
+                  {signatureDetails[0].text}
+                </p>
               </div>
             </motion.article>
 
             <motion.article
               {...reveal(0.12)}
-              className="overflow-hidden rounded-card-md border border-primary/8 bg-white/82 p-8 shadow-card-md backdrop-blur-xl lg:col-span-5"
+              className="flex flex-col justify-between rounded-card-xl border border-primary/8 bg-warm-50 p-8 shadow-card-md md:p-10 lg:p-12"
             >
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.24em] text-primary/54">Prima visita</p>
-                  <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
-                    {signatureDetails[1].title}
-                  </h3>
-                </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/12 text-accent">
-                  <Clock3 className="h-5 w-5" />
-                </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.24em] text-primary/54">Prima visita</p>
+                <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.04em] text-primary md:text-3xl">
+                  {signatureDetails[1].title}
+                </h3>
+                <p className="mt-5 text-base leading-relaxed text-primary/70 md:text-lg">
+                  {signatureDetails[1].text}
+                </p>
               </div>
-              <p className="mt-4 max-w-lg text-base leading-relaxed text-primary/70">
-                {signatureDetails[1].text}
-              </p>
-              <div className="mt-7 overflow-hidden rounded-card-md bg-warm-300">
+              <div className="mt-10 overflow-hidden rounded-card-md bg-warm-200">
                 <img
                   src={signatureDetails[1].image}
                   alt={signatureDetails[1].imageAlt}
@@ -419,36 +387,8 @@ export const Home = () => {
                   height={760}
                   loading="lazy"
                   decoding="async"
-                  className="aspect-[16/11] w-full object-cover"
+                  className="aspect-[16/10] w-full object-cover"
                 />
-              </div>
-            </motion.article>
-
-            <motion.article
-              {...reveal(0.18)}
-              className="overflow-hidden rounded-card-md border border-primary/8 bg-warm-200 lg:col-span-5"
-            >
-              <div className="grid h-full gap-0 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-                <div className="h-full bg-warm-300">
-                  <img
-                    src={signatureDetails[2].image}
-                    alt={signatureDetails[2].imageAlt}
-                    width={900}
-                    height={900}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="p-7 md:p-8">
-                  <Building2 className="h-5 w-5 text-accent" />
-                  <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
-                    {signatureDetails[2].title}
-                  </h3>
-                  <p className="mt-3 text-base leading-relaxed text-primary/72">
-                    {signatureDetails[2].text}
-                  </p>
-                </div>
               </div>
             </motion.article>
           </div>
