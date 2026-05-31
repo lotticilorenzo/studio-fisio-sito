@@ -129,20 +129,20 @@ export const Footer = () => {
             <h4 className="mb-1 text-xs font-semibold uppercase tracking-[0.22em] text-background/62">
               Pagine
             </h4>
-            <Link to="/servizi" className="transition-colors hover:text-background">
+            <Link to="/servizi" className="block py-2 transition-colors hover:text-background">
               Servizi
             </Link>
-            <Link to="/chi-siamo" className="transition-colors hover:text-background">
+            <Link to="/chi-siamo" className="block py-2 transition-colors hover:text-background">
               Chi siamo
             </Link>
-            <Link to="/contatti" className="transition-colors hover:text-background">
+            <Link to="/contatti" className="block py-2 transition-colors hover:text-background">
               Contatti
             </Link>
             <a
               href={STUDIO.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-background"
+              className="block py-2 transition-colors hover:text-background"
             >
               Instagram
             </a>
@@ -150,7 +150,7 @@ export const Footer = () => {
               href={STUDIO.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-background"
+              className="block py-2 transition-colors hover:text-background"
             >
               Facebook
             </a>

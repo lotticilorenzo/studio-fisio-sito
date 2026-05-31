@@ -448,7 +448,7 @@ curiamo il percorso, non solo il sintomo.
 
                     <Link
                       to={`/servizi/${service.id}`}
-                      className={`inline-flex items-center gap-3 text-sm font-semibold transition-colors ${
+                      className={`inline-flex items-center gap-3 py-1 text-sm font-semibold transition-colors ${
                         index === 0 || index === 3
                           ? 'text-background hover:text-accent'
                           : 'text-primary hover:text-accent'

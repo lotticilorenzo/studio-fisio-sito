@@ -211,7 +211,7 @@ export const ServizioDetail = () => {
       <div className="relative mx-auto max-w-7xl">
         <Link
           to="/servizi"
-          className="inline-flex items-center gap-2 text-sm font-medium text-ink-soft transition-colors hover:text-primary"
+          className="inline-flex items-center gap-2 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:text-primary"
         >
           <ArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
           Torna a tutti i servizi
@@ -548,7 +548,7 @@ export const ServizioDetail = () => {
             </div>
             <Link
               to="/chi-siamo"
-              className="inline-flex items-center gap-2 text-base font-medium text-ink-soft transition-colors hover:text-primary"
+              className="inline-flex items-center gap-2 py-1 text-base font-medium text-ink-soft transition-colors hover:text-primary"
             >
               Conosci tutto il team
               <ArrowUpRight className="h-4 w-4" />
