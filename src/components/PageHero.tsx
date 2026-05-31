@@ -75,7 +75,7 @@ export const PageHero = ({
         <motion.div style={{ y: copyY }}>
           <motion.p
             {...fadeUp(0)}
-            className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/52"
+            className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted"
           >
             {label}
           </motion.p>
@@ -94,14 +94,14 @@ export const PageHero = ({
             )}
             <motion.div
               {...fadeUp(0.08)}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/8 bg-white/68 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/54"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/8 bg-white/68 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary/40" aria-hidden="true" />
               Felino, Parma
             </motion.div>
           </div>
 
-          <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-[0.94] tracking-[-0.06em] text-primary md:text-7xl">
+          <h1 className="mt-6 max-w-3xl text-h1 font-semibold text-primary">
             <div className="overflow-hidden">
               <motion.span
                 className="block"
@@ -128,7 +128,7 @@ export const PageHero = ({
 
           <motion.p
             {...fadeUp(0.22)}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-primary/68 md:text-xl"
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft md:text-xl"
           >
             {subtitle}
           </motion.p>
@@ -151,7 +151,7 @@ export const PageHero = ({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/26 to-transparent" />
                 <div className="absolute inset-x-5 bottom-5 rounded-card-sm border border-white/20 bg-white/14 px-5 py-4 text-background backdrop-blur-xl">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-background/55">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-background/70">
                     {captionEyebrow ?? 'Studio Fisyo'}
                   </p>
                   <p className="mt-2 text-base leading-snug">
@@ -167,7 +167,7 @@ export const PageHero = ({
             className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1"
           >
             <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white/72 p-5 backdrop-blur-xl">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/46">
+              <p className="text-eyebrow font-semibold uppercase text-ink-muted">
                 Primo passo
               </p>
               <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
@@ -175,7 +175,7 @@ export const PageHero = ({
               </p>
             </InteractiveSurface>
             <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white/72 p-5 backdrop-blur-xl">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/46">
+              <p className="text-eyebrow font-semibold uppercase text-ink-muted">
                 Tono dello studio
               </p>
               <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
@@ -183,7 +183,7 @@ export const PageHero = ({
               </p>
             </InteractiveSurface>
             <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white/72 p-5 backdrop-blur-xl">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/46">
+              <p className="text-eyebrow font-semibold uppercase text-ink-muted">
                 Contatto
               </p>
               <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">

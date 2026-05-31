@@ -57,7 +57,7 @@ export const OpenDayFAQ = () => {
                     <h2 className="faq-title font-drama text-4xl md:text-5xl lg:text-7xl text-primary leading-tight mb-4">
                         Domande <span className="italic text-accent">Frequenti</span>
                     </h2>
-                    <p className="font-sans text-lg text-primary/60 max-w-2xl mx-auto">
+                    <p className="font-sans text-lg text-ink-muted max-w-2xl mx-auto">
                         Tutto ciò che serve per arrivare preparato alla tua mattina di Open Day.
                     </p>
                 </div>
@@ -103,7 +103,7 @@ export const OpenDayFAQ = () => {
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                             className="overflow-hidden"
                                         >
-                                            <div className="px-6 pb-6 md:px-8 md:pb-8 pt-0 font-sans text-primary/70 text-lg leading-relaxed">
+                                            <div className="px-6 pb-6 md:px-8 md:pb-8 pt-0 font-sans text-ink-soft text-lg leading-relaxed">
                                                 {faq.a}
                                             </div>
                                         </motion.div>

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -40,10 +41,12 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <ConsentWidgetBridge />
-      <SmoothScrollProvider>
-        <AppRoutes />
-      </SmoothScrollProvider>
+      <MotionConfig reducedMotion="user">
+        <ConsentWidgetBridge />
+        <SmoothScrollProvider>
+          <AppRoutes />
+        </SmoothScrollProvider>
+      </MotionConfig>
     </BrowserRouter>
   );
 }

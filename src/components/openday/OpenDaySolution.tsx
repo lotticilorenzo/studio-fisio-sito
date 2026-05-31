@@ -71,7 +71,7 @@ export const OpenDaySolution = () => {
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 />
                             </div>
-                            <div className="font-mono text-xs md:text-sm tracking-widest text-primary/50 font-bold mb-2 uppercase">
+                            <div className="font-mono text-xs md:text-sm tracking-widest text-ink-muted font-bold mb-2 uppercase">
                                 {spec.role}
                             </div>
                             <div className="font-sans font-medium text-lg text-primary mb-4">
@@ -80,7 +80,7 @@ export const OpenDaySolution = () => {
                             <h3 className="font-sans font-bold text-2xl text-primary mb-4">
                                 {spec.title}
                             </h3>
-                            <p className="font-sans text-primary/70 leading-relaxed">
+                            <p className="font-sans text-ink-soft leading-relaxed">
                                 {spec.text}
                             </p>
                         </div>

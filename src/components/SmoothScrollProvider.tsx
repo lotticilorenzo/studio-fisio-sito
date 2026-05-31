@@ -8,9 +8,9 @@ import type { LenisRef } from 'lenis/react';
 const LENIS_OPTIONS = {
   autoRaf: false,
   smoothWheel: true,
+  smoothTouch: false,
   wheelMultiplier: 0.88,
-  touchMultiplier: 0.92,
-  lerp: 0.085,
+  lerp: 0.1,
   overscroll: true,
   anchors: true,
   stopInertiaOnNavigate: true,

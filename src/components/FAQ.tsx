@@ -51,7 +51,7 @@ const FAQItem = ({
           transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
           className="overflow-hidden"
         >
-          <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-primary/72">
+          <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-ink-soft">
             {answer}
           </p>
         </motion.div>
@@ -68,13 +68,13 @@ export const FAQ = () => {
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <Reveal width="100%">
           <div className="lg:sticky lg:top-28">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
               Domande frequenti
             </p>
-            <h2 className="max-w-xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
+            <h2 className="max-w-xl text-h2 font-semibold text-primary">
               Le cose che conviene sapere prima di iniziare.
             </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-primary/64 md:text-lg">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
               Se non trovi qui la risposta che cerchi, puoi scriverci. Ti rispondiamo
               in modo diretto e senza giri.
             </p>

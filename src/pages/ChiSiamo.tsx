@@ -137,14 +137,14 @@ export const ChiSiamo = () => {
             transition={{ duration: duration.slow, ease: ease.out }}
             className="lg:sticky lg:top-28"
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
               Dentro Studio Fisyo
             </p>
-            <h2 className="max-w-lg text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
+            <h2 className="max-w-lg text-h2 font-semibold text-primary">
               Più continuità, più confronto,
               <span className="font-drama italic font-normal text-accent"> meno frammentazione.</span>
             </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-primary/68 md:text-lg">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
               Lo studio nasce dal desiderio di offrire a Felino un posto in cui le persone possano
               sentirsi seguite con più continuità. A volte serve un trattamento, a volte un lavoro
               sul movimento, a volte uno sguardo più ampio. Per questo le competenze convivono e si parlano.
@@ -168,7 +168,7 @@ export const ChiSiamo = () => {
                       <h3 className="mt-4 text-xl font-semibold tracking-[-0.04em] text-primary">
                         {note.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-primary/66 md:text-base">
+                      <p className="mt-3 text-sm leading-relaxed text-ink-soft md:text-base">
                         {note.text}
                       </p>
                     </InteractiveSurface>
@@ -199,7 +199,7 @@ export const ChiSiamo = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/34 via-transparent to-transparent" />
                   <div className="absolute inset-x-5 bottom-5 rounded-card-sm border border-white/20 bg-primary/72 px-5 py-4 text-background backdrop-blur-xl">
-                    <p className="text-[11px] uppercase tracking-[0.24em] text-background/50">
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-background/70">
                       Atmosfera dello studio
                     </p>
                     <p className="mt-2 text-base leading-snug">
@@ -279,10 +279,10 @@ export const ChiSiamo = () => {
               className="grid gap-8 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-end"
             >
               <div>
-                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/42">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/70">
                   Il nostro modo di lavorare
                 </p>
-                <h2 className="max-w-lg text-4xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-5xl">
+                <h2 className="max-w-lg text-h2 font-semibold">
                   Cura, confronto e continuità.
                 </h2>
               </div>
@@ -324,10 +324,10 @@ export const ChiSiamo = () => {
             transition={{ duration: duration.slow, ease: ease.out }}
             className="mb-12 max-w-3xl"
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
               Il team
             </p>
-            <h2 className="text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
+            <h2 className="text-h2 font-semibold text-primary">
               Le persone che rendono il lavoro dello studio riconoscibile.
             </h2>
           </motion.div>
@@ -353,13 +353,13 @@ export const ChiSiamo = () => {
                   />
                 </div>
                 <div className="flex flex-col justify-center p-8 md:p-10">
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                     Team multidisciplinare
                   </p>
                   <h3 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary md:text-4xl">
                     Qui non trovi professioniste isolate.
                   </h3>
-                  <p className="mt-5 text-base leading-relaxed text-primary/70 md:text-lg">
+                  <p className="mt-5 text-base leading-relaxed text-ink-soft md:text-lg">
                     Trovi un gruppo di lavoro che ha scelto di condividere linguaggio, tono e responsabilità.
                     Per chi entra in studio questo fa una grande differenza: il percorso sembra più chiaro,
                     più stabile e meno frammentato.
@@ -406,7 +406,7 @@ export const ChiSiamo = () => {
                     <h3 className="mt-3 font-drama text-4xl font-normal italic leading-[0.98] tracking-[-0.02em] text-primary lg:text-5xl">
                       {team[0].name}
                     </h3>
-                    <p className="mt-5 text-[15px] leading-relaxed text-primary/72">
+                    <p className="mt-5 text-[15px] leading-relaxed text-ink-soft">
                       {team[0].desc}
                     </p>
                   </div>
@@ -448,7 +448,7 @@ export const ChiSiamo = () => {
                       <h4 className="text-lg font-semibold leading-tight tracking-[-0.01em] text-primary">
                         {member.name}
                       </h4>
-                      <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-primary/64">
+                      <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-ink-soft">
                         {member.desc}
                       </p>
                     </div>

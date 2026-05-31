@@ -133,7 +133,7 @@ const FAQAccordion = ({
                   transition={accordionTransition}
                   className="overflow-hidden"
                 >
-                  <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-primary/72 md:px-7">
+                  <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-ink-soft md:px-7">
                     {faq.answer}
                   </p>
                 </motion.div>
@@ -211,7 +211,7 @@ export const ServizioDetail = () => {
       <div className="relative mx-auto max-w-7xl">
         <Link
           to="/servizi"
-          className="inline-flex items-center gap-2 text-sm font-medium text-primary/62 transition-colors hover:text-primary"
+          className="inline-flex items-center gap-2 text-sm font-medium text-ink-soft transition-colors hover:text-primary"
         >
           <ArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
           Torna a tutti i servizi
@@ -220,24 +220,24 @@ export const ServizioDetail = () => {
         <section className="mt-8 overflow-hidden rounded-card-xl border border-primary/8 bg-white/78 shadow-card-xl backdrop-blur-xl">
           <div className="grid gap-0 lg:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)]">
             <div className="px-7 py-8 md:px-10 md:py-10 lg:px-12 lg:py-14">
-              <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/74 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+              <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/74 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                 <Icon className="h-4 w-4 text-accent" />
                 {service.label}
               </div>
 
-              <p className="mt-7 max-w-lg text-sm font-medium uppercase tracking-[0.24em] text-primary/42">
+              <p className="mt-7 max-w-lg text-sm font-medium uppercase tracking-[0.24em] text-ink-muted">
                 {notes.lead}
               </p>
 
-              <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[0.94] tracking-[-0.06em] text-primary md:text-7xl">
+              <h1 className="mt-5 max-w-3xl text-h1 font-semibold text-primary">
                 {service.title}
               </h1>
 
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-primary/70 md:text-xl">
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft md:text-xl">
                 {service.subtitle}
               </p>
 
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-primary/62 md:text-lg">
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-soft md:text-lg">
                 {service.summary}
               </p>
 
@@ -260,7 +260,7 @@ export const ServizioDetail = () => {
 
               <div className="mt-10 grid gap-4 border-t border-primary/10 pt-6 md:grid-cols-3">
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/44">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                     Dove
                   </p>
                   <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
@@ -268,7 +268,7 @@ export const ServizioDetail = () => {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/44">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                     Ingresso
                   </p>
                   <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
@@ -276,7 +276,7 @@ export const ServizioDetail = () => {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/44">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                     Focus
                   </p>
                   <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
@@ -316,7 +316,7 @@ export const ServizioDetail = () => {
               </div>
 
               <div className="absolute inset-x-5 bottom-5 rounded-card-md border border-white/18 bg-primary/72 p-6 text-background shadow-card-md backdrop-blur-xl md:p-7">
-                <p className="text-[11px] uppercase tracking-[0.24em] text-background/46">
+                <p className="text-[11px] uppercase tracking-[0.24em] text-background/70">
                   Cosa vogliamo ottenere
                 </p>
                 <p className="mt-3 max-w-xl text-xl font-semibold leading-snug tracking-[-0.03em] md:text-2xl">
@@ -337,16 +337,16 @@ export const ServizioDetail = () => {
             transition={{ duration: duration.slow, ease: ease.out }}
             className="lg:sticky lg:top-28"
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
               Il senso del percorso
             </p>
-            <h2 className="max-w-md text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
+            <h2 className="max-w-md text-h2 font-semibold text-primary">
               Un lavoro che mette ordine,
               <span className="font-drama italic font-normal text-accent">
                 {' '}non passaggi casuali.
               </span>
             </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-primary/68 md:text-lg">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
               {notes.promise} Ogni scelta deve essere leggibile, spiegata e abbastanza concreta
               da accompagnarti anche fuori dallo studio.
             </p>
@@ -363,7 +363,7 @@ export const ServizioDetail = () => {
                   transition={{ duration: duration.std, delay: index * 0.08, ease: ease.out }}
                   className="rounded-card-md border border-primary/8 bg-white/80 p-7 shadow-card-sm backdrop-blur-xl md:p-8"
                 >
-                  <p className="text-lg leading-relaxed text-primary/72">{paragraph}</p>
+                  <p className="text-lg leading-relaxed text-ink-soft">{paragraph}</p>
                 </motion.article>
               ))}
             </div>
@@ -377,10 +377,10 @@ export const ServizioDetail = () => {
             >
               <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-start">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/52">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                     Cosa troverai
                   </p>
-                  <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] text-primary">
+                  <h3 className="mt-4 text-h3 font-semibold text-primary">
                     Un percorso chiaro, con obiettivi reali e margine per adattarsi al tuo caso.
                   </h3>
                 </div>
@@ -394,7 +394,7 @@ export const ServizioDetail = () => {
                       <span className="mt-0.5 text-sm font-semibold tracking-[0.18em] text-accent">
                         0{index + 1}
                       </span>
-                      <p className="text-base leading-relaxed text-primary/72">{highlight}</p>
+                      <p className="text-base leading-relaxed text-ink-soft">{highlight}</p>
                     </div>
                   ))}
                 </div>
@@ -424,10 +424,10 @@ export const ServizioDetail = () => {
               transition={{ duration: duration.slow, ease: ease.out }}
               className="lg:sticky lg:top-28"
             >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/42">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/70">
                 Come lavoriamo
               </p>
-              <h2 className="max-w-md text-4xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-5xl">
+              <h2 className="max-w-md text-h2 font-semibold">
                 Passaggi semplici da leggere, seri da portare avanti.
               </h2>
               <p className="mt-5 max-w-md text-base leading-relaxed text-background/68 md:text-lg">
@@ -482,13 +482,13 @@ export const ServizioDetail = () => {
             transition={{ duration: duration.slow, ease: ease.out }}
             className="rounded-card-lg border border-primary/8 bg-warm-100 p-8 md:p-10"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/52">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-ink-muted">
               Quando può essere utile
             </p>
-            <h2 className="mt-5 max-w-lg text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
+            <h2 className="mt-5 max-w-lg text-h2 font-semibold text-primary">
               Capire il momento giusto fa già parte della cura.
             </h2>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-primary/68 md:text-lg">
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-soft md:text-lg">
               Non tutte le situazioni hanno bisogno della stessa intensità o dello stesso ritmo.
               Questa pagina serve anche a capire se il tuo caso può trovare qui una direzione
               sensata e concreta.
@@ -514,10 +514,10 @@ export const ServizioDetail = () => {
                     </span>
                     <div>
                       <CaseIcon className="h-5 w-5 text-accent" />
-                      <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-primary">
+                      <h3 className="mt-4 text-h3 font-semibold text-primary">
                         {item.title}
                       </h3>
-                      <p className="mt-3 max-w-2xl text-base leading-relaxed text-primary/72">
+                      <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-soft">
                         {item.body}
                       </p>
                     </div>
@@ -539,16 +539,16 @@ export const ServizioDetail = () => {
             className="mb-10 grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-end"
           >
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
                 Professioniste
               </p>
-              <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
+              <h2 className="max-w-3xl text-h2 font-semibold text-primary">
                 Le persone che possono accompagnarti in questo percorso.
               </h2>
             </div>
             <Link
               to="/chi-siamo"
-              className="inline-flex items-center gap-2 text-base font-medium text-primary/66 transition-colors hover:text-primary"
+              className="inline-flex items-center gap-2 text-base font-medium text-ink-soft transition-colors hover:text-primary"
             >
               Conosci tutto il team
               <ArrowUpRight className="h-4 w-4" />
@@ -591,13 +591,13 @@ export const ServizioDetail = () => {
                       />
                     </div>
                     <div className="flex flex-col justify-center p-7 md:p-8 lg:p-10">
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                         {specialist.role}
                       </p>
-                      <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
+                      <h3 className="mt-3 text-h3 font-semibold text-primary">
                         {specialist.name}
                       </h3>
-                      <p className="mt-5 text-base leading-relaxed text-primary/72 md:text-lg">
+                      <p className="mt-5 text-base leading-relaxed text-ink-soft md:text-lg">
                         {specialist.description}
                       </p>
                     </div>
@@ -617,13 +617,13 @@ export const ServizioDetail = () => {
             viewport={viewport.section}
             transition={{ duration: duration.slow, ease: ease.out }}
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
               Domande frequenti
             </p>
-            <h2 className="max-w-md text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
+            <h2 className="max-w-md text-h2 font-semibold text-primary">
               Le risposte che servono prima di iniziare.
             </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-primary/68 md:text-lg">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
               Se qualcosa resta poco chiaro, qui trovi le informazioni che aiutano a capire
               meglio come funziona il percorso.
             </p>
@@ -642,14 +642,14 @@ export const ServizioDetail = () => {
             className="mb-10 grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-end"
           >
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
                 Altri percorsi utili
               </p>
-              <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-5xl">
+              <h2 className="max-w-3xl text-h2 font-semibold text-primary">
                 Se il tuo bisogno è vicino a questo, potresti voler guardare anche qui.
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-relaxed text-primary/68 md:text-lg">
+            <p className="max-w-2xl text-base leading-relaxed text-ink-soft md:text-lg">
               A volte la strada migliore nasce dal confronto tra percorsi diversi dello studio.
               Questa sezione serve proprio a rendere più leggibile il quadro complessivo.
             </p>
@@ -678,13 +678,13 @@ export const ServizioDetail = () => {
                     />
                   </div>
                   <div className="p-6 md:p-7">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                       {item.label}
                     </p>
-                    <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary">
+                    <h3 className="mt-3 text-h3 font-semibold text-primary">
                       {item.title}
                     </h3>
-                    <p className="mt-4 text-base leading-relaxed text-primary/68">
+                    <p className="mt-4 text-base leading-relaxed text-ink-soft">
                       {item.summary}
                     </p>
                     <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors group-hover:text-accent">
@@ -713,7 +713,7 @@ export const ServizioDetail = () => {
 
           <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/46">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/70">
                 Inizia il percorso
               </p>
               <h2 className="text-3xl font-semibold leading-tight tracking-[-0.05em] md:text-4xl">

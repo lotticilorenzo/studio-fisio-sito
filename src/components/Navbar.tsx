@@ -85,7 +85,7 @@ export const Navbar = () => {
               />
               <div className="hidden sm:block">
                 <p className="text-sm font-semibold tracking-[-0.03em] text-primary">Studio Fisyo</p>
-                <p className="text-xs text-primary/48">Felino, Parma</p>
+                <p className="text-xs text-ink-muted">Felino, Parma</p>
               </div>
             </Link>
 
@@ -95,7 +95,7 @@ export const Navbar = () => {
                   to="/"
                   aria-current={location.pathname === '/' ? 'page' : undefined}
                   className={`transition-colors hover:text-primary ${
-                    location.pathname === '/' ? 'text-primary' : 'text-primary/72'
+                    location.pathname === '/' ? 'text-primary' : 'text-ink-soft'
                   }`}
                 >
                   Home
@@ -119,7 +119,7 @@ export const Navbar = () => {
                   aria-current={location.pathname.startsWith('/servizi') ? 'page' : undefined}
                   aria-expanded={isServicesDropdownOpen}
                   className={`inline-flex items-center gap-2 transition-colors hover:text-primary ${
-                    location.pathname.startsWith('/servizi') ? 'text-primary' : 'text-primary/72'
+                    location.pathname.startsWith('/servizi') ? 'text-primary' : 'text-ink-soft'
                   }`}
                 >
                   Servizi
@@ -128,7 +128,7 @@ export const Navbar = () => {
                     transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                     className="inline-flex"
                   >
-                    <ChevronDownIcon className="h-4 w-4 text-primary/38" />
+                    <ChevronDownIcon className="h-4 w-4 text-ink-muted" />
                   </motion.span>
                 </Link>
 
@@ -144,10 +144,10 @@ export const Navbar = () => {
                       onMouseLeave={closeDropdown}
                     >
                       <div className="border-b border-primary/6 px-5 py-4">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/42">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                           Percorsi
                         </p>
-                        <p className="mt-2 max-w-[16rem] text-sm leading-relaxed text-primary/68">
+                        <p className="mt-2 max-w-[16rem] text-sm leading-relaxed text-ink-soft">
                           Servizi pensati per orientarti bene prima ancora di iniziare.
                         </p>
                       </div>
@@ -158,7 +158,7 @@ export const Navbar = () => {
                             key={service.to}
                             to={service.to}
                             onClick={() => setIsServicesDropdownOpen(false)}
-                            className="flex items-center justify-between gap-4 rounded-2xl px-4 py-3 text-sm text-primary/70 transition-colors hover:bg-white hover:text-primary"
+                            className="flex items-center justify-between gap-4 rounded-2xl px-4 py-3 text-sm text-ink-soft transition-colors hover:bg-white hover:text-primary"
                           >
                             <span>{service.label}</span>
                             <ArrowUpRight className="h-4 w-4 text-accent/80" />
@@ -195,7 +195,7 @@ export const Navbar = () => {
                   to="/chi-siamo"
                   aria-current={location.pathname === '/chi-siamo' ? 'page' : undefined}
                   className={`transition-colors hover:text-primary ${
-                    location.pathname === '/chi-siamo' ? 'text-primary' : 'text-primary/72'
+                    location.pathname === '/chi-siamo' ? 'text-primary' : 'text-ink-soft'
                   }`}
                 >
                   Chi siamo
@@ -213,7 +213,7 @@ export const Navbar = () => {
                   to="/contatti"
                   aria-current={location.pathname === '/contatti' ? 'page' : undefined}
                   className={`transition-colors hover:text-primary ${
-                    location.pathname === '/contatti' ? 'text-primary' : 'text-primary/72'
+                    location.pathname === '/contatti' ? 'text-primary' : 'text-ink-soft'
                   }`}
                 >
                   Contatti
@@ -234,17 +234,17 @@ export const Navbar = () => {
                   <Clock3 className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/42">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
                     Contatto rapido
                   </p>
-                  <p className="text-sm font-medium text-primary/74">Risposta entro 24 h feriali</p>
+                  <p className="text-sm font-medium text-ink-soft">Risposta entro 24 h feriali</p>
                 </div>
               </div>
               <a
                 href={waUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-primary/70 transition-colors hover:text-primary"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-ink-soft transition-colors hover:text-primary"
                 aria-label="Contattaci su WhatsApp"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -265,7 +265,7 @@ export const Navbar = () => {
                 href={waUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-primary/70"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/8 bg-white/55 text-ink-soft"
                 aria-label="Contattaci su WhatsApp"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -299,13 +299,13 @@ export const Navbar = () => {
           >
             <div className="flex flex-col gap-2 text-primary">
               <div className="mb-2 rounded-card-sm border border-primary/8 bg-white/40 p-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/42">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                   Studio Fisyo
                 </p>
                 <p className="mt-2 text-lg font-semibold tracking-[-0.04em] text-primary">
                   Prima visita gratuita e risposta umana.
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2 text-xs text-primary/58">
+                <div className="mt-4 flex flex-wrap gap-2 text-xs text-ink-muted">
                   <span className="rounded-full border border-primary/8 px-3 py-1.5">Felino, Parma</span>
                   <span className="rounded-full border border-primary/8 px-3 py-1.5">6 professioniste</span>
                   <span className="rounded-full border border-primary/8 px-3 py-1.5">WhatsApp attivo</span>
@@ -358,7 +358,7 @@ export const Navbar = () => {
                         <Link
                           to="/servizi"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="rounded-2xl px-4 py-2.5 text-sm text-primary/68 transition-colors hover:bg-white/80"
+                          className="rounded-2xl px-4 py-2.5 text-sm text-ink-soft transition-colors hover:bg-white/80"
                         >
                           Tutti i servizi
                         </Link>
@@ -367,7 +367,7 @@ export const Navbar = () => {
                             key={service.to}
                             to={service.to}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="rounded-2xl px-4 py-2.5 text-sm text-primary/68 transition-colors hover:bg-white/80"
+                            className="rounded-2xl px-4 py-2.5 text-sm text-ink-soft transition-colors hover:bg-white/80"
                           >
                             {service.label}
                           </Link>

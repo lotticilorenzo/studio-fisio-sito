@@ -27,3 +27,23 @@ export const viewport = {
   item:    { once: true, margin: '-60px' as const },
   tight:   { once: true, margin: '-40px' as const },
 } as const;
+
+// Scroll-reveal presets — single source of truth for the whole site.
+// Reduced-motion is handled globally by <MotionConfig reducedMotion="user"> in App.tsx,
+// which neutralises the y-transform and keeps a gentle opacity fade.
+
+/** Standard content block reveal. Pass a delay to stagger. */
+export const reveal = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: viewport.section,
+  transition: { duration: duration.slow, delay, ease: ease.out },
+});
+
+/** Heading reveal — slightly larger travel, no delay. */
+export const revealHeading = (delay = 0) => ({
+  initial: { opacity: 0, y: 32 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: viewport.section,
+  transition: { duration: duration.enter, delay, ease: ease.out },
+});
