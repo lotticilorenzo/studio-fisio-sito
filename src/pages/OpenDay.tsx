@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { OpenDayAbout } from '../components/openday/OpenDayAbout';
 import { OpenDayAwareness } from '../components/openday/OpenDayAwareness';
@@ -12,6 +14,11 @@ import { OpenDaySolution } from '../components/openday/OpenDaySolution';
 import { OpenDayUrgency } from '../components/openday/OpenDayUrgency';
 import { OPENDAY_CONFIG, openDayWaUrl } from '../config/openday';
 import { useSEO } from '../hooks/useSEO';
+import { scrollBridge } from '../lib/scrollBridge';
+
+// GSAP è usato solo da questa landing: registrandolo qui (route lazy) il bundle
+// di ~44KB non viene più caricato sul resto del sito.
+gsap.registerPlugin(ScrollTrigger);
 
 export const OpenDay = () => {
   useSEO({
@@ -63,6 +70,17 @@ export const OpenDay = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Keep GSAP ScrollTrigger in sync with the global Lenis smooth scroll while
+  // this landing is mounted (the provider stays GSAP-free for the rest of the site).
+  useEffect(() => {
+    scrollBridge.onScroll = () => ScrollTrigger.update();
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => {
+      scrollBridge.onScroll = undefined;
+      cancelAnimationFrame(id);
+    };
   }, []);
 
   const { PHONE_NUMBER, PHONE_HREF, WHATSAPP_MESSAGE } = OPENDAY_CONFIG;

@@ -769,6 +769,7 @@ export const Contatti = () => {
                               <select
                                 id="service"
                                 name="service"
+                                aria-label="Servizio di interesse"
                                 value={formState.service}
                                 onChange={(event) => setField('service', event.target.value)}
                                 className="w-full rounded-2xl border border-primary/10 bg-white px-4 py-3 text-primary outline-none transition-colors focus:border-accent md:max-w-[18rem]"

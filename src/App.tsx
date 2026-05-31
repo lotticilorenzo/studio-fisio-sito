@@ -1,15 +1,11 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { Layout } from './Layout';
 import { Home } from './pages/Home';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
 import { ConsentWidgetBridge } from './components/ConsentWidgetBridge';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Servizi = lazy(async () => ({ default: (await import('./pages/Servizi')).Servizi }));
 const ServizioDetail = lazy(async () => ({

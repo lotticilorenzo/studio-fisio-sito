@@ -1,0 +1,16 @@
+{
+  "name": "Studio Fisyo — Fisioterapia a Felino",
+  "short_name": "Studio Fisyo",
+  "description": "Fisioterapia, Pilates Clinico, salute della donna e percorsi integrati a Felino (Parma).",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F4EFE7",
+  "theme_color": "#24342C",
+  "lang": "it",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
