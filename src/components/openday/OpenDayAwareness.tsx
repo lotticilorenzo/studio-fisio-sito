@@ -57,7 +57,7 @@ export const OpenDayAwareness = () => {
                         Hai questi sintomi? <br />
                         <span className="italic text-accent">Potresti avere la fibromialgia senza saperlo.</span>
                     </h2>
-                    <p className="font-sans text-lg md:text-xl text-primary/70 max-w-3xl mx-auto leading-relaxed">
+                    <p className="font-sans text-lg md:text-xl text-ink-soft max-w-3xl mx-auto leading-relaxed">
                         La fibromialgia colpisce circa 2 milioni di italiani. La maggior parte ci ha messo <strong className="text-primary">anni</strong> ad avere una diagnosi.
                     </p>
                 </div>
@@ -98,7 +98,7 @@ export const OpenDayAwareness = () => {
                             <div className="font-mono text-5xl md:text-6xl lg:text-7xl font-bold text-primary mb-4 tracking-tighter group-hover:text-accent transition-colors duration-300">
                                 {stat.number}
                             </div>
-                            <p className="font-sans text-primary/70 leading-relaxed text-[15px] md:text-base">
+                            <p className="font-sans text-ink-soft leading-relaxed text-[15px] md:text-base">
                                 {stat.text}
                             </p>
                         </div>

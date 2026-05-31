@@ -32,7 +32,7 @@ export const WhatsAppFAB = () => {
                 transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
                 className="rounded-[1.2rem] border border-primary/8 bg-[rgba(248,244,237,0.92)] px-4 py-3 text-right shadow-card-sm backdrop-blur-xl"
               >
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/42">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
                   WhatsApp
                 </p>
                 <p className="mt-1 text-sm font-medium text-primary">Scrivici quando vuoi</p>

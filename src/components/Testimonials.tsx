@@ -37,15 +37,15 @@ export const Testimonials = () => {
           className="mb-14 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between"
         >
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
               Recensioni
             </p>
-            <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
+            <h2 className="max-w-3xl text-h2 font-semibold text-primary">
               Le persone arrivano per un problema.
               <span className="font-drama italic font-normal text-accent"> Restano per come si sentono seguite.</span>
             </h2>
           </div>
-          <p className="max-w-md text-base leading-relaxed text-primary/64 md:text-lg">
+          <p className="max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
             Parole semplici, ma molto utili: quando tornano sempre le stesse, dicono qualcosa di
             vero sul modo in cui uno studio viene vissuto.
           </p>
@@ -61,7 +61,7 @@ export const Testimonials = () => {
           {trustPoints.map((item) => (
             <span
               key={item}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/8 bg-white/72 px-4 py-2 text-sm font-medium text-primary/70 backdrop-blur-md"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/8 bg-white/72 px-4 py-2 text-sm font-medium text-ink-soft backdrop-blur-md"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
               {item}
@@ -93,7 +93,7 @@ export const Testimonials = () => {
               <div className="mt-10 flex items-end justify-between border-t border-white/10 pt-6">
                 <div>
                   <p className="font-semibold text-background">{testimonials[0].name}</p>
-                  <p className="mt-1 text-sm text-background/52">{testimonials[0].condition}</p>
+                  <p className="mt-1 text-sm text-background/70">{testimonials[0].condition}</p>
                 </div>
               </div>
             </div>
@@ -121,12 +121,12 @@ export const Testimonials = () => {
                       />
                     ))}
                   </div>
-                  <blockquote className="mt-6 text-lg leading-relaxed text-primary/72">
+                  <blockquote className="mt-6 text-lg leading-relaxed text-ink-soft">
                     {testimonial.text}
                   </blockquote>
                   <div className="mt-6 border-t border-primary/8 pt-4">
                     <p className="font-semibold text-primary">{testimonial.name}</p>
-                    <p className="mt-1 text-sm text-primary/52">{testimonial.condition}</p>
+                    <p className="mt-1 text-sm text-ink-muted">{testimonial.condition}</p>
                   </div>
                 </div>
               </InteractiveSurface>

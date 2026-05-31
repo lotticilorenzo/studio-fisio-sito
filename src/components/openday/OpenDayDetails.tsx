@@ -59,7 +59,7 @@ export const OpenDayDetails = () => {
                                     <detail.icon className="h-7 w-7 text-accent" />
                                 </div>
                                 <div>
-                                    <div className="font-sans text-sm text-primary/50 uppercase tracking-widest font-bold">
+                                    <div className="font-sans text-sm text-ink-muted uppercase tracking-widest font-bold">
                                         {detail.label}
                                     </div>
                                     <div className="font-sans text-lg md:text-xl text-primary font-medium">

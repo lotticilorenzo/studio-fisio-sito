@@ -383,7 +383,7 @@ export const Contatti = () => {
             >
               <span className="text-sm font-semibold text-primary">{item.label}</span>
               <span className="h-1 w-1 shrink-0 rounded-full bg-primary/20" aria-hidden="true" />
-              <span className="text-sm text-primary/62">{item.sub}</span>
+              <span className="text-sm text-ink-soft">{item.sub}</span>
             </div>
           ))}
         </div>
@@ -409,7 +409,7 @@ export const Contatti = () => {
                 >
                   <p
                     className={`text-xs font-semibold uppercase tracking-[0.22em] ${
-                      index === 0 ? 'text-background/42' : 'text-primary/58'
+                      index === 0 ? 'text-background/70' : 'text-ink-muted'
                     }`}
                   >
                     {card.label}
@@ -419,7 +419,7 @@ export const Contatti = () => {
                   </h2>
                   <p
                     className={`mt-4 text-base leading-relaxed ${
-                      index === 0 ? 'text-background/68' : 'text-primary/72'
+                      index === 0 ? 'text-background/68' : 'text-ink-soft'
                     }`}
                   >
                     {card.text}
@@ -542,10 +542,10 @@ export const Contatti = () => {
                   {/* Location label bar */}
                   <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between border-t border-primary/8 bg-white/82 px-5 py-3 backdrop-blur-md">
                     <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/50">Studio Fisyo</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink-muted">Studio Fisyo</p>
                       <p className="mt-0.5 text-sm font-medium text-primary">{STUDIO.address}</p>
                     </div>
-                    <span className="rounded-full border border-primary/8 bg-white px-3 py-1.5 text-xs font-semibold text-primary/60 transition-colors group-hover:border-accent/20 group-hover:text-accent">
+                    <span className="rounded-full border border-primary/8 bg-white px-3 py-1.5 text-xs font-semibold text-ink-soft transition-colors group-hover:border-accent/20 group-hover:text-accent">
                       Apri Maps →
                     </span>
                   </div>
@@ -554,10 +554,10 @@ export const Contatti = () => {
                 {/* Info cards */}
                 <div className="flex flex-col gap-4">
                   <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/50">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                       Indirizzo
                     </p>
-                    <p className="mt-3 text-sm leading-relaxed text-primary/72">{STUDIO.address}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">{STUDIO.address}</p>
                     <a
                       href={STUDIO.mapsUrl}
                       target="_blank"
@@ -572,10 +572,10 @@ export const Contatti = () => {
                   </div>
 
                   <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/50">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                       Orari
                     </p>
-                    <p className="mt-3 text-sm leading-relaxed text-primary/72">
+                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">
                       Lun-Ven 08:00–20:00
                       <br />
                       Sabato su appuntamento
@@ -583,12 +583,12 @@ export const Contatti = () => {
                   </div>
 
                   <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/50">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                       Scrivici
                     </p>
                     <a
                       href={`mailto:${STUDIO.email}`}
-                      className="mt-3 block text-sm leading-relaxed text-primary/72 transition-colors hover:text-primary"
+                      className="mt-3 block text-sm leading-relaxed text-ink-soft transition-colors hover:text-primary"
                     >
                       {STUDIO.email}
                     </a>
@@ -627,7 +627,7 @@ export const Contatti = () => {
                 <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-primary">
                   Richiesta inviata
                 </h2>
-                <p className="mt-4 max-w-md text-base leading-relaxed text-primary/72">
+                <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">
                   Abbiamo ricevuto il tuo messaggio e ti ricontattiamo appena possibile
                   {selectedService ? ` per ${selectedService.title}` : ''}.
                 </p>
@@ -643,18 +643,18 @@ export const Contatti = () => {
               <>
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/58">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                       Modulo guidato
                     </p>
                     <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] text-primary">
                       Ti guidiamo in tre passaggi molto semplici.
                     </h2>
-                    <p className="mt-4 max-w-xl text-base leading-relaxed text-primary/72">
+                    <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
                       Prima capiamo dove vuoi partire, poi lasci i tuoi recapiti e alla fine
                       ci dai il contesto minimo per risponderti bene.
                     </p>
                   </div>
-                  <div className="hidden rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/58 md:inline-flex">
+                  <div className="hidden rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted md:inline-flex">
                     Passo {currentStep + 1} di {guidedSteps.length}
                   </div>
                 </div>
@@ -668,7 +668,7 @@ export const Contatti = () => {
                           ? 'border-primary/14 bg-primary text-background'
                           : index < currentStep
                             ? 'border-accent/20 bg-accent/8 text-primary'
-                            : 'border-primary/8 bg-warm-50 text-primary/62'
+                            : 'border-primary/8 bg-warm-50 text-ink-soft'
                       }`}
                     >
                       <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">
@@ -684,7 +684,7 @@ export const Contatti = () => {
                     data-selected-service
                     className="mt-6 rounded-card-md border border-primary/8 bg-warm-100 p-5"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                       Percorso selezionato
                     </p>
                     <div className="mt-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -692,7 +692,7 @@ export const Contatti = () => {
                         <p className="text-xl font-semibold tracking-[-0.03em] text-primary">
                           {selectedService.title}
                         </p>
-                        <p className="mt-2 max-w-xl text-sm leading-relaxed text-primary/66">
+                        <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">
                           Abbiamo già collegato il modulo al servizio che stavi guardando,
                           così il tuo messaggio arriva con più contesto.
                         </p>
@@ -736,7 +736,7 @@ export const Contatti = () => {
                                 >
                                   <p
                                     className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${
-                                      formState.reason === reason.id ? 'text-background/45' : 'text-primary/48'
+                                      formState.reason === reason.id ? 'text-background/70' : 'text-ink-muted'
                                     }`}
                                   >
                                     {reason.label}
@@ -746,7 +746,7 @@ export const Contatti = () => {
                                   </p>
                                   <p
                                     className={`mt-3 text-sm leading-relaxed ${
-                                      formState.reason === reason.id ? 'text-background/72' : 'text-primary/66'
+                                      formState.reason === reason.id ? 'text-background/72' : 'text-ink-soft'
                                     }`}
                                   >
                                     {reason.text}
@@ -759,10 +759,10 @@ export const Contatti = () => {
                           <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
                             <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                               <div>
-                                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+                                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                                   Servizi consigliati
                                 </p>
-                                <p className="mt-2 text-sm leading-relaxed text-primary/66">
+                                <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                                   Se vuoi, puoi già indicarci il percorso che senti più vicino.
                                 </p>
                               </div>
@@ -791,7 +791,7 @@ export const Contatti = () => {
                                   className={`rounded-full border px-4 py-2 text-sm transition-colors ${
                                     formState.service === service.id
                                       ? 'border-primary bg-primary text-background'
-                                      : 'border-primary/10 bg-white text-primary/72 hover:text-primary'
+                                      : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
                                   }`}
                                 >
                                   {service.title}
@@ -801,7 +801,7 @@ export const Contatti = () => {
                           </div>
 
                           <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                               Come preferisci essere ricontattato?
                             </p>
                             <div className="mt-4 flex flex-wrap gap-3">
@@ -820,7 +820,7 @@ export const Contatti = () => {
                                   className={`rounded-full border px-4 py-2 text-sm transition-colors ${
                                     formState.contactPreference === option.value
                                       ? 'border-primary bg-primary text-background'
-                                      : 'border-primary/10 bg-white text-primary/72 hover:text-primary'
+                                      : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
                                   }`}
                                 >
                                   {option.label}
@@ -836,61 +836,75 @@ export const Contatti = () => {
                           <div className="grid gap-6 md:grid-cols-2">
                             <div className="flex flex-col gap-2">
                               <label htmlFor="name" className="text-sm font-medium text-primary">
-                                Nome e cognome
+                                Nome e cognome <span className="text-accent">*</span>
                               </label>
                               <input
                                 type="text"
                                 id="name"
                                 name="name"
+                                autoComplete="name"
+                                required
                                 value={formState.name}
                                 onChange={(event) => setField('name', event.target.value)}
+                                aria-invalid={errors.name ? true : undefined}
+                                aria-describedby={errors.name ? 'name-error' : undefined}
                                 className={`w-full rounded-2xl border bg-warm-50 px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
                                   errors.name ? 'border-red-400' : 'border-primary/10'
                                 }`}
                                 placeholder="Mario Rossi"
                               />
-                              {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+                              {errors.name && <p id="name-error" role="alert" className="text-xs text-red-600">{errors.name}</p>}
                             </div>
 
                             <div className="flex flex-col gap-2">
                               <label htmlFor="phone" className="text-sm font-medium text-primary">
-                                Telefono
+                                Telefono <span className="text-accent">*</span>
                               </label>
                               <input
                                 type="tel"
                                 id="phone"
                                 name="phone"
+                                autoComplete="tel"
+                                inputMode="tel"
+                                required
                                 value={formState.phone}
                                 onChange={(event) => setField('phone', event.target.value)}
+                                aria-invalid={errors.phone ? true : undefined}
+                                aria-describedby={errors.phone ? 'phone-error' : undefined}
                                 className={`w-full rounded-2xl border bg-warm-50 px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
                                   errors.phone ? 'border-red-400' : 'border-primary/10'
                                 }`}
                                 placeholder="+39"
                               />
-                              {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
+                              {errors.phone && <p id="phone-error" role="alert" className="text-xs text-red-600">{errors.phone}</p>}
                             </div>
                           </div>
 
                           <div className="flex flex-col gap-2">
                             <label htmlFor="email" className="text-sm font-medium text-primary">
-                              Email
+                              Email <span className="text-accent">*</span>
                             </label>
                             <input
                               type="email"
                               id="email"
                               name="email"
+                              autoComplete="email"
+                              inputMode="email"
+                              required
                               value={formState.email}
                               onChange={(event) => setField('email', event.target.value)}
+                              aria-invalid={errors.email ? true : undefined}
+                              aria-describedby={errors.email ? 'email-error' : undefined}
                               className={`w-full rounded-2xl border bg-warm-50 px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
                                 errors.email ? 'border-red-400' : 'border-primary/10'
                               }`}
                               placeholder="nome@email.com"
                             />
-                            {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
+                            {errors.email && <p id="email-error" role="alert" className="text-xs text-red-600">{errors.email}</p>}
                           </div>
 
                           <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                               Quando è più comodo sentirci?
                             </p>
                             <div className="mt-4 flex flex-wrap gap-3">
@@ -902,7 +916,7 @@ export const Contatti = () => {
                                   className={`rounded-full border px-4 py-2 text-sm transition-colors ${
                                     formState.availability === preset
                                       ? 'border-primary bg-primary text-background'
-                                      : 'border-primary/10 bg-white text-primary/72 hover:text-primary'
+                                      : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
                                   }`}
                                 >
                                   {preset}
@@ -925,10 +939,10 @@ export const Contatti = () => {
                       {currentStep === 2 && (
                         <>
                           <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                               Prompt utili
                             </p>
-                            <p className="mt-2 text-sm leading-relaxed text-primary/66">
+                            <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                               Se vuoi, usa uno di questi spunti per iniziare il messaggio.
                             </p>
                             <div className="mt-4 flex flex-wrap gap-3">
@@ -937,7 +951,7 @@ export const Contatti = () => {
                                   key={prompt}
                                   type="button"
                                   onClick={() => applyPrompt(prompt)}
-                                  className="rounded-full border border-primary/10 bg-white px-4 py-2 text-sm text-primary/72 transition-colors hover:text-primary"
+                                  className="rounded-full border border-primary/10 bg-white px-4 py-2 text-sm text-ink-soft transition-colors hover:text-primary"
                                 >
                                   {prompt}
                                 </button>
@@ -947,29 +961,32 @@ export const Contatti = () => {
 
                           <div className="flex flex-col gap-2">
                             <label htmlFor="message" className="text-sm font-medium text-primary">
-                              Messaggio
+                              Messaggio <span className="text-accent">*</span>
                             </label>
                             <textarea
                               id="message"
                               name="message"
                               rows={6}
+                              required
                               value={formState.message}
                               onChange={(event) => setField('message', event.target.value)}
+                              aria-invalid={errors.message ? true : undefined}
+                              aria-describedby={errors.message ? 'message-error' : undefined}
                               className={`w-full resize-none rounded-card-sm border bg-warm-50 px-4 py-4 text-primary outline-none transition-colors focus:border-accent ${
                                 errors.message ? 'border-red-400' : 'border-primary/10'
                               }`}
                               placeholder="Spiegaci in breve cosa ti sta limitando, cosa hai già provato e che tipo di aiuto ti aspetti da questo primo contatto."
                             />
-                            {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}
+                            {errors.message && <p id="message-error" role="alert" className="text-xs text-red-600">{errors.message}</p>}
                           </div>
 
                           <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white p-5">
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
                               Riepilogo rapido
                             </p>
                             <div className="mt-4 grid gap-4 md:grid-cols-3">
                               <div>
-                                <p className="text-[11px] uppercase tracking-[0.22em] text-primary/46">
+                                <p className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
                                   Punto di partenza
                                 </p>
                                 <p className="mt-2 text-sm font-semibold text-primary">
@@ -977,7 +994,7 @@ export const Contatti = () => {
                                 </p>
                               </div>
                               <div>
-                                <p className="text-[11px] uppercase tracking-[0.22em] text-primary/46">
+                                <p className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
                                   Servizio
                                 </p>
                                 <p className="mt-2 text-sm font-semibold text-primary">
@@ -985,7 +1002,7 @@ export const Contatti = () => {
                                 </p>
                               </div>
                               <div>
-                                <p className="text-[11px] uppercase tracking-[0.22em] text-primary/46">
+                                <p className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
                                   Ricontatto
                                 </p>
                                 <p className="mt-2 text-sm font-semibold text-primary">
@@ -1000,7 +1017,11 @@ export const Contatti = () => {
                   </AnimatePresence>
 
                   {errors.submit && (
-                    <p className="mt-6 rounded-2xl border border-red-400/30 bg-red-50 px-4 py-3 text-sm text-red-500">
+                    <p
+                      role="alert"
+                      aria-live="assertive"
+                      className="mt-6 rounded-2xl border border-red-400/30 bg-red-50 px-4 py-3 text-sm text-red-600"
+                    >
                       {errors.submit}
                     </p>
                   )}
@@ -1040,7 +1061,7 @@ export const Contatti = () => {
                       )}
                     </div>
 
-                    <p className="text-sm leading-relaxed text-primary/58">
+                    <p className="text-sm leading-relaxed text-ink-muted">
                       Ti rispondiamo di solito entro 24 ore feriali. Se vuoi una risposta più
                       rapida, puoi anche scriverci direttamente su WhatsApp.
                     </p>

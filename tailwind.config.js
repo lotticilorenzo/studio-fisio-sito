@@ -13,6 +13,12 @@ export default {
         foreground: '#1B241F',
         surface: '#FBF7F0',
         line: '#D8D0C4',
+        // Accessible solid text tones (verified ≥4.5:1 on #F4EFE7 background).
+        // Use these for secondary/label text instead of low-opacity primary,
+        // which drops below the WCAG AA threshold.
+        'ink':        '#24342C', // 11.4:1 — primary body / headings
+        'ink-soft':   '#5B655D', // 5.3:1  — secondary body text
+        'ink-muted':  '#626B64', // 4.8:1  — eyebrow labels, captions
         'warm-50':  '#fbf8f2',
         'warm-100': '#f5eee3',
         'warm-200': '#efe7d8',
@@ -22,6 +28,19 @@ export default {
         sans: ['"Plus Jakarta Sans"', 'Outfit', 'sans-serif'],
         drama: ['"Cormorant Garamond"', 'serif'],
         mono: ['"IBM Plex Mono"', 'monospace'],
+      },
+      // Fluid, semantic type scale — single rhythm across every page.
+      // Usage: text-display (hero), text-h1/h2/h3 (sections), text-body-lg/body (copy),
+      // text-eyebrow (uppercase labels). Replaces ad-hoc clamp()/text-Nxl per page.
+      fontSize: {
+        'display':  ['clamp(2.55rem, 6.4vw, 5.9rem)', { lineHeight: '0.95', letterSpacing: '-0.055em' }],
+        'h1':       ['clamp(2.2rem, 5vw, 4rem)',      { lineHeight: '1.0',  letterSpacing: '-0.045em' }],
+        'h2':       ['clamp(2rem, 4.2vw, 3.75rem)',   { lineHeight: '1.0',  letterSpacing: '-0.04em' }],
+        'h3':       ['clamp(1.5rem, 2.4vw, 2rem)',    { lineHeight: '1.12', letterSpacing: '-0.03em' }],
+        'body-lg':  ['1.125rem', { lineHeight: '1.6' }],
+        'body':     ['1rem',     { lineHeight: '1.6' }],
+        'body-sm':  ['0.875rem', { lineHeight: '1.55' }],
+        'eyebrow':  ['0.6875rem', { lineHeight: '1', letterSpacing: '0.24em' }],
       },
       borderRadius: {
         '4xl':      '2rem',

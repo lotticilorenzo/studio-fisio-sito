@@ -33,7 +33,7 @@ export const MobileBookingBar = () => {
           <div className="overflow-hidden rounded-card-sm border border-primary/8 bg-[rgba(248,244,237,0.92)] p-2 shadow-card-sm backdrop-blur-xl">
             <div className="flex items-center justify-between gap-3 px-3 pb-2 pt-1">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary/42">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-muted">
                   Primo passo
                 </p>
                 <p className="text-sm font-semibold text-primary">Prenota o scrivici in un attimo</p>

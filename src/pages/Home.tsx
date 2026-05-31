@@ -5,7 +5,6 @@ import {
   ArrowUpRight,
   MapPin,
   PhoneCall,
-  Sparkles,
 } from 'lucide-react';
 import { MagneticButton } from '../components/MagneticButton';
 import { Testimonials } from '../components/Testimonials';
@@ -13,23 +12,8 @@ import { FAQ } from '../components/FAQ';
 import { homepageFaqs } from '../data/homepageFaqs';
 import { useSEO } from '../hooks/useSEO';
 import { services } from '../data/services';
-import { ease, duration } from '../lib/motion';
+import { ease, duration, reveal, revealHeading } from '../lib/motion';
 import { STUDIO } from '../config/constants';
-
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-80px' },
-  transition: { duration: duration.slow, delay, ease: ease.out },
-});
-
-const revealHeading = () => ({
-  initial: { opacity: 0, y: 32 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-80px' },
-  transition: { duration: 0.85, ease: ease.out },
-});
-
 
 const signatureDetails = [
   {
@@ -129,7 +113,7 @@ export const Home = () => {
           <div className="absolute bottom-[12%] right-[8%] h-72 w-72 rounded-full bg-primary/10 blur-[140px]" />
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 lg:min-h-[calc(100svh-9rem)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center">
+        <div className="relative mx-auto grid max-w-7xl gap-12 lg:min-h-[calc(100svh-9rem)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:grid-rows-[1fr] lg:items-center">
           <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 18 }}
@@ -137,17 +121,15 @@ export const Home = () => {
               transition={{ duration: duration.std, ease: ease.out }}
               className="flex flex-wrap items-center gap-3"
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-white/72 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/62 backdrop-blur-md">
-                <MapPin className="h-3.5 w-3.5 text-accent" />
+              <span className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-2.5 gap-y-1 rounded-[1.4rem] border border-accent/20 bg-accent/8 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent/90 sm:rounded-full sm:text-[11px] sm:tracking-[0.22em]">
+                <MapPin className="h-3.5 w-3.5 shrink-0" />
                 Felino, Parma
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-accent/90">
-                <Sparkles className="h-3.5 w-3.5" />
+                <span className="h-1 w-1 rounded-full bg-accent/50" />
                 Prima valutazione gratuita
               </span>
             </motion.div>
 
-            <h1 className="mt-8 text-[clamp(3.3rem,7.4vw,5.9rem)] font-semibold leading-[0.92] tracking-[-0.07em] text-primary">
+            <h1 className="mt-8 text-[clamp(2.55rem,9vw,5.9rem)] font-semibold leading-[0.95] tracking-[-0.055em] text-primary sm:leading-[0.92] sm:tracking-[-0.07em]">
               <motion.span
                 className="block"
                 initial={{ opacity: 0, y: 26 }}
@@ -162,7 +144,7 @@ export const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: duration.enter, delay: 0.22, ease: ease.out }}
               >
-                in un luogo che ricompone il percorso, non soltanto il sintomo.
+curiamo il percorso, non solo il sintomo.
               </motion.span>
             </h1>
 
@@ -170,7 +152,7 @@ export const Home = () => {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: duration.enter, delay: 0.40, ease: ease.out }}
-              className="mt-7 max-w-xl text-lg leading-relaxed text-primary/72 md:text-xl"
+              className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft md:text-xl"
             >
               Studio Fisyo nasce per chi non cerca una seduta qualsiasi, ma un posto in cui
               ascolto clinico, trattamento, movimento e confronto tra professioniste stiano
@@ -197,7 +179,7 @@ export const Home = () => {
               </Link>
             </motion.div>
 
-            <div className="mt-10 grid gap-4 border-t border-primary/10 pt-6 sm:grid-cols-3">
+            <div className="mt-10 grid gap-4 border-t border-primary/10 pt-6 sm:grid-cols-2">
               {/* Card 1 — Counter recensioni */}
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
@@ -205,51 +187,31 @@ export const Home = () => {
                 transition={{ duration: duration.enter, delay: 0.44, ease: ease.out }}
                 className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm"
               >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/56">
+                <p className="text-eyebrow font-semibold uppercase text-ink-muted">
                   Recensioni
                 </p>
                 <div className="mt-3 flex items-baseline gap-2">
                   <span className="font-drama text-5xl font-normal italic leading-none text-primary">47</span>
                   <span className="text-2xl text-accent">★</span>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-primary/64">su Google</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">su Google</p>
               </motion.div>
 
-              {/* Card 2 — Avatar stack team */}
+              {/* Card 2 — Live status */}
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: duration.enter, delay: 0.50, ease: ease.out }}
                 className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm"
               >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/56">
-                  Il team
-                </p>
-                <div className="mt-3 flex items-center">
-                  <span className="h-9 w-9 rounded-full border-2 border-white bg-primary" />
-                  <span className="-ml-2 h-9 w-9 rounded-full border-2 border-white bg-accent" />
-                  <span className="-ml-2 h-9 w-9 rounded-full border-2 border-white bg-warm-300" />
-                  <span className="-ml-2 h-9 w-9 rounded-full border-2 border-white bg-primary/60" />
-                  <span className="-ml-2 h-9 w-9 rounded-full border-2 border-white bg-accent/50" />
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-primary/64">6 professioniste</p>
-              </motion.div>
-
-              {/* Card 3 — Live status */}
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: duration.enter, delay: 0.56, ease: ease.out }}
-                className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm"
-              >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/56">
+                <p className="text-eyebrow font-semibold uppercase text-ink-muted">
                   Risposta
                 </p>
                 <div className="mt-3 flex items-center gap-3">
                   <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
                   <span className="font-drama text-2xl font-normal italic text-primary">Attivo ora</span>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-primary/64">Ti rispondiamo entro 2 ore</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">Rispondiamo entro 24 h feriali</p>
               </motion.div>
             </div>
           </div>
@@ -258,11 +220,11 @@ export const Home = () => {
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.35, ease: ease.out }}
-            className="grid gap-4 lg:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)]"
+            className="grid gap-4 lg:h-full lg:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] lg:self-stretch"
           >
-            <div className="order-2 grid gap-4 lg:order-1">
-              <div className="overflow-hidden rounded-card-md border border-primary/8 bg-white/72 p-3 shadow-card-md backdrop-blur-xl">
-                <div className="overflow-hidden rounded-card-sm bg-warm-300">
+            <div className="order-2 grid gap-4 lg:order-1 lg:h-full lg:grid-rows-[1fr_auto]">
+              <div className="overflow-hidden rounded-card-md border border-primary/8 bg-white/72 p-3 shadow-card-md backdrop-blur-xl lg:h-full">
+                <div className="overflow-hidden rounded-card-sm bg-warm-300 lg:h-full">
                   <img
                     src="/images/real/fototeamstudiofisyo.webp"
                     alt="Il team dello Studio Fisyo riunito in studio."
@@ -270,13 +232,13 @@ export const Home = () => {
                     height={900}
                     loading="eager"
                     decoding="async"
-                    className="aspect-[4/5] w-full object-cover"
+                    className="aspect-[4/5] w-full object-cover object-top lg:aspect-auto lg:h-full"
                   />
                 </div>
               </div>
 
               <div className="rounded-card-md border border-primary/8 bg-primary p-6 text-background shadow-card-md">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-background/44">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-background/70">
                   Dentro lo studio
                 </p>
                 <p className="mt-4 text-xl font-semibold leading-snug tracking-[-0.04em]">
@@ -285,8 +247,8 @@ export const Home = () => {
               </div>
             </div>
 
-            <div className="order-1 overflow-hidden rounded-card-lg border border-white/60 bg-white/60 p-3 shadow-card-xl backdrop-blur-xl lg:order-2">
-              <div className="relative h-full overflow-hidden rounded-card-md bg-warm-300">
+            <div className="order-1 overflow-hidden rounded-card-lg border border-white/60 bg-white/60 p-3 shadow-card-xl backdrop-blur-xl lg:order-2 lg:h-full">
+              <div className="relative h-full min-h-[24rem] overflow-hidden rounded-card-md bg-warm-300">
                 <img
                   src="/images/real/fisioterapia_studio_fisyo.webp"
                   alt="Una seduta di fisioterapia nello Studio Fisyo."
@@ -295,18 +257,9 @@ export const Home = () => {
                   fetchPriority="high"
                   loading="eager"
                   decoding="async"
-                  className="aspect-[4/5] h-full w-full object-cover object-center"
+                  className="aspect-[4/5] h-full w-full object-cover object-center lg:aspect-auto"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/28 via-transparent to-white/10" />
-                <div className="absolute inset-x-5 bottom-5 rounded-card-sm border border-white/20 bg-white/14 p-5 text-background backdrop-blur-xl">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-background/55">
-                    Studio Fisyo, Felino
-                  </p>
-                  <p className="mt-2 text-lg leading-snug">
-                    Un luogo caldo, leggibile, molto concreto. La parte bella deve servire anche
-                    a farti fidare di più.
-                  </p>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/18 via-transparent to-transparent" />
               </div>
             </div>
           </motion.div>
@@ -321,17 +274,17 @@ export const Home = () => {
             className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(0,1.02fr)] lg:items-end"
           >
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/48">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
                 Firma dello studio
               </p>
-              <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
+              <h2 className="max-w-3xl text-h2 font-semibold text-primary">
                 Lo facciamo sentire subito:
                 <span className="font-drama italic font-normal text-accent">
                   {' '}qui c’è più precisione, ma anche più presenza.
                 </span>
               </h2>
             </div>
-            <p className="max-w-xl text-lg leading-relaxed text-primary/68">
+            <p className="max-w-xl text-lg leading-relaxed text-ink-soft">
               La parte estetica conta se rende più credibile quello che succede dentro il
               percorso. Per questo la bellezza qui non copre il lavoro: lo introduce meglio.
             </p>
@@ -357,10 +310,10 @@ export const Home = () => {
                 />
               </div>
               <div className="p-8 md:p-10">
-                <h3 className="text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
+                <h3 className="text-h3 font-semibold text-primary">
                   {signatureDetails[0].title}
                 </h3>
-                <p className="mt-4 text-base leading-relaxed text-primary/70">
+                <p className="mt-4 text-base leading-relaxed text-ink-soft">
                   {signatureDetails[0].text}
                 </p>
               </div>
@@ -371,11 +324,11 @@ export const Home = () => {
               className="flex flex-col justify-between rounded-card-xl border border-primary/8 bg-warm-50 p-8 shadow-card-md md:p-10 lg:p-12"
             >
               <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-primary/54">Prima visita</p>
-                <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.04em] text-primary md:text-3xl">
+                <p className="text-xs uppercase tracking-[0.24em] text-ink-muted">Prima visita</p>
+                <h3 className="mt-4 text-h3 font-semibold text-primary">
                   {signatureDetails[1].title}
                 </h3>
-                <p className="mt-5 text-base leading-relaxed text-primary/70 md:text-lg">
+                <p className="mt-5 text-base leading-relaxed text-ink-soft md:text-lg">
                   {signatureDetails[1].text}
                 </p>
               </div>
@@ -402,17 +355,17 @@ export const Home = () => {
             className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end"
           >
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/48">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
                 Percorsi
               </p>
-              <h2 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] text-primary md:text-6xl">
+              <h2 className="max-w-3xl text-h2 font-semibold text-primary">
                 Servizi diversi,
                 <span className="font-drama italic font-normal text-accent">
                   {' '}uno stesso standard di attenzione.
                 </span>
               </h2>
             </div>
-            <p className="max-w-xl text-lg leading-relaxed text-primary/68">
+            <p className="max-w-xl text-lg leading-relaxed text-ink-soft">
               Non volevamo un catalogo lungo e impersonale. Volevamo che ogni area dello studio
               mantenesse la stessa sensazione: chiarezza, profondità e un orientamento molto umano.
             </p>
@@ -460,7 +413,7 @@ export const Home = () => {
                   <div className="max-w-lg">
                     <p
                       className={`text-xs font-semibold uppercase tracking-[0.24em] ${
-                        index === 0 || index === 3 ? 'text-background/50' : 'text-primary/56'
+                        index === 0 || index === 3 ? 'text-background/55' : 'text-ink-muted'
                       }`}
                     >
                       {service.label}
@@ -470,7 +423,7 @@ export const Home = () => {
                     </h3>
                     <p
                       className={`mt-4 text-base leading-relaxed ${
-                        index === 0 || index === 3 ? 'text-background/72' : 'text-primary/70'
+                        index === 0 || index === 3 ? 'text-background/72' : 'text-ink-soft'
                       }`}
                     >
                       {service.summary}
@@ -485,7 +438,7 @@ export const Home = () => {
                           className={`rounded-full border px-3.5 py-1.5 text-sm backdrop-blur-sm ${
                             index === 0 || index === 3
                               ? 'border-white/14 bg-white/6 text-background/72'
-                              : 'border-primary/10 bg-white/68 text-primary/60'
+                              : 'border-primary/10 bg-white/68 text-ink-soft'
                           }`}
                         >
                           {highlight}
@@ -519,17 +472,17 @@ export const Home = () => {
             className="grid gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-end"
           >
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-primary/48">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-ink-muted">
                 Il percorso in pratica
               </p>
-              <h2 className="max-w-3xl text-4xl font-semibold leading-[0.96] tracking-[-0.05em] text-primary md:text-6xl">
+              <h2 className="max-w-3xl text-h2 font-semibold text-primary">
                 Prima capiamo bene.
                 <span className="font-drama italic font-normal text-accent">
                   {' '}Poi scegliamo cosa vale la pena fare davvero.
                 </span>
               </h2>
             </div>
-            <p className="max-w-2xl text-lg leading-relaxed text-primary/68">
+            <p className="max-w-2xl text-lg leading-relaxed text-ink-soft">
               Il valore di Studio Fisyo non è fare più cose. È tenere insieme le cose giuste,
               nel momento giusto, con un ritmo che la persona riesce a sentire come sostenibile.
             </p>
@@ -564,7 +517,7 @@ export const Home = () => {
                     <h3 className="mt-5 text-2xl font-semibold leading-tight tracking-[-0.04em] text-primary md:text-3xl lg:text-4xl">
                       {step.title}
                     </h3>
-                    <p className="mt-4 text-base leading-relaxed text-primary/70 md:text-lg">
+                    <p className="mt-4 text-base leading-relaxed text-ink-soft md:text-lg">
                       {step.text}
                     </p>
                   </div>

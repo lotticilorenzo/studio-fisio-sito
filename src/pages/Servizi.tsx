@@ -97,7 +97,7 @@ export const Servizi = () => {
 
         <section className="grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-start">
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/60">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
               Filtra i percorsi
             </p>
             <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filtra per categoria">
@@ -107,17 +107,17 @@ export const Servizi = () => {
                   role="tab"
                   aria-selected={category === activeCategory}
                   onClick={() => setActiveCategory(category)}
-                  className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
+                  className={`rounded-full px-5 py-3 text-sm font-medium transition-colors ${
                     category === activeCategory
                       ? 'bg-primary text-background shadow-[0_4px_20px_-8px_rgba(36,52,44,0.35)]'
-                      : 'border border-primary/10 bg-white/70 text-primary/72 backdrop-blur-md hover:bg-white hover:text-primary'
+                      : 'border border-primary/10 bg-white/70 text-ink-soft backdrop-blur-md hover:bg-white hover:text-primary'
                   }`}
                 >
                   {category}
                 </button>
               ))}
             </div>
-            <p className="mt-5 text-sm leading-relaxed text-primary/58">
+            <p className="mt-5 text-sm leading-relaxed text-ink-soft">
               {filtered.length} {filtered.length === 1 ? 'percorso visibile' : 'percorsi visibili'}.
               Se non sai ancora quale scegliere, va bene: il primo contatto serve proprio a questo.
             </p>
@@ -131,25 +131,25 @@ export const Servizi = () => {
             className="rounded-card-lg border border-primary/8 bg-white/80 p-7 shadow-card-md backdrop-blur-xl md:p-8"
           >
             <InteractiveSurface className="rounded-card-md">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary/56">
+              <p className="text-eyebrow font-semibold uppercase text-ink-muted">
                 Aiuto nella scelta
               </p>
               <h2 className="mt-4 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.04em] text-primary md:text-4xl">
                 Non serve arrivare con le idee perfette.
               </h2>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary/70 md:text-lg">
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft md:text-lg">
                 Se ci racconti in breve che cosa ti sta limitando oggi, ti aiutiamo a capire
                 se partire da fisioterapia, movimento guidato o da un altro percorso dello studio.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/62">
+                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft">
                   Prima valutazione gratuita
                 </span>
-                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/62">
+                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft">
                   Risposta entro 24 h feriali
                 </span>
-                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/62">
+                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft">
                   {STUDIO.city}
                 </span>
               </div>
@@ -184,7 +184,7 @@ export const Servizi = () => {
             className="mt-14 flex flex-col gap-24 md:gap-32"
           >
             {filtered.length === 0 && (
-              <p className="text-lg text-primary/60">Nessun servizio in questa categoria.</p>
+              <p className="text-lg text-ink-soft">Nessun servizio in questa categoria.</p>
             )}
 
             {filtered.map((service, index) => {
@@ -220,7 +220,7 @@ export const Servizi = () => {
                       <div className="flex flex-col justify-between p-8 lg:p-12">
                         <div>
                           <div className="mb-6 flex flex-wrap items-center gap-3">
-                            <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/54 backdrop-blur-md">
+                            <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted backdrop-blur-md">
                               <Icon className="h-4 w-4 text-accent" />
                               {service.label}
                             </div>
@@ -232,14 +232,14 @@ export const Servizi = () => {
                           <h2 className="max-w-2xl text-4xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl lg:text-6xl">
                             {service.title}
                           </h2>
-                          <p className="mt-5 text-lg leading-relaxed text-primary/68">{service.summary}</p>
+                          <p className="mt-5 text-lg leading-relaxed text-ink-soft">{service.summary}</p>
                         </div>
                         <div>
                           <div className="mt-6 flex flex-wrap gap-3">
                             {service.highlights.map((highlight) => (
                               <span
                                 key={highlight}
-                                className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/62"
+                                className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft"
                               >
                                 {highlight}
                               </span>
@@ -306,21 +306,21 @@ export const Servizi = () => {
                   </InteractiveSurface>
 
                   <div className="px-1">
-                    <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/54 backdrop-blur-md">
+                    <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted backdrop-blur-md">
                       <Icon className="h-4 w-4 text-accent" />
                       {service.label}
                     </div>
                     <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl">
                       {service.title}
                     </h2>
-                    <p className="mt-5 max-w-2xl text-lg leading-relaxed text-primary/68">
+                    <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
                       {service.summary}
                     </p>
                     <div className="mt-6 flex flex-wrap gap-3">
                       {service.highlights.map((highlight) => (
                         <span
                           key={highlight}
-                          className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-primary/56"
+                          className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft"
                         >
                           {highlight}
                         </span>

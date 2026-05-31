@@ -84,7 +84,7 @@ export const OpenDay = () => {
             <p className="font-sans text-lg font-bold text-primary">
               Questo evento è già passato
             </p>
-            <p className="mt-2 text-base text-primary/70">
+            <p className="mt-2 text-base text-ink-soft">
               L&apos;Open Day del {OPENDAY_CONFIG.FORMATTED_DATE} si è concluso. Vuoi sapere quando organizziamo il prossimo?{' '}
               <a
                 href={openDayWaUrl(OPENDAY_CONFIG.NEXT_EVENT_MESSAGE)}

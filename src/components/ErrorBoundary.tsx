@@ -41,7 +41,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 <h1 className="font-drama text-4xl md:text-5xl text-primary mb-4">
                     Qualcosa non ha funzionato
                 </h1>
-                <p className="font-sans text-base text-primary/60 max-w-md mb-10 leading-relaxed">
+                <p className="font-sans text-base text-ink-soft max-w-md mb-10 leading-relaxed">
                     Si è verificato un errore inaspettato. Prova a ricaricare la pagina — se il problema
                     persiste scrivici su WhatsApp.
                 </p>

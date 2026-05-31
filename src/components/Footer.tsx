@@ -32,10 +32,10 @@ export const CTA = () => {
 
         <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-background/42">
+            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-background/70">
               Primo passo
             </p>
-            <h2 className="mt-4 max-w-3xl text-4xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-6xl">
+            <h2 className="mt-4 max-w-3xl text-h2 font-semibold">
               Se senti che è il momento giusto,
               <span className="font-drama italic font-normal text-accent"> partiamo bene.</span>
             </h2>
@@ -57,7 +57,7 @@ export const CTA = () => {
           </div>
 
           <div className="rounded-card-md border border-white/10 bg-white/7 p-6 backdrop-blur-md">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-background/42">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-background/70">
               Contatto rapido
             </p>
             <p className="mt-4 text-2xl font-semibold tracking-[-0.04em]">
@@ -84,7 +84,7 @@ export const CTA = () => {
               </MagneticButton>
             </div>
 
-            <p className="mt-5 text-xs text-background/42">Lun-Ven 08:00-20:00 · Sab su appuntamento</p>
+            <p className="mt-5 text-xs text-background/70">Lun-Ven 08:00-20:00 · Sab su appuntamento</p>
           </div>
         </div>
       </motion.div>
@@ -126,7 +126,7 @@ export const Footer = () => {
           </div>
 
           <div className="grid gap-3 text-sm text-background/58">
-            <h4 className="mb-1 text-xs font-semibold uppercase tracking-[0.22em] text-background/36">
+            <h4 className="mb-1 text-xs font-semibold uppercase tracking-[0.22em] text-background/62">
               Pagine
             </h4>
             <Link to="/servizi" className="transition-colors hover:text-background">
@@ -157,7 +157,7 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-background/36">
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-background/62">
               Contatti
             </h4>
             <div className="space-y-4 text-sm leading-relaxed text-background/58">
@@ -203,7 +203,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-xs text-background/36 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-xs text-background/62 md:flex-row md:items-center md:justify-between">
           <p>2026 Studio Fisyo. Tutti i diritti riservati. P.IVA 02551160340</p>
           <div className="flex gap-5">
             <a

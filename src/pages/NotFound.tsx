@@ -61,13 +61,13 @@ export const NotFound = () => {
         </motion.div>
 
         <div className="-mt-12 w-full rounded-card-xl border border-white/40 bg-white/60 p-10 shadow-[0_30px_80px_-24px_rgba(36,52,44,0.12)] backdrop-blur-xl md:-mt-20 md:p-14">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-primary/58">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
             Pagina non trovata
           </p>
           <h1 className="text-4xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl">
             Il percorso che cerchi <span className="font-drama font-normal italic text-accent">non esiste più.</span>
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-primary/72">
+          <p className="mt-5 text-lg leading-relaxed text-ink-soft">
             Forse il link è cambiato o la pagina è stata spostata. Torniamo al punto di partenza
             e ti rimettiamo subito dentro il sito giusto.
           </p>
@@ -94,13 +94,13 @@ export const NotFound = () => {
                 className="rounded-card-md border border-primary/8 bg-warm-50 p-5 text-left"
               >
                 <Link to={item.to} className="block">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/48">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
                     {item.label}
                   </p>
                   <p className="mt-3 text-lg font-semibold tracking-[-0.04em] text-primary">
                     {item.title}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-primary/66">
+                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">
                     {item.text}
                   </p>
                 </Link>
@@ -109,7 +109,7 @@ export const NotFound = () => {
           </div>
         </div>
 
-        <div className="mt-8 flex gap-5 text-sm text-primary/60">
+        <div className="mt-8 flex gap-5 text-sm text-ink-muted">
           <Link to="/servizi" className="transition-colors hover:text-primary">Servizi</Link>
           <span aria-hidden="true">·</span>
           <Link to="/chi-siamo" className="transition-colors hover:text-primary">Chi siamo</Link>
