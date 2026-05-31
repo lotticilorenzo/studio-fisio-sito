@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ReactLenis } from 'lenis/react';
 import type { LenisRef } from 'lenis/react';
+import { scrollBridge } from '../lib/scrollBridge';
 
 const LENIS_OPTIONS = {
   autoRaf: false,
@@ -46,34 +45,28 @@ export const SmoothScrollProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    const update = (time: number) => {
-      lenis.raf(time * 1000);
-    };
+    // Drive Lenis with the native RAF loop (no GSAP dependency on the main site).
+    let rafId = requestAnimationFrame(function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    });
 
-    const syncScrollTrigger = () => {
-      ScrollTrigger.update();
-    };
-
-    lenis.on('scroll', syncScrollTrigger);
-    gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0);
+    // Notify an optional scroll consumer (OpenDay's ScrollTrigger) if registered.
+    const onScroll = () => scrollBridge.onScroll?.();
+    lenis.on('scroll', onScroll);
 
     return () => {
-      lenis.off('scroll', syncScrollTrigger);
-      gsap.ticker.remove(update);
+      cancelAnimationFrame(rafId);
+      lenis.off('scroll', onScroll);
     };
   }, [prefersReducedMotion]);
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      requestAnimationFrame(() => ScrollTrigger.refresh());
       return;
     }
 
-    requestAnimationFrame(() => {
-      lenisRef.current?.lenis?.resize();
-      ScrollTrigger.refresh();
-    });
+    requestAnimationFrame(() => lenisRef.current?.lenis?.resize());
   }, [location.pathname, location.search, prefersReducedMotion]);
 
   if (prefersReducedMotion) {
