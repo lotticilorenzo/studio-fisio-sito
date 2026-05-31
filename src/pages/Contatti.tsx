@@ -789,7 +789,7 @@ export const Contatti = () => {
                                   key={service.id}
                                   type="button"
                                   onClick={() => setField('service', service.id)}
-                                  className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+                                  className={`rounded-full border px-4 py-2.5 text-sm transition-colors ${
                                     formState.service === service.id
                                       ? 'border-primary bg-primary text-background'
                                       : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
@@ -818,7 +818,7 @@ export const Contatti = () => {
                                   onClick={() =>
                                     setField('contactPreference', option.value as ContactPreference)
                                   }
-                                  className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+                                  className={`rounded-full border px-4 py-2.5 text-sm transition-colors ${
                                     formState.contactPreference === option.value
                                       ? 'border-primary bg-primary text-background'
                                       : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
@@ -914,7 +914,7 @@ export const Contatti = () => {
                                   key={preset}
                                   type="button"
                                   onClick={() => setField('availability', preset)}
-                                  className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+                                  className={`rounded-full border px-4 py-2.5 text-sm transition-colors ${
                                     formState.availability === preset
                                       ? 'border-primary bg-primary text-background'
                                       : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
@@ -952,7 +952,7 @@ export const Contatti = () => {
                                   key={prompt}
                                   type="button"
                                   onClick={() => applyPrompt(prompt)}
-                                  className="rounded-full border border-primary/10 bg-white px-4 py-2 text-sm text-ink-soft transition-colors hover:text-primary"
+                                  className="rounded-full border border-primary/10 bg-white px-4 py-2.5 text-sm text-ink-soft transition-colors hover:text-primary"
                                 >
                                   {prompt}
                                 </button>
