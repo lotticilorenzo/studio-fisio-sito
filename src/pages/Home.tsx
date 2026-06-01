@@ -1,5 +1,5 @@
-﻿import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+﻿import { useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ArrowUpRight,
@@ -7,6 +7,7 @@ import {
   PhoneCall,
 } from 'lucide-react';
 import { MagneticButton } from '../components/MagneticButton';
+import { Counter } from '../components/Counter';
 import { Testimonials } from '../components/Testimonials';
 import { FAQ } from '../components/FAQ';
 import { homepageFaqs } from '../data/homepageFaqs';
@@ -104,9 +105,20 @@ export const Home = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const heroRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const heroImageY = useTransform(heroProgress, [0, 1], reducedMotion ? ['0%', '0%'] : ['-5%', '5%']);
+
   return (
     <div className="flex flex-col">
-      <section className="relative isolate overflow-hidden px-6 pb-20 pt-28 sm:pt-32 lg:px-12 lg:pb-28 lg:pt-36">
+      <section
+        ref={heroRef}
+        className="relative isolate overflow-hidden px-6 pb-20 pt-28 sm:pt-32 lg:px-12 lg:pb-28 lg:pt-36"
+      >
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(217,164,59,0.14),transparent_26%),radial-gradient(circle_at_86%_20%,rgba(36,52,44,0.1),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0))]" />
           <div className="absolute left-[10%] top-[10%] h-48 w-48 rounded-full bg-accent/14 blur-[120px]" />
@@ -191,7 +203,7 @@ curiamo il percorso, non solo il sintomo.
                   Recensioni
                 </p>
                 <div className="mt-3 flex items-baseline gap-2">
-                  <span className="font-drama text-5xl font-normal italic leading-none text-primary">47</span>
+                  <Counter to={47} className="font-drama text-5xl font-normal italic leading-none text-primary" />
                   <span className="text-2xl text-accent">★</span>
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">su Google</p>
@@ -249,7 +261,7 @@ curiamo il percorso, non solo il sintomo.
 
             <div className="order-1 overflow-hidden rounded-card-lg border border-white/60 bg-white/60 p-3 shadow-card-xl backdrop-blur-xl lg:order-2 lg:h-full">
               <div className="relative h-full min-h-[24rem] overflow-hidden rounded-card-md bg-warm-300">
-                <img
+                <motion.img
                   src="/images/real/fisioterapia_studio_fisyo.webp"
                   alt="Una seduta di fisioterapia nello Studio Fisyo."
                   width={900}
@@ -257,13 +269,33 @@ curiamo il percorso, non solo il sintomo.
                   fetchPriority="high"
                   loading="eager"
                   decoding="async"
-                  className="aspect-[4/5] h-full w-full object-cover object-center lg:aspect-auto"
+                  style={{ y: heroImageY }}
+                  className="aspect-[4/5] h-full w-full scale-[1.12] object-cover object-center lg:aspect-auto"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/18 via-transparent to-transparent" />
               </div>
             </div>
           </motion.div>
         </div>
+
+        {/* Scroll cue — invito a scorrere (desktop) */}
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.1, duration: 0.6 }}
+          className="pointer-events-none absolute inset-x-0 bottom-5 hidden justify-center lg:flex"
+        >
+          <div className="flex flex-col items-center gap-2 text-ink-muted">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em]">Scorri</span>
+            <span className="flex h-9 w-[1.4rem] justify-center rounded-full border border-primary/25 pt-1.5">
+              <span
+                className="h-1.5 w-1 rounded-full bg-accent"
+                style={{ animation: 'heroScroll 2.2s cubic-bezier(0.16,1,0.3,1) infinite' }}
+              />
+            </span>
+          </div>
+        </motion.div>
 
       </section>
 
