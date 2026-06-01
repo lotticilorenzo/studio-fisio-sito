@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { MagneticButton } from '../components/MagneticButton';
 import { Counter } from '../components/Counter';
+import { ServiceFinder } from '../components/ServiceFinder';
 import { Testimonials } from '../components/Testimonials';
 import { FAQ } from '../components/FAQ';
 import { homepageFaqs } from '../data/homepageFaqs';
@@ -471,6 +472,8 @@ curiamo il percorso, non solo il sintomo.
           </div>
         </div>
       </section>
+
+      <ServiceFinder />
 
       <section className="px-6 py-24 lg:px-12 lg:py-28">
         <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
