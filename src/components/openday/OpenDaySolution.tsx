@@ -50,7 +50,7 @@ export const OpenDaySolution = () => {
 
     return (
         <section ref={comp} className="py-24 md:py-32 bg-[#FAF9F5] relative z-10 border-t border-black/5">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="max-w-7xl 2xl:max-w-[1600px] mx-auto px-6 lg:px-12">
                 <div className="text-center mb-16 md:mb-24">
                     <h2 className="sol-title font-drama text-4xl md:text-5xl lg:text-6xl text-primary leading-tight">
                         In una sola mattina, parli con <span className="italic text-accent">tre esperti</span>

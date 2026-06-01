@@ -115,7 +115,7 @@ export const ChiSiamo = () => {
   return (
     <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
       <div className="page-aura" aria-hidden="true" />
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-7xl 2xl:max-w-[1600px]">
         <PageHero
           label="Chi siamo"
           badge="Team integrato"

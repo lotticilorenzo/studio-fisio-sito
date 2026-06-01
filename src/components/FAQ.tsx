@@ -65,7 +65,7 @@ export const FAQ = () => {
 
   return (
     <section className="px-6 py-24 lg:px-12 lg:py-32">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <div className="mx-auto grid max-w-7xl 2xl:max-w-[1600px] gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <Reveal width="100%">
           <div className="lg:sticky lg:top-28">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">

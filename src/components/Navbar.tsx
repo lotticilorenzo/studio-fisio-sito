@@ -62,7 +62,7 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`fixed left-1/2 top-3 z-50 w-[calc(100%-1rem)] max-w-6xl -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:top-5 sm:w-[calc(100%-2rem)] ${
+        className={`fixed left-1/2 top-3 z-50 w-[calc(100%-1rem)] max-w-6xl 2xl:max-w-[1600px] -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:top-5 sm:w-[calc(100%-2rem)] ${
           isHidden ? '-translate-y-[150%] opacity-0 pointer-events-none' : 'opacity-100'
         }`}
       >
