@@ -396,36 +396,19 @@ curiamo il percorso, non solo il sintomo.
                     decoding="async"
                     className="h-full w-full object-cover transition-transform duration-400 ease-out group-hover:scale-[1.06]"
                   />
-                  <div
-                    className={`absolute inset-0 ${
-                      index === 0 || index === 3
-                        ? 'bg-gradient-to-br from-primary/86 via-primary/62 to-primary/32'
-                        : 'bg-gradient-to-br from-primary/52 via-primary/18 to-transparent'
-                    }`}
-                  />
+                  {/* Scrim uniforme: scuro dove c'è il testo (alto/basso), foto visibile al centro */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(27,36,31,0.88)_0%,rgba(27,36,31,0.45)_38%,rgba(27,36,31,0.46)_58%,rgba(27,36,31,0.9)_100%)]" />
                 </div>
 
-                <div
-                  className={`relative flex h-full flex-col justify-between gap-8 p-7 md:p-8 lg:p-10 ${
-                    index === 0 || index === 3 ? 'text-background' : 'text-primary'
-                  }`}
-                >
+                <div className="relative flex h-full flex-col justify-between gap-8 p-7 text-background md:p-8 lg:p-10">
                   <div className="max-w-lg">
-                    <p
-                      className={`text-xs font-semibold uppercase tracking-[0.24em] ${
-                        index === 0 || index === 3 ? 'text-background/55' : 'text-ink-muted'
-                      }`}
-                    >
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-background/65">
                       {service.label}
                     </p>
-                    <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] md:text-4xl">
+                    <h3 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] [text-shadow:0_1px_18px_rgba(0,0,0,0.35)] md:text-4xl">
                       {service.title}
                     </h3>
-                    <p
-                      className={`mt-4 text-base leading-relaxed ${
-                        index === 0 || index === 3 ? 'text-background/72' : 'text-ink-soft'
-                      }`}
-                    >
+                    <p className="mt-4 text-base leading-relaxed text-background/80">
                       {service.summary}
                     </p>
                   </div>
@@ -435,11 +418,7 @@ curiamo il percorso, non solo il sintomo.
                       {service.highlights.slice(0, 3).map((highlight) => (
                         <span
                           key={highlight}
-                          className={`rounded-full border px-3.5 py-1.5 text-sm backdrop-blur-sm ${
-                            index === 0 || index === 3
-                              ? 'border-white/14 bg-white/6 text-background/72'
-                              : 'border-primary/10 bg-white/68 text-ink-soft'
-                          }`}
+                          className="rounded-full border border-white/18 bg-white/12 px-3.5 py-1.5 text-sm text-background/85 backdrop-blur-md"
                         >
                           {highlight}
                         </span>
@@ -448,11 +427,7 @@ curiamo il percorso, non solo il sintomo.
 
                     <Link
                       to={`/servizi/${service.id}`}
-                      className={`inline-flex items-center gap-3 py-1 text-sm font-semibold transition-colors ${
-                        index === 0 || index === 3
-                          ? 'text-background hover:text-accent'
-                          : 'text-primary hover:text-accent'
-                      }`}
+                      className="inline-flex items-center gap-3 py-1 text-sm font-semibold text-background transition-colors hover:text-accent"
                     >
                       Approfondisci il percorso
                       <ArrowUpRight className="h-4 w-4 text-accent" />
