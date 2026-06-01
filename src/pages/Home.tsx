@@ -113,7 +113,7 @@ export const Home = () => {
           <div className="absolute bottom-[12%] right-[8%] h-72 w-72 rounded-full bg-primary/10 blur-[140px]" />
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 lg:min-h-[calc(100svh-9rem)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:grid-rows-[1fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-7xl 2xl:max-w-[1600px] gap-12 lg:min-h-[calc(100svh-9rem)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:grid-rows-[1fr] lg:items-center">
           <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 18 }}
@@ -268,7 +268,7 @@ curiamo il percorso, non solo il sintomo.
       </section>
 
       <section className="px-6 py-24 lg:px-12 lg:py-28">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
           <motion.div
             {...revealHeading()}
             className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(0,1.02fr)] lg:items-end"
@@ -349,7 +349,7 @@ curiamo il percorso, non solo il sintomo.
       </section>
 
       <section className="px-6 py-24 lg:px-12 lg:py-28">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
           <motion.div
             {...revealHeading()}
             className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end"
@@ -466,7 +466,7 @@ curiamo il percorso, non solo il sintomo.
       </section>
 
       <section className="px-6 py-24 lg:px-12 lg:py-28">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
           <motion.div
             {...revealHeading()}
             className="grid gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-end"

@@ -27,7 +27,7 @@ export const OpenDayAbout = () => {
 
   return (
     <section ref={comp} className="relative z-10 overflow-hidden border-y border-black/5 bg-[#FAF9F5] py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px] px-6 lg:px-12">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="abt-image relative rounded-card-lg overflow-hidden shadow-lg">
             <div className="aspect-[4/3]">

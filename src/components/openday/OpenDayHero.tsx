@@ -38,7 +38,7 @@ export const OpenDayHero = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent"></div>
             </div>
 
-            <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col justify-end">
+            <div className="relative z-10 w-full max-w-7xl 2xl:max-w-[1600px] mx-auto flex flex-col justify-end">
                 <div className="max-w-4xl">
                     <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-primary font-bold text-sm tracking-wider uppercase mb-8">
                         <span className={`w-2 h-2 rounded-full bg-primary ${IS_PAST_EVENT ? '' : 'animate-pulse'}`}></span>

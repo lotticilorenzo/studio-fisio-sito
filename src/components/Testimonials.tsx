@@ -28,7 +28,7 @@ export const Testimonials = () => {
 
   return (
     <section className="relative px-6 py-24 lg:px-12 lg:py-28">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
