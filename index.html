@@ -95,6 +95,7 @@
   <script type="text/javascript">
     (function (w, d) {
       var loaded = false;
+      var events = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'mousemove'];
       var inject = function (src) {
         var s = d.createElement('script');
         s.src = src;
@@ -104,15 +105,14 @@
       var load = function () {
         if (loaded) return;
         loaded = true;
+        events.forEach(function (e) { w.removeEventListener(e, load); });
         inject('https://embeds.iubenda.com/widgets/17fdc897-bc4e-47cc-8936-13330e555866.js');
         inject('https://cdn.iubenda.com/iubenda.js');
       };
-      var schedule = function () {
-        if ('requestIdleCallback' in w) w.requestIdleCallback(load, { timeout: 3000 });
-        else w.setTimeout(load, 1500);
-      };
-      if (d.readyState === 'complete') schedule();
-      else w.addEventListener('load', schedule, { once: true });
+      // Carica iubenda alla prima interazione (così non grava sul main-thread iniziale);
+      // fallback a 10s per chi non interagisce. Nessun tracking è attivo prima del consenso.
+      events.forEach(function (e) { w.addEventListener(e, load, { once: true, passive: true }); });
+      w.setTimeout(load, 10000);
     })(window, document);
   </script>
 </head>
