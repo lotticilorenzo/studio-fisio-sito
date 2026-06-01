@@ -229,7 +229,7 @@ export const ServizioDetail = () => {
                 {notes.lead}
               </p>
 
-              <h1 className="mt-5 max-w-3xl text-h1 font-semibold text-primary">
+              <h1 className="mt-5 max-w-3xl text-[clamp(2rem,4.2vw,4rem)] font-semibold leading-[1.0] tracking-[-0.045em] text-primary [overflow-wrap:break-word]">
                 {service.title}
               </h1>
 
