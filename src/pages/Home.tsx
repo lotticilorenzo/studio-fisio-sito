@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import { MagneticButton } from '../components/MagneticButton';
 import { Counter } from '../components/Counter';
+import { MaskReveal } from '../components/MaskReveal';
+import { ParallaxImage } from '../components/ParallaxImage';
 import { ServiceFinder } from '../components/ServiceFinder';
 import { Testimonials } from '../components/Testimonials';
 import { FAQ } from '../components/FAQ';
@@ -311,10 +313,12 @@ curiamo il percorso, non solo il sintomo.
                 Firma dello studio
               </p>
               <h2 className="max-w-3xl text-h2 font-semibold text-primary">
-                Lo facciamo sentire subito:
-                <span className="font-drama italic font-normal text-accent">
-                  {' '}qui c’è più precisione, ma anche più presenza.
-                </span>
+                <MaskReveal>
+                  Lo facciamo sentire subito:
+                  <span className="font-drama italic font-normal text-accent">
+                    {' '}qui c’è più precisione, ma anche più presenza.
+                  </span>
+                </MaskReveal>
               </h2>
             </div>
             <p className="max-w-xl text-lg leading-relaxed text-ink-soft">
@@ -392,10 +396,12 @@ curiamo il percorso, non solo il sintomo.
                 Percorsi
               </p>
               <h2 className="max-w-3xl text-h2 font-semibold text-primary">
-                Servizi diversi,
-                <span className="font-drama italic font-normal text-accent">
-                  {' '}uno stesso standard di attenzione.
-                </span>
+                <MaskReveal>
+                  Servizi diversi,
+                  <span className="font-drama italic font-normal text-accent">
+                    {' '}uno stesso standard di attenzione.
+                  </span>
+                </MaskReveal>
               </h2>
             </div>
             <p className="max-w-xl text-lg leading-relaxed text-ink-soft">
@@ -486,10 +492,12 @@ curiamo il percorso, non solo il sintomo.
                 Il percorso in pratica
               </p>
               <h2 className="max-w-3xl text-h2 font-semibold text-primary">
-                Prima capiamo bene.
-                <span className="font-drama italic font-normal text-accent">
-                  {' '}Poi scegliamo cosa vale la pena fare davvero.
-                </span>
+                <MaskReveal>
+                  Prima capiamo bene.
+                  <span className="font-drama italic font-normal text-accent">
+                    {' '}Poi scegliamo cosa vale la pena fare davvero.
+                  </span>
+                </MaskReveal>
               </h2>
             </div>
             <p className="max-w-2xl text-lg leading-relaxed text-ink-soft">
@@ -512,7 +520,7 @@ curiamo il percorso, non solo il sintomo.
                   }`}
                 >
                   <div className="overflow-hidden rounded-card-lg border border-primary/8 bg-warm-200 shadow-card-md">
-                    <img
+                    <ParallaxImage
                       src={step.image}
                       alt={step.imageAlt}
                       width={900}

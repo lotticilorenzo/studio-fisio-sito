@@ -1,6 +1,14 @@
 ﻿import { motion } from 'framer-motion';
 import { STUDIO } from '../config/constants';
 import { InteractiveSurface } from './InteractiveSurface';
+import { Counter } from './Counter';
+import { MaskReveal } from './MaskReveal';
+
+const trustPoints: Array<{ num?: number; decimals?: number; suffix?: string; label?: string }> = [
+  { num: 5, decimals: 1, suffix: ' su Google' },
+  { num: 47, suffix: ' recensioni' },
+  { label: 'Felino, Parma' },
+];
 
 const testimonials = [
   {
@@ -24,8 +32,6 @@ const testimonials = [
 ];
 
 export const Testimonials = () => {
-  const trustPoints = ['5.0 su Google', '47 recensioni', 'Felino, Parma'];
-
   return (
     <section className="relative px-6 py-24 lg:px-12 lg:py-28">
       <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
@@ -41,8 +47,10 @@ export const Testimonials = () => {
               Recensioni
             </p>
             <h2 className="max-w-3xl text-h2 font-semibold text-primary">
-              Le persone arrivano per un problema.
-              <span className="font-drama italic font-normal text-accent"> Restano per come si sentono seguite.</span>
+              <MaskReveal>
+                Le persone arrivano per un problema.
+                <span className="font-drama italic font-normal text-accent"> Restano per come si sentono seguite.</span>
+              </MaskReveal>
             </h2>
           </div>
           <p className="max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
@@ -60,11 +68,18 @@ export const Testimonials = () => {
         >
           {trustPoints.map((item) => (
             <span
-              key={item}
+              key={item.label ?? item.suffix}
               className="inline-flex items-center gap-2 rounded-full border border-primary/8 bg-white/72 px-4 py-2 text-sm font-medium text-ink-soft backdrop-blur-md"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-              {item}
+              {item.num != null ? (
+                <span>
+                  <Counter to={item.num} decimals={item.decimals ?? 0} className="font-semibold text-primary" />
+                  {item.suffix}
+                </span>
+              ) : (
+                item.label
+              )}
             </span>
           ))}
         </motion.div>
