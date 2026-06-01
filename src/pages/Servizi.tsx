@@ -229,7 +229,7 @@ export const Servizi = () => {
                               Servizio principale
                             </span>
                           </div>
-                          <h2 className="max-w-2xl text-4xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl lg:text-6xl">
+                          <h2 className="max-w-2xl text-[clamp(2rem,3.6vw,3.75rem)] font-semibold leading-tight tracking-[-0.05em] text-primary [overflow-wrap:break-word]">
                             {service.title}
                           </h2>
                           <p className="mt-5 text-lg leading-relaxed text-ink-soft">{service.summary}</p>
@@ -310,7 +310,7 @@ export const Servizi = () => {
                       <Icon className="h-4 w-4 text-accent" />
                       {service.label}
                     </div>
-                    <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.05em] text-primary md:text-5xl">
+                    <h2 className="mt-6 max-w-2xl text-[clamp(1.7rem,2.9vw,3rem)] font-semibold leading-tight tracking-[-0.05em] text-primary [overflow-wrap:break-word]">
                       {service.title}
                     </h2>
                     <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">

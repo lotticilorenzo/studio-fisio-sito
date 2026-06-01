@@ -129,7 +129,7 @@ export const Home = () => {
               </span>
             </motion.div>
 
-            <h1 className="mt-8 text-[clamp(2.55rem,9vw,5.9rem)] font-semibold leading-[0.95] tracking-[-0.055em] text-primary sm:leading-[0.92] sm:tracking-[-0.07em]">
+            <h1 className="mt-8 text-[clamp(2.55rem,9vw,5.9rem)] font-semibold leading-[0.95] tracking-[-0.055em] text-primary sm:leading-[0.92] sm:tracking-[-0.07em] lg:text-[clamp(2.5rem,6.5vw,5.9rem)]">
               <motion.span
                 className="block"
                 initial={{ opacity: 0, y: 26 }}
