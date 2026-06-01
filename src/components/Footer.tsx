@@ -1,8 +1,16 @@
 ﻿import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Clock3, MapPin, MessageCircleMore, PhoneCall } from 'lucide-react';
+import { Clock3, Facebook, Instagram, MapPin, MessageCircleMore, PhoneCall } from 'lucide-react';
 import { MagneticButton } from './MagneticButton';
 import { STUDIO, waUrl } from '../config/constants';
+import { services } from '../data/services';
+
+const pageLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/servizi', label: 'Servizi' },
+  { to: '/chi-siamo', label: 'Chi siamo' },
+  { to: '/contatti', label: 'Contatti' },
+] as const;
 
 const footerStats = [
   'Prima valutazione gratuita',
@@ -18,7 +26,7 @@ export const CTA = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mx-auto max-w-6xl overflow-hidden rounded-card-xl border border-primary/10 bg-primary px-8 py-14 text-background shadow-card-xl md:px-12 md:py-16 lg:px-16"
+        className="relative mx-auto max-w-7xl overflow-hidden rounded-card-xl border border-primary/10 bg-primary px-8 py-14 text-background shadow-card-xl md:px-12 md:py-16 lg:px-16 2xl:max-w-[1600px]"
       >
         <div className="absolute inset-0">
           <img
@@ -102,65 +110,94 @@ export const Footer = () => {
         transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         className="mx-auto max-w-7xl 2xl:max-w-[1600px] overflow-hidden rounded-t-card-lg border border-white/6 border-t-white/4 bg-[#0e1612] px-8 py-12 shadow-[0_-18px_40px_-30px_rgba(0,0,0,0.2)] md:px-10 lg:px-12 lg:py-14"
       >
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.8fr)_minmax(0,1fr)]">
-          <div>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.25fr] lg:gap-12">
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-1">
             <img
               src="/images/logo-fisyo.png"
               alt="Studio Fisyo"
               loading="lazy"
               decoding="async"
-              className="h-10 w-auto rounded-md bg-white p-1"
+              className="h-11 w-auto rounded-md bg-white p-1.5"
             />
-            <p className="mt-6 max-w-sm text-base leading-relaxed text-background/62">
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-background/60">
               Studio Fisyo a Felino. Fisioterapia, Pilates Clinico e percorsi integrati costruiti
               con attenzione, chiarezza e continuità.
             </p>
 
-            <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-accent/20 bg-accent/8 px-4 py-2">
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/8 px-4 py-2">
               <span className="h-2 w-2 rounded-full bg-accent" />
-              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/90">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent/90">
                 Riceviamo su appuntamento
               </span>
             </div>
 
+            <div className="mt-6 flex gap-3">
+              <a
+                href={STUDIO.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram di Studio Fisyo"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-background/70 transition-colors hover:border-accent/30 hover:text-accent"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href={STUDIO.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook di Studio Fisyo"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-background/70 transition-colors hover:border-accent/30 hover:text-accent"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+            </div>
           </div>
 
-          <div className="grid gap-3 text-sm text-background/58">
-            <h4 className="mb-1 text-xs font-semibold uppercase tracking-[0.22em] text-background/62">
+          {/* Pagine */}
+          <nav aria-label="Pagine" className="text-sm">
+            <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
               Pagine
             </h4>
-            <Link to="/servizi" className="block py-2 transition-colors hover:text-background">
-              Servizi
-            </Link>
-            <Link to="/chi-siamo" className="block py-2 transition-colors hover:text-background">
-              Chi siamo
-            </Link>
-            <Link to="/contatti" className="block py-2 transition-colors hover:text-background">
-              Contatti
-            </Link>
-            <a
-              href={STUDIO.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block py-2 transition-colors hover:text-background"
-            >
-              Instagram
-            </a>
-            <a
-              href={STUDIO.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block py-2 transition-colors hover:text-background"
-            >
-              Facebook
-            </a>
-          </div>
+            <ul>
+              {pageLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="block py-1.5 text-background/72 transition-colors hover:text-background"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-          <div>
-            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-background/62">
+          {/* Percorsi */}
+          <nav aria-label="Percorsi" className="text-sm">
+            <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
+              Percorsi
+            </h4>
+            <ul>
+              {services.slice(0, 5).map((service) => (
+                <li key={service.id}>
+                  <Link
+                    to={`/servizi/${service.id}`}
+                    className="block py-1.5 text-background/72 transition-colors hover:text-background"
+                  >
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Contatti */}
+          <div className="text-sm">
+            <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
               Contatti
             </h4>
-            <div className="space-y-4 text-sm leading-relaxed text-background/58">
+            <div className="space-y-3 leading-relaxed text-background/72">
               <a
                 href={STUDIO.mapsUrl}
                 target="_blank"
@@ -172,7 +209,7 @@ export const Footer = () => {
               </a>
               <a
                 href={`tel:${STUDIO.phoneRaw}`}
-                className="flex items-center gap-3 text-accent transition-colors hover:text-[#e2b14f]"
+                className="flex items-center gap-3 font-medium text-accent transition-colors hover:text-[#e2b14f]"
               >
                 <PhoneCall className="h-4 w-4 shrink-0" />
                 <span>{STUDIO.phone}</span>
@@ -195,7 +232,7 @@ export const Footer = () => {
               </div>
               <a
                 href={`mailto:${STUDIO.email}`}
-                className="block transition-colors hover:text-background"
+                className="block break-words transition-colors hover:text-background"
               >
                 {STUDIO.email}
               </a>
@@ -203,8 +240,8 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-xs text-background/62 md:flex-row md:items-center md:justify-between">
-          <p>2026 Studio Fisyo. Tutti i diritti riservati. P.IVA 02551160340</p>
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-xs text-background/55 md:flex-row md:items-center md:justify-between">
+          <p>© 2026 Studio Fisyo · P.IVA 02551160340</p>
           <div className="flex gap-5">
             <a
               href="https://www.iubenda.com/privacy-policy/25963224"
