@@ -89,16 +89,31 @@
     rel="stylesheet"
   />
 
-  <!-- Iubenda Cookie Banner -->
-  <script
-    defer
-    type="text/javascript"
-    src="https://embeds.iubenda.com/widgets/17fdc897-bc4e-47cc-8936-13330e555866.js"
-  ></script>
-
-  <!-- Iubenda Policy Loader -->
+  <!-- Iubenda (banner cookie + policy) — caricato DOPO l'interattività per non
+       gravare sul main-thread iniziale (è il JS più pesante: ~111KB). Il banner
+       compare poco dopo il load; nessun tracking è attivo prima del consenso. -->
   <script type="text/javascript">
-    (function (w, d) { var loader = function () { var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s, tag); }; if (w.addEventListener) { w.addEventListener("load", loader, false); } else if (w.attachEvent) { w.attachEvent("onload", loader); } else { w.onload = loader; } })(window, document);
+    (function (w, d) {
+      var loaded = false;
+      var inject = function (src) {
+        var s = d.createElement('script');
+        s.src = src;
+        s.async = true;
+        (d.body || d.head).appendChild(s);
+      };
+      var load = function () {
+        if (loaded) return;
+        loaded = true;
+        inject('https://embeds.iubenda.com/widgets/17fdc897-bc4e-47cc-8936-13330e555866.js');
+        inject('https://cdn.iubenda.com/iubenda.js');
+      };
+      var schedule = function () {
+        if ('requestIdleCallback' in w) w.requestIdleCallback(load, { timeout: 3000 });
+        else w.setTimeout(load, 1500);
+      };
+      if (d.readyState === 'complete') schedule();
+      else w.addEventListener('load', schedule, { once: true });
+    })(window, document);
   </script>
 </head>
 
