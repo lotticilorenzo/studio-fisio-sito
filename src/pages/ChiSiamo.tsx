@@ -369,59 +369,52 @@ export const ChiSiamo = () => {
             </InteractiveSurface>
           </motion.article>
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:gap-8">
+          <div className="mt-6 grid gap-6">
 
-            {/* LEAD CARD — 7 colonne su lg */}
-            <motion.article
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewport.section}
-              transition={{ duration: duration.slow, ease: ease.out }}
-              className="group relative overflow-hidden rounded-card-xl border border-primary/8 bg-warm-50 shadow-card-lg lg:col-span-7"
-            >
-              <div className="grid h-full lg:grid-cols-[1.1fr_0.9fr] lg:grid-rows-1">
-                {/* Foto verticale prominente */}
-                <div className="relative aspect-[4/5] overflow-hidden lg:aspect-auto lg:h-full">
-                  <img
-                    src={team[0].image}
-                    alt=""
-                    role="presentation"
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-primary/40 to-transparent lg:hidden" />
-                  <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/85 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary backdrop-blur-md">
-                    <span className="h-1 w-1 rounded-full bg-accent" />
-                    Founder
+            {/* FONDATRICI — 2 card grandi affiancate */}
+            <div className="grid gap-6 sm:grid-cols-2">
+              {team.slice(0, 2).map((member, idx) => (
+                <motion.article
+                  key={member.name}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewport.section}
+                  transition={{ duration: duration.slow, ease: ease.out, delay: 0.06 * idx }}
+                  className="group relative overflow-hidden rounded-card-xl border border-primary/8 bg-warm-50 shadow-card-lg"
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden sm:aspect-[16/11]">
+                    <img
+                      src={member.image}
+                      alt=""
+                      role="presentation"
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover object-top transition-transform duration-[1.4s] ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-primary/35 to-transparent" />
+                    <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/85 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary backdrop-blur-md">
+                      <span className="h-1 w-1 rounded-full bg-accent" />
+                      Founder
+                    </div>
                   </div>
-                </div>
-
-                {/* Bio estesa */}
-                <div className="flex flex-col justify-between gap-6 p-7 lg:p-9">
-                  <div>
+                  <div className="p-7 lg:p-8">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-accent">
-                      {team[0].role}
+                      {member.role}
                     </p>
-                    <h3 className="mt-3 font-drama text-4xl font-normal italic leading-[0.98] tracking-[-0.02em] text-primary lg:text-5xl">
-                      {team[0].name}
+                    <h3 className="mt-3 font-drama text-4xl font-normal italic leading-[0.98] tracking-[-0.02em] text-primary">
+                      {member.name}
                     </h3>
-                    <p className="mt-5 text-[15px] leading-relaxed text-ink-soft">
-                      {team[0].desc}
+                    <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
+                      {member.desc}
                     </p>
                   </div>
-                  <div className="flex items-center gap-1.5" aria-hidden="true">
-                    <span className="h-1 w-1 rounded-full bg-accent" />
-                    <span className="h-1 w-1 rounded-full bg-accent/50" />
-                    <span className="h-1 w-1 rounded-full bg-accent/25" />
-                  </div>
-                </div>
-              </div>
-            </motion.article>
+                </motion.article>
+              ))}
+            </div>
 
-            {/* SOTTO-GRIGLIA — 5 professioniste, 5 colonne su lg */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1 lg:gap-3">
-              {team.slice(1).map((member, idx) => (
+            {/* RESTO DEL TEAM — 4 professioniste */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {team.slice(2).map((member, idx) => (
                 <motion.article
                   key={member.name}
                   initial={{ opacity: 0, y: 24 }}
@@ -430,28 +423,26 @@ export const ChiSiamo = () => {
                   transition={{ duration: duration.std, ease: ease.out, delay: 0.05 * idx }}
                   className="group relative overflow-hidden rounded-card-md border border-primary/8 bg-warm-50 shadow-card-sm"
                 >
-                  <div className="grid grid-cols-[0.4fr_0.6fr] lg:grid-cols-[100px_1fr]">
-                    <div className="relative aspect-square overflow-hidden lg:aspect-auto lg:h-full lg:min-h-[120px]">
-                      <img
-                        src={member.image}
-                        alt=""
-                        role="presentation"
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-cover transition-transform duration-[1s] ease-out group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="flex flex-col justify-center gap-1 p-4 lg:p-5">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent/80">
-                        {member.role}
-                      </p>
-                      <h4 className="text-lg font-semibold leading-tight tracking-[-0.01em] text-primary">
-                        {member.name}
-                      </h4>
-                      <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-ink-soft">
-                        {member.desc}
-                      </p>
-                    </div>
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <img
+                      src={member.image}
+                      alt=""
+                      role="presentation"
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover object-top transition-transform duration-[1s] ease-out group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent/80">
+                      {member.role}
+                    </p>
+                    <h4 className="mt-1.5 text-lg font-semibold leading-tight tracking-[-0.01em] text-primary">
+                      {member.name}
+                    </h4>
+                    <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-ink-soft">
+                      {member.desc}
+                    </p>
                   </div>
                 </motion.article>
               ))}
