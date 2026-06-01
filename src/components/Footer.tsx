@@ -156,9 +156,9 @@ export const Footer = () => {
 
           {/* Pagine */}
           <nav aria-label="Pagine" className="text-sm">
-            <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
+            <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
               Pagine
-            </h4>
+            </h3>
             <ul>
               {pageLinks.map((link) => (
                 <li key={link.to}>
@@ -175,9 +175,9 @@ export const Footer = () => {
 
           {/* Percorsi */}
           <nav aria-label="Percorsi" className="text-sm">
-            <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
+            <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
               Percorsi
-            </h4>
+            </h3>
             <ul>
               {services.slice(0, 5).map((service) => (
                 <li key={service.id}>
@@ -194,9 +194,9 @@ export const Footer = () => {
 
           {/* Contatti */}
           <div className="text-sm">
-            <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
+            <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-background/55">
               Contatti
-            </h4>
+            </h3>
             <div className="space-y-3 leading-relaxed text-background/72">
               <a
                 href={STUDIO.mapsUrl}
