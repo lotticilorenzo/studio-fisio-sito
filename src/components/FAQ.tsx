@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Reveal } from './Reveal';
+import { MaskReveal } from './MaskReveal';
 import { waUrl } from '../config/constants';
 import { homepageFaqs } from '../data/homepageFaqs';
 
@@ -72,7 +73,7 @@ export const FAQ = () => {
               Domande frequenti
             </p>
             <h2 className="max-w-xl text-h2 font-semibold text-primary">
-              Le cose che conviene sapere prima di iniziare.
+              <MaskReveal>Le cose che conviene sapere prima di iniziare.</MaskReveal>
             </h2>
             <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
               Se non trovi qui la risposta che cerchi, puoi scriverci. Ti rispondiamo
