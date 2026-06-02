@@ -22,7 +22,7 @@ export const OpenDayLandingFooter = () => {
           </div>
 
           <div>
-            <div className="mb-4 text-sm font-bold uppercase tracking-widest text-white/40">
+            <div className="mb-4 text-sm font-bold uppercase tracking-widest text-white/65">
               Vieni a trovarci
             </div>
             <p className="mb-3 text-sm leading-relaxed text-white/70">
@@ -45,7 +45,7 @@ export const OpenDayLandingFooter = () => {
           </div>
 
           <div>
-            <div className="mb-4 text-sm font-bold uppercase tracking-widest text-white/40">
+            <div className="mb-4 text-sm font-bold uppercase tracking-widest text-white/65">
               Scopri di più
             </div>
             <Link
@@ -84,7 +84,7 @@ export const OpenDayLandingFooter = () => {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/40 md:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/65 md:flex-row">
           <span>2026 Studio Fisyo. P.IVA 02551160340</span>
           <div className="flex gap-4">
             <a

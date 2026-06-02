@@ -108,7 +108,7 @@ export const OpenDay = () => {
                 href={openDayWaUrl(OPENDAY_CONFIG.NEXT_EVENT_MESSAGE)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-accent underline underline-offset-2"
+                className="font-semibold text-primary underline decoration-accent decoration-2 underline-offset-2 transition-colors hover:text-primary/80"
               >
                 Scrivici su WhatsApp
               </a>
