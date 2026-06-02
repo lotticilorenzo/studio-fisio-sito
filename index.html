@@ -81,13 +81,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.iubenda.com" />
   <link rel="preconnect" href="https://embeds.iubenda.com" />
-  <link rel="preload" as="image" href="/images/real/fisioterapia_studio_fisyo.webp" fetchpriority="high" />
+  <!-- Hero image: preload solo su desktop (su mobile è sotto la piega) -->
+  <link rel="preload" as="image" href="/images/real/fisioterapia_studio_fisyo.webp" fetchpriority="high" media="(min-width: 1024px)" />
 
-  <!-- Google Fonts — only variants actually used -->
+  <!-- Google Fonts — caricati in modo non bloccante (display=swap mostra subito il fallback) -->
   <link
+    rel="preload"
+    as="style"
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@0,400;0,500&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
-    rel="stylesheet"
+    onload="this.onload=null;this.rel='stylesheet'"
   />
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@0,400;0,500&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+    />
+  </noscript>
 
   <!-- Iubenda (banner cookie + policy) — caricato DOPO l'interattività per non
        gravare sul main-thread iniziale (è il JS più pesante: ~111KB). Il banner
