@@ -86,7 +86,7 @@ export const OpenDayDetails = () => {
                                 href={openDayWaUrl(WHATSAPP_MESSAGE)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="bg-[#25D366] text-white px-8 py-4 font-sans font-bold text-base w-full sm:w-auto hover:bg-[#20bd5a]"
+                                className="bg-[#15803d] text-white px-8 py-4 font-sans font-bold text-base w-full sm:w-auto hover:bg-[#11602f]"
                             >
                                 <div className="flex items-center justify-center gap-3">
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

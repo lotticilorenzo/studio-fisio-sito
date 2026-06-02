@@ -425,7 +425,7 @@ export const Navbar = () => {
                 href={waUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white"
+                className="inline-flex items-center justify-center rounded-full bg-[#15803d] px-5 py-3 text-sm font-semibold text-white"
               >
                 WhatsApp
               </a>
