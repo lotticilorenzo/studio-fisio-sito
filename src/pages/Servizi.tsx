@@ -89,6 +89,8 @@ export const Servizi = () => {
           title="Percorsi diversi."
           titleAccent="Uno stesso modo di lavorare."
           subtitle="Ogni area dello studio ha una competenza precisa. Il punto non è offrirti tante cose, ma aiutarti a capire quale strada ha davvero senso per te."
+          image="/images/real/internistudiofisyo_reception.webp"
+          imageAlt="Gli spazi interni dello Studio Fisyo a Felino."
           captionEyebrow="I nostri percorsi"
           captionText="Ogni servizio nasce da una competenza precisa e da un modo di lavorare condiviso."
         />
