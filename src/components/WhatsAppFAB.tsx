@@ -49,7 +49,7 @@ export const WhatsAppFAB = () => {
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
             whileHover={{ y: -2 }}
-            className="group relative flex items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-[rgba(37,211,102,0.98)] px-3 py-3 text-white shadow-[0_24px_50px_-24px_rgba(37,211,102,0.58)]"
+            className="group relative flex items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-[#15803d] px-3 py-3 text-white shadow-[0_24px_50px_-24px_rgba(37,211,102,0.58)]"
           >
             <motion.div
               aria-hidden="true"
