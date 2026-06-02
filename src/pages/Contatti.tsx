@@ -307,6 +307,8 @@ export const Contatti = () => {
           title="Scrivici quando vuoi iniziare,"
           titleAccent="o anche solo capire da dove partire."
           subtitle="Puoi prenotare una valutazione, chiedere informazioni su un servizio o raccontarci in breve che cosa ti sta limitando in questo momento."
+          image="/images/real/accoglienza.webp"
+          imageAlt="Un momento di accoglienza allo Studio Fisyo a Felino."
           captionEyebrow="Iniziamo insieme"
           captionText="La prima valutazione è gratuita. Ti aiutiamo a capire da dove partire."
         />
