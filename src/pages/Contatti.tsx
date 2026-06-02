@@ -33,21 +33,12 @@ const trustItems = [
 ] as const;
 
 const guidedSteps = [
-  { id: 'direction', title: 'Capire da dove partire' },
-  { id: 'details', title: 'Lasciarci i tuoi contatti' },
-  { id: 'message', title: 'Raccontarci il contesto' },
-] as const;
-
-const availabilityPresets = [
-  'Mattina',
-  'Pausa pranzo',
-  'Pomeriggio',
-  'Dopo le 18',
-  'Va bene anche via WhatsApp',
+  { id: 'direction', title: 'Da dove vuoi partire' },
+  { id: 'details', title: 'I tuoi contatti' },
+  { id: 'message', title: 'Il tuo messaggio' },
 ] as const;
 
 type InquiryReason = 'dolore' | 'movimento' | 'donna' | 'benessere' | 'orientamento';
-type ContactPreference = '' | 'telefono' | 'whatsapp' | 'email';
 
 const inquiryReasons: Array<{
   id: InquiryReason;
@@ -97,42 +88,12 @@ const serviceReasonMap: Record<string, InquiryReason> = {
   nutrizione: 'benessere',
 };
 
-const promptsByReason: Record<InquiryReason, string[]> = {
-  dolore: [
-    'Da quanto tempo senti questo fastidio?',
-    'Cosa ti limita di più oggi?',
-    'Hai già fatto visite o esami?',
-  ],
-  movimento: [
-    'Cosa senti di aver perso nel movimento?',
-    'Ci sono gesti o posture che ti stancano presto?',
-    'Stai cercando continuità, prevenzione o rientro graduale?',
-  ],
-  donna: [
-    'In che fase ti trovi in questo momento?',
-    'Ci sono sintomi che senti di rimandare da troppo tempo?',
-    'Preferisci un contatto molto delicato e riservato?',
-  ],
-  benessere: [
-    'Vuoi lavorare su energia, relazione con il corpo o stress?',
-    "C'è un obiettivo concreto che vorresti rimettere a fuoco?",
-    'Cerchi un supporto singolo o un percorso integrato?',
-  ],
-  orientamento: [
-    "Qual è la cosa che oggi ti limita di più?",
-    'Che cosa vorresti tornare a fare meglio?',
-    'Hai bisogno di capire prima a chi rivolgerti?',
-  ],
-};
-
 type FormState = {
   reason: InquiryReason;
   name: string;
   phone: string;
   email: string;
   service: string;
-  contactPreference: ContactPreference;
-  availability: string;
   message: string;
 };
 
@@ -147,8 +108,6 @@ const createInitialFormState = (serviceId: string): FormState => ({
   phone: '',
   email: '',
   service: serviceId,
-  contactPreference: '',
-  availability: '',
   message: '',
 });
 
@@ -169,18 +128,6 @@ export const Contatti = () => {
     [formState.service],
   );
   const selectedReason = inquiryReasons.find((reason) => reason.id === formState.reason) ?? inquiryReasons[4];
-
-  const recommendedServices = useMemo(() => {
-    if (formState.reason === 'orientamento') {
-      return services.slice(0, 4);
-    }
-
-    return services
-      .filter((service) => getReasonFromService(service.id) === formState.reason)
-      .slice(0, 4);
-  }, [formState.reason]);
-
-  const promptSuggestions = promptsByReason[formState.reason];
 
   useSEO({
     title: 'Contatti | Prenota a Studio Fisyo Felino',
@@ -292,15 +239,6 @@ export const Contatti = () => {
     });
   };
 
-  const applyPrompt = (prompt: string) => {
-    setField(
-      'message',
-      formState.message.trim()
-        ? `${formState.message.trim()}\n- ${prompt}`
-        : `${prompt}\n`,
-    );
-  };
-
   const resetForm = () => {
     setCurrentStep(0);
     setErrors({});
@@ -332,8 +270,6 @@ export const Contatti = () => {
     formData.append('phone', formState.phone.trim());
     formData.append('email', formState.email.trim());
     formData.append('service', selectedService?.title ?? 'Da definire');
-    formData.append('contactPreference', formState.contactPreference || 'Nessuna preferenza');
-    formData.append('availability', formState.availability.trim() || 'Non specificata');
     formData.append('message', formState.message.trim());
 
     try {
@@ -755,80 +691,6 @@ export const Contatti = () => {
                               </button>
                             ))}
                           </div>
-
-                          <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
-                            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-                              <div>
-                                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                                  Servizi consigliati
-                                </p>
-                                <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                                  Se vuoi, puoi già indicarci il percorso che senti più vicino.
-                                </p>
-                              </div>
-                              <select
-                                id="service"
-                                name="service"
-                                aria-label="Servizio di interesse"
-                                value={formState.service}
-                                onChange={(event) => setField('service', event.target.value)}
-                                className="w-full rounded-2xl border border-primary/10 bg-white px-4 py-3 text-primary outline-none transition-colors focus:border-accent md:max-w-[18rem]"
-                              >
-                                <option value="">Non sono sicuro, aiutatemi voi</option>
-                                {services.map((service) => (
-                                  <option key={service.id} value={service.id}>
-                                    {service.title}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-
-                            <div className="mt-5 flex flex-wrap gap-3">
-                              {recommendedServices.map((service) => (
-                                <button
-                                  key={service.id}
-                                  type="button"
-                                  onClick={() => setField('service', service.id)}
-                                  className={`rounded-full border px-4 py-2.5 text-sm transition-colors ${
-                                    formState.service === service.id
-                                      ? 'border-primary bg-primary text-background'
-                                      : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
-                                  }`}
-                                >
-                                  {service.title}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                              Come preferisci essere ricontattato?
-                            </p>
-                            <div className="mt-4 flex flex-wrap gap-3">
-                              {[
-                                { value: '', label: 'Scegliete voi' },
-                                { value: 'telefono', label: 'Telefono' },
-                                { value: 'whatsapp', label: 'WhatsApp' },
-                                { value: 'email', label: 'Email' },
-                              ].map((option) => (
-                                <button
-                                  key={option.label}
-                                  type="button"
-                                  onClick={() =>
-                                    setField('contactPreference', option.value as ContactPreference)
-                                  }
-                                  className={`rounded-full border px-4 py-2.5 text-sm transition-colors ${
-                                    formState.contactPreference === option.value
-                                      ? 'border-primary bg-primary text-background'
-                                      : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
-                                  }`}
-                                >
-                                  {option.label}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
                         </>
                       )}
 
@@ -904,62 +766,14 @@ export const Contatti = () => {
                             {errors.email && <p id="email-error" role="alert" className="text-xs text-red-600">{errors.email}</p>}
                           </div>
 
-                          <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                              Quando è più comodo sentirci?
-                            </p>
-                            <div className="mt-4 flex flex-wrap gap-3">
-                              {availabilityPresets.map((preset) => (
-                                <button
-                                  key={preset}
-                                  type="button"
-                                  onClick={() => setField('availability', preset)}
-                                  className={`rounded-full border px-4 py-2.5 text-sm transition-colors ${
-                                    formState.availability === preset
-                                      ? 'border-primary bg-primary text-background'
-                                      : 'border-primary/10 bg-white text-ink-soft hover:text-primary'
-                                  }`}
-                                >
-                                  {preset}
-                                </button>
-                              ))}
-                            </div>
-                            <input
-                              type="text"
-                              id="availability"
-                              name="availability"
-                              value={formState.availability}
-                              onChange={(event) => setField('availability', event.target.value)}
-                              className="mt-4 w-full rounded-2xl border border-primary/10 bg-white px-4 py-3 text-primary outline-none transition-colors focus:border-accent"
-                              placeholder="Se preferisci puoi scrivere una fascia oraria personalizzata"
-                            />
-                          </div>
+                          <p className="text-sm leading-relaxed text-ink-soft">
+                            Ti ricontattiamo noi al telefono o via email — di solito entro 24 h feriali.
+                          </p>
                         </>
                       )}
 
                       {currentStep === 2 && (
                         <>
-                          <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5">
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                              Prompt utili
-                            </p>
-                            <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                              Se vuoi, usa uno di questi spunti per iniziare il messaggio.
-                            </p>
-                            <div className="mt-4 flex flex-wrap gap-3">
-                              {promptSuggestions.map((prompt) => (
-                                <button
-                                  key={prompt}
-                                  type="button"
-                                  onClick={() => applyPrompt(prompt)}
-                                  className="rounded-full border border-primary/10 bg-white px-4 py-2.5 text-sm text-ink-soft transition-colors hover:text-primary"
-                                >
-                                  {prompt}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-
                           <div className="flex flex-col gap-2">
                             <label htmlFor="message" className="text-sm font-medium text-primary">
                               Messaggio <span className="text-accent">*</span>
@@ -980,38 +794,6 @@ export const Contatti = () => {
                             />
                             {errors.message && <p id="message-error" role="alert" className="text-xs text-red-600">{errors.message}</p>}
                           </div>
-
-                          <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white p-5">
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                              Riepilogo rapido
-                            </p>
-                            <div className="mt-4 grid gap-4 md:grid-cols-3">
-                              <div>
-                                <p className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                                  Punto di partenza
-                                </p>
-                                <p className="mt-2 text-sm font-semibold text-primary">
-                                  {selectedReason.label}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                                  Servizio
-                                </p>
-                                <p className="mt-2 text-sm font-semibold text-primary">
-                                  {selectedService?.title ?? 'Da definire insieme'}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                                  Ricontatto
-                                </p>
-                                <p className="mt-2 text-sm font-semibold text-primary">
-                                  {formState.contactPreference || 'Scegliete voi'}
-                                </p>
-                              </div>
-                            </div>
-                          </InteractiveSurface>
                         </>
                       )}
                     </motion.div>
