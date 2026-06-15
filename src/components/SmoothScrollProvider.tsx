@@ -1,26 +1,43 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ReactLenis } from 'lenis/react';
-import type { LenisRef } from 'lenis/react';
+import { ReactLenis, useLenis } from 'lenis/react';
 import { scrollBridge } from '../lib/scrollBridge';
 
+// NB: niente `autoRaf: false`. Lasciando il default (autoRaf: true) è Lenis stesso
+// a guidare il proprio RAF loop — nessuna dipendenza da GSAP e, soprattutto, nessuna
+// dipendenza dal timing del ref (che lasciava lo scroll bloccato sul desktop).
 const LENIS_OPTIONS = {
-  autoRaf: false,
   smoothWheel: true,
-  smoothTouch: false,
   wheelMultiplier: 0.88,
   lerp: 0.1,
   overscroll: true,
   anchors: true,
-  stopInertiaOnNavigate: true,
 } as const;
 
 const getReducedMotionPreference = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-export const SmoothScrollProvider = ({ children }: { children: ReactNode }) => {
+// Figlio di <ReactLenis>: legge l'istanza in modo reattivo via useLenis (context),
+// così evita il bug per cui leggere lenisRef.current.lenis dentro un effetto del
+// genitore restituiva undefined (l'istanza viene creata dopo, in uno state update).
+// - inoltra lo scroll a un eventuale consumer (lo ScrollTrigger di OpenDay)
+// - ridimensiona Lenis dopo ogni navigazione client-side
+const LenisBridge = () => {
   const location = useLocation();
-  const lenisRef = useRef<LenisRef>(null);
+  const lenis = useLenis(() => scrollBridge.onScroll?.());
+
+  useEffect(() => {
+    if (!lenis) {
+      return;
+    }
+    const id = requestAnimationFrame(() => lenis.resize());
+    return () => cancelAnimationFrame(id);
+  }, [lenis, location.pathname, location.search]);
+
+  return null;
+};
+
+export const SmoothScrollProvider = ({ children }: { children: ReactNode }) => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(getReducedMotionPreference);
 
   useEffect(() => {
@@ -34,47 +51,13 @@ export const SmoothScrollProvider = ({ children }: { children: ReactNode }) => {
     return () => mediaQuery.removeEventListener('change', updatePreference);
   }, []);
 
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const lenis = lenisRef.current?.lenis;
-
-    if (!lenis) {
-      return;
-    }
-
-    // Drive Lenis with the native RAF loop (no GSAP dependency on the main site).
-    let rafId = requestAnimationFrame(function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    });
-
-    // Notify an optional scroll consumer (OpenDay's ScrollTrigger) if registered.
-    const onScroll = () => scrollBridge.onScroll?.();
-    lenis.on('scroll', onScroll);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.off('scroll', onScroll);
-    };
-  }, [prefersReducedMotion]);
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    requestAnimationFrame(() => lenisRef.current?.lenis?.resize());
-  }, [location.pathname, location.search, prefersReducedMotion]);
-
   if (prefersReducedMotion) {
     return <>{children}</>;
   }
 
   return (
-    <ReactLenis ref={lenisRef} root options={LENIS_OPTIONS}>
+    <ReactLenis root options={LENIS_OPTIONS}>
+      <LenisBridge />
       {children}
     </ReactLenis>
   );
