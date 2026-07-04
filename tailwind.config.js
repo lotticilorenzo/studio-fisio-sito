@@ -13,6 +13,14 @@ export default {
         foreground: '#1B241F',
         surface: '#FBF7F0',
         line: '#D8D0C4',
+        // Cinematic layer — warm bone bg, near-black green "dark" sections, gold accent.
+        bone: '#F4EFE7',
+        'bone-2': '#FBF7F0',
+        dark: '#141C18',
+        'dark-2': '#1C2822',
+        'on-dark': '#EFE8DB',
+        'on-dark-mut': '#9BA79E',
+        'accent-deep': '#B9862B',
         // Accessible solid text tones (verified ≥4.5:1 on #F4EFE7 background).
         // Use these for secondary/label text instead of low-opacity primary,
         // which drops below the WCAG AA threshold.

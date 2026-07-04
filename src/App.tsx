@@ -6,6 +6,7 @@ import { Layout } from './Layout';
 import { Home } from './pages/Home';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
 import { ConsentWidgetBridge } from './components/ConsentWidgetBridge';
+import { ButtonFX } from './components/ButtonFX';
 
 const Servizi = lazy(async () => ({ default: (await import('./pages/Servizi')).Servizi }));
 const ServizioDetail = lazy(async () => ({
@@ -39,6 +40,7 @@ function App() {
     <BrowserRouter>
       <MotionConfig reducedMotion="user">
         <ConsentWidgetBridge />
+        <ButtonFX />
         <SmoothScrollProvider>
           <AppRoutes />
         </SmoothScrollProvider>
