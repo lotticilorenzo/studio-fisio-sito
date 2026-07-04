@@ -7,6 +7,7 @@ import { Home } from './pages/Home';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
 import { ConsentWidgetBridge } from './components/ConsentWidgetBridge';
 import { ButtonFX } from './components/ButtonFX';
+import { CustomCursor } from './components/CustomCursor';
 
 const Servizi = lazy(async () => ({ default: (await import('./pages/Servizi')).Servizi }));
 const ServizioDetail = lazy(async () => ({
@@ -41,6 +42,7 @@ function App() {
       <MotionConfig reducedMotion="user">
         <ConsentWidgetBridge />
         <ButtonFX />
+        <CustomCursor />
         <SmoothScrollProvider>
           <AppRoutes />
         </SmoothScrollProvider>
