@@ -1,5 +1,12 @@
-import { startTransition, useEffect, useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { startTransition, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -16,7 +23,8 @@ import {
 import { useSEO } from '../hooks/useSEO';
 import { STUDIO, waUrl } from '../config/constants';
 import { services } from '../data/services';
-import { ease, duration, reveal, revealHeading } from '../lib/motion';
+import { ease, duration, reveal, revealHeading, viewport } from '../lib/motion';
+import { MaskReveal } from '../components/MaskReveal';
 
 const contactRows: Array<{
   icon: LucideIcon;
@@ -58,6 +66,19 @@ const guidedSteps = [
   { id: 'details', title: 'I tuoi contatti' },
   { id: 'message', title: 'Il tuo messaggio' },
 ] as const;
+
+// Staggered choreography for the "modi per sentirci" rows. Reduced-motion is
+// handled globally by <MotionConfig reducedMotion="user">, which neutralises the
+// y-transform and keeps the opacity fade.
+const rowsStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.06 } },
+};
+
+const rowItem: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: duration.slow, ease: ease.out } },
+};
 
 type InquiryReason = 'dolore' | 'movimento' | 'donna' | 'benessere' | 'orientamento';
 
@@ -143,6 +164,15 @@ export const Contatti = () => {
     ? preselectedServiceId
     : '';
   const [formState, setFormState] = useState<FormState>(() => createInitialFormState(resolvedServiceId));
+
+  // ---- Cinematic scroll (transform-only, guarded for reduced motion) ----
+  const reduced = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const heroImageY = useTransform(heroProgress, [0, 1], ['0%', '-7%']);
 
   const selectedService = useMemo(
     () => services.find((service) => service.id === formState.service),
@@ -328,7 +358,10 @@ export const Contatti = () => {
       <div className="page-aura" aria-hidden="true" />
 
       {/* ============================= HERO — "L'invito" ============================= */}
-      <section className="px-0 pb-[clamp(40px,6vw,72px)] pt-[calc(var(--nav-h,74px)+clamp(2.5rem,7vw,5rem))]">
+      <section
+        ref={heroRef}
+        className="px-0 pb-[clamp(40px,6vw,72px)] pt-[calc(var(--nav-h,74px)+clamp(2.5rem,7vw,5rem))]"
+      >
         <div className="cine-container grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end lg:gap-16">
           <div>
             <motion.p
@@ -341,22 +374,13 @@ export const Contatti = () => {
             </motion.p>
 
             <h1 className="mt-6 max-w-[18ch] text-h1 font-semibold text-ink">
-              <motion.span
-                className="block"
-                initial={{ opacity: 0, y: 26 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: duration.enter, delay: 0.08, ease: ease.out }}
-              >
-                Scrivici quando vuoi iniziare,
-              </motion.span>
-              <motion.span
-                className="mt-1 block font-drama text-[1.04em] font-normal italic text-accent"
-                initial={{ opacity: 0, y: 26 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: duration.enter, delay: 0.2, ease: ease.out }}
+              <MaskReveal delay={0.1}>Scrivici quando vuoi iniziare,</MaskReveal>
+              <MaskReveal
+                delay={0.22}
+                className="mt-1 font-drama text-[1.04em] font-normal italic text-accent"
               >
                 o anche solo capire da dove partire.
-              </motion.span>
+              </MaskReveal>
             </h1>
 
             <motion.p
@@ -377,7 +401,7 @@ export const Contatti = () => {
             className="hidden lg:block"
           >
             <div className="relative overflow-hidden rounded-card-lg border border-line shadow-card-lg">
-              <img
+              <motion.img
                 src="/images/real/esternistudiofisyo.webp"
                 alt="L'ingresso dello Studio Fisyo a Felino, in Via Aldo Moro."
                 width={800}
@@ -385,6 +409,7 @@ export const Contatti = () => {
                 loading="eager"
                 decoding="async"
                 className="aspect-[4/3.4] w-full object-cover object-center"
+                style={reduced ? undefined : { y: heroImageY, scale: 1.15 }}
               />
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(20,28,24,0.4),transparent_46%)]" />
               <div className="absolute inset-x-5 bottom-5">
@@ -395,6 +420,15 @@ export const Contatti = () => {
                   Ti aiutiamo a capire da dove partire, con calma.
                 </p>
               </div>
+              {!reduced && (
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-20 bg-[var(--bone-2)]"
+                  initial={{ y: '0%' }}
+                  animate={{ y: '-101%' }}
+                  transition={{ duration: 1.3, delay: 0.12, ease: ease.soft }}
+                />
+              )}
             </div>
           </motion.div>
         </div>
@@ -404,14 +438,23 @@ export const Contatti = () => {
       <section className="px-0 pb-[clamp(72px,11vw,150px)]">
         <div className="cine-container grid gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-start lg:gap-16">
           {/* ------------------------- LEFT — i modi per sentirci ------------------------- */}
-          <motion.div {...reveal()}>
-            <p className="kicker mb-5">Dove trovarci</p>
-            <h2 className="text-h3 font-semibold text-ink">I modi per sentirci</h2>
+          <div>
+            <motion.div {...reveal()}>
+              <p className="kicker mb-5">Dove trovarci</p>
+              <h2 className="text-h3 font-semibold text-ink">I modi per sentirci</h2>
+            </motion.div>
 
-            <div className="mt-8">
+            <motion.div
+              className="mt-8"
+              variants={rowsStagger}
+              initial="hidden"
+              whileInView="show"
+              viewport={viewport.section}
+            >
               {contactRows.map(({ icon: Icon, label, value, href, external }) => (
-                <a
+                <motion.a
                   key={label}
+                  variants={rowItem}
                   href={href}
                   target={external ? '_blank' : undefined}
                   rel={external ? 'noopener noreferrer' : undefined}
@@ -432,11 +475,14 @@ export const Contatti = () => {
                     className="h-5 w-5 shrink-0 text-ink-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
                     aria-hidden="true"
                   />
-                </a>
+                </motion.a>
               ))}
 
               {/* Orari — non-link row */}
-              <div className="flex items-center gap-4 border-t border-line py-5">
+              <motion.div
+                variants={rowItem}
+                className="flex items-center gap-4 border-t border-line py-5"
+              >
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-bone-2 text-accent-deep">
                   <Clock className="h-5 w-5" aria-hidden="true" />
                 </span>
@@ -448,23 +494,30 @@ export const Contatti = () => {
                     Lun–Ven 08:00–20:00 · Sab su appuntamento
                   </span>
                 </span>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Trust line — once */}
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-bone-2 px-4 py-2 text-sm text-ink-soft">
+            <motion.div
+              {...reveal(0.05)}
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-bone-2 px-4 py-2 text-sm text-ink-soft"
+            >
               <Star className="h-4 w-4 fill-accent text-accent" aria-hidden="true" />
               <span>
                 <span className="font-semibold text-ink">5,0</span> · 47 recensioni Google
               </span>
-            </div>
+            </motion.div>
 
             {/* Refined map card */}
-            <a
+            <motion.a
               href={STUDIO.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Apri Studio Fisyo su Google Maps"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={viewport.section}
+              transition={{ duration: duration.slow, ease: ease.out }}
               className="group relative mt-8 block overflow-hidden rounded-card-lg border border-line bg-warm-100 shadow-card-md"
             >
               <svg
@@ -541,8 +594,19 @@ export const Contatti = () => {
                   <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                 </span>
               </div>
-            </a>
-          </motion.div>
+
+              {!reduced && (
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-20 bg-[var(--bone)]"
+                  initial={{ y: '0%' }}
+                  whileInView={{ y: '-101%' }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 1.3, ease: ease.soft }}
+                />
+              )}
+            </motion.a>
+          </div>
 
           {/* ------------------------- RIGHT — modulo guidato ------------------------- */}
           <motion.div {...revealHeading(0.06)}>
