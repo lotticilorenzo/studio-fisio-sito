@@ -152,7 +152,7 @@ const ZoomThrough = () => {
   const captionY = useTransform(scrollYProgress, [0.8, 0.95], ['24px', '0px']);
 
   return (
-    <div ref={ref} className="relative h-[360vh]">
+    <div ref={ref} className="relative h-[280vh]">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-dark text-on-dark">
         <motion.p
           style={{ opacity: kickerOpacity }}

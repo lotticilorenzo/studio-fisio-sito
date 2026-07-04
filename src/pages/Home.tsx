@@ -156,7 +156,7 @@ const ScrubStatement = () => {
   return (
     <div className="hidden lg:block">
       <section className="statement">
-        <div ref={ref} className="relative h-[190vh]">
+        <div ref={ref} className="relative h-[135vh]">
           <div className="sticky top-0 flex min-h-screen items-center">
             <div className="cine-container">
               <span className="kicker mb-8 block">Il nostro modo</span>
