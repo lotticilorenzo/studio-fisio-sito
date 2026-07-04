@@ -1,35 +1,33 @@
-﻿import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useReducedMotion,
+} from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { MagneticButton } from '../components/MagneticButton';
-import { PageHero } from '../components/PageHero';
-import { SectionDivider } from '../components/SectionDivider';
-import { InteractiveSurface } from '../components/InteractiveSurface';
+import { ArrowUpRight } from 'lucide-react';
+
+import { RevealPanel } from '../components/RevealPanel';
+import { RevealMedia } from '../components/RevealMedia';
+import { Marquee } from '../components/Marquee';
 import { useSEO } from '../hooks/useSEO';
-import { STUDIO, waUrl } from '../config/constants';
+import { waUrl } from '../config/constants';
 import { services } from '../data/services';
-import { ease, duration } from '../lib/motion';
+import { reveal, revealHeading, ease, spring } from '../lib/motion';
 
-const categories = ['Tutti', 'Fisioterapia', 'Movimento', 'Donna', 'Benessere'] as const;
-type Category = (typeof categories)[number];
-
-function matchesCategory(label: string, cat: Category): boolean {
-  if (cat === 'Tutti') return true;
-  const normalized = label.toLowerCase();
-  if (cat === 'Fisioterapia') return normalized.includes('fisioterapia');
-  if (cat === 'Movimento') return normalized.includes('pilates') || normalized.includes('movimento');
-  if (cat === 'Donna') return normalized.includes('donna');
-  if (cat === 'Benessere') {
-    return ['psicologia', 'nutrizione', 'linfodrenaggio'].some((keyword) =>
-      normalized.includes(keyword),
-    );
-  }
-  return false;
-}
+const marqueeItems = [
+  'Fisioterapia',
+  'Pilates clinico',
+  'Salute della donna',
+  'Linfodrenaggio',
+  'Psicologia',
+  'Età evolutiva',
+  'Nutrizione clinica',
+];
 
 export const Servizi = () => {
-  const [activeCategory, setActiveCategory] = useState<Category>('Tutti');
-
   useSEO({
     title: 'I nostri servizi | Fisioterapia, Pilates e salute a Felino',
     description:
@@ -74,282 +72,233 @@ export const Servizi = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const filtered =
-    activeCategory === 'Tutti'
-      ? services
-      : services.filter((service) => matchesCategory(service.label, activeCategory));
+  // ---- Cursor-following preview (the awards moment) --------------------------
+  const reduced = useReducedMotion();
+  const [fine, setFine] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(pointer:fine)');
+    const update = () => setFine(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  const canFollow = fine && !reduced;
+
+  const [hovered, setHovered] = useState<string | null>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const x = useSpring(mx, spring.scroll);
+  const y = useSpring(my, spring.scroll);
+  const hoveredService = services.find((s) => s.id === hovered);
 
   return (
-    <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
-      <div className="page-aura" aria-hidden="true" />
-      <div className="relative mx-auto max-w-7xl 2xl:max-w-[1600px]">
-        <PageHero
-          label="Servizi"
-          badge="Prima valutazione gratuita"
-          title="Percorsi diversi."
-          titleAccent="Uno stesso modo di lavorare."
-          subtitle="Ogni area dello studio ha una competenza precisa. Il punto non è offrirti tante cose, ma aiutarti a capire quale strada ha davvero senso per te."
-          image="/images/real/internistudiofisyo_reception.webp"
-          imageAlt="Gli spazi interni dello Studio Fisyo a Felino."
-          captionEyebrow="I nostri percorsi"
-          captionText="Ogni servizio nasce da una competenza precisa e da un modo di lavorare condiviso."
-        />
-
-        <SectionDivider className="mb-10 mt-14" />
-
-        <section className="grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-start">
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
-              Filtra i percorsi
-            </p>
-            <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filtra per categoria">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  role="tab"
-                  aria-selected={category === activeCategory}
-                  onClick={() => setActiveCategory(category)}
-                  className={`rounded-full px-5 py-3 text-sm font-medium transition-colors ${
-                    category === activeCategory
-                      ? 'bg-primary text-background shadow-[0_4px_20px_-8px_rgba(36,52,44,0.35)]'
-                      : 'border border-primary/10 bg-white/70 text-ink-soft backdrop-blur-md hover:bg-white hover:text-primary'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-            <p className="mt-5 text-sm leading-relaxed text-ink-soft">
-              {filtered.length} {filtered.length === 1 ? 'percorso visibile' : 'percorsi visibili'}.
-              Se non sai ancora quale scegliere, va bene: il primo contatto serve proprio a questo.
-            </p>
-          </div>
-
-          <motion.article
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: duration.slow, ease: ease.out }}
-            className="rounded-card-lg border border-primary/8 bg-white/80 p-7 shadow-card-md backdrop-blur-xl md:p-8"
-          >
-            <InteractiveSurface className="rounded-card-md">
-              <p className="text-eyebrow font-semibold uppercase text-ink-muted">
-                Aiuto nella scelta
-              </p>
-              <h2 className="mt-4 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.04em] text-primary md:text-4xl">
-                Non serve arrivare con le idee perfette.
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft md:text-lg">
-                Se ci racconti in breve che cosa ti sta limitando oggi, ti aiutiamo a capire
-                se partire da fisioterapia, movimento guidato o da un altro percorso dello studio.
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft">
-                  Prima valutazione gratuita
-                </span>
-                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft">
-                  Risposta entro 24 h feriali
-                </span>
-                <span className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft">
-                  {STUDIO.city}
-                </span>
-              </div>
-
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <MagneticButton
-                  to="/contatti"
-                  className="bg-primary px-7 py-4 text-base font-semibold text-background"
-                >
-                  Ti aiutiamo a scegliere
-                </MagneticButton>
-                <a
-                  href={waUrl('Ciao Studio Fisyo! Vorrei capire quale servizio è più adatto a me.')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-primary/10 bg-white px-7 py-4 text-base font-medium text-primary transition-colors hover:bg-warm-50"
-                >
-                  Scrivici su WhatsApp
-                </a>
-              </div>
-            </InteractiveSurface>
-          </motion.article>
-        </section>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeCategory}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: duration.fast, ease: ease.out }}
-            className="mt-14 flex flex-col gap-24 md:gap-32"
-          >
-            {filtered.length === 0 && (
-              <p className="text-lg text-ink-soft">Nessun servizio in questa categoria.</p>
+    <div className="flex flex-col">
+      {/* ---- Floating cursor preview (desktop, fine pointer, motion-safe) ---- */}
+      {canFollow && (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none fixed left-0 top-0 z-40 hidden lg:block"
+          style={{ x, y }}
+        >
+          <AnimatePresence>
+            {hoveredService && (
+              <motion.div
+                key={hoveredService.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: 0.4, ease: ease.out }}
+                className="-translate-y-1/2 translate-x-10 overflow-hidden rounded-card-md shadow-card-xl"
+                style={{ width: 'clamp(220px, 20vw, 340px)' }}
+              >
+                <img
+                  src={hoveredService.image}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[4/5] w-full object-cover"
+                />
+              </motion.div>
             )}
+          </AnimatePresence>
+        </motion.div>
+      )}
 
-            {filtered.map((service, index) => {
-              const Icon = service.icon;
-              const isEven = index % 2 === 0;
+      {/* ============================= HERO ============================= */}
+      <section className="cine-container pb-[clamp(48px,7vw,90px)] pt-[calc(var(--nav-h,74px)+clamp(3rem,7vw,6rem))]">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:items-end lg:gap-20">
+          <motion.div {...revealHeading()}>
+            <p className="kicker mb-8">Percorsi</p>
+            <h1 className="text-display font-semibold leading-[0.95] tracking-[-0.05em] text-ink">
+              <span className="block">Sette competenze.</span>
+              <span className="mt-2 block font-drama text-[0.9em] font-normal italic text-accent">
+                Un solo modo di lavorare.
+              </span>
+            </h1>
+            <p className="mt-8 max-w-xl text-body-lg text-ink-soft">
+              Ogni area dello studio nasce da una competenza precisa. Il punto non è
+              offrirti molte cose, ma capire insieme da dove ha senso partire.
+            </p>
+          </motion.div>
 
-              if (service.id === 'fisioterapia') {
-                const Icon = service.icon;
-                return (
-                  <motion.article
-                    key={service.id}
-                    initial={{ opacity: 0, y: 28 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: duration.slow, ease: ease.out }}
-                    className="overflow-hidden rounded-card-xl border border-primary/8 bg-warm-50 shadow-card-lg"
-                  >
-                    <div className="grid lg:grid-cols-[minmax(0,0.58fr)_minmax(0,0.42fr)]">
-                      <Link
-                        to={`/servizi/${service.id}`}
-                        aria-label={`Scopri ${service.title}`}
-                        className="group block overflow-hidden bg-warm-200"
-                      >
-                        <img
-                          src={service.image}
-                          alt={service.imageAlt}
-                          width={800}
-                          height={900}
-                          loading="lazy"
-                          decoding="async"
-                          className="aspect-[4/3] lg:aspect-auto lg:h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
-                        />
-                      </Link>
-                      <div className="flex flex-col justify-between p-8 lg:p-12">
-                        <div>
-                          <div className="mb-6 flex flex-wrap items-center gap-3">
-                            <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted backdrop-blur-md">
-                              <Icon className="h-4 w-4 text-accent" />
-                              {service.label}
-                            </div>
-                            <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-accent">
-                              <span className="h-1 w-1 rounded-full bg-accent" />
-                              Servizio principale
-                            </span>
-                          </div>
-                          <h2 className="max-w-2xl text-[clamp(2rem,3.6vw,3.75rem)] font-semibold leading-tight tracking-[-0.05em] text-primary [overflow-wrap:break-word]">
-                            {service.title}
-                          </h2>
-                          <p className="mt-5 text-lg leading-relaxed text-ink-soft">{service.summary}</p>
-                        </div>
-                        <div>
-                          <div className="mt-6 flex flex-wrap gap-3">
-                            {service.highlights.map((highlight) => (
-                              <span
-                                key={highlight}
-                                className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft"
-                              >
-                                {highlight}
-                              </span>
-                            ))}
-                          </div>
-                          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                            <MagneticButton
-                              to={`/servizi/${service.id}`}
-                              aria-label={`Approfondisci ${service.title}`}
-                              className="bg-primary px-7 py-4 text-base font-semibold text-background"
-                            >
-                              Approfondisci il servizio
-                            </MagneticButton>
-                            <Link
-                              to={`/contatti?service=${service.id}`}
-                              className="inline-flex items-center justify-center rounded-full border border-primary/10 bg-white/72 px-7 py-4 text-base font-medium text-primary backdrop-blur-md transition-colors hover:bg-white"
-                            >
-                              Prenota questo percorso
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.article>
-                );
-              }
+          <RevealPanel
+            src="/images/real/internistudiofisyo_reception.webp"
+            alt="La reception e gli spazi interni dello Studio Fisyo a Felino."
+            panel="bone"
+            priority
+            className="aspect-[4/5] w-full rounded-card-lg"
+          />
+        </div>
+      </section>
 
-              const colClass =
-                index % 3 === 0
-                  ? 'lg:grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)]'
-                  : index % 3 === 1
-                    ? 'lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]'
-                    : 'lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]';
+      {/* ============================= MARQUEE ============================= */}
+      <div className="border-y border-line/70 bg-bone-2 py-6">
+        <Marquee items={marqueeItems} duration={40} />
+      </div>
+
+      {/* ====================== SIGNATURE — L'INDICE ====================== */}
+      <section className="py-[clamp(72px,11vw,150px)]">
+        <div className="cine-container">
+          <motion.div {...revealHeading()} className="mb-14 max-w-3xl md:mb-20">
+            <p className="kicker mb-6">L'indice</p>
+            <h2 className="text-h2 font-semibold leading-[1.02] tracking-[-0.04em] text-ink">
+              Scegli da dove partire,
+              <span className="font-drama font-normal italic text-accent">
+                {' '}
+                o lascia che ti guidiamo noi.
+              </span>
+            </h2>
+          </motion.div>
+
+          <motion.ul
+            {...reveal(0.05)}
+            className="border-line"
+            onPointerMove={
+              canFollow
+                ? (e) => {
+                    mx.set(e.clientX);
+                    my.set(e.clientY);
+                  }
+                : undefined
+            }
+          >
+            {services.map((service, i) => {
+              const num = String(i + 1).padStart(2, '0');
+              const isDimmed = canFollow && hovered !== null && hovered !== service.id;
 
               return (
-                <motion.article
+                <li
                   key={service.id}
-                  initial={{ opacity: 0, y: 26 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: duration.slow, delay: Math.min(index, 3) * 0.06, ease: ease.out }}
-                  className={`grid gap-8 ${colClass} lg:items-center ${
-                    isEven ? '' : 'lg:[&>div:first-child]:order-2 lg:[&>div:last-child]:order-1'
+                  className={`border-b border-line transition-opacity duration-500 first:border-t ${
+                    isDimmed ? 'opacity-40' : 'opacity-100'
                   }`}
                 >
-                  <InteractiveSurface className="rounded-card-lg">
-                    <Link
-                      to={`/servizi/${service.id}`}
-                      aria-label={`Scopri ${service.title}`}
-                      className="group block overflow-hidden rounded-card-lg border border-primary/8 bg-white/70 p-3 shadow-card-md backdrop-blur-xl"
-                    >
-                      <div className="relative overflow-hidden rounded-card-md bg-warm-300">
-                        <img
-                          src={service.image}
-                          alt={service.imageAlt}
-                          width={800}
-                          height={900}
-                          loading="lazy"
-                          decoding="async"
-                          className="aspect-[4/4.4] w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/24 to-transparent" />
+                  <Link
+                    to={`/servizi/${service.id}`}
+                    aria-label={`Scopri ${service.title}`}
+                    onMouseEnter={canFollow ? () => setHovered(service.id) : undefined}
+                    onMouseLeave={canFollow ? () => setHovered(null) : undefined}
+                    className="group block rounded-card-sm outline-none transition-[padding] duration-500 ease-out focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background lg:hover:pl-8 lg:focus-visible:pl-8"
+                  >
+                    {/* --- Desktop: large type row --- */}
+                    <div className="hidden items-center gap-8 py-7 lg:flex">
+                      <span className="w-12 shrink-0 font-mono text-sm tabular-nums text-ink-muted transition-colors duration-500 group-hover:text-accent group-focus-visible:text-accent">
+                        {num}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-[clamp(1.6rem,4vw,3.2rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-ink transition-colors duration-500 group-hover:text-accent group-focus-visible:text-accent">
+                          {service.title}
+                        </h3>
+                        <p className="mt-2 max-w-2xl text-base leading-relaxed text-ink-soft">
+                          {service.summary}
+                        </p>
                       </div>
-                    </Link>
-                  </InteractiveSurface>
 
-                  <div className="px-1">
-                    <div className="inline-flex items-center gap-3 rounded-full border border-primary/8 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted backdrop-blur-md">
-                      <Icon className="h-4 w-4 text-accent" />
-                      {service.label}
+                      {/* Coarse-pointer / reduced-motion fallback thumbnail */}
+                      {!canFollow && (
+                        <RevealMedia
+                          src={service.image}
+                          alt=""
+                          index={i}
+                          className="h-20 w-20 shrink-0 rounded-card-sm"
+                        />
+                      )}
+
+                      <span className="shrink-0 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-ink-muted">
+                        {service.label}
+                      </span>
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line text-ink transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-ink group-focus-visible:border-accent group-focus-visible:bg-accent">
+                        <ArrowUpRight className="h-5 w-5" />
+                      </span>
                     </div>
-                    <h2 className="mt-6 max-w-2xl text-[clamp(1.7rem,2.9vw,3rem)] font-semibold leading-tight tracking-[-0.05em] text-primary [overflow-wrap:break-word]">
-                      {service.title}
-                    </h2>
-                    <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
-                      {service.summary}
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      {service.highlights.map((highlight) => (
-                        <span
-                          key={highlight}
-                          className="rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-sm text-ink-soft"
-                        >
-                          {highlight}
-                        </span>
-                      ))}
+
+                    {/* --- Mobile: compact thumbnail row --- */}
+                    <div className="flex items-center gap-4 py-5 lg:hidden">
+                      <RevealMedia
+                        src={service.image}
+                        alt=""
+                        index={i}
+                        className="h-20 w-20 shrink-0 rounded-card-sm sm:h-24 sm:w-24"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <span className="font-mono text-xs text-accent-deep">{num}</span>
+                        <h3 className="mt-1 text-xl font-semibold leading-tight tracking-[-0.03em] text-ink">
+                          {service.title}
+                        </h3>
+                        <p className="mt-1 text-sm leading-snug text-ink-soft">
+                          {service.summary}
+                        </p>
+                      </div>
+                      <ArrowUpRight className="h-5 w-5 shrink-0 text-accent" />
                     </div>
-                    <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                      <MagneticButton
-                        to={`/servizi/${service.id}`}
-                        aria-label={`Approfondisci ${service.title}`}
-                        className="bg-primary px-7 py-4 text-base font-semibold text-background"
-                      >
-                        Approfondisci il servizio
-                      </MagneticButton>
-                      <Link
-                        to={`/contatti?service=${service.id}`}
-                        className="inline-flex items-center justify-center rounded-full border border-primary/10 bg-white/72 px-7 py-4 text-base font-medium text-primary backdrop-blur-md transition-colors hover:bg-white"
-                      >
-                        Prenota questo percorso
-                      </Link>
-                    </div>
-                  </div>
-                </motion.article>
+                  </Link>
+                </li>
               );
             })}
-          </motion.div>
-        </AnimatePresence>
-      </div>
+          </motion.ul>
+        </div>
+      </section>
+
+      {/* ======================= HELP BAND (dark) ======================= */}
+      <section className="bg-dark text-on-dark">
+        <div className="cine-container py-[clamp(64px,10vw,130px)]">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-16">
+            <motion.div {...revealHeading()}>
+              <p className="kicker mb-6 !text-accent">Aiuto nella scelta</p>
+              <h2 className="text-h2 font-semibold leading-[1.03] tracking-[-0.04em]">
+                Non sai quale percorso
+                <span className="font-drama font-normal italic text-accent"> scegliere?</span>
+              </h2>
+              <p className="mt-6 max-w-xl text-body-lg text-on-dark/80">
+                Raccontaci in due righe cosa ti limita oggi: ti diciamo se partire da
+                fisioterapia, movimento guidato o da un'altra area dello studio. La prima
+                valutazione è gratuita.
+              </p>
+            </motion.div>
+
+            <motion.div
+              {...reveal(0.1)}
+              className="flex flex-col gap-4 sm:flex-row sm:flex-wrap lg:justify-end"
+            >
+              <Link to="/contatti" className="btn">
+                Ti aiutiamo a scegliere
+                <ArrowUpRight className="arr h-4 w-4" />
+              </Link>
+              <a
+                href={waUrl('Ciao Studio Fisyo! Vorrei capire quale servizio è più adatto a me.')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn ghost on-dark"
+              >
+                Scrivici su WhatsApp
+              </a>
+            </motion.div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

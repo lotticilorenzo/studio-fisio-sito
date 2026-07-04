@@ -1,46 +1,59 @@
-﻿import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Building2, HeartPulse, Sparkles, Users } from 'lucide-react';
-import { PageHero } from '../components/PageHero';
-import { SectionDivider } from '../components/SectionDivider';
-import { InteractiveSurface } from '../components/InteractiveSurface';
+import { useEffect, useRef } from 'react';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+  type MotionValue,
+} from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+
+import { RevealMedia } from '../components/RevealMedia';
+import { RevealPanel } from '../components/RevealPanel';
+import { Statement } from '../components/Statement';
+import { Marquee } from '../components/Marquee';
+import { MaskReveal } from '../components/MaskReveal';
 import { useSEO } from '../hooks/useSEO';
-import { ease, duration, viewport } from '../lib/motion';
+import { reveal, revealHeading } from '../lib/motion';
 
-const studioNotes = [
-  {
-    icon: Users,
-    title: '6 professioniste, un solo tono di lavoro',
-    text: 'Competenze diverse che non si presentano come reparti separati, ma come un dialogo continuo.',
-  },
-  {
-    icon: HeartPulse,
-    title: 'Percorsi più leggibili per chi entra in studio',
-    text: 'Ascolto, valutazione, trattamento e movimento devono restare dentro la stessa idea di cura.',
-  },
-  {
-    icon: Building2,
-    title: 'Uno spazio pensato per non farti sentire di passaggio',
-    text: "L'ambiente è parte dell'esperienza: caldo, ordinato, chiaro, mai freddo o impersonale.",
-  },
-] as const;
+const IMG = '/images/real/';
 
-const principles = [
+const marqueeItems = [
+  'Fisioterapia',
+  'Pilates clinico',
+  'Salute della donna',
+  'Ostetricia',
+  'Psicologia clinica',
+  'Nutrizione',
+];
+
+const method = [
   {
     step: '01',
     title: 'Ascolto',
-    text: 'Ogni percorso inizia da una valutazione attenta e da una conversazione vera, senza fretta e senza formule.',
+    text: 'Ogni percorso parte da una valutazione attenta e da una conversazione vera, senza fretta e senza formule preconfezionate.',
   },
   {
     step: '02',
     title: 'Confronto',
-    text: 'Le professioniste dello studio si parlano, così il lavoro resta coerente quando il caso ha bisogno di più sguardi.',
+    text: 'Le professioniste si parlano davvero: quando un caso ha bisogno di più sguardi, il percorso non si spezza.',
   },
   {
     step: '03',
     title: 'Continuità',
-    text: 'Trattamento, movimento e indicazioni pratiche devono aiutarti anche fuori dallo studio, non solo durante la seduta.',
+    text: 'Trattamento, movimento e indicazioni pratiche ti accompagnano anche fuori dallo studio, non solo durante la seduta.',
   },
+] as const;
+
+// Spazi usati sia dal fly-through (desktop) sia dalla gallery statica (mobile / reduced-motion).
+const spaces = [
+  { img: 'fototeamstudiofisyo.webp', alt: 'Il team completo dello Studio Fisyo.' },
+  { img: 'internistudiofisyo2.webp', alt: 'Una sala di trattamento dello Studio Fisyo.' },
+  { img: 'accoglienza.webp', alt: "L'accoglienza dello Studio Fisyo a Felino." },
+  { img: 'internistudiofisyo_reception.webp', alt: 'La reception e gli spazi interni dello studio.' },
+  { img: 'esternistudiofisyo.webp', alt: "L'esterno dello Studio Fisyo a Felino." },
+  { img: 'fisioterapia_studio_fisyo.webp', alt: 'Una seduta di fisioterapia nello studio.' },
 ] as const;
 
 const team = [
@@ -82,6 +95,111 @@ const team = [
   },
 ] as const;
 
+/* ============================================================================
+ * SIGNATURE — "Fly-through": una viewport 100svh pinnata su una sezione alta.
+ * Le foto dello studio partono raccolte al centro, scalano e si allontanano
+ * verso i bordi (come se ci passassimo attraverso) mentre la foto del team
+ * cresce fino a riempire lo schermo. Solo transform/opacity. Desktop-only:
+ * su mobile e con reduced-motion si mostra una gallery statica.
+ * ==========================================================================*/
+
+type TileConfig = {
+  img: string;
+  x: string;
+  y: string;
+  from: number;
+  to: number;
+  fade: [number, number];
+  z: number;
+  size: string;
+  aspect: string;
+};
+
+const tiles: TileConfig[] = [
+  // Foto centrale (il team) — cresce fino a riempire lo schermo, non sfuma.
+  { img: 'fototeamstudiofisyo.webp', x: '0vw', y: '0vh', from: 0.62, to: 3.6, fade: [0.98, 1], z: 5, size: 'w-[clamp(220px,32vw,520px)]', aspect: 'aspect-[16/10]' },
+  { img: 'internistudiofisyo2.webp', x: '-64vw', y: '-46vh', from: 0.42, to: 1.9, fade: [0.62, 0.86], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
+  { img: 'accoglienza.webp', x: '64vw', y: '-40vh', from: 0.4, to: 1.85, fade: [0.6, 0.84], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
+  { img: 'internistudiofisyo_reception.webp', x: '-66vw', y: '48vh', from: 0.44, to: 2.0, fade: [0.64, 0.88], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
+  { img: 'esternistudiofisyo.webp', x: '62vw', y: '50vh', from: 0.4, to: 1.9, fade: [0.6, 0.85], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
+  { img: 'fisioterapia_studio_fisyo.webp', x: '0vw', y: '-62vh', from: 0.5, to: 2.2, fade: [0.55, 0.8], z: 1, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[16/10]' },
+];
+
+const ZoomTile = ({ progress, cfg }: { progress: MotionValue<number>; cfg: TileConfig }) => {
+  const scale = useTransform(progress, [0, 1], [cfg.from, cfg.to]);
+  const x = useTransform(progress, [0, 1], ['0vw', cfg.x]);
+  const y = useTransform(progress, [0, 1], ['0vh', cfg.y]);
+  const opacity = useTransform(progress, cfg.fade, [1, 0]);
+
+  return (
+    <div className="absolute inset-0 grid place-items-center" style={{ zIndex: cfg.z }} aria-hidden="true">
+      <motion.div
+        style={{ x, y, scale, opacity }}
+        className={`${cfg.size} ${cfg.aspect} overflow-hidden rounded-card-md shadow-card-xl will-change-transform`}
+      >
+        <img src={`${IMG}${cfg.img}`} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+      </motion.div>
+    </div>
+  );
+};
+
+const ZoomThrough = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+
+  const kickerOpacity = useTransform(scrollYProgress, [0, 0.22], [1, 0]);
+  const captionOpacity = useTransform(scrollYProgress, [0.8, 0.95], [0, 1]);
+  const captionY = useTransform(scrollYProgress, [0.8, 0.95], ['24px', '0px']);
+
+  return (
+    <div ref={ref} className="relative h-[360vh]">
+      <div className="sticky top-0 h-[100svh] overflow-hidden bg-dark text-on-dark">
+        <motion.p
+          style={{ opacity: kickerOpacity }}
+          className="kicker !text-accent/90 absolute inset-x-0 top-[calc(var(--nav-h,74px)+2.5rem)] z-10 text-center"
+        >
+          Lo studio, da vicino
+        </motion.p>
+
+        {tiles.map((cfg) => (
+          <ZoomTile key={cfg.img} progress={scrollYProgress} cfg={cfg} />
+        ))}
+
+        {/* Scrim + didascalia che emerge quando la foto del team riempie il quadro */}
+        <motion.div
+          style={{ opacity: captionOpacity }}
+          className="pointer-events-none absolute inset-0 z-10 flex items-end justify-center bg-[linear-gradient(to_top,rgba(20,28,24,0.82)_0%,rgba(20,28,24,0.28)_34%,transparent_60%)] pb-[clamp(2.5rem,7vh,5rem)]"
+        >
+          <motion.p
+            style={{ y: captionY }}
+            className="cine-container text-center text-[clamp(1.8rem,4.6vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.045em] [text-shadow:0_2px_28px_rgba(0,0,0,0.5)]"
+          >
+            Sei professioniste,{' '}
+            <span className="font-drama font-normal italic text-accent">un solo studio.</span>
+          </motion.p>
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+const StaticGallery = () => (
+  <div className="cine-container py-[clamp(48px,8vw,96px)]">
+    <p className="kicker mb-6">Lo studio, da vicino</p>
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+      {spaces.map((space, i) => (
+        <RevealMedia
+          key={space.img}
+          src={`${IMG}${space.img}`}
+          alt={space.alt}
+          index={i % 3}
+          className="aspect-[4/5] w-full rounded-card-md"
+        />
+      ))}
+    </div>
+  </div>
+);
+
 export const ChiSiamo = () => {
   useSEO({
     title: 'Chi siamo | Studio Fisyo - Fisioterapia a Felino',
@@ -112,345 +230,199 @@ export const ChiSiamo = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const reduced = useReducedMotion();
+  const founders = team.slice(0, 2);
+  const rest = team.slice(2);
+
   return (
-    <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
-      <div className="page-aura" aria-hidden="true" />
-      <div className="relative mx-auto max-w-7xl 2xl:max-w-[1600px]">
-        <PageHero
-          label="Chi siamo"
-          badge="Team integrato"
-          title="Uno studio nato per lavorare bene insieme."
-          subtitle="Siamo un team di professioniste con competenze diverse. La cosa che ci unisce non è una formula, ma un modo di lavorare: ascoltare, confrontarci e costruire un percorso coerente per ogni persona."
-          image="/images/real/fototeamstudiofisyo.webp"
-          imageAlt="Il team dello Studio Fisyo."
-          captionEyebrow="Il team"
-          captionText="Sei professioniste che si confrontano davvero, non una somma di trattamenti scollegati."
-        />
-
-        <SectionDivider className="mb-14 mt-16" />
-
-        <section className="grid gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-start">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport.section}
-            transition={{ duration: duration.slow, ease: ease.out }}
-            className="lg:sticky lg:top-28"
-          >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
-              Dentro Studio Fisyo
-            </p>
-            <h2 className="max-w-lg text-h2 font-semibold text-primary">
-              Più continuità, più confronto,
-              <span className="font-drama italic font-normal text-accent"> meno frammentazione.</span>
-            </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
-              Lo studio nasce dal desiderio di offrire a Felino un posto in cui le persone possano
-              sentirsi seguite con più continuità. A volte serve un trattamento, a volte un lavoro
-              sul movimento, a volte uno sguardo più ampio. Per questo le competenze convivono e si parlano.
-            </p>
-
-            <div className="mt-8 grid gap-4">
-              {studioNotes.map((note, index) => {
-                const Icon = note.icon;
-
-                return (
-                  <motion.article
-                    key={note.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={viewport.item}
-                    transition={{ duration: duration.std, delay: 0.06 + index * 0.06, ease: ease.out }}
-                    className="rounded-card-md"
-                  >
-                    <InteractiveSurface className="rounded-card-md border border-primary/8 bg-white/78 p-6 shadow-card-md backdrop-blur-xl">
-                      <Icon className="h-5 w-5 text-accent" />
-                      <h3 className="mt-4 text-xl font-semibold tracking-[-0.04em] text-primary">
-                        {note.title}
-                      </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-ink-soft md:text-base">
-                        {note.text}
-                      </p>
-                    </InteractiveSurface>
-                  </motion.article>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          <div className="grid gap-6">
-            <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewport.section}
-              transition={{ duration: duration.slow, ease: ease.out }}
-              className="rounded-card-lg"
+    <div className="flex flex-col">
+      {/* ============================= HERO ============================= */}
+      <section className="px-0 pb-[clamp(48px,8vw,96px)] pt-[calc(var(--nav-h,74px)+clamp(3rem,8vw,6rem))]">
+        <div className="cine-container grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-20">
+          <div>
+            <motion.p {...revealHeading()} className="kicker mb-6">
+              Chi siamo
+            </motion.p>
+            <h1 className="text-display font-semibold text-ink">
+              <MaskReveal>Uno studio fatto di persone,</MaskReveal>
+              <MaskReveal delay={0.08} className="font-drama font-normal italic text-accent">
+                prima che di stanze.
+              </MaskReveal>
+            </h1>
+            <motion.p
+              {...reveal(0.15)}
+              className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft md:text-xl"
             >
-              <InteractiveSurface className="overflow-hidden rounded-card-lg border border-primary/8 bg-white/78 p-3 shadow-card-lg backdrop-blur-xl">
-                <div className="relative overflow-hidden rounded-card-md bg-warm-300">
-                  <img
-                    src="/images/real/internistudiofisyo_reception.webp"
-                    alt="La reception e gli spazi interni dello Studio Fisyo."
-                    width={1200}
-                    height={850}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-[16/10] w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/34 via-transparent to-transparent" />
-                  <div className="absolute inset-x-5 bottom-5 rounded-card-sm border border-white/20 bg-primary/72 px-5 py-4 text-background backdrop-blur-xl">
-                    <p className="text-[11px] uppercase tracking-[0.24em] text-background/70">
-                      Atmosfera dello studio
-                    </p>
-                    <p className="mt-2 text-base leading-snug">
-                      Non inseguiamo effetti speciali. Cerchiamo chiarezza, attenzione e un luogo
-                      che faccia sentire le persone davvero accolte.
-                    </p>
-                  </div>
-                </div>
-              </InteractiveSurface>
-            </motion.article>
-
-            <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-              <motion.article
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewport.item}
-                transition={{ duration: duration.std, delay: 0.06, ease: ease.out }}
-                className="rounded-card-md"
-              >
-                <InteractiveSurface className="overflow-hidden rounded-card-md border border-primary/8 bg-warm-200">
-                  <img
-                    src="/images/real/esternistudiofisyo.webp"
-                    alt="L'esterno dello Studio Fisyo a Felino."
-                    width={900}
-                    height={1000}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-[4/4.7] w-full object-cover"
-                  />
-                </InteractiveSurface>
-              </motion.article>
-
-              <motion.article
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewport.item}
-                transition={{ duration: duration.std, delay: 0.12, ease: ease.out }}
-                className="rounded-card-md"
-              >
-                <InteractiveSurface className="rounded-card-md border border-primary/8 bg-primary p-7 text-background shadow-card-md md:p-8">
-                  <Sparkles className="h-5 w-5 text-accent" />
-                  <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em]">
-                    Un luogo che non mette distanza.
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-background/68">
-                    Ci interessa che chi entra qui senta di poter capire cosa sta succedendo, a chi
-                    affidarsi e come può iniziare il proprio percorso senza confusione.
-                  </p>
-                  <p className="mt-4 text-base leading-relaxed text-background/68">
-                    La sensazione deve essere questa: c&apos;è competenza, ma c&apos;è anche presenza.
-                  </p>
-                </InteractiveSurface>
-              </motion.article>
-            </div>
-          </div>
-        </section>
-
-        <SectionDivider className="mb-14 mt-16" />
-
-        <section className="relative overflow-hidden rounded-card-xl bg-primary px-8 py-12 text-background md:px-10 md:py-14">
-          <div className="absolute inset-0">
-            <img
-              src="/images/real/founderstudiofisyo.webp"
-              alt=""
-              role="presentation"
-              className="h-full w-full object-cover opacity-[0.08]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/96 via-primary/90 to-[#161f1a]/96" />
+              Sei professioniste, competenze diverse, un solo modo di lavorare: ascoltare bene prima
+              di agire e costruire un percorso che resti coerente dall&apos;inizio alla fine.
+            </motion.p>
           </div>
 
-          <div className="relative">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewport.section}
-              transition={{ duration: duration.slow, ease: ease.out }}
-              className="grid gap-8 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-end"
-            >
-              <div>
-                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-background/70">
-                  Il nostro modo di lavorare
-                </p>
-                <h2 className="max-w-lg text-h2 font-semibold">
-                  Cura, confronto e continuità.
-                </h2>
-              </div>
-              <p className="max-w-2xl text-base leading-relaxed text-background/68 md:text-lg">
-                In studio ci interessa che il lavoro resti coerente dall&apos;inizio alla fine.
-                La parte bella del percorso non è fare tante cose: è fare le cose giuste con un tono
-                umano, leggibile e molto rigoroso.
-              </p>
-            </motion.div>
+          <RevealPanel
+            src={`${IMG}fototeamstudiofisyo.webp`}
+            alt="Il team dello Studio Fisyo a Felino."
+            panel="bone"
+            priority
+            className="aspect-[4/3] w-full rounded-card-lg"
+          />
+        </div>
+      </section>
 
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {principles.map((value, index) => (
-                <motion.article
-                  key={value.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={viewport.item}
-                  transition={{ duration: duration.slow, delay: index * 0.06, ease: ease.out }}
-                  className="rounded-card-md"
-                >
-                  <InteractiveSurface className="rounded-card-md border border-white/10 bg-white/6 p-6 backdrop-blur-md">
-                    <p className="text-sm font-semibold tracking-[0.24em] text-accent">{value.step}</p>
-                    <h3 className="mt-4 text-2xl font-semibold">{value.title}</h3>
-                    <p className="mt-3 text-base leading-relaxed text-background/68">{value.text}</p>
-                  </InteractiveSurface>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <SectionDivider className="mb-14 mt-16" />
-
-        <section>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport.section}
-            transition={{ duration: duration.slow, ease: ease.out }}
-            className="mb-12 max-w-3xl"
-          >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
-              Il team
-            </p>
-            <h2 className="text-h2 font-semibold text-primary">
-              Le persone che rendono il lavoro dello studio riconoscibile.
-            </h2>
-          </motion.div>
-
-          <motion.article
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport.section}
-            transition={{ duration: duration.slow, ease: ease.out }}
-            className="rounded-card-xl"
-          >
-            <InteractiveSurface className="overflow-hidden rounded-card-xl border border-primary/8 bg-white/78 p-3 shadow-card-lg backdrop-blur-xl">
-              <div className="grid gap-0 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)]">
-                <div className="overflow-hidden rounded-card-md bg-warm-300">
-                  <img
-                    src="/images/real/fototeamstudiofisyo.webp"
-                    alt="Il team completo dello Studio Fisyo."
-                    width={1400}
-                    height={1000}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="flex flex-col justify-center p-8 md:p-10">
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                    Team multidisciplinare
-                  </p>
-                  <h3 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary md:text-4xl">
-                    Qui non trovi professioniste isolate.
-                  </h3>
-                  <p className="mt-5 text-base leading-relaxed text-ink-soft md:text-lg">
-                    Trovi un gruppo di lavoro che ha scelto di condividere linguaggio, tono e responsabilità.
-                    Per chi entra in studio questo fa una grande differenza: il percorso sembra più chiaro,
-                    più stabile e meno frammentato.
-                  </p>
-                </div>
-              </div>
-            </InteractiveSurface>
-          </motion.article>
-
-          <div className="mt-6 grid gap-6">
-
-            {/* FONDATRICI — 2 card grandi affiancate */}
-            <div className="grid gap-6 sm:grid-cols-2">
-              {team.slice(0, 2).map((member, idx) => (
-                <motion.article
-                  key={member.name}
-                  initial={{ opacity: 0, y: 32 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={viewport.section}
-                  transition={{ duration: duration.slow, ease: ease.out, delay: 0.06 * idx }}
-                  className="group relative overflow-hidden rounded-card-xl border border-primary/8 bg-warm-50 shadow-card-lg"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden sm:aspect-[16/11]">
-                    <img
-                      src={member.image}
-                      alt=""
-                      role="presentation"
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover object-top transition-transform duration-[1.4s] ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-primary/35 to-transparent" />
-                    <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/85 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary backdrop-blur-md">
-                      <span className="h-1 w-1 rounded-full bg-accent" />
-                      Founder
-                    </div>
-                  </div>
-                  <div className="p-7 lg:p-8">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-accent">
-                      {member.role}
-                    </p>
-                    <h3 className="mt-3 font-drama text-4xl font-normal italic leading-[0.98] tracking-[-0.02em] text-primary">
-                      {member.name}
-                    </h3>
-                    <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
-                      {member.desc}
-                    </p>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-
-            {/* RESTO DEL TEAM — 4 professioniste */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {team.slice(2).map((member, idx) => (
-                <motion.article
-                  key={member.name}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={viewport.item}
-                  transition={{ duration: duration.std, ease: ease.out, delay: 0.05 * idx }}
-                  className="group relative overflow-hidden rounded-card-md border border-primary/8 bg-warm-50 shadow-card-sm"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <img
-                      src={member.image}
-                      alt=""
-                      role="presentation"
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover object-top transition-transform duration-[1s] ease-out group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent/80">
-                      {member.role}
-                    </p>
-                    <h4 className="mt-1.5 text-lg font-semibold leading-tight tracking-[-0.01em] text-primary">
-                      {member.name}
-                    </h4>
-                    <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-ink-soft">
-                      {member.desc}
-                    </p>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-
-          </div>
-        </section>
+      {/* ============================= MARQUEE ============================= */}
+      <div className="border-y border-line/70 bg-bone-2 py-6">
+        <Marquee items={marqueeItems} duration={40} />
       </div>
+
+      {/* ============================= SIGNATURE (fly-through) ============================= */}
+      <section aria-label="Gli spazi dello Studio Fisyo">
+        {reduced ? (
+          <StaticGallery />
+        ) : (
+          <>
+            <div className="hidden lg:block">
+              <ZoomThrough />
+            </div>
+            <div className="lg:hidden">
+              <StaticGallery />
+            </div>
+          </>
+        )}
+      </section>
+
+      {/* ============================= MANIFESTO / COME LAVORIAMO ============================= */}
+      <section className="px-0 py-[clamp(72px,11vw,150px)]">
+        <div className="cine-container">
+          <motion.div {...revealHeading()} className="mb-14 max-w-3xl">
+            <p className="kicker mb-6">Come lavoriamo</p>
+            <h2 className="text-h2 font-semibold text-ink">
+              <MaskReveal>
+                Un metodo semplice,
+                <span className="font-drama font-normal italic text-accent"> tenuto con cura.</span>
+              </MaskReveal>
+            </h2>
+          </motion.div>
+
+          <div className="grid gap-px overflow-hidden rounded-card-lg border border-line bg-line md:grid-cols-3">
+            {method.map((item, index) => (
+              <motion.div
+                key={item.step}
+                {...reveal(index * 0.08)}
+                className="bg-background p-8 md:p-10"
+              >
+                <p className="font-mono text-sm tracking-[0.24em] text-accent">{item.step}</p>
+                <h3 className="mt-5 text-2xl font-semibold tracking-[-0.03em] text-ink">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-base leading-relaxed text-ink-soft">{item.text}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================= STATEMENT ============================= */}
+      <Statement kicker="Il nostro modo">
+        Non una somma di trattamenti, <em>ma un percorso solo.</em>
+      </Statement>
+
+      {/* ============================= IL TEAM ============================= */}
+      <section className="px-0 py-[clamp(72px,11vw,150px)]">
+        <div className="cine-container">
+          <motion.div {...revealHeading()} className="mb-14 max-w-3xl">
+            <p className="kicker mb-6">Il team</p>
+            <h2 className="text-h2 font-semibold text-ink">
+              <MaskReveal>
+                Le persone
+                <span className="font-drama font-normal italic text-accent"> dietro ogni percorso.</span>
+              </MaskReveal>
+            </h2>
+            <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft">
+              Lo studio nasce da Beatrice ed Elisa e cresce con quattro professioniste che ne
+              condividono il tono. Ognuna porta una competenza precisa; insieme tengono lo stesso
+              standard di attenzione.
+            </p>
+          </motion.div>
+
+          {/* FONDATRICI — due card grandi con marker "Founder" */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {founders.map((member, idx) => (
+              <motion.article
+                key={member.name}
+                {...reveal(idx * 0.08)}
+                className="overflow-hidden rounded-card-lg border border-line bg-bone-2 shadow-card-lg"
+              >
+                <div className="relative">
+                  <RevealMedia
+                    src={member.image}
+                    alt={`${member.name}, ${member.role} dello Studio Fisyo.`}
+                    index={idx}
+                    className="aspect-[16/11] w-full"
+                  />
+                  <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-background/90 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-ink backdrop-blur-md">
+                    <span className="h-1 w-1 rounded-full bg-accent" />
+                    Founder
+                  </span>
+                </div>
+                <div className="p-7 lg:p-9">
+                  <p className="text-eyebrow font-semibold uppercase text-accent-deep">{member.role}</p>
+                  <h3 className="mt-3 font-drama text-4xl font-normal italic leading-[0.98] tracking-[-0.02em] text-ink md:text-5xl">
+                    {member.name}
+                  </h3>
+                  <p className="mt-5 text-base leading-relaxed text-ink-soft">{member.desc}</p>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+
+          {/* RESTO DEL TEAM — griglia raffinata */}
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {rest.map((member, idx) => (
+              <motion.article
+                key={member.name}
+                {...reveal(0.05 * idx)}
+                className="overflow-hidden rounded-card-md border border-line bg-bone-2 shadow-card-sm"
+              >
+                <RevealMedia
+                  src={member.image}
+                  alt={`${member.name}, ${member.role} dello Studio Fisyo.`}
+                  index={idx}
+                  className="aspect-[4/5] w-full"
+                />
+                <div className="p-6">
+                  <p className="text-eyebrow font-semibold uppercase text-accent-deep">{member.role}</p>
+                  <h4 className="mt-2 text-lg font-semibold leading-tight tracking-[-0.01em] text-ink">
+                    {member.name}
+                  </h4>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">{member.desc}</p>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+
+          {/* CHIUSURA — link inline, niente banda CTA duplicata */}
+          <motion.p
+            {...reveal(0.1)}
+            className="mt-16 max-w-2xl text-lg leading-relaxed text-ink-soft"
+          >
+            Il modo migliore per conoscerci è di persona.{' '}
+            <Link
+              to="/contatti"
+              className="inline-flex items-center gap-1.5 font-semibold text-ink underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+            >
+              Prenota una prima valutazione
+              <ArrowUpRight className="h-4 w-4 text-accent" />
+            </Link>{' '}
+            oppure{' '}
+            <Link
+              to="/servizi"
+              className="font-semibold text-ink underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+            >
+              dai un&apos;occhiata ai percorsi dello studio
+            </Link>
+            .
+          </motion.p>
+        </div>
+      </section>
     </div>
   );
 };

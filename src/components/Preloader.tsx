@@ -22,9 +22,9 @@ export const Preloader = () => {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -24, scale: 0.99 }}
-          transition={{ duration: duration.enter, ease: ease.out }}
+          initial={{ y: '0%' }}
+          exit={{ y: '-100%' }}
+          transition={{ duration: 0.7, ease: ease.curtain }}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-background"
         >
           <div className="relative mb-12 flex h-32 w-32 items-center justify-center">

@@ -17,18 +17,25 @@ export const PageTransitionFrame = ({ routeKey, children }: PageTransitionFrameP
           <>
             <motion.div
               aria-hidden="true"
-              className="pointer-events-none fixed inset-0 z-[70] bg-[linear-gradient(180deg,rgba(15,23,18,0.92),rgba(21,34,28,0.94))]"
+              className="pointer-events-none fixed inset-0 z-[70] grid place-items-center bg-dark"
               initial={{ clipPath: 'inset(0 0 0 0)' }}
               animate={{
                 clipPath: 'inset(0 0 100% 0)',
-                transition: { duration: 0.82, ease: ease.page, delay: 0.04 },
+                transition: { duration: 0.82, ease: ease.curtain, delay: 0.04 },
               }}
               exit={{
                 clipPath: 'inset(100% 0 0 0)',
-                transition: { duration: 0.52, ease: ease.inOut },
+                transition: { duration: 0.55, ease: ease.curtain },
               }}
             >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(217,164,59,0.22),transparent_34%),radial-gradient(circle_at_82%_70%,rgba(255,255,255,0.08),transparent_28%)]" />
+              <motion.span
+                className="font-drama text-4xl font-normal italic text-on-dark md:text-6xl"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: [0, 1, 0], y: [12, 0, -8], transition: { duration: 0.8, ease: ease.out } }}
+                exit={{ opacity: 0 }}
+              >
+                Studio <span className="text-accent">Fisyo</span>
+              </motion.span>
             </motion.div>
             <motion.div
               aria-hidden="true"
