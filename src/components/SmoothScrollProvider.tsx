@@ -8,8 +8,8 @@ import { scrollBridge } from '../lib/scrollBridge';
 // dipendenza dal timing del ref (che lasciava lo scroll bloccato sul desktop).
 const LENIS_OPTIONS = {
   smoothWheel: true,
-  wheelMultiplier: 0.88,
-  lerp: 0.1,
+  wheelMultiplier: 0.82,
+  lerp: 0.075,
   overscroll: true,
   anchors: true,
 } as const;
