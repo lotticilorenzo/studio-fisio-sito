@@ -351,8 +351,8 @@ export const Home = () => {
       </div>
 
       {/* ============================= MANIFESTO ============================= */}
-      <section ref={manifestoRef} className="px-0 py-[clamp(72px,11vw,150px)]">
-        <div className="cine-container grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-20">
+      <section ref={manifestoRef} className="px-0 py-[clamp(56px,8vw,112px)]">
+        <div className="cine-container grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start lg:gap-20">
           <div>
             <p className="kicker mb-6">Lo studio</p>
             <h2 className="text-h1 font-semibold text-ink">
@@ -420,7 +420,7 @@ export const Home = () => {
       <ServiceFinder />
 
       {/* ======================= IL PERCORSO IN PRATICA ======================= */}
-      <section className="px-0 py-[clamp(72px,11vw,150px)]">
+      <section className="px-0 py-[clamp(56px,8vw,112px)]">
         <div className="cine-container">
           <motion.div {...revealHeading()} className="mb-16 max-w-3xl">
             <p className="kicker mb-6">Come lavoriamo</p>

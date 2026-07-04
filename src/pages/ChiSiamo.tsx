@@ -358,7 +358,7 @@ export const ChiSiamo = () => {
       </section>
 
       {/* ============================= MANIFESTO / COME LAVORIAMO ============================= */}
-      <section className="px-0 py-[clamp(72px,11vw,150px)]">
+      <section className="px-0 py-[clamp(56px,8vw,112px)]">
         <div className="cine-container">
           <motion.div {...revealHeading()} className="mb-14 max-w-3xl">
             <p className="kicker mb-6">Come lavoriamo</p>
@@ -396,7 +396,7 @@ export const ChiSiamo = () => {
       </Statement>
 
       {/* ============================= IL TEAM ============================= */}
-      <section className="px-0 py-[clamp(72px,11vw,150px)]">
+      <section className="px-0 py-[clamp(56px,8vw,112px)]">
         <div className="cine-container">
           <motion.div {...revealHeading()} className="mb-14 max-w-3xl">
             <p className="kicker mb-6">Il team</p>
