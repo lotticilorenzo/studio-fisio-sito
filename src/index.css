@@ -405,3 +405,41 @@ html.lenis {
   .rp-panel { display: none; }
   .mq-track { animation: none !important; }
 }
+
+/* ---- Cinematic custom cursor (desktop; native cursor hidden only when active) ---- */
+.has-custom-cursor,
+.has-custom-cursor * { cursor: none !important; }
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  will-change: transform;
+}
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .has-custom-cursor,
+  .has-custom-cursor * { cursor: auto !important; }
+  .cursor-dot,
+  .cursor-ring { display: none !important; }
+}
