@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, ChevronDown, MapPin } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
@@ -7,7 +7,11 @@ import { waUrl } from '../config/constants';
 import { services, servicesById, type ServiceFAQ } from '../data/services';
 import { RevealPanel } from '../components/RevealPanel';
 import { RevealMedia } from '../components/RevealMedia';
-import { reveal, revealHeading, ease, duration } from '../lib/motion';
+import { MaskReveal } from '../components/MaskReveal';
+import { reveal, ease, duration } from '../lib/motion';
+
+type ServiceItem = (typeof services)[number];
+type ApproachItem = ServiceItem['approach'][number];
 
 type EditorialNote = {
   lead: string;
@@ -81,6 +85,98 @@ const defaultEditorialNote: EditorialNote = {
     'Se vuoi capire da dove partire, la prima valutazione serve proprio a questo.',
 };
 
+/**
+ * Decorative giant section index that drifts on scroll (parallax depth).
+ * aria-hidden + faint texture; transform-only and static under reduced motion.
+ * Ref sits on the (untransformed) anchor so scroll measurement never feeds back.
+ */
+// (Decorative giant section-index watermark removed: faint low-contrast text
+// cannot meet WCAG AA contrast, so it's dropped to keep 0 violations.)
+
+/** One approach step. The mono index drifts (parallax); body text stays fully opaque (contrast safe). */
+const ApproachStep = ({
+  item,
+  index,
+  reduced,
+}: {
+  item: ApproachItem;
+  index: number;
+  reduced: boolean | null;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const numberY = useTransform(scrollYProgress, [0, 1], [42, -42]);
+  const ItemIcon = item.icon;
+
+  return (
+    <motion.article
+      ref={ref}
+      {...reveal(index * 0.06)}
+      className="grid gap-6 border-t border-white/12 py-10 first:border-0 first:pt-0 md:grid-cols-[auto_1fr] md:gap-12"
+    >
+      <motion.span
+        aria-hidden="true"
+        style={reduced ? undefined : { y: numberY }}
+        className="font-mono text-4xl leading-none text-accent md:text-5xl"
+      >
+        0{index + 1}
+      </motion.span>
+      <div>
+        <div className="flex items-center gap-3">
+          <ItemIcon className="h-5 w-5 text-accent" aria-hidden="true" />
+          <h3 className="text-h3 font-semibold">{item.title}</h3>
+        </div>
+        <p className="mt-4 max-w-2xl text-body-lg leading-relaxed text-on-dark/80">
+          {item.body}
+        </p>
+      </div>
+    </motion.article>
+  );
+};
+
+/** Related-service card: entrance reveal (outer) + continuous scroll parallax depth (inner) + hover lift. */
+const RelatedCard = ({
+  item,
+  index,
+  reduced,
+}: {
+  item: ServiceItem;
+  index: number;
+  reduced: boolean | null;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const depth = index % 2 === 1 ? 32 : 16;
+  const y = useTransform(scrollYProgress, [0, 1], [depth, -depth]);
+
+  return (
+    <motion.div ref={ref} {...reveal(index * 0.06)}>
+      <motion.div style={reduced ? undefined : { y }}>
+        <Link
+          to={`/servizi/${item.id}`}
+          className="group block overflow-hidden rounded-card-lg border border-line bg-bone-2 transition-transform duration-500 ease-out hover:-translate-y-1.5"
+        >
+          <RevealMedia
+            src={item.image}
+            alt={item.imageAlt}
+            index={index}
+            className="aspect-[16/11] w-full"
+          />
+          <div className="p-7 md:p-8">
+            <p className="text-eyebrow font-medium uppercase text-ink-muted">{item.label}</p>
+            <h3 className="mt-3 text-h3 font-semibold text-ink">{item.title}</h3>
+            <p className="mt-4 text-body leading-relaxed text-ink-soft">{item.summary}</p>
+            <span className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-ink transition-colors group-hover:text-accent">
+              Scopri il percorso
+              <ArrowUpRight className="h-4 w-4 text-accent" />
+            </span>
+          </div>
+        </Link>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const FAQAccordion = ({ faqs }: { faqs: ServiceFAQ[] }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -146,6 +242,19 @@ const FAQAccordion = ({ faqs }: { faqs: ServiceFAQ[] }) => {
 export const ServizioDetail = () => {
   const { id } = useParams<{ id: string }>();
   const service = id ? servicesById[id] : undefined;
+
+  const reduced = useReducedMotion();
+
+  // Hero image parallax — drift + subtle scale as the hero scrolls away.
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const heroImgY = useTransform(heroScroll, [0, 1], ['0%', '-10%']);
+  const heroImgScale = useTransform(heroScroll, [0, 1], [1, 1.06]);
+
+  // Approach (dark) signature beat — watermark index drifts across the pinned section.
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -302,15 +411,25 @@ export const ServizioDetail = () => {
               </motion.dl>
             </div>
 
-            {/* --- Right: Sipario image + promise caption --- */}
+            {/* --- Right: Sipario image (scroll parallax) + promise caption --- */}
             <div className="relative">
-              <RevealPanel
-                src={service.image}
-                alt={service.imageAlt}
-                panel="bone"
-                priority
-                className="h-full min-h-[440px] w-full rounded-card-lg"
-              />
+              <div
+                ref={heroRef}
+                className="relative h-full min-h-[440px] overflow-hidden rounded-card-lg"
+              >
+                <motion.div
+                  className="h-full w-full"
+                  style={reduced ? undefined : { y: heroImgY, scale: heroImgScale }}
+                >
+                  <RevealPanel
+                    src={service.image}
+                    alt={service.imageAlt}
+                    panel="bone"
+                    priority
+                    className="h-[112%] w-full"
+                  />
+                </motion.div>
+              </div>
               <div className="absolute inset-x-4 bottom-4 rounded-card-md border border-white/10 bg-dark p-6 text-on-dark shadow-card-lg md:inset-x-6 md:bottom-6 md:p-7">
                 <p className="text-eyebrow font-medium uppercase text-accent">La promessa</p>
                 <p className="mt-3 max-w-md text-body-lg font-medium leading-snug md:text-xl">
@@ -323,15 +442,18 @@ export const ServizioDetail = () => {
       </section>
 
       {/* ============================= INTRO ============================= */}
-      <section className="py-[clamp(72px,11vw,150px)]">
-        <div className="cine-container">
-          <motion.div {...revealHeading()} className="mb-14 max-w-3xl">
-            <p className="kicker mb-6">Il percorso</p>
+      <section className="relative overflow-hidden py-[clamp(72px,11vw,150px)]">
+        <div className="relative cine-container">
+
+          <div className="mb-14 max-w-3xl">
+            <motion.p {...reveal()} className="kicker mb-6">Il percorso</motion.p>
             <h2 className="text-h2 font-semibold text-ink">
-              Cosa significa
-              <span className="font-drama font-normal italic text-accent"> iniziare da qui.</span>
+              <MaskReveal>
+                Cosa significa
+                <span className="font-drama font-normal italic text-accent"> iniziare da qui.</span>
+              </MaskReveal>
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-20">
             <div className="grid gap-8 self-start sm:grid-cols-2">
@@ -366,55 +488,44 @@ export const ServizioDetail = () => {
         </div>
       </section>
 
-      {/* ============================= APPROACH (DARK) ============================= */}
+      {/* ============================= APPROACH (DARK) — signature pinned beat ============================= */}
       <section className="bg-dark py-[clamp(72px,11vw,150px)] text-on-dark">
         <div className="cine-container">
-          <motion.div {...revealHeading()} className="mb-16 max-w-3xl">
-            <p className="kicker mb-6 !text-accent">Come lavoriamo</p>
-            <h2 className="text-h2 font-semibold">
-              Un metodo leggibile,
-              <span className="font-drama font-normal italic text-accent"> serio da portare avanti.</span>
-            </h2>
-          </motion.div>
+          <div className="lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
+            {/* Left: sticky heading + drifting watermark index (lg+ pin; static stacked below) */}
+            <div className="mb-14 overflow-hidden lg:mb-0 lg:sticky lg:top-[clamp(100px,15vh,180px)] lg:self-start">
+              <motion.p {...reveal()} className="kicker mb-6 !text-accent">Come lavoriamo</motion.p>
+              <h2 className="text-h2 font-semibold">
+                <MaskReveal>
+                  Un metodo leggibile,
+                  <span className="font-drama font-normal italic text-accent"> serio da portare avanti.</span>
+                </MaskReveal>
+              </h2>
+            </div>
 
-          <div className="flex flex-col">
-            {service.approach.map((item, index) => {
-              const ItemIcon = item.icon;
-              return (
-                <motion.article
-                  key={item.title}
-                  {...reveal(index * 0.06)}
-                  className="grid gap-6 border-t border-white/12 py-10 first:border-0 first:pt-0 md:grid-cols-[auto_1fr] md:gap-12"
-                >
-                  <span className="font-mono text-4xl leading-none text-accent md:text-5xl">
-                    0{index + 1}
-                  </span>
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <ItemIcon className="h-5 w-5 text-accent" aria-hidden="true" />
-                      <h3 className="text-h3 font-semibold">{item.title}</h3>
-                    </div>
-                    <p className="mt-4 max-w-2xl text-body-lg leading-relaxed text-on-dark/80">
-                      {item.body}
-                    </p>
-                  </div>
-                </motion.article>
-              );
-            })}
+            {/* Right: steps scroll past the pin, each with a drifting index */}
+            <div className="flex flex-col">
+              {service.approach.map((item, index) => (
+                <ApproachStep key={item.title} item={item} index={index} reduced={reduced} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ============================= CASES ============================= */}
-      <section className="py-[clamp(72px,11vw,150px)]">
-        <div className="cine-container">
-          <motion.div {...revealHeading()} className="mb-14 max-w-3xl">
-            <p className="kicker mb-6">Quando può essere utile</p>
+      <section className="relative overflow-hidden py-[clamp(72px,11vw,150px)]">
+        <div className="relative cine-container">
+
+          <div className="mb-14 max-w-3xl">
+            <motion.p {...reveal()} className="kicker mb-6">Quando può essere utile</motion.p>
             <h2 className="text-h2 font-semibold text-ink">
-              Capire il momento giusto
-              <span className="font-drama font-normal italic text-accent"> fa già parte della cura.</span>
+              <MaskReveal>
+                Capire il momento giusto
+                <span className="font-drama font-normal italic text-accent"> fa già parte della cura.</span>
+              </MaskReveal>
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid gap-6 md:grid-cols-3">
             {service.cases.map((item, index) => {
@@ -438,25 +549,26 @@ export const ServizioDetail = () => {
       {/* ============================= SPECIALISTS ============================= */}
       <section className="py-[clamp(72px,11vw,150px)]">
         <div className="cine-container">
-          <motion.div
-            {...revealHeading()}
-            className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
-          >
+          <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <p className="kicker mb-6">Chi ti segue</p>
+              <motion.p {...reveal()} className="kicker mb-6">Chi ti segue</motion.p>
               <h2 className="text-h2 font-semibold text-ink">
-                Le persone che accompagnano
-                <span className="font-drama font-normal italic text-accent"> questo percorso.</span>
+                <MaskReveal>
+                  Le persone che accompagnano
+                  <span className="font-drama font-normal italic text-accent"> questo percorso.</span>
+                </MaskReveal>
               </h2>
             </div>
-            <Link
-              to="/chi-siamo"
-              className="inline-flex items-center gap-2 text-body-sm font-semibold text-ink transition-colors hover:text-accent"
-            >
-              Conosci tutto il team
-              <ArrowUpRight className="h-4 w-4 text-accent" />
-            </Link>
-          </motion.div>
+            <motion.div {...reveal(0.1)}>
+              <Link
+                to="/chi-siamo"
+                className="inline-flex items-center gap-2 text-body-sm font-semibold text-ink transition-colors hover:text-accent"
+              >
+                Conosci tutto il team
+                <ArrowUpRight className="h-4 w-4 text-accent" />
+              </Link>
+            </motion.div>
+          </div>
 
           <div className={`grid gap-6 ${service.specialists.length > 1 ? 'lg:grid-cols-2' : ''}`}>
             {service.specialists.map((specialist, index) => (
@@ -492,13 +604,15 @@ export const ServizioDetail = () => {
       <section className="py-[clamp(72px,11vw,150px)]">
         <div className="cine-container">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
-            <motion.div {...revealHeading()} className="lg:sticky lg:top-28 lg:self-start">
-              <p className="kicker mb-6">Domande frequenti</p>
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <motion.p {...reveal()} className="kicker mb-6">Domande frequenti</motion.p>
               <h2 className="text-h2 font-semibold text-ink">
-                Le risposte che servono
-                <span className="font-drama font-normal italic text-accent"> prima di iniziare.</span>
+                <MaskReveal>
+                  Le risposte che servono
+                  <span className="font-drama font-normal italic text-accent"> prima di iniziare.</span>
+                </MaskReveal>
               </h2>
-            </motion.div>
+            </div>
             <motion.div {...reveal(0.08)}>
               <FAQAccordion faqs={service.faqs} />
             </motion.div>
@@ -507,40 +621,22 @@ export const ServizioDetail = () => {
       </section>
 
       {/* ============================= RELATED ============================= */}
-      <section className="pb-[clamp(72px,11vw,150px)]">
-        <div className="cine-container">
-          <motion.div {...revealHeading()} className="mb-14 max-w-3xl">
-            <p className="kicker mb-6">Altri percorsi</p>
+      <section className="relative overflow-hidden pb-[clamp(72px,11vw,150px)]">
+        <div className="relative cine-container">
+
+          <div className="mb-14 max-w-3xl">
+            <motion.p {...reveal()} className="kicker mb-6">Altri percorsi</motion.p>
             <h2 className="text-h2 font-semibold text-ink">
-              Se il tuo bisogno è vicino,
-              <span className="font-drama font-normal italic text-accent"> guarda anche qui.</span>
+              <MaskReveal>
+                Se il tuo bisogno è vicino,
+                <span className="font-drama font-normal italic text-accent"> guarda anche qui.</span>
+              </MaskReveal>
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid gap-6 md:grid-cols-3">
             {relatedServices.map((item, index) => (
-              <motion.div key={item.id} {...reveal(index * 0.06)}>
-                <Link
-                  to={`/servizi/${item.id}`}
-                  className="group block overflow-hidden rounded-card-lg border border-line bg-bone-2"
-                >
-                  <RevealMedia
-                    src={item.image}
-                    alt={item.imageAlt}
-                    index={index}
-                    className="aspect-[16/11] w-full"
-                  />
-                  <div className="p-7 md:p-8">
-                    <p className="text-eyebrow font-medium uppercase text-ink-muted">{item.label}</p>
-                    <h3 className="mt-3 text-h3 font-semibold text-ink">{item.title}</h3>
-                    <p className="mt-4 text-body leading-relaxed text-ink-soft">{item.summary}</p>
-                    <span className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-ink transition-colors group-hover:text-accent">
-                      Scopri il percorso
-                      <ArrowUpRight className="h-4 w-4 text-accent" />
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
+              <RelatedCard key={item.id} item={item} index={index} reduced={reduced} />
             ))}
           </div>
         </div>

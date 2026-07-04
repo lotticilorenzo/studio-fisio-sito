@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import {
   motion,
   useScroll,
@@ -200,6 +200,72 @@ const StaticGallery = () => (
   </div>
 );
 
+/* ----------------------------------------------------------------------------
+ * Motion helpers (transform-only, inert under reduced motion)
+ * -------------------------------------------------------------------------- */
+
+/** Subtle vertical scroll-parallax wrapper. No horizontal shift; y-only. */
+const Parallax = ({
+  children,
+  className,
+  from = 40,
+  to = -40,
+}: {
+  children: ReactNode;
+  className?: string;
+  from?: number;
+  to?: number;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], [from, to]);
+
+  if (reduced) return <div className={className}>{children}</div>;
+  return (
+    <motion.div ref={ref} style={{ y }} className={`will-change-transform ${className ?? ''}`}>
+      {children}
+    </motion.div>
+  );
+};
+
+/**
+ * Portrait with the "Soglia" entrance (RevealMedia) PLUS a genuine in-frame
+ * scroll parallax: the picture sits slightly taller than its frame and drifts
+ * vertically as the section scrolls, so it never exposes a gap. The frame keeps
+ * the aspect ratio; only transform/opacity move. Inert under reduced motion.
+ */
+const PortraitReveal = ({
+  src,
+  alt,
+  aspect,
+  index = 0,
+  amount = 26,
+}: {
+  src: string;
+  alt: string;
+  aspect: string;
+  index?: number;
+  amount?: number;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], [amount, -amount]);
+  const pad = amount + 4;
+
+  return (
+    <div ref={ref} className={`relative w-full overflow-hidden ${aspect}`}>
+      <motion.div
+        className="absolute inset-x-0 will-change-transform"
+        style={{ top: -pad, height: `calc(100% + ${pad * 2}px)`, ...(reduced ? {} : { y }) }}
+      >
+        <RevealMedia src={src} alt={alt} index={index} className="h-full w-full" />
+      </motion.div>
+    </div>
+  );
+};
+
 export const ChiSiamo = () => {
   useSEO({
     title: 'Chi siamo | Studio Fisyo - Fisioterapia a Felino',
@@ -258,13 +324,15 @@ export const ChiSiamo = () => {
             </motion.p>
           </div>
 
-          <RevealPanel
-            src={`${IMG}fototeamstudiofisyo.webp`}
-            alt="Il team dello Studio Fisyo a Felino."
-            panel="bone"
-            priority
-            className="aspect-[4/3] w-full rounded-card-lg"
-          />
+          <Parallax from={44} to={-44}>
+            <RevealPanel
+              src={`${IMG}fototeamstudiofisyo.webp`}
+              alt="Il team dello Studio Fisyo a Felino."
+              panel="bone"
+              priority
+              className="aspect-[4/3] w-full rounded-card-lg"
+            />
+          </Parallax>
         </div>
       </section>
 
@@ -306,10 +374,12 @@ export const ChiSiamo = () => {
             {method.map((item, index) => (
               <motion.div
                 key={item.step}
-                {...reveal(index * 0.08)}
+                {...reveal(index * 0.12)}
                 className="bg-background p-8 md:p-10"
               >
-                <p className="font-mono text-sm tracking-[0.24em] text-accent">{item.step}</p>
+                <Parallax from={16} to={-16} className="inline-block">
+                  <p className="font-mono text-sm tracking-[0.24em] text-accent">{item.step}</p>
+                </Parallax>
                 <h3 className="mt-5 text-2xl font-semibold tracking-[-0.03em] text-ink">
                   {item.title}
                 </h3>
@@ -348,17 +418,18 @@ export const ChiSiamo = () => {
             {founders.map((member, idx) => (
               <motion.article
                 key={member.name}
-                {...reveal(idx * 0.08)}
+                {...reveal(idx * 0.14)}
                 className="overflow-hidden rounded-card-lg border border-line bg-bone-2 shadow-card-lg"
               >
                 <div className="relative">
-                  <RevealMedia
+                  <PortraitReveal
                     src={member.image}
                     alt={`${member.name}, ${member.role} dello Studio Fisyo.`}
                     index={idx}
-                    className="aspect-[16/11] w-full"
+                    aspect="aspect-[16/11]"
+                    amount={30}
                   />
-                  <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-background/90 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-ink backdrop-blur-md">
+                  <span className="absolute left-5 top-5 z-10 inline-flex items-center gap-2 rounded-full bg-background/90 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-ink backdrop-blur-md">
                     <span className="h-1 w-1 rounded-full bg-accent" />
                     Founder
                   </span>
@@ -379,14 +450,15 @@ export const ChiSiamo = () => {
             {rest.map((member, idx) => (
               <motion.article
                 key={member.name}
-                {...reveal(0.05 * idx)}
+                {...reveal(0.09 * idx)}
                 className="overflow-hidden rounded-card-md border border-line bg-bone-2 shadow-card-sm"
               >
-                <RevealMedia
+                <PortraitReveal
                   src={member.image}
                   alt={`${member.name}, ${member.role} dello Studio Fisyo.`}
                   index={idx}
-                  className="aspect-[4/5] w-full"
+                  aspect="aspect-[4/5]"
+                  amount={idx % 2 === 0 ? 26 : 18}
                 />
                 <div className="p-6">
                   <p className="text-eyebrow font-semibold uppercase text-accent-deep">{member.role}</p>

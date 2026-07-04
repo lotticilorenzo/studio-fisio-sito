@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState, Fragment } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, MapPin, PhoneCall } from 'lucide-react';
 
@@ -62,6 +62,125 @@ const visitSteps = [
   },
 ];
 
+// Staggered depth for the 4 percorsi cards — different small y amplitudes (px)
+// so each card drifts at its own rate as it crosses the viewport.
+const cardParallax = [22, 42, 30, 48];
+
+/** One percorso card with its own scroll-driven depth parallax (transform-only). */
+const PercorsoCard = ({
+  service,
+  index,
+}: {
+  service: (typeof featuredServices)[number];
+  index: number;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const amp = cardParallax[index % cardParallax.length];
+  const y = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [amp, -amp]);
+
+  return (
+    // Outer wrapper is measured (never transformed) so parallax can't feed back.
+    <div ref={ref}>
+      <motion.div style={{ y }}>
+        <Link
+          to={`/servizi/${service.id}`}
+          className="group relative block overflow-hidden rounded-card-lg"
+        >
+          <RevealMedia
+            src={service.image}
+            alt={service.imageAlt}
+            index={index % 2}
+            className="aspect-[4/5] w-full sm:aspect-[16/13]"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(20,28,24,0.9)_0%,rgba(20,28,24,0.28)_46%,transparent_72%)]" />
+          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7 text-on-dark md:p-9">
+            <div className="max-w-md">
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
+                {service.label}
+              </p>
+              <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.03em] md:text-3xl">
+                {service.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-on-dark/80">{service.summary}</p>
+            </div>
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/25 text-on-dark transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-ink">
+              <ArrowUpRight className="h-5 w-5" />
+            </span>
+          </div>
+        </Link>
+      </motion.div>
+    </div>
+  );
+};
+
+// Signature slow-scroll beat: the closing statement pins (lg+) while its words
+// resolve one-by-one as you scroll through it. Mobile / reduced-motion get the
+// static <Statement/> instead.
+const statementWords: { t: string; em?: boolean }[] = [
+  { t: 'Curiamo' },
+  { t: 'il' },
+  { t: 'percorso,' },
+  { t: 'non', em: true },
+  { t: 'solo', em: true },
+  { t: 'il', em: true },
+  { t: 'sintomo.', em: true },
+];
+
+const ScrubWord = ({
+  progress,
+  start,
+  end,
+  children,
+  em,
+}: {
+  progress: MotionValue<number>;
+  start: number;
+  end: number;
+  children: string;
+  em?: boolean;
+}) => {
+  const opacity = useTransform(progress, [start, end], [0.16, 1]);
+  const y = useTransform(progress, [start, end], ['0.34em', '0em']);
+  return (
+    <motion.span className="inline-block" style={{ opacity, y }}>
+      {em ? <em>{children}</em> : children}
+    </motion.span>
+  );
+};
+
+const ScrubStatement = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  return (
+    <div className="hidden lg:block">
+      <section className="statement">
+        <div ref={ref} className="relative h-[190vh]">
+          <div className="sticky top-0 flex min-h-screen items-center">
+            <div className="cine-container">
+              <span className="kicker mb-8 block">Il nostro modo</span>
+              <p className="quote">
+                {statementWords.map((w, i) => {
+                  const start = 0.06 + (i / statementWords.length) * 0.62;
+                  const end = Math.min(start + 0.26, 1);
+                  return (
+                    <Fragment key={i}>
+                      <ScrubWord progress={scrollYProgress} start={start} end={end} em={w.em}>
+                        {w.t}
+                      </ScrubWord>{' '}
+                    </Fragment>
+                  );
+                })}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 export const Home = () => {
   useSEO({
     title: 'Fisioterapia a Felino | Studio Fisyo',
@@ -102,6 +221,18 @@ export const Home = () => {
   });
   const heroY = useTransform(heroProgress, [0, 1], reduced ? ['0%', '0%'] : ['0%', '14%']);
   const heroFade = useTransform(heroProgress, [0, 0.8], [1, 0]);
+
+  // Manifesto image: gentle scroll parallax drift (transform-only, guarded).
+  const manifestoRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: manifestoProgress } = useScroll({
+    target: manifestoRef,
+    offset: ['start end', 'end start'],
+  });
+  const manifestoY = useTransform(
+    manifestoProgress,
+    [0, 1],
+    reduced ? ['0px', '0px'] : ['40px', '-40px'],
+  );
 
   useEffect(() => {
     if (reduced) return;
@@ -220,7 +351,7 @@ export const Home = () => {
       </div>
 
       {/* ============================= MANIFESTO ============================= */}
-      <section className="px-0 py-[clamp(72px,11vw,150px)]">
+      <section ref={manifestoRef} className="px-0 py-[clamp(72px,11vw,150px)]">
         <div className="cine-container grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-20">
           <div>
             <p className="kicker mb-6">Lo studio</p>
@@ -244,12 +375,14 @@ export const Home = () => {
             </Link>
           </div>
 
-          <RevealPanel
-            src="/images/real/img_5154.webp"
-            alt="Una professionista dello Studio Fisyo negli spazi dello studio a Felino."
-            panel="bone"
-            className="aspect-[4/5] w-full rounded-card-lg"
-          />
+          <motion.div style={{ y: manifestoY }} className="w-full will-change-transform">
+            <RevealPanel
+              src="/images/real/img_5154.webp"
+              alt="Una professionista dello Studio Fisyo negli spazi dello studio a Felino."
+              panel="bone"
+              className="aspect-[4/5] w-full rounded-card-lg"
+            />
+          </motion.div>
         </div>
       </section>
 
@@ -268,33 +401,7 @@ export const Home = () => {
 
           <div className="grid gap-6 sm:grid-cols-2">
             {featuredServices.map((service, index) => (
-              <Link
-                key={service.id}
-                to={`/servizi/${service.id}`}
-                className="group relative block overflow-hidden rounded-card-lg"
-              >
-                <RevealMedia
-                  src={service.image}
-                  alt={service.imageAlt}
-                  index={index % 2}
-                  className="aspect-[4/5] w-full sm:aspect-[16/13]"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(20,28,24,0.9)_0%,rgba(20,28,24,0.28)_46%,transparent_72%)]" />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7 text-on-dark md:p-9">
-                  <div className="max-w-md">
-                    <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
-                      {service.label}
-                    </p>
-                    <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.03em] md:text-3xl">
-                      {service.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-on-dark/80">{service.summary}</p>
-                  </div>
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/25 text-on-dark transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-ink">
-                    <ArrowUpRight className="h-5 w-5" />
-                  </span>
-                </div>
-              </Link>
+              <PercorsoCard key={service.id} service={service} index={index} />
             ))}
           </div>
 
@@ -377,9 +484,22 @@ export const Home = () => {
       </section>
 
       {/* ============================= STATEMENT ============================= */}
-      <Statement kicker="Il nostro modo">
-        Curiamo il percorso, <em>non solo il sintomo.</em>
-      </Statement>
+      {reduced ? (
+        <Statement kicker="Il nostro modo">
+          Curiamo il percorso, <em>non solo il sintomo.</em>
+        </Statement>
+      ) : (
+        <>
+          {/* Mobile / static: unchanged editorial statement */}
+          <div className="lg:hidden">
+            <Statement kicker="Il nostro modo">
+              Curiamo il percorso, <em>non solo il sintomo.</em>
+            </Statement>
+          </div>
+          {/* lg+: pinned, word-by-word scrubbed reveal */}
+          <ScrubStatement />
+        </>
+      )}
 
       <Testimonials />
       <FAQ />
