@@ -1,9 +1,13 @@
 export const ease = {
-  out:   [0.16, 1, 0.3, 1]  as [number,number,number,number],
-  page:  [0.22, 1, 0.36, 1] as [number,number,number,number],
-  in:    [0.4,  0, 1,   0.6] as [number,number,number,number],
-  inOut: [0.4,  0, 0.2, 1]   as [number,number,number,number],
-  sharp: [0.32, 0, 0.67, 0]  as [number,number,number,number],
+  out:     [0.16, 1, 0.3, 1]  as [number,number,number,number],
+  page:    [0.22, 1, 0.36, 1] as [number,number,number,number],
+  in:      [0.4,  0, 1,   0.6] as [number,number,number,number],
+  inOut:   [0.4,  0, 0.2, 1]   as [number,number,number,number],
+  sharp:   [0.32, 0, 0.67, 0]  as [number,number,number,number],
+  // Cinematic curves (ROXAM DNA) — used by the reveal/curtain systems.
+  soft:    [0.5,  0, 0.3, 1]   as [number,number,number,number], // weighted start + feathered tail (Sipario panel)
+  curtain: [0.76, 0, 0.24, 1]  as [number,number,number,number], // architectural covers / page curtain
+  expoIn:  [0.7,  0, 0.84, 0]  as [number,number,number,number], // accelerating exits (mask-up out)
 } as const;
 
 export const duration = {

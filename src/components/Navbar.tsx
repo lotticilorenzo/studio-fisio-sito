@@ -54,8 +54,8 @@ export const Navbar = () => {
   const desktopClasses = useMemo(
     () =>
       isScrolled
-        ? 'border-primary/10 bg-[rgba(248,244,237,0.8)] shadow-card-sm backdrop-blur-xl'
-        : 'border-primary/8 bg-[rgba(248,244,237,0.62)] backdrop-blur-lg',
+        ? 'border-primary/10 bg-[rgba(248,244,237,0.94)] shadow-card-sm backdrop-blur-xl'
+        : 'border-primary/10 bg-[rgba(248,244,237,0.93)] shadow-card-sm backdrop-blur-xl',
     [isScrolled],
   );
 
@@ -85,7 +85,7 @@ export const Navbar = () => {
               />
               <div className="hidden sm:block">
                 <p className="text-sm font-semibold tracking-[-0.03em] text-primary">Studio Fisyo</p>
-                <p className="text-xs text-ink-muted">Felino, Parma</p>
+                <p className="text-xs text-ink-soft">Felino, Parma</p>
               </div>
             </Link>
 
