@@ -26,7 +26,7 @@ const Roll = ({ children }: { children: string }) => (
 export const CTA = () => {
   return (
     <section id="prenota" className="bg-dark text-on-dark">
-      <div className="cine-container py-[clamp(80px,13vw,170px)]">
+      <div className="cine-container py-[clamp(64px,10vw,128px)]">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -204,16 +204,16 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Real logo — full-bleed light base strip closing the footer */}
-      <div className="bg-white px-6 py-[clamp(2.25rem,5vw,4.5rem)]">
+      {/* Real logo — warm bone base strip closing the footer */}
+      <div className="bg-background px-6 py-[clamp(1.6rem,3.4vw,2.75rem)]">
         <img
-          src="/images/logo-fisyo-wide.png"
+          src="/images/logo-fisyo-bone.png"
           alt="Studio Fisyo"
           width={387}
           height={124}
           loading="lazy"
           decoding="async"
-          className="mx-auto h-auto w-[min(86%,780px)]"
+          className="mx-auto h-auto w-[min(66%,520px)]"
         />
       </div>
     </footer>

@@ -442,7 +442,7 @@ export const ServizioDetail = () => {
       </section>
 
       {/* ============================= INTRO ============================= */}
-      <section className="relative overflow-hidden py-[clamp(72px,11vw,150px)]">
+      <section className="relative overflow-hidden py-[clamp(56px,8vw,112px)]">
         <div className="relative cine-container">
 
           <div className="mb-14 max-w-3xl">
@@ -489,7 +489,7 @@ export const ServizioDetail = () => {
       </section>
 
       {/* ============================= APPROACH (DARK) — signature pinned beat ============================= */}
-      <section className="bg-dark py-[clamp(72px,11vw,150px)] text-on-dark">
+      <section className="bg-dark py-[clamp(56px,8vw,112px)] text-on-dark">
         <div className="cine-container">
           <div className="lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
             {/* Left: sticky heading + drifting watermark index (lg+ pin; static stacked below) */}
@@ -514,7 +514,7 @@ export const ServizioDetail = () => {
       </section>
 
       {/* ============================= CASES ============================= */}
-      <section className="relative overflow-hidden py-[clamp(72px,11vw,150px)]">
+      <section className="relative overflow-hidden py-[clamp(56px,8vw,112px)]">
         <div className="relative cine-container">
 
           <div className="mb-14 max-w-3xl">
@@ -547,7 +547,7 @@ export const ServizioDetail = () => {
       </section>
 
       {/* ============================= SPECIALISTS ============================= */}
-      <section className="py-[clamp(72px,11vw,150px)]">
+      <section className="py-[clamp(56px,8vw,112px)]">
         <div className="cine-container">
           <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
@@ -601,7 +601,7 @@ export const ServizioDetail = () => {
       </section>
 
       {/* ============================= FAQ ============================= */}
-      <section className="py-[clamp(72px,11vw,150px)]">
+      <section className="py-[clamp(56px,8vw,112px)]">
         <div className="cine-container">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
             <div className="lg:sticky lg:top-28 lg:self-start">

@@ -61,7 +61,7 @@ export const Testimonials = () => {
   const featuredY = useTransform(scrollYProgress, [0, 1], reduced ? ['0px', '0px'] : ['44px', '-44px']);
 
   return (
-    <section className="px-0 py-[clamp(72px,11vw,150px)]">
+    <section className="px-0 py-[clamp(56px,8vw,112px)]">
       <div className="cine-container">
         {/* ---- Section header ---- */}
         <div className="mb-14 flex flex-col gap-6 lg:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-12">

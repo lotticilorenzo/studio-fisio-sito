@@ -94,7 +94,7 @@ export const FAQ = () => {
   return (
     <section
       aria-labelledby="faq-heading"
-      className="bg-background py-[clamp(72px,11vw,150px)]"
+      className="bg-background py-[clamp(56px,8vw,112px)]"
     >
       <div className="cine-container grid gap-x-16 gap-y-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-x-24">
         {/* ---- Sticky editorial heading ---- */}

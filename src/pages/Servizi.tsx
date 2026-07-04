@@ -281,7 +281,7 @@ export const Servizi = () => {
       </div>
 
       {/* ====================== SIGNATURE — L'INDICE ====================== */}
-      <section className="py-[clamp(72px,11vw,150px)]">
+      <section className="py-[clamp(56px,8vw,112px)]">
         <div className="cine-container">
           <motion.div {...revealHeading()} className="mb-14 max-w-3xl md:mb-20">
             <p className="kicker mb-6">L'indice</p>
