@@ -50,10 +50,10 @@ const method = [
 const spaces = [
   { img: 'fototeamstudiofisyo.webp', alt: 'Il team completo dello Studio Fisyo.' },
   { img: 'internistudiofisyo2.webp', alt: 'Una sala di trattamento dello Studio Fisyo.' },
-  { img: 'accoglienza.webp', alt: "L'accoglienza dello Studio Fisyo a Felino." },
-  { img: 'internistudiofisyo_reception.webp', alt: 'La reception e gli spazi interni dello studio.' },
+  { img: 'img_5137.webp', alt: 'Due professioniste dello Studio Fisyo a Felino.' },
+  { img: 'img_6218.webp', alt: 'Il corridoio interno dello Studio Fisyo.' },
   { img: 'esternistudiofisyo.webp', alt: "L'esterno dello Studio Fisyo a Felino." },
-  { img: 'fisioterapia_studio_fisyo.webp', alt: 'Una seduta di fisioterapia nello studio.' },
+  { img: 'fisioterapia-manuale-studio-fisyo-parma.webp', alt: 'Una seduta di fisioterapia nello studio.' },
 ] as const;
 
 const team = [
@@ -119,10 +119,10 @@ const tiles: TileConfig[] = [
   // Foto centrale (il team) — cresce fino a riempire lo schermo, non sfuma.
   { img: 'fototeamstudiofisyo.webp', x: '0vw', y: '0vh', from: 0.62, to: 3.6, fade: [0.98, 1], z: 5, size: 'w-[clamp(220px,32vw,520px)]', aspect: 'aspect-[16/10]' },
   { img: 'internistudiofisyo2.webp', x: '-64vw', y: '-46vh', from: 0.42, to: 1.9, fade: [0.62, 0.86], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
-  { img: 'accoglienza.webp', x: '64vw', y: '-40vh', from: 0.4, to: 1.85, fade: [0.6, 0.84], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
-  { img: 'internistudiofisyo_reception.webp', x: '-66vw', y: '48vh', from: 0.44, to: 2.0, fade: [0.64, 0.88], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
+  { img: 'img_5137.webp', x: '64vw', y: '-40vh', from: 0.4, to: 1.85, fade: [0.6, 0.84], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
+  { img: 'img_6218.webp', x: '-66vw', y: '48vh', from: 0.44, to: 2.0, fade: [0.64, 0.88], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
   { img: 'esternistudiofisyo.webp', x: '62vw', y: '50vh', from: 0.4, to: 1.9, fade: [0.6, 0.85], z: 2, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[4/5]' },
-  { img: 'fisioterapia_studio_fisyo.webp', x: '0vw', y: '-62vh', from: 0.5, to: 2.2, fade: [0.55, 0.8], z: 1, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[16/10]' },
+  { img: 'fisioterapia-manuale-studio-fisyo-parma.webp', x: '0vw', y: '-62vh', from: 0.5, to: 2.2, fade: [0.55, 0.8], z: 1, size: 'w-[clamp(150px,22vw,340px)]', aspect: 'aspect-[16/10]' },
 ];
 
 const ZoomTile = ({ progress, cfg }: { progress: MotionValue<number>; cfg: TileConfig }) => {
