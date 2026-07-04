@@ -1,82 +1,117 @@
-﻿import { useState } from 'react';
+import { useId, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Reveal } from './Reveal';
 import { MaskReveal } from './MaskReveal';
+import { reveal, revealHeading, ease, duration } from '../lib/motion';
 import { waUrl } from '../config/constants';
 import { homepageFaqs } from '../data/homepageFaqs';
 
 const FAQItem = ({
   question,
   answer,
+  number,
   isOpen,
   onToggle,
-  number,
+  index,
 }: {
   question: string;
   answer: string;
+  number: string;
   isOpen: boolean;
   onToggle: () => void;
-  number: string;
-}) => (
-  <div
-    className={`overflow-hidden rounded-card-sm border border-primary/8 backdrop-blur-xl transition-colors duration-200 ${
-      isOpen ? 'border-l-2 border-l-accent bg-surface' : 'bg-white/78'
-    }`}
-  >
-    <button
-      onClick={onToggle}
-      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-white/40"
-      aria-expanded={isOpen}
-    >
-      <span className="text-base font-medium leading-snug text-primary md:text-lg">
-        <span className="mr-3 font-mono text-xs text-accent">{number}</span>
-        {question}
-      </span>
-      <motion.div
-        animate={{ rotate: isOpen ? 45 : 0 }}
-        transition={{ duration: 0.22, ease: 'easeInOut' }}
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/12"
-      >
-        <svg className="h-3.5 w-3.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.4}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-        </svg>
-      </motion.div>
-    </button>
-    <AnimatePresence initial={false}>
-      {isOpen && (
-        <motion.div
-          key="content"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
-          className="overflow-hidden"
+  index: number;
+}) => {
+  const uid = useId();
+  const triggerId = `faq-trigger-${uid}`;
+  const panelId = `faq-panel-${uid}`;
+
+  return (
+    <motion.div {...reveal(Math.min(index * 0.06, 0.3))} className="border-b border-line">
+      <h3 className="m-0">
+        <button
+          id={triggerId}
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          className="group flex w-full items-start justify-between gap-5 py-6 text-left"
         >
-          <p className="border-t border-primary/6 px-6 pb-6 pt-4 text-base leading-relaxed text-ink-soft">
-            {answer}
-          </p>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
-);
+          <span className="flex items-baseline gap-4 md:gap-5">
+            <span
+              aria-hidden="true"
+              className="font-mono text-sm tabular-nums text-accent-deep"
+            >
+              {number}
+            </span>
+            <span className="text-lg font-medium leading-snug tracking-[-0.01em] text-ink md:text-xl">
+              {question}
+            </span>
+          </span>
+
+          {/* plus → minus toggle (decorative; state is conveyed by aria-expanded) */}
+          <span
+            aria-hidden="true"
+            className="relative mt-1 flex h-9 w-9 shrink-0 items-center justify-center"
+          >
+            <span className="absolute h-px w-3.5 bg-ink transition-colors duration-300 group-hover:bg-accent-deep" />
+            <motion.span
+              className="absolute h-px w-3.5 bg-ink transition-colors duration-300 group-hover:bg-accent-deep"
+              animate={{ rotate: isOpen ? 0 : 90 }}
+              transition={{ duration: duration.fast, ease: ease.out }}
+            />
+          </span>
+        </button>
+      </h3>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            key="content"
+            id={panelId}
+            role="region"
+            aria-labelledby={triggerId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              height: { duration: 0.42, ease: ease.out },
+              opacity: { duration: 0.28, ease: ease.out },
+            }}
+            className="overflow-hidden"
+          >
+            <p className="max-w-2xl pb-7 pl-8 pr-6 text-base leading-relaxed text-ink-soft md:pl-9 md:text-lg">
+              {answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
 
 export const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="px-6 py-24 lg:px-12 lg:py-32">
-      <div className="mx-auto grid max-w-7xl 2xl:max-w-[1600px] gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <Reveal width="100%">
-          <div className="lg:sticky lg:top-28">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
-              Domande frequenti
-            </p>
-            <h2 className="max-w-xl text-h2 font-semibold text-primary">
-              <MaskReveal>Le cose che conviene sapere prima di iniziare.</MaskReveal>
-            </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
-              Se non trovi qui la risposta che cerchi, puoi scriverci. Ti rispondiamo
+    <section
+      aria-labelledby="faq-heading"
+      className="bg-background py-[clamp(72px,11vw,150px)]"
+    >
+      <div className="cine-container grid gap-x-16 gap-y-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-x-24">
+        {/* ---- Sticky editorial heading ---- */}
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <motion.p {...reveal()} className="kicker mb-6">
+            Domande frequenti
+          </motion.p>
+          <h2 id="faq-heading" className="text-h2 font-semibold text-ink">
+            <MaskReveal>
+              Le cose che conviene sapere
+              <span className="font-drama font-normal italic text-accent"> prima di iniziare.</span>
+            </MaskReveal>
+          </h2>
+
+          <motion.div {...revealHeading(0.08)}>
+            <p className="mt-8 max-w-md text-lg leading-relaxed text-ink-soft">
+              Se non trovi qui la risposta che cerchi, scrivici pure. Ti rispondiamo
               in modo diretto e senza giri.
             </p>
 
@@ -84,24 +119,35 @@ export const FAQ = () => {
               href={waUrl('Ciao Studio Fisyo, avrei una domanda.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-background transition-colors hover:bg-[#1c2822]"
+              className="btn mt-10"
             >
               Chiedici su WhatsApp
+              <svg
+                className="arr h-4 w-4"
+                aria-hidden="true"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7v9" />
+              </svg>
             </a>
-          </div>
-        </Reveal>
+          </motion.div>
+        </div>
 
-        <div className="flex flex-col gap-3">
+        {/* ---- Accordion ---- */}
+        <div className="border-t border-line">
           {homepageFaqs.map((faq, index) => (
-            <Reveal key={faq.q} width="100%" delay={index * 0.04}>
-              <FAQItem
-                question={faq.q}
-                answer={faq.a}
-                isOpen={openIndex === index}
-                onToggle={() => setOpenIndex(openIndex === index ? null : index)}
-                number={`0${index + 1}`}
-              />
-            </Reveal>
+            <FAQItem
+              key={faq.q}
+              question={faq.q}
+              answer={faq.a}
+              number={`0${index + 1}`}
+              index={index}
+              isOpen={openIndex === index}
+              onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+            />
           ))}
         </div>
       </div>

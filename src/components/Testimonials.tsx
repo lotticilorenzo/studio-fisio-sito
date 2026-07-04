@@ -1,8 +1,10 @@
-﻿import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { STUDIO } from '../config/constants';
-import { InteractiveSurface } from './InteractiveSurface';
 import { Counter } from './Counter';
 import { MaskReveal } from './MaskReveal';
+import { reveal, revealHeading, viewport, ease } from '../lib/motion';
 
 const trustPoints: Array<{ num?: number; decimals?: number; suffix?: string; label?: string }> = [
   { num: 5, decimals: 1, suffix: ' su Google' },
@@ -31,50 +33,64 @@ const testimonials = [
   },
 ];
 
+/** Valutazione 5/5 — gold stars with an accessible label (decorative glyphs hidden). */
+const Stars = ({ className = '' }: { className?: string }) => (
+  <span
+    role="img"
+    aria-label="Valutazione: 5 stelle su 5"
+    className={`inline-flex items-center gap-1.5 text-accent ${className}`}
+  >
+    {Array.from({ length: 5 }).map((_, i) => (
+      <span key={i} aria-hidden="true">
+        ★
+      </span>
+    ))}
+  </span>
+);
+
 export const Testimonials = () => {
+  const reduced = useReducedMotion();
+
+  // Featured quote: gentle transform-only scroll parallax (measured wrapper never
+  // transforms, so the drift can't feed back into the measurement).
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: featuredRef,
+    offset: ['start end', 'end start'],
+  });
+  const featuredY = useTransform(scrollYProgress, [0, 1], reduced ? ['0px', '0px'] : ['44px', '-44px']);
+
   return (
-    <section className="relative px-6 py-24 lg:px-12 lg:py-28">
-      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-14 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between"
-        >
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-ink-muted">
-              Recensioni
-            </p>
-            <h2 className="max-w-3xl text-h2 font-semibold text-primary">
+    <section className="px-0 py-[clamp(72px,11vw,150px)]">
+      <div className="cine-container">
+        {/* ---- Section header ---- */}
+        <div className="mb-14 flex flex-col gap-6 lg:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+          <motion.div {...revealHeading()} className="max-w-3xl">
+            <p className="kicker mb-6">Recensioni</p>
+            <h2 className="text-h2 font-semibold text-ink">
               <MaskReveal>
                 Le persone arrivano per un problema.
-                <span className="font-drama italic font-normal text-accent"> Restano per come si sentono seguite.</span>
+                <span className="font-drama font-normal italic text-accent"> Restano per come si sentono seguite.</span>
               </MaskReveal>
             </h2>
-          </div>
-          <p className="max-w-md text-base leading-relaxed text-ink-soft md:text-lg">
+          </motion.div>
+          <motion.p {...reveal(0.1)} className="max-w-md text-lg leading-relaxed text-ink-soft">
             Parole semplici, ma molto utili: quando tornano sempre le stesse, dicono qualcosa di
             vero sul modo in cui uno studio viene vissuto.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-10 flex flex-wrap gap-3"
-        >
+        {/* ---- Trust points ---- */}
+        <motion.div {...reveal(0.06)} className="mb-12 flex flex-wrap gap-3">
           {trustPoints.map((item) => (
             <span
               key={item.label ?? item.suffix}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/8 bg-white/72 px-4 py-2 text-sm font-medium text-ink-soft backdrop-blur-md"
+              className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink-soft"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
               {item.num != null ? (
                 <span>
-                  <Counter to={item.num} decimals={item.decimals ?? 0} className="font-semibold text-primary" />
+                  <Counter to={item.num} decimals={item.decimals ?? 0} className="font-semibold text-ink" />
                   {item.suffix}
                 </span>
               ) : (
@@ -84,80 +100,68 @@ export const Testimonials = () => {
           ))}
         </motion.div>
 
-        {/* Large featured testimonial */}
-        <motion.article
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <InteractiveSurface className="rounded-card-xl">
-            <div className="overflow-hidden rounded-card-xl border border-primary/10 bg-primary p-10 text-background shadow-card-xl md:p-12">
-              <div className="flex items-center gap-2">
-                {Array.from({ length: 5 }).map((_, starIndex) => (
-                  <span
-                    key={starIndex}
-                    className="inline-block h-2.5 w-2.5 rounded-full bg-accent"
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <blockquote className="mt-8 max-w-3xl text-2xl leading-relaxed text-background/82 md:text-3xl">
+        {/* ---- Featured testimonial — dramatic dark statement beat ---- */}
+        <div ref={featuredRef}>
+          <motion.div style={{ y: featuredY }} className="will-change-transform">
+            <motion.article
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewport.section}
+              transition={{ duration: 0.85, ease: ease.out }}
+              className="relative overflow-hidden rounded-card-xl bg-dark p-9 text-on-dark shadow-card-xl md:p-14 lg:p-16"
+            >
+              {/* Decorative oversized opening quote */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-6 right-6 font-drama text-[10rem] leading-none text-accent/20 md:right-10 md:text-[14rem]"
+              >
+                &rdquo;
+              </span>
+
+              <Stars className="text-lg" />
+
+              <blockquote className="relative mt-8 max-w-4xl font-drama text-[clamp(1.7rem,3.6vw,3.1rem)] font-normal italic leading-[1.15] tracking-[-0.01em] text-on-dark md:mt-10">
                 {testimonials[0].text}
               </blockquote>
-              <div className="mt-10 flex items-end justify-between border-t border-white/10 pt-6">
-                <div>
-                  <p className="font-semibold text-background">{testimonials[0].name}</p>
-                  <p className="mt-1 text-sm text-background/70">{testimonials[0].condition}</p>
-                </div>
-              </div>
-            </div>
-          </InteractiveSurface>
-        </motion.article>
 
-        {/* 2 smaller testimonials */}
-        <div className="mt-5 grid gap-5 md:grid-cols-2">
+              <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-white/12 pt-6 md:mt-12">
+                <span className="font-semibold text-on-dark">{testimonials[0].name}</span>
+                <span className="h-1 w-1 rounded-full bg-accent" aria-hidden="true" />
+                <span className="text-sm text-on-dark-mut">{testimonials[0].condition}</span>
+              </div>
+            </motion.article>
+          </motion.div>
+        </div>
+
+        {/* ---- Two supporting testimonials — calm editorial cards ---- */}
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
           {testimonials.slice(1).map((testimonial, index) => (
             <motion.article
               key={testimonial.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, delay: (index + 1) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              {...reveal(0.08 + index * 0.08)}
+              className="flex h-full flex-col rounded-card-lg border border-line bg-surface p-8 shadow-card-sm md:p-9"
             >
-              <InteractiveSurface className="h-full rounded-card-lg">
-                <div className="h-full overflow-hidden rounded-card-lg border border-primary/8 bg-white/80 p-7 text-primary shadow-card-md backdrop-blur-xl md:p-8">
-                  <div className="flex items-center gap-2">
-                    {Array.from({ length: 5 }).map((_, starIndex) => (
-                      <span
-                        key={starIndex}
-                        className="inline-block h-2 w-2 rounded-full bg-accent"
-                        aria-hidden="true"
-                      />
-                    ))}
-                  </div>
-                  <blockquote className="mt-6 text-lg leading-relaxed text-ink-soft">
-                    {testimonial.text}
-                  </blockquote>
-                  <div className="mt-6 border-t border-primary/8 pt-4">
-                    <p className="font-semibold text-primary">{testimonial.name}</p>
-                    <p className="mt-1 text-sm text-ink-muted">{testimonial.condition}</p>
-                  </div>
-                </div>
-              </InteractiveSurface>
+              <Stars />
+              <blockquote className="mt-6 flex-1 text-lg leading-relaxed text-ink-soft">
+                {testimonial.text}
+              </blockquote>
+              <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-line pt-5">
+                <span className="font-semibold text-ink">{testimonial.name}</span>
+                <span className="h-1 w-1 rounded-full bg-accent" aria-hidden="true" />
+                <span className="text-sm text-ink-muted">{testimonial.condition}</span>
+              </div>
             </motion.article>
           ))}
         </div>
 
-        <a
-          href={STUDIO.mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 inline-flex items-center gap-2 rounded-full border border-primary/8 bg-white/72 px-5 py-3 text-sm font-medium text-primary/80 transition-colors hover:bg-white hover:text-primary"
-        >
-          Leggi le recensioni su Google →
-          <span className="sr-only">(apre in una nuova scheda)</span>
-        </a>
+        {/* ---- Google reviews link ---- */}
+        <motion.div {...reveal(0.1)} className="mt-10">
+          <a href={STUDIO.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn ghost">
+            Leggi le recensioni su Google
+            <ArrowUpRight className="arr h-4 w-4" />
+            <span className="sr-only">(apre in una nuova scheda)</span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );
