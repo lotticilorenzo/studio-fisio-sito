@@ -203,6 +203,21 @@ export const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Giant brand wordmark — full-bleed closing mark (high-contrast, AA) */}
+      <div
+        role="img"
+        aria-label="Studio Fisyo"
+        className="select-none overflow-hidden px-4 pb-3 pt-2 text-center"
+      >
+        <span className="inline-flex items-center font-black leading-[0.8] tracking-[-0.05em] text-on-dark text-[clamp(4.5rem,27vw,23rem)]">
+          FIS
+          <span className="mx-[0.015em] inline-flex items-center justify-center rounded-[0.2em] bg-[#F2E70C] px-[0.07em] text-dark">
+            Y
+          </span>
+          O
+        </span>
+      </div>
     </footer>
   );
 };

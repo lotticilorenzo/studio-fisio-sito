@@ -145,8 +145,8 @@ export const Servizi = () => {
           </motion.div>
 
           <RevealPanel
-            src="/images/real/internistudiofisyo_reception.webp"
-            alt="La reception e gli spazi interni dello Studio Fisyo a Felino."
+            src="/images/real/internistudiofisyo2.webp"
+            alt="Gli spazi interni dello Studio Fisyo a Felino."
             panel="bone"
             priority
             className="aspect-[4/5] w-full rounded-card-lg"

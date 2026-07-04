@@ -378,8 +378,8 @@ export const Contatti = () => {
           >
             <div className="relative overflow-hidden rounded-card-lg border border-line shadow-card-lg">
               <img
-                src="/images/real/accoglienza.webp"
-                alt="Un momento di accoglienza allo Studio Fisyo a Felino."
+                src="/images/real/esternistudiofisyo.webp"
+                alt="L'ingresso dello Studio Fisyo a Felino, in Via Aldo Moro."
                 width={800}
                 height={600}
                 loading="eager"

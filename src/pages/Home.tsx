@@ -18,9 +18,9 @@ import { ease, duration, reveal, revealHeading } from '../lib/motion';
 import { STUDIO } from '../config/constants';
 
 const heroImages = [
-  '/images/real/fisioterapia_studio_fisyo.webp',
+  '/images/real/fisioterapia-manuale-studio-fisyo-parma.webp',
   '/images/real/internistudiofisyo2.webp',
-  '/images/real/accoglienza.webp',
+  '/images/real/img_6218.webp',
   '/images/real/fototeamstudiofisyo.webp',
 ];
 
@@ -43,8 +43,8 @@ const visitSteps = [
     step: '01',
     title: 'Capire il punto di partenza',
     text: 'La prima visita serve a leggere il problema e capire cosa merita davvero attenzione adesso.',
-    image: '/images/real/accoglienza.webp',
-    imageAlt: 'Un momento di valutazione clinica allo Studio Fisyo.',
+    image: '/images/real/img_5137.webp',
+    imageAlt: 'Le professioniste dello Studio Fisyo durante un confronto.',
   },
   {
     step: '02',
@@ -57,8 +57,8 @@ const visitSteps = [
     step: '03',
     title: 'Stare meglio anche fuori dallo studio',
     text: 'Trattamento, movimento e indicazioni pratiche per tornare alla tua vita, non solo a stare bene per un’ora.',
-    image: '/images/real/fisioterapia_studio_fisyo.webp',
-    imageAlt: 'Una seduta di fisioterapia nello Studio Fisyo.',
+    image: '/images/real/fisioterapia-manuale-studio-fisyo-parma.webp',
+    imageAlt: 'Una fisioterapista dello Studio Fisyo durante un trattamento.',
   },
 ];
 
@@ -245,8 +245,8 @@ export const Home = () => {
           </div>
 
           <RevealPanel
-            src="/images/real/internistudiofisyo_reception.webp"
-            alt="La reception e gli spazi interni dello Studio Fisyo."
+            src="/images/real/img_5154.webp"
+            alt="Una professionista dello Studio Fisyo negli spazi dello studio a Felino."
             panel="bone"
             className="aspect-[4/5] w-full rounded-card-lg"
           />

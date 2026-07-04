@@ -55,8 +55,8 @@ export const services: ServiceData[] = [
       'Valutazione, terapia manuale ed esercizio terapeutico dentro un percorso costruito sul tuo caso.',
     subtitle:
       'Per chi vuole togliere dolore, recuperare movimento e capire come non tornare sempre allo stesso punto.',
-    image: '/images/real/fisioterapia_studio_fisyo.webp',
-    imageAlt: 'Una fisioterapista al lavoro durante un trattamento manuale.',
+    image: '/images/real/fisioterapia-manuale-studio-fisyo-parma.webp',
+    imageAlt: 'Una fisioterapista dello Studio Fisyo durante un trattamento.',
     icon: GearIcon,
     highlights: ['Dolore acuto o cronico', 'Recupero post intervento', 'Lavoro attivo sul movimento'],
     intro: [
@@ -216,8 +216,8 @@ export const services: ServiceData[] = [
       'Uno spazio di lavoro riservato per pavimento pelvico, gravidanza, post-parto e benessere femminile.',
     subtitle:
       'Un percorso delicato, competente e rispettoso dei tempi con cui ogni donna sceglie di farsi seguire.',
-    image: '/images/real/salute_donna.webp',
-    imageAlt: 'Un trattamento dedicato alla salute della donna.',
+    image: '/images/real/fotoostetrica.webp',
+    imageAlt: "L'ostetrica dello Studio Fisyo, referente per la salute della donna.",
     icon: HeartIcon,
     highlights: ['Pavimento pelvico', 'Gravidanza e post-parto', 'Ascolto riservato'],
     intro: [
@@ -370,8 +370,8 @@ export const services: ServiceData[] = [
       'Un percorso per dare ordine a stanchezza, ansia, fatica emotiva o momenti in cui il corpo e la testa non vanno più nella stessa direzione.',
     subtitle:
       'Perché a volte il benessere cambia davvero quando qualcuno ti aiuta a mettere a fuoco quello che stai vivendo.',
-    image: '/images/real/psicologia.webp',
-    imageAlt: "Uno spazio dedicato all'ascolto psicologico.",
+    image: '/images/real/staff-valentina-mazza-fisioterapista-studio-fisyo.webp',
+    imageAlt: 'Valentina Mazza, psicologa dello Studio Fisyo.',
     icon: LightningBoltIcon,
     highlights: ['Ansia e stress', 'Supporto emotivo', 'Percorsi individuali'],
     intro: [
