@@ -118,7 +118,7 @@ export const ServiceFinder = () => {
       <div className="pointer-events-none absolute -right-[6%] bottom-[4%] h-80 w-80 rounded-full bg-accent/[0.07] blur-[150px]" />
 
       <div className="cine-container relative py-[clamp(72px,11vw,150px)]">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start lg:gap-16">
           {/* Intestazione */}
           <div>
             <motion.span
