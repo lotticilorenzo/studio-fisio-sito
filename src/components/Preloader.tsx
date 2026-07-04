@@ -1,62 +1,95 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { ease, duration } from '../lib/motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { ease } from '../lib/motion';
 
-const shouldSkipPreloader = () => {
-  if (typeof window === 'undefined') return false;
+const shouldSkip = () => {
+  if (typeof window === 'undefined') return true;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-  return prefersReducedMotion || Boolean(connection?.saveData);
+  let alreadySeen = false;
+  try {
+    alreadySeen = sessionStorage.getItem('sf-intro') === 'done';
+  } catch {
+    alreadySeen = false;
+  }
+  return prefersReducedMotion || Boolean(connection?.saveData) || alreadySeen;
 };
 
+// Cinematic intro curtain: the wordmark rises from a mask, a hairline + counter
+// run 0→100, then the whole dark panel slides up to reveal the site. Plays once
+// per session; skipped entirely under reduced-motion / save-data.
 export const Preloader = () => {
-  const [isLoading, setIsLoading] = useState(() => !shouldSkipPreloader());
+  const reduced = useReducedMotion();
+  const [isLoading, setIsLoading] = useState(() => !shouldSkip());
+  const numRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (!isLoading) return undefined;
-    const timer = setTimeout(() => setIsLoading(false), 600);
-    return () => clearTimeout(timer);
+    if (!isLoading) {
+      try {
+        sessionStorage.setItem('sf-intro', 'done');
+      } catch {
+        /* ignore */
+      }
+      return undefined;
+    }
+
+    const DURATION = 1300;
+    let start = 0;
+    let raf = 0;
+    const tick = (t: number) => {
+      if (!start) start = t;
+      const p = Math.min(1, (t - start) / DURATION);
+      const eased = 1 - Math.pow(1 - p, 3);
+      if (numRef.current) numRef.current.textContent = String(Math.round(eased * 100)).padStart(2, '0');
+      if (p < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = window.setTimeout(() => setIsLoading(false), 300) as unknown as number;
+      }
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(raf);
+    };
   }, [isLoading]);
+
+  if (reduced) return null;
 
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-dark text-on-dark"
           initial={{ y: '0%' }}
           exit={{ y: '-100%' }}
-          transition={{ duration: 0.7, ease: ease.curtain }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-background"
+          transition={{ duration: 0.8, ease: ease.curtain }}
         >
-          <div className="relative mb-12 flex h-32 w-32 items-center justify-center">
-            <motion.div
-              className="absolute h-full w-full rounded-full border border-primary/20"
-              animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.08, 0.3] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: ease.inOut }}
-            />
-            <motion.div
-              className="absolute h-20 w-20 rounded-full border border-accent/35"
-              animate={{ scale: [1, 0.8, 1], opacity: [0.25, 0.7, 0.25] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: ease.inOut, delay: 0.3 }}
-            />
+          <div className="overflow-hidden pb-[0.12em]">
+            <motion.p
+              className="font-drama text-5xl font-normal italic tracking-[-0.02em] md:text-7xl"
+              initial={{ y: '115%' }}
+              animate={{ y: '0%' }}
+              transition={{ duration: 0.9, ease: ease.out, delay: 0.12 }}
+            >
+              Studio <span className="text-accent">Fisyo</span>
+            </motion.p>
           </div>
 
-          <motion.div className="flex flex-col items-center overflow-hidden">
-            <motion.p
-              aria-hidden="true"
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: duration.enter, delay: 0.1, ease: ease.out }}
-              className="font-drama text-3xl font-normal italic tracking-[-0.02em] text-primary"
-            >
-              Studio Fisyo
-            </motion.p>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 1.2, delay: 0.2, ease: ease.out }}
-              className="mt-5 h-px w-48 bg-accent/45"
-            />
-          </motion.div>
+          <motion.div
+            className="mt-8 h-px w-52 origin-left bg-accent/45"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.25, ease: ease.out, delay: 0.15 }}
+          />
+
+          <span
+            ref={numRef}
+            aria-hidden="true"
+            className="absolute bottom-7 right-7 font-mono text-sm text-on-dark/60"
+          >
+            00
+          </span>
         </motion.div>
       )}
     </AnimatePresence>
