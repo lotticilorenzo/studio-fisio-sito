@@ -1,39 +1,60 @@
-﻿import { startTransition, useEffect, useMemo, useState } from 'react';
+import { startTransition, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
-import { PageHero } from '../components/PageHero';
-import { SectionDivider } from '../components/SectionDivider';
-import { InteractiveSurface } from '../components/InteractiveSurface';
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Check,
+  Clock,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Star,
+  type LucideIcon,
+} from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 import { STUDIO, waUrl } from '../config/constants';
 import { services } from '../data/services';
-import { ease, duration, viewport } from '../lib/motion';
+import { ease, duration, reveal, revealHeading } from '../lib/motion';
 
-const contactCards = [
+const contactRows: Array<{
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href: string;
+  external?: boolean;
+}> = [
   {
+    icon: MessageCircle,
     label: 'WhatsApp',
-    title: 'Il modo più rapido per sentirci',
-    text: 'Se preferisci un contatto diretto, scrivici qui. Di solito è il canale più veloce.',
+    value: 'Il canale più rapido per sentirci',
     href: waUrl('Ciao Studio Fisyo! Vorrei prenotare una valutazione.'),
-    cta: 'Apri WhatsApp',
+    external: true,
   },
   {
+    icon: Phone,
     label: 'Telefono',
-    title: 'Se vuoi parlare con noi',
-    text: 'Puoi chiamarci in studio e capire subito qual è il primo passo migliore per te.',
+    value: STUDIO.phone,
     href: `tel:+${STUDIO.phoneRaw}`,
-    cta: 'Chiama lo studio',
   },
-] as const;
-
-const trustItems = [
-  { label: '5.0 stelle', sub: '47 recensioni Google' },
-  { label: 'Risposta entro 24 h', sub: 'dal lunedì al venerdì' },
-  { label: 'Lun-Ven 08:00-20:00', sub: 'Sab su appuntamento' },
-] as const;
+  {
+    icon: Mail,
+    label: 'Email',
+    value: STUDIO.email,
+    href: `mailto:${STUDIO.email}`,
+  },
+  {
+    icon: MapPin,
+    label: 'Studio',
+    value: STUDIO.address,
+    href: STUDIO.mapsUrl,
+    external: true,
+  },
+];
 
 const guidedSteps = [
-  { id: 'direction', title: 'Da dove vuoi partire' },
+  { id: 'direction', title: 'Da dove partire' },
   { id: 'details', title: 'I tuoi contatti' },
   { id: 'message', title: 'Il tuo messaggio' },
 ] as const;
@@ -297,351 +318,309 @@ export const Contatti = () => {
     }
   };
 
+  const inputClass = (hasError?: string) =>
+    `w-full rounded-card-sm border bg-bone-2 px-4 py-3.5 text-ink outline-none transition-colors placeholder:text-ink-muted/80 focus:border-accent ${
+      hasError ? 'border-red-500' : 'border-line'
+    }`;
+
   return (
-    <div className="relative isolate overflow-hidden px-6 pb-24 pt-32 lg:px-12">
+    <div className="relative isolate flex flex-col">
       <div className="page-aura" aria-hidden="true" />
-      <div className="relative mx-auto max-w-7xl 2xl:max-w-[1600px]">
-        <PageHero
-          label="Contatti"
-          badge="Risposta rapida"
-          title="Scrivici quando vuoi iniziare,"
-          titleAccent="o anche solo capire da dove partire."
-          subtitle="Puoi prenotare una valutazione, chiedere informazioni su un servizio o raccontarci in breve che cosa ti sta limitando in questo momento."
-          image="/images/real/accoglienza.webp"
-          imageAlt="Un momento di accoglienza allo Studio Fisyo a Felino."
-          captionEyebrow="Iniziamo insieme"
-          captionText="La prima valutazione è gratuita. Ti aiutiamo a capire da dove partire."
-        />
 
-        <div className="mt-10 flex flex-wrap gap-3">
-          {trustItems.map((item) => (
-            <div
-              key={item.label}
-              className="inline-flex items-center gap-2.5 rounded-full border border-primary/8 bg-white/70 px-5 py-2.5 backdrop-blur-md"
+      {/* ============================= HERO — "L'invito" ============================= */}
+      <section className="px-0 pb-[clamp(40px,6vw,72px)] pt-[calc(var(--nav-h,74px)+clamp(2.5rem,7vw,5rem))]">
+        <div className="cine-container grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end lg:gap-16">
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: duration.std, ease: ease.out }}
+              className="kicker"
             >
-              <span className="text-sm font-semibold text-primary">{item.label}</span>
-              <span className="h-1 w-1 shrink-0 rounded-full bg-primary/20" aria-hidden="true" />
-              <span className="text-sm text-ink-soft">{item.sub}</span>
-            </div>
-          ))}
-        </div>
+              Contatti — Felino, Parma
+            </motion.p>
 
-        <SectionDivider className="mb-10 mt-10" />
-
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-6">
-            {contactCards.map((card, index) => (
-              <motion.article
-                key={card.label}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewport.item}
-                transition={{ duration: duration.std, delay: index * 0.08, ease: ease.out }}
+            <h1 className="mt-6 max-w-[18ch] text-h1 font-semibold text-ink">
+              <motion.span
+                className="block"
+                initial={{ opacity: 0, y: 26 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: duration.enter, delay: 0.08, ease: ease.out }}
               >
-                <InteractiveSurface
-                  className={`rounded-card-lg border p-7 md:p-8 ${
-                    index === 0
-                      ? 'border-primary/10 bg-primary text-background shadow-card-lg'
-                      : 'border-primary/8 bg-white/80 text-primary shadow-card-md backdrop-blur-xl'
-                  }`}
-                >
-                  <p
-                    className={`text-xs font-semibold uppercase tracking-[0.22em] ${
-                      index === 0 ? 'text-background/70' : 'text-ink-muted'
-                    }`}
-                  >
-                    {card.label}
-                  </p>
-                  <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em]">
-                    {card.title}
-                  </h2>
-                  <p
-                    className={`mt-4 text-base leading-relaxed ${
-                      index === 0 ? 'text-background/68' : 'text-ink-soft'
-                    }`}
-                  >
-                    {card.text}
-                  </p>
-                  <a
-                    href={card.href}
-                    target={card.href.startsWith('http') ? '_blank' : undefined}
-                    rel={card.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className={`mt-6 inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold transition-colors ${
-                      index === 0
-                        ? 'bg-accent text-primary hover:bg-[#e4b14a]'
-                        : 'bg-primary text-background hover:bg-[#1c2822]'
-                    }`}
-                  >
-                    {card.cta}
-                  </a>
-                </InteractiveSurface>
-              </motion.article>
-            ))}
+                Scrivici quando vuoi iniziare,
+              </motion.span>
+              <motion.span
+                className="mt-1 block font-drama text-[1.04em] font-normal italic text-accent"
+                initial={{ opacity: 0, y: 26 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: duration.enter, delay: 0.2, ease: ease.out }}
+              >
+                o anche solo capire da dove partire.
+              </motion.span>
+            </h1>
 
-            <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewport.item}
-              transition={{ duration: duration.std, delay: 0.16, ease: ease.out }}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: duration.enter, delay: 0.34, ease: ease.out }}
+              className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft"
             >
-              <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
-                {/* SVG map illustration */}
-                <a
-                  href={STUDIO.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Apri Studio Fisyo su Google Maps"
-                  className="group relative overflow-hidden rounded-card-lg border border-primary/8 bg-warm-100 shadow-card-md"
-                >
-                  <svg
-                    viewBox="0 0 560 360"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-full w-full"
-                    aria-hidden="true"
-                  >
-                    {/* Background */}
-                    <rect width="560" height="360" fill="#f0e8d8" />
-
-                    {/* Grid of parcels */}
-                    <rect x="0" y="0" width="560" height="360" fill="#ede4d2" />
-
-                    {/* Main road horizontal (Via Aldo Moro) */}
-                    <rect x="0" y="158" width="560" height="44" fill="#d8cfc0" />
-                    <rect x="0" y="176" width="560" height="8" fill="#cbc2b2" opacity="0.5" />
-                    {/* Road dashes */}
-                    {[0,60,120,180,240,300,360,420,480].map((x) => (
-                      <rect key={x} x={x+10} y="179" width="36" height="2" fill="#bfb8a8" opacity="0.6" />
-                    ))}
-
-                    {/* Secondary road vertical */}
-                    <rect x="238" y="0" width="36" height="360" fill="#d8cfc0" />
-                    <rect x="253" y="0" width="6" height="360" fill="#cbc2b2" opacity="0.5" />
-
-                    {/* Secondary road vertical right */}
-                    <rect x="420" y="0" width="28" height="360" fill="#d8cfc0" />
-
-                    {/* Blocks — top-left */}
-                    <rect x="20" y="20" width="80" height="60" rx="6" fill="#e2d8c4" />
-                    <rect x="118" y="20" width="100" height="60" rx="6" fill="#ddd3bf" />
-                    <rect x="20" y="96" width="55" height="50" rx="6" fill="#e0d6c2" />
-                    <rect x="90" y="96" width="130" height="50" rx="6" fill="#dbd0bc" />
-
-                    {/* Blocks — top-right of vertical road */}
-                    <rect x="286" y="20" width="118" height="55" rx="6" fill="#dfd5c1" />
-                    <rect x="286" y="88" width="72" height="58" rx="6" fill="#e2d8c4" />
-                    <rect x="370" y="88" width="34" height="58" rx="6" fill="#d8cebb" />
-
-                    {/* Blocks — far right */}
-                    <rect x="460" y="20" width="80" height="125" rx="6" fill="#ddd3bf" />
-
-                    {/* Blocks — bottom-left */}
-                    <rect x="20" y="218" width="70" height="80" rx="6" fill="#dfd5c1" />
-                    <rect x="108" y="218" width="112" height="50" rx="6" fill="#e0d5c0" />
-                    <rect x="108" y="280" width="112" height="60" rx="6" fill="#dbd0bb" />
-                    <rect x="20" y="312" width="70" height="36" rx="6" fill="#dcd2be" />
-
-                    {/* Blocks — bottom center */}
-                    <rect x="286" y="218" width="118" height="65" rx="6" fill="#ddd2bd" />
-                    <rect x="286" y="296" width="55" height="52" rx="6" fill="#e1d6c2" />
-                    <rect x="354" y="296" width="50" height="52" rx="6" fill="#dad0bc" />
-
-                    {/* Blocks — bottom right */}
-                    <rect x="460" y="218" width="80" height="130" rx="6" fill="#dfd4c0" />
-
-                    {/* Park/green area */}
-                    <rect x="20" y="218" width="200" height="4" rx="2" fill="#b8c9a8" opacity="0.4" />
-                    <circle cx="55" cy="250" r="18" fill="#c8d9b8" opacity="0.45" />
-                    <circle cx="55" cy="250" r="10" fill="#b2c8a0" opacity="0.5" />
-
-                    {/* Studio Fisyo building — highlighted */}
-                    <rect x="108" y="96" width="112" height="50" rx="8" fill="#24342C" opacity="0.12" />
-                    <rect x="286" y="88" width="72" height="58" rx="8" fill="#24342C" opacity="0.16" />
-
-                    {/* The pin location marker base */}
-                    <circle cx="310" cy="117" r="28" fill="#24342C" opacity="0.08" />
-                    <circle cx="310" cy="117" r="18" fill="#24342C" opacity="0.12" />
-
-                    {/* Street label */}
-                    <text x="60" y="172" fontFamily="system-ui,sans-serif" fontSize="9" fill="#9a9080" letterSpacing="1" textAnchor="middle" opacity="0.9">VIA ALDO MORO</text>
-                  </svg>
-
-                  {/* Animated ping */}
-                  <div className="absolute" style={{ top: '26%', left: '55%', transform: 'translate(-50%,-50%)' }}>
-                    <span className="relative flex h-10 w-10 items-center justify-center">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-25" />
-                      <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-accent shadow-[0_4px_18px_-4px_rgba(217,164,59,0.6)]">
-                        <svg viewBox="0 0 16 20" className="h-3 w-3 fill-primary" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8 0C3.582 0 0 3.582 0 8c0 5.25 8 12 8 12s8-6.75 8-12c0-4.418-3.582-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
-
-                  {/* Location label bar */}
-                  <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between border-t border-primary/8 bg-white/82 px-5 py-3 backdrop-blur-md">
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink-muted">Studio Fisyo</p>
-                      <p className="mt-0.5 text-sm font-medium text-primary">{STUDIO.address}</p>
-                    </div>
-                    <span className="rounded-full border border-primary/8 bg-white px-3 py-1.5 text-xs font-semibold text-ink-soft transition-colors group-hover:border-accent/20 group-hover:text-accent">
-                      Apri Maps →
-                    </span>
-                  </div>
-                </a>
-
-                {/* Info cards */}
-                <div className="flex flex-col gap-4">
-                  <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                      Indirizzo
-                    </p>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">{STUDIO.address}</p>
-                    <a
-                      href={STUDIO.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent/80"
-                    >
-                      Apri su Google Maps
-                      <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 fill-current" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.5 3a.5.5 0 0 0 0 1h6.293L3.146 11.646a.5.5 0 0 0 .708.708L11.5 4.707V11a.5.5 0 0 0 1 0V3.5a.5.5 0 0 0-.5-.5H4.5z" />
-                      </svg>
-                    </a>
-                  </div>
-
-                  <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                      Orari
-                    </p>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                      Lun-Ven 08:00–20:00
-                      <br />
-                      Sabato su appuntamento
-                    </p>
-                  </div>
-
-                  <div className="rounded-card-md border border-primary/8 bg-warm-50 p-5 shadow-card-sm">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                      Scrivici
-                    </p>
-                    <a
-                      href={`mailto:${STUDIO.email}`}
-                      className="mt-3 block text-sm leading-relaxed text-ink-soft transition-colors hover:text-primary"
-                    >
-                      {STUDIO.email}
-                    </a>
-                    <a
-                      href={`tel:${STUDIO.phoneRaw}`}
-                      className="mt-1.5 block text-sm font-medium text-accent transition-colors hover:text-accent/80"
-                    >
-                      {STUDIO.phone}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.article>
+              Prenoti una valutazione, chiedi di un percorso o ci racconti in breve cosa ti
+              sta limitando. La prima valutazione è gratuita.
+            </motion.p>
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport.item}
-            transition={{ duration: duration.std, delay: 0.08, ease: ease.out }}
-            className="rounded-card-lg border border-primary/8 bg-white/82 p-8 shadow-card-md backdrop-blur-xl md:p-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: duration.slow, ease: ease.out }}
+            className="hidden lg:block"
           >
-            {isSuccess ? (
-              <div className="flex h-full min-h-[420px] flex-col items-center justify-center text-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent/14 text-accent">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+            <div className="relative overflow-hidden rounded-card-lg border border-line shadow-card-lg">
+              <img
+                src="/images/real/accoglienza.webp"
+                alt="Un momento di accoglienza allo Studio Fisyo a Felino."
+                width={800}
+                height={600}
+                loading="eager"
+                decoding="async"
+                className="aspect-[4/3.4] w-full object-cover object-center"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(20,28,24,0.4),transparent_46%)]" />
+              <div className="absolute inset-x-5 bottom-5">
+                <p className="text-[11px] uppercase tracking-[0.24em] text-on-dark/75">
+                  Iniziamo insieme
+                </p>
+                <p className="mt-2 max-w-sm text-base leading-snug text-on-dark">
+                  Ti aiutiamo a capire da dove partire, con calma.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ============================= BODY ============================= */}
+      <section className="px-0 pb-[clamp(72px,11vw,150px)]">
+        <div className="cine-container grid gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-start lg:gap-16">
+          {/* ------------------------- LEFT — i modi per sentirci ------------------------- */}
+          <motion.div {...reveal()}>
+            <p className="kicker mb-5">Dove trovarci</p>
+            <h2 className="text-h3 font-semibold text-ink">I modi per sentirci</h2>
+
+            <div className="mt-8">
+              {contactRows.map(({ icon: Icon, label, value, href, external }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  className="group flex items-center gap-4 border-t border-line py-5 first:border-t-0 first:pt-0"
+                >
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-bone-2 text-accent-deep transition-colors group-hover:border-accent group-hover:text-accent">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+                      {label}
+                    </span>
+                    <span className="mt-1 block truncate text-base font-medium text-ink transition-colors group-hover:text-accent-deep">
+                      {value}
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    className="h-5 w-5 shrink-0 text-ink-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                    aria-hidden="true"
+                  />
+                </a>
+              ))}
+
+              {/* Orari — non-link row */}
+              <div className="flex items-center gap-4 border-t border-line py-5">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-bone-2 text-accent-deep">
+                  <Clock className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+                    Orari
+                  </span>
+                  <span className="mt-1 block text-base font-medium text-ink">
+                    Lun–Ven 08:00–20:00 · Sab su appuntamento
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            {/* Trust line — once */}
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-bone-2 px-4 py-2 text-sm text-ink-soft">
+              <Star className="h-4 w-4 fill-accent text-accent" aria-hidden="true" />
+              <span>
+                <span className="font-semibold text-ink">5,0</span> · 47 recensioni Google
+              </span>
+            </div>
+
+            {/* Refined map card */}
+            <a
+              href={STUDIO.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Apri Studio Fisyo su Google Maps"
+              className="group relative mt-8 block overflow-hidden rounded-card-lg border border-line bg-warm-100 shadow-card-md"
+            >
+              <svg
+                viewBox="0 0 560 360"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-full w-full"
+                aria-hidden="true"
+              >
+                <rect width="560" height="360" fill="#ede4d2" />
+                <rect x="0" y="158" width="560" height="44" fill="#d8cfc0" />
+                <rect x="0" y="176" width="560" height="8" fill="#cbc2b2" opacity="0.5" />
+                {[0, 60, 120, 180, 240, 300, 360, 420, 480].map((x) => (
+                  <rect key={x} x={x + 10} y="179" width="36" height="2" fill="#bfb8a8" opacity="0.6" />
+                ))}
+                <rect x="238" y="0" width="36" height="360" fill="#d8cfc0" />
+                <rect x="253" y="0" width="6" height="360" fill="#cbc2b2" opacity="0.5" />
+                <rect x="420" y="0" width="28" height="360" fill="#d8cfc0" />
+                <rect x="20" y="20" width="80" height="60" rx="6" fill="#e2d8c4" />
+                <rect x="118" y="20" width="100" height="60" rx="6" fill="#ddd3bf" />
+                <rect x="20" y="96" width="55" height="50" rx="6" fill="#e0d6c2" />
+                <rect x="90" y="96" width="130" height="50" rx="6" fill="#dbd0bc" />
+                <rect x="286" y="20" width="118" height="55" rx="6" fill="#dfd5c1" />
+                <rect x="286" y="88" width="72" height="58" rx="6" fill="#e2d8c4" />
+                <rect x="370" y="88" width="34" height="58" rx="6" fill="#d8cebb" />
+                <rect x="460" y="20" width="80" height="125" rx="6" fill="#ddd3bf" />
+                <rect x="20" y="218" width="70" height="80" rx="6" fill="#dfd5c1" />
+                <rect x="108" y="218" width="112" height="50" rx="6" fill="#e0d5c0" />
+                <rect x="108" y="280" width="112" height="60" rx="6" fill="#dbd0bb" />
+                <rect x="20" y="312" width="70" height="36" rx="6" fill="#dcd2be" />
+                <rect x="286" y="218" width="118" height="65" rx="6" fill="#ddd2bd" />
+                <rect x="286" y="296" width="55" height="52" rx="6" fill="#e1d6c2" />
+                <rect x="354" y="296" width="50" height="52" rx="6" fill="#dad0bc" />
+                <rect x="460" y="218" width="80" height="130" rx="6" fill="#dfd4c0" />
+                <circle cx="55" cy="250" r="18" fill="#c8d9b8" opacity="0.45" />
+                <circle cx="55" cy="250" r="10" fill="#b2c8a0" opacity="0.5" />
+                <rect x="286" y="88" width="72" height="58" rx="8" fill="#24342C" opacity="0.16" />
+                <circle cx="310" cy="117" r="28" fill="#24342C" opacity="0.08" />
+                <circle cx="310" cy="117" r="18" fill="#24342C" opacity="0.12" />
+                <text
+                  x="60"
+                  y="172"
+                  fontFamily="system-ui,sans-serif"
+                  fontSize="9"
+                  fill="#9a9080"
+                  letterSpacing="1"
+                  textAnchor="middle"
+                  opacity="0.9"
+                >
+                  VIA ALDO MORO
+                </text>
+              </svg>
+
+              <div
+                className="absolute"
+                style={{ top: '26%', left: '55%', transform: 'translate(-50%,-50%)' }}
+              >
+                <span className="relative flex h-10 w-10 items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-25" />
+                  <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-accent shadow-[0_4px_18px_-4px_rgba(217,164,59,0.6)]">
+                    <MapPin className="h-3.5 w-3.5 text-ink" aria-hidden="true" />
+                  </span>
+                </span>
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 border-t border-line bg-surface/90 px-5 py-3 backdrop-blur-md">
+                <div className="min-w-0">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+                    Studio Fisyo
+                  </p>
+                  <p className="mt-0.5 truncate text-sm font-medium text-ink">{STUDIO.address}</p>
                 </div>
-                <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-primary">
-                  Richiesta inviata
-                </h2>
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-line bg-bone-2 px-3 py-1.5 text-xs font-semibold text-ink-soft transition-colors group-hover:border-accent group-hover:text-accent-deep">
+                  Apri Maps
+                  <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </span>
+              </div>
+            </a>
+          </motion.div>
+
+          {/* ------------------------- RIGHT — modulo guidato ------------------------- */}
+          <motion.div {...revealHeading(0.06)}>
+            {isSuccess ? (
+              <div className="flex min-h-[460px] flex-col items-center justify-center rounded-card-lg border border-line bg-surface p-8 text-center shadow-card-md md:p-12">
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/15 text-accent-deep">
+                  <Check className="h-8 w-8" aria-hidden="true" />
+                </span>
+                <h2 className="mt-7 text-h3 font-semibold text-ink">Richiesta inviata</h2>
                 <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">
                   Abbiamo ricevuto il tuo messaggio e ti ricontattiamo appena possibile
                   {selectedService ? ` per ${selectedService.title}` : ''}.
                 </p>
-                <button
-                  type="button"
-                  onClick={resetForm}
-                  className="mt-6 rounded-full border border-primary/10 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-white"
-                >
+                <button type="button" onClick={resetForm} className="btn ghost mt-8">
                   Invia un altro messaggio
                 </button>
               </div>
             ) : (
-              <>
-                <div className="flex items-center justify-between gap-4">
+              <div className="rounded-card-lg border border-line bg-surface p-7 shadow-card-md md:p-9">
+                <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                      Modulo guidato
-                    </p>
-                    <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] text-primary">
-                      Ti guidiamo in tre passaggi molto semplici.
-                    </h2>
-                    <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
-                      Prima capiamo dove vuoi partire, poi lasci i tuoi recapiti e alla fine
-                      ci dai il contesto minimo per risponderti bene.
+                    <p className="kicker">Prenota</p>
+                    <h2 className="mt-4 text-h3 font-semibold text-ink">Iniziamo da qui</h2>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                      Rispondiamo di solito entro 24 h nei giorni feriali.
                     </p>
                   </div>
-                  <div className="hidden rounded-full border border-primary/8 bg-warm-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted md:inline-flex">
-                    Passo {currentStep + 1} di {guidedSteps.length}
-                  </div>
+                  <span className="shrink-0 rounded-full border border-line bg-bone-2 px-3.5 py-1.5 font-mono text-[11px] tracking-[0.16em] text-ink-muted">
+                    {currentStep + 1} / {guidedSteps.length}
+                  </span>
                 </div>
 
-                <div className="mt-8 grid gap-3 md:grid-cols-3">
-                  {guidedSteps.map((step, index) => (
-                    <div
-                      key={step.id}
-                      className={`rounded-card-sm border px-5 py-4 transition-colors ${
-                        index === currentStep
-                          ? 'border-primary/14 bg-primary text-background'
-                          : index < currentStep
-                            ? 'border-accent/20 bg-accent/8 text-primary'
-                            : 'border-primary/8 bg-warm-50 text-ink-soft'
-                      }`}
-                    >
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">
-                        0{index + 1}
-                      </p>
-                      <p className="mt-2 text-sm font-semibold">{step.title}</p>
-                    </div>
-                  ))}
-                </div>
+                {/* Step indicator */}
+                <ol className="mt-7 grid gap-2.5 sm:grid-cols-3">
+                  {guidedSteps.map((step, index) => {
+                    const isCurrent = index === currentStep;
+                    const isDone = index < currentStep;
+                    return (
+                      <li
+                        key={step.id}
+                        aria-current={isCurrent ? 'step' : undefined}
+                        className={`rounded-card-sm border px-4 py-3 transition-colors ${
+                          isCurrent
+                            ? 'border-accent bg-ink text-on-dark'
+                            : isDone
+                              ? 'border-accent/40 bg-accent/[0.08] text-ink'
+                              : 'border-line bg-bone-2 text-ink-muted'
+                        }`}
+                      >
+                        <span className="flex items-center gap-1.5 font-mono text-[11px] tracking-[0.2em] opacity-80">
+                          {isDone ? <Check className="h-3 w-3" aria-hidden="true" /> : `0${index + 1}`}
+                        </span>
+                        <span className="mt-1.5 block text-sm font-semibold">{step.title}</span>
+                      </li>
+                    );
+                  })}
+                </ol>
 
                 {selectedService && (
                   <div
                     data-selected-service
-                    className="mt-6 rounded-card-md border border-primary/8 bg-warm-100 p-5"
+                    className="mt-6 flex flex-col gap-3 rounded-card-md border border-line bg-bone-2 p-5 md:flex-row md:items-center md:justify-between"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-muted">
-                      Percorso selezionato
-                    </p>
-                    <div className="mt-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                      <div>
-                        <p className="text-xl font-semibold tracking-[-0.03em] text-primary">
-                          {selectedService.title}
-                        </p>
-                        <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">
-                          Abbiamo già collegato il modulo al servizio che stavi guardando,
-                          così il tuo messaggio arriva con più contesto.
-                        </p>
-                      </div>
-                      <Link
-                        to={`/servizi/${selectedService.id}`}
-                        className="inline-flex items-center justify-center rounded-full border border-primary/10 bg-white px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-warm-50"
-                      >
-                        Rivedi il servizio
-                      </Link>
+                    <div>
+                      <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+                        Percorso selezionato
+                      </p>
+                      <p className="mt-2 text-lg font-semibold tracking-[-0.02em] text-ink">
+                        {selectedService.title}
+                      </p>
                     </div>
+                    <Link
+                      to={`/servizi/${selectedService.id}`}
+                      className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-full border border-line bg-surface px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent-deep md:self-auto"
+                    >
+                      Rivedi il servizio
+                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
                   </div>
                 )}
 
@@ -656,52 +635,68 @@ export const Contatti = () => {
                       className="flex flex-col gap-6"
                     >
                       {currentStep === 0 && (
-                        <>
-                          <div className="grid gap-4 md:grid-cols-2">
-                            {inquiryReasons.map((reason) => (
-                              <button
-                                key={reason.id}
-                                type="button"
-                                onClick={() => setField('reason', reason.id)}
-                                className="text-left"
-                              >
-                                <InteractiveSurface
-                                  className={`h-full rounded-card-md border p-5 transition-colors ${
-                                    formState.reason === reason.id
-                                      ? 'border-primary/14 bg-primary text-background shadow-card-sm'
-                                      : 'border-primary/8 bg-warm-50 text-primary'
-                                  }`}
+                        <fieldset className="border-0 p-0">
+                          <legend className="mb-2 text-sm font-medium text-ink">
+                            Da dove vuoi partire?
+                          </legend>
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            {inquiryReasons.map((reason) => {
+                              const isSelected = formState.reason === reason.id;
+                              return (
+                                <label
+                                  key={reason.id}
+                                  className="block h-full cursor-pointer"
                                 >
-                                  <p
-                                    className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${
-                                      formState.reason === reason.id ? 'text-background/70' : 'text-ink-muted'
+                                  <input
+                                    type="radio"
+                                    name="reason"
+                                    value={reason.id}
+                                    checked={isSelected}
+                                    onChange={() => setField('reason', reason.id)}
+                                    className="peer sr-only"
+                                  />
+                                  <span
+                                    className={`block h-full rounded-card-md border p-5 transition-colors peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent ${
+                                      isSelected
+                                        ? 'border-accent bg-accent/[0.08]'
+                                        : 'border-line bg-bone-2 hover:border-line/60'
                                     }`}
                                   >
-                                    {reason.label}
-                                  </p>
-                                  <p className="mt-3 text-xl font-semibold tracking-[-0.03em]">
-                                    {reason.title}
-                                  </p>
-                                  <p
-                                    className={`mt-3 text-sm leading-relaxed ${
-                                      formState.reason === reason.id ? 'text-background/72' : 'text-ink-soft'
-                                    }`}
-                                  >
-                                    {reason.text}
-                                  </p>
-                                </InteractiveSurface>
-                              </button>
-                            ))}
+                                    <span className="flex items-center justify-between gap-3">
+                                      <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted">
+                                        {reason.label}
+                                      </span>
+                                      <span
+                                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors ${
+                                          isSelected
+                                            ? 'border-accent bg-accent text-ink'
+                                            : 'border-line'
+                                        }`}
+                                        aria-hidden="true"
+                                      >
+                                        {isSelected && <Check className="h-3 w-3" />}
+                                      </span>
+                                    </span>
+                                    <span className="mt-3 block text-base font-semibold leading-snug tracking-[-0.01em] text-ink">
+                                      {reason.title}
+                                    </span>
+                                    <span className="mt-2 block text-sm leading-relaxed text-ink-soft">
+                                      {reason.text}
+                                    </span>
+                                  </span>
+                                </label>
+                              );
+                            })}
                           </div>
-                        </>
+                        </fieldset>
                       )}
 
                       {currentStep === 1 && (
                         <>
                           <div className="grid gap-6 md:grid-cols-2">
                             <div className="flex flex-col gap-2">
-                              <label htmlFor="name" className="text-sm font-medium text-primary">
-                                Nome e cognome <span className="text-accent">*</span>
+                              <label htmlFor="name" className="text-sm font-medium text-ink">
+                                Nome e cognome <span className="text-accent-deep">*</span>
                               </label>
                               <input
                                 type="text"
@@ -713,17 +708,19 @@ export const Contatti = () => {
                                 onChange={(event) => setField('name', event.target.value)}
                                 aria-invalid={errors.name ? true : undefined}
                                 aria-describedby={errors.name ? 'name-error' : undefined}
-                                className={`w-full rounded-2xl border bg-warm-50 px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
-                                  errors.name ? 'border-red-400' : 'border-primary/10'
-                                }`}
+                                className={inputClass(errors.name)}
                                 placeholder="Mario Rossi"
                               />
-                              {errors.name && <p id="name-error" role="alert" className="text-xs text-red-600">{errors.name}</p>}
+                              {errors.name && (
+                                <p id="name-error" role="alert" className="text-xs text-red-600">
+                                  {errors.name}
+                                </p>
+                              )}
                             </div>
 
                             <div className="flex flex-col gap-2">
-                              <label htmlFor="phone" className="text-sm font-medium text-primary">
-                                Telefono <span className="text-accent">*</span>
+                              <label htmlFor="phone" className="text-sm font-medium text-ink">
+                                Telefono <span className="text-accent-deep">*</span>
                               </label>
                               <input
                                 type="tel"
@@ -736,18 +733,20 @@ export const Contatti = () => {
                                 onChange={(event) => setField('phone', event.target.value)}
                                 aria-invalid={errors.phone ? true : undefined}
                                 aria-describedby={errors.phone ? 'phone-error' : undefined}
-                                className={`w-full rounded-2xl border bg-warm-50 px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
-                                  errors.phone ? 'border-red-400' : 'border-primary/10'
-                                }`}
+                                className={inputClass(errors.phone)}
                                 placeholder="+39"
                               />
-                              {errors.phone && <p id="phone-error" role="alert" className="text-xs text-red-600">{errors.phone}</p>}
+                              {errors.phone && (
+                                <p id="phone-error" role="alert" className="text-xs text-red-600">
+                                  {errors.phone}
+                                </p>
+                              )}
                             </div>
                           </div>
 
                           <div className="flex flex-col gap-2">
-                            <label htmlFor="email" className="text-sm font-medium text-primary">
-                              Email <span className="text-accent">*</span>
+                            <label htmlFor="email" className="text-sm font-medium text-ink">
+                              Email <span className="text-accent-deep">*</span>
                             </label>
                             <input
                               type="email"
@@ -760,43 +759,41 @@ export const Contatti = () => {
                               onChange={(event) => setField('email', event.target.value)}
                               aria-invalid={errors.email ? true : undefined}
                               aria-describedby={errors.email ? 'email-error' : undefined}
-                              className={`w-full rounded-2xl border bg-warm-50 px-4 py-3 text-primary outline-none transition-colors focus:border-accent ${
-                                errors.email ? 'border-red-400' : 'border-primary/10'
-                              }`}
+                              className={inputClass(errors.email)}
                               placeholder="nome@email.com"
                             />
-                            {errors.email && <p id="email-error" role="alert" className="text-xs text-red-600">{errors.email}</p>}
+                            {errors.email && (
+                              <p id="email-error" role="alert" className="text-xs text-red-600">
+                                {errors.email}
+                              </p>
+                            )}
                           </div>
-
-                          <p className="text-sm leading-relaxed text-ink-soft">
-                            Ti ricontattiamo noi al telefono o via email — di solito entro 24 h feriali.
-                          </p>
                         </>
                       )}
 
                       {currentStep === 2 && (
-                        <>
-                          <div className="flex flex-col gap-2">
-                            <label htmlFor="message" className="text-sm font-medium text-primary">
-                              Messaggio <span className="text-accent">*</span>
-                            </label>
-                            <textarea
-                              id="message"
-                              name="message"
-                              rows={6}
-                              required
-                              value={formState.message}
-                              onChange={(event) => setField('message', event.target.value)}
-                              aria-invalid={errors.message ? true : undefined}
-                              aria-describedby={errors.message ? 'message-error' : undefined}
-                              className={`w-full resize-none rounded-card-sm border bg-warm-50 px-4 py-4 text-primary outline-none transition-colors focus:border-accent ${
-                                errors.message ? 'border-red-400' : 'border-primary/10'
-                              }`}
-                              placeholder="Spiegaci in breve cosa ti sta limitando, cosa hai già provato e che tipo di aiuto ti aspetti da questo primo contatto."
-                            />
-                            {errors.message && <p id="message-error" role="alert" className="text-xs text-red-600">{errors.message}</p>}
-                          </div>
-                        </>
+                        <div className="flex flex-col gap-2">
+                          <label htmlFor="message" className="text-sm font-medium text-ink">
+                            Messaggio <span className="text-accent-deep">*</span>
+                          </label>
+                          <textarea
+                            id="message"
+                            name="message"
+                            rows={6}
+                            required
+                            value={formState.message}
+                            onChange={(event) => setField('message', event.target.value)}
+                            aria-invalid={errors.message ? true : undefined}
+                            aria-describedby={errors.message ? 'message-error' : undefined}
+                            className={`resize-none ${inputClass(errors.message)}`}
+                            placeholder="Raccontaci in breve cosa ti sta limitando, cosa hai già provato e che tipo di aiuto ti aspetti da questo primo contatto."
+                          />
+                          {errors.message && (
+                            <p id="message-error" role="alert" className="text-xs text-red-600">
+                              {errors.message}
+                            </p>
+                          )}
+                        </div>
                       )}
                     </motion.div>
                   </AnimatePresence>
@@ -805,58 +802,42 @@ export const Contatti = () => {
                     <p
                       role="alert"
                       aria-live="assertive"
-                      className="mt-6 rounded-2xl border border-red-400/30 bg-red-50 px-4 py-3 text-sm text-red-600"
+                      className="mt-6 rounded-card-sm border border-red-400/40 bg-red-50 px-4 py-3 text-sm text-red-600"
                     >
                       {errors.submit}
                     </p>
                   )}
 
-                  <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex flex-col gap-3 sm:flex-row">
-                      {currentStep > 0 && (
-                        <button
-                          type="button"
-                          onClick={handleBack}
-                          className="inline-flex items-center justify-center rounded-full border border-primary/10 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-white"
-                        >
-                          Torna indietro
-                        </button>
-                      )}
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                    {currentStep > 0 && (
+                      <button type="button" onClick={handleBack} className="btn ghost">
+                        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                        Indietro
+                      </button>
+                    )}
 
-                      {currentStep < guidedSteps.length - 1 ? (
-                        <button
-                          type="button"
-                          onClick={handleNext}
-                          className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-4 text-base font-semibold text-background transition-colors hover:bg-[#1c2822]"
-                        >
-                          Continua
-                        </button>
-                      ) : (
-                        <button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className={`inline-flex items-center justify-center rounded-full px-7 py-4 text-base font-semibold transition-colors ${
-                            isSubmitting
-                              ? 'cursor-not-allowed bg-primary/70 text-background'
-                              : 'bg-primary text-background hover:bg-[#1c2822]'
-                          }`}
-                        >
-                          {isSubmitting ? 'Invio in corso' : 'Invia la richiesta'}
-                        </button>
-                      )}
-                    </div>
-
-                    <p className="text-sm leading-relaxed text-ink-muted">
-                      Ti rispondiamo di solito entro 24 ore feriali. Se vuoi una risposta più
-                      rapida, puoi anche scriverci direttamente su WhatsApp.
-                    </p>
+                    {currentStep < guidedSteps.length - 1 ? (
+                      <button type="button" onClick={handleNext} className="btn">
+                        Continua
+                        <ArrowUpRight className="arr h-4 w-4" aria-hidden="true" />
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="btn disabled:cursor-not-allowed disabled:opacity-70"
+                      >
+                        {isSubmitting ? 'Invio in corso…' : 'Invia la richiesta'}
+                        {!isSubmitting && <ArrowUpRight className="arr h-4 w-4" aria-hidden="true" />}
+                      </button>
+                    )}
                   </div>
                 </form>
-              </>
+              </div>
             )}
           </motion.div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
