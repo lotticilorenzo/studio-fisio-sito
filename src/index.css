@@ -437,9 +437,34 @@ html.lenis {
   pointer-events: none;
   will-change: transform;
 }
+.cursor-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  will-change: transform;
+  box-shadow: 0 12px 40px -12px rgba(217, 164, 59, 0.6);
+}
+.cursor-view span {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink);
+}
 @media (prefers-reduced-motion: reduce) {
   .has-custom-cursor,
   .has-custom-cursor * { cursor: auto !important; }
   .cursor-dot,
-  .cursor-ring { display: none !important; }
+  .cursor-ring,
+  .cursor-view { display: none !important; }
 }
