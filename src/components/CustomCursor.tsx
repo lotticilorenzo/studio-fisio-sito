@@ -1,20 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
-// Elements that make the ring grow (interactive affordances).
-const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, label, summary, [data-cursor="hover"]';
+// Interactive affordances → the ring grows.
+const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, label, summary';
+// Image surfaces → the cursor becomes a labelled "view" disc.
+const IMAGE = 'figure, .rm-frame, .rp-frame, [data-cursor="view"]';
+
+type Variant = 'default' | 'active' | 'view';
 
 /**
- * Cinematic custom cursor (desktop only): a gold dot follows exactly while a
- * white ring trails with spring inertia. The ring uses mix-blend-mode: difference
- * so it stays visible (inverted) over any background; it grows over interactive
- * elements and the dot hides. Disabled on coarse pointers and reduced motion —
- * the native cursor is only hidden once this is active (via `has-custom-cursor`).
+ * Cinematic custom cursor (desktop only):
+ * - a gold dot follows exactly, a white ring trails with spring inertia
+ *   (mix-blend-difference so it's visible on any background);
+ * - over interactive elements the ring grows;
+ * - over IMAGES the cursor morphs into a gold disc with a "Guarda" label.
+ * Disabled on coarse pointers / reduced motion; native cursor hidden only when active.
  */
 export const CustomCursor = () => {
   const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [active, setActive] = useState(false);
+  const [variant, setVariant] = useState<Variant>('default');
   const [down, setDown] = useState(false);
   const shown = useRef(false);
 
@@ -40,8 +45,10 @@ export const CustomCursor = () => {
       }
     };
     const onOver = (e: PointerEvent) => {
-      const target = (e.target as HTMLElement | null)?.closest?.(INTERACTIVE);
-      setActive(Boolean(target));
+      const target = e.target as HTMLElement | null;
+      if (target?.closest?.(IMAGE)) setVariant('view');
+      else if (target?.closest?.(INTERACTIVE)) setVariant('active');
+      else setVariant('default');
     };
     const onDown = () => setDown(true);
     const onUp = () => setDown(false);
@@ -71,20 +78,33 @@ export const CustomCursor = () => {
 
   if (!enabled) return null;
 
+  const isView = variant === 'view';
+
   return (
     <div aria-hidden="true">
       <motion.div
         className="cursor-dot"
         style={{ x, y }}
-        animate={{ opacity: visible && !active ? 1 : 0, scale: down ? 0.5 : 1 }}
+        animate={{ opacity: visible && variant === 'default' ? 1 : 0, scale: down ? 0.5 : 1 }}
         transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
       />
       <motion.div
         className="cursor-ring"
         style={{ x: ringX, y: ringY }}
-        animate={{ opacity: visible ? 1 : 0, scale: active ? 1.9 : down ? 0.82 : 1 }}
+        animate={{
+          opacity: visible && !isView ? 1 : 0,
+          scale: variant === 'active' ? 1.9 : down ? 0.82 : 1,
+        }}
         transition={{ type: 'spring', stiffness: 260, damping: 22, mass: 0.5 }}
       />
+      <motion.div
+        className="cursor-view"
+        style={{ x: ringX, y: ringY }}
+        animate={{ opacity: visible && isView ? 1 : 0, scale: isView ? (down ? 0.9 : 1) : 0.4 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 24, mass: 0.5 }}
+      >
+        <span>Guarda</span>
+      </motion.div>
     </div>
   );
 };
