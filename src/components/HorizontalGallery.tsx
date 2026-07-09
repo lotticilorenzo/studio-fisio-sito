@@ -56,7 +56,12 @@ export const HorizontalGallery = () => {
     return (
       <section className="overflow-hidden py-[clamp(56px,8vw,112px)]">
         <Heading />
-        <div className="flex gap-5 overflow-x-auto px-[var(--gut)] pb-4">
+        <div
+          role="region"
+          aria-label="Galleria dello Studio Fisyo"
+          tabIndex={0}
+          className="flex gap-5 overflow-x-auto px-[var(--gut)] pb-4 focus-visible:outline-none"
+        >
           {shots.map((s) => (
             <img
               key={s.src}
@@ -77,7 +82,12 @@ export const HorizontalGallery = () => {
       <Heading />
 
       {/* Mobile: native swipe gallery */}
-      <div className="flex gap-4 overflow-x-auto px-[var(--gut)] pb-4 lg:hidden">
+      <div
+        role="region"
+        aria-label="Galleria dello Studio Fisyo"
+        tabIndex={0}
+        className="flex gap-4 overflow-x-auto px-[var(--gut)] pb-4 lg:hidden"
+      >
         {shots.map((s) => (
           <img
             key={s.src}
