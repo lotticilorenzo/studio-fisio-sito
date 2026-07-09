@@ -15,6 +15,7 @@ import { RevealPanel } from '../components/RevealPanel';
 import { RevealMedia } from '../components/RevealMedia';
 import { MaskReveal } from '../components/MaskReveal';
 import { Marquee } from '../components/Marquee';
+import { HorizontalGallery } from '../components/HorizontalGallery';
 import { useSEO } from '../hooks/useSEO';
 import { waUrl } from '../config/constants';
 import { services, type ServiceData } from '../data/services';
@@ -318,6 +319,12 @@ export const Servizi = () => {
           </ul>
         </div>
       </section>
+
+      <HorizontalGallery
+        kicker="Lo studio"
+        lead="Gli spazi dove"
+        accent="tutto questo prende forma."
+      />
 
       {/* ======================= HELP BAND (dark) ======================= */}
       <section className="bg-dark text-on-dark">

@@ -12,11 +12,13 @@ const shots = [
   { src: '/images/real/0912.webp', alt: 'Il team dello Studio Fisyo a Felino.' },
 ];
 
-const Heading = () => (
+type Props = { kicker?: string; lead?: string; accent?: string };
+
+const Heading = ({ kicker, lead, accent }: Required<Props>) => (
   <div className="cine-container mb-10 lg:mb-12">
-    <p className="kicker mb-6">Gli spazi</p>
+    <p className="kicker mb-6">{kicker}</p>
     <h2 className="max-w-2xl text-h2 font-semibold text-ink">
-      Uno studio pensato per <span className="font-drama font-normal italic text-accent">metterti a tuo agio.</span>
+      {lead} <span className="font-drama font-normal italic text-accent">{accent}</span>
     </h2>
   </div>
 );
@@ -27,7 +29,11 @@ const Heading = () => (
  * pan is exactly 1:1 with scroll). On mobile / reduced motion it degrades to a
  * native swipeable horizontal gallery. Images only, no focus traps.
  */
-export const HorizontalGallery = () => {
+export const HorizontalGallery = ({
+  kicker = 'Gli spazi',
+  lead = 'Uno studio pensato per',
+  accent = 'metterti a tuo agio.',
+}: Props) => {
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -55,7 +61,7 @@ export const HorizontalGallery = () => {
   if (reduced) {
     return (
       <section className="overflow-hidden py-[clamp(56px,8vw,112px)]">
-        <Heading />
+        <Heading kicker={kicker} lead={lead} accent={accent} />
         <div
           role="region"
           aria-label="Galleria dello Studio Fisyo"
@@ -79,7 +85,7 @@ export const HorizontalGallery = () => {
 
   return (
     <section className="py-[clamp(56px,8vw,112px)]">
-      <Heading />
+      <Heading kicker={kicker} lead={lead} accent={accent} />
 
       {/* Mobile: native swipe gallery */}
       <div
