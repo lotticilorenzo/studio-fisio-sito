@@ -9,6 +9,7 @@ import { Marquee } from '../components/Marquee';
 import { Statement } from '../components/Statement';
 import { MaskReveal } from '../components/MaskReveal';
 import { ServiceFinder } from '../components/ServiceFinder';
+import { HorizontalGallery } from '../components/HorizontalGallery';
 import { Testimonials } from '../components/Testimonials';
 import { FAQ } from '../components/FAQ';
 import { homepageFaqs } from '../data/homepageFaqs';
@@ -416,6 +417,8 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      <HorizontalGallery />
 
       <ServiceFinder />
 
